@@ -76,7 +76,7 @@ nav.links a:hover { opacity: 1; border-color: var(--red); }
 .platform-link:hover { background: rgba(244,244,242,0.06); border-color: rgba(244,244,242,0.28); }
 .platform-link:hover .arrow { opacity: 1; }
 .platform-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.platform-name { font-family: var(--f-display); font-size: 20px; letter-spacing: 0.02em; font-weight: 400; }
+.platform-name { font-family: var(--f-body); font-size: 18px; font-weight: 600; letter-spacing: 0; }
 .platform-sub { font-size: 11px; color: var(--paper-dim); font-family: var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
 .platform-info { flex: 1; }
 .arrow { font-size: 18px; color: var(--paper-dim); opacity: 0.4; transition: opacity .2s; }
@@ -87,6 +87,12 @@ nav.links a:hover { opacity: 1; border-color: var(--red); }
 .ic-audiomack{ background: #F4820C; }
 .ic-youtube  { background: #FF0000; }
 .ic-amazon   { background: #25D1DA; }
+
+
+/* ---- Artist photo ---- */
+.artist-photo-wrap { width: 100%; max-width: 960px; margin: 0 auto 0; padding: 0 28px; }
+.artist-photo { width: 100%; height: 320px; object-fit: cover; object-position: center 30%; display: block; border: 1px solid var(--line); filter: grayscale(1) contrast(1.05); }
+@media (max-width: 600px) { .artist-photo { height: 200px; } }
 
 /* ---- Footer ---- */
 footer { text-align: center; padding: 28px; border-top: 1px solid var(--line); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; color: var(--paper-dim); }
@@ -121,6 +127,11 @@ footer a:hover { color: var(--paper); }
   <div class="stamp">Now Streaming</div>
   <h1>WHOSRILA</h1>
   <p>Pick your platform and press play.</p>
+</div>
+
+
+<div class="artist-photo-wrap">
+  <img src="/images/artist-landscape.jpg" alt="WHOSRILA" class="artist-photo">
 </div>
 
 <div class="platforms">
