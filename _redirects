@@ -1,0 +1,18 @@
+# WHOSRILA branded short links
+# Format: /slug   destination-url   status-code
+#
+# Every current single now has a real page with a Feature.fm embed
+# instead of a redirect (gratitude, forme, wineandbubble, outtaline,
+# fullymeech, topformnodrums, kingston, bluenotes, protection, topform)
+# — see each song's folder in this site. Made You is the same (/madeyou).
+#
+# Use this file going forward only for links you genuinely want to
+# just forward elsewhere rather than host a page for — for example,
+# a quick redirect straight to a Spotify profile or a one-off link
+# for a feature/collab post.
+#
+# 302 = "temporary" — use this for anything that might change later.
+# 301 = "permanent" — use this once a link is final for good.
+#
+# Drag this whole site folder onto the dropzone at the bottom of your
+# site's Deploys page in Netlify. It picks up _redirects automatically.
