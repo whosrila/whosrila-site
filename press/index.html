@@ -96,6 +96,9 @@ img { display: block; max-width: 100%; }
 .press-contact a.email-link:hover { border-color: var(--paper); }
 
 footer { background: var(--ink); color: var(--paper); padding: 24px 28px; font-family: var(--f-mono); font-size: 11px; text-align: center; opacity: .6; border-top: 1px solid rgba(244,244,242,.1); }
+.photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.photo-item .press-photo { max-height: 280px; width: 100%; object-fit: cover; }
+.photo-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
 </style>
 </head>
 <body>
@@ -129,11 +132,31 @@ footer { background: var(--ink); color: var(--paper); padding: 24px 28px; font-f
 
 <section class="press-photo-wrap">
   <div class="wrap">
-    <img class="press-photo" src="/images/artist-landscape-1.jpg" alt="WHOSRILA — Press Photo">
-    <p class="photo-caption">High-resolution press photo &mdash; WHOSRILA &copy; 2025</p>
-    <a class="photo-download" href="/images/artist-landscape-1.jpg" download="WHOSRILA-press-photo.jpg">
-      &#8595; Download Photo
-    </a>
+    <span class="stamp">Press Photos</span>
+    <p class="photo-caption" style="margin:12px 0 28px;">Download high-resolution photos for editorial use.</p>
+    <div class="photo-grid">
+      <div class="photo-item">
+        <img class="press-photo" src="/images/artist-landscape-1.jpg" alt="WHOSRILA — Press Photo 1">
+        <div class="photo-meta">
+          <span class="photo-caption">Photo 01 &mdash; Landscape</span>
+          <a class="photo-download" href="/images/artist-landscape-1.jpg" download="WHOSRILA-press-photo-01.jpg">&#8595; Download</a>
+        </div>
+      </div>
+      <div class="photo-item">
+        <img class="press-photo" src="/images/artist-landscape-1.jpg" alt="WHOSRILA — Press Photo 2">
+        <div class="photo-meta">
+          <span class="photo-caption">Photo 02 &mdash; Portrait</span>
+          <a class="photo-download" href="/images/artist-landscape-1.jpg" download="WHOSRILA-press-photo-02.jpg">&#8595; Download</a>
+        </div>
+      </div>
+      <div class="photo-item">
+        <img class="press-photo" src="/images/artist-landscape-1.jpg" alt="WHOSRILA — Press Photo 3">
+        <div class="photo-meta">
+          <span class="photo-caption">Photo 03 &mdash; Close Up</span>
+          <a class="photo-download" href="/images/artist-landscape-1.jpg" download="WHOSRILA-press-photo-03.jpg">&#8595; Download</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
