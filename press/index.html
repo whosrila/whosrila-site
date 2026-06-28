@@ -32,9 +32,10 @@ img { display: block; max-width: 100%; }
 
 /* NAV */
 .site { position: sticky; top: 0; z-index: 100; background: var(--paper); border-bottom: 1px solid var(--line); }
-.navrow { display: flex; align-items: center; justify-content: space-between; padding: 0 28px; height: 64px; max-width: 1080px; margin: 0 auto; }
-.logo-nav { height: 24px; width: auto; display: block; }
-.links a { font-family: var(--f-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; margin-left: 28px; color: var(--ink); opacity: 1; transition: opacity .15s; }
+.navrow { display: flex; align-items: center; justify-content: space-between; padding: 16px 28px; }
+.logo-nav { height: 22px; width: auto; display: block; }
+.links { display: flex; gap: 28px; }
+.links a { font-family: var(--f-mono); font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); opacity: 1; transition: opacity .15s; border-bottom: 1px solid transparent; padding-bottom: 3px; }
 .links a:hover { opacity: 1; }
 .burger { display: none; background: none; border: none; cursor: pointer; font-size: 22px; }
 .mobilenav { display: none; flex-direction: column; padding: 16px 28px; border-top: 1px solid var(--line); }
