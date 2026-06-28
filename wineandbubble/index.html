@@ -26,7 +26,7 @@
   --paper:      #F4F4F2;
   --paper-dim:  #8C8C8C;
   --red:        #D7263D;
-  --line:       rgba(244,244,242,0.14);
+  --line:       rgba(10,10,10,0.12);
 
   --f-display: 'Whosrila', 'Anton', sans-serif;
   --f-body:    'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -34,7 +34,7 @@
 }
 *{ box-sizing:border-box; }
 body{
-  margin:0; background:var(--ink); color:var(--paper);
+  margin:0; background:var(--paper); color:var(--ink);
   font-family:var(--f-body); font-size:17px; line-height:1.6;
   -webkit-font-smoothing:antialiased;
   min-height:100vh; display:flex; flex-direction:column;
@@ -47,11 +47,11 @@ a{ color:inherit; text-decoration:none; }
 
 header.site{ border-bottom:1px solid var(--line); }
 .navrow{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; }
-.logo-link img{ height:22px; width:auto; display:block; }
+.logo-link img{ height:22px; width:auto; display:block; filter:invert(1); }
 nav.links{ display:flex; gap:28px; font-family:var(--f-mono); font-size:13px; letter-spacing:0.06em; text-transform:uppercase; }
-nav.links a{ opacity:0.78; transition:opacity .2s; border-bottom:1px solid transparent; padding-bottom:3px; }
+nav.links a{ opacity:1; color:var(--ink); transition:opacity .2s; border-bottom:1px solid transparent; padding-bottom:3px; }
 nav.links a:hover{ opacity:1; border-color:var(--red); }
-.burger{ display:none; background:none; border:0; color:var(--paper); font-size:22px; cursor:pointer; padding:0; line-height:1; }
+.burger{ display:none; background:none; border:0; color:var(--ink); font-size:22px; cursor:pointer; padding:0; line-height:1; }
 @media (max-width:760px){
   nav.links{ display:none; }
   .burger{ display:block; }
@@ -85,7 +85,7 @@ p.hook{ color:var(--paper-dim); font-size:18px; max-width:440px; margin:0 0 30px
 .countdown .lab{ font-family:var(--f-mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--paper-dim); }
 
 .embed-frame{
-  border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--ink-2);
+  border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--paper);
   margin-bottom:16px;
 }
 .embed-frame iframe{ display:block; width:100%; border:0; }
