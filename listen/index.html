@@ -7,7 +7,6 @@
 <meta name="description" content="Stream WHOSRILA on Spotify, Apple Music, Tidal, Deezer, Audiomack, YouTube Music and Amazon Music.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 @font-face {
   font-family: 'Whosrila';
@@ -25,7 +24,7 @@
   --line: rgba(10,10,10,0.12);
   --f-display: 'Whosrila', 'Anton', sans-serif;
   --f-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --f-mono: 'Space Mono', monospace;
+  --f-mono: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --maxw: 1140px;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -83,7 +82,7 @@ nav.links a:hover { opacity: 1; border-color: var(--red); }
 .ic-amazon   { background: #25D1DA; }
 .ic-itunes   { background: #FB5BC5; }
 .ic-soundcloud { background: #FF5500; }
-.artist-photo-wrap { width: 100%; max-width: 960px; margin: 0 auto; padding: 0 28px; }
+.artist-photo-wrap { width: 100%; max-width: 680px; margin: 0 auto; padding: 0 28px; }
 .artist-photo { width: 100%; aspect-ratio: 3/2; object-fit: cover; object-position: center 18%; display: block; border: 1px solid var(--line); filter: grayscale(1) contrast(1.05); }
 /* artist-photo uses aspect-ratio: consistent crop on all screens */
 footer { text-align: center; padding: 28px; border-top: 1px solid var(--line); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; color: var(--paper-dim); }
