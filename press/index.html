@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Press — WHOSRILA</title>
+<meta name="description" content="WHOSRILA press kit — bio, photos, links, and contact for media inquiries.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Whosrila';
+  src: url('/fonts/whosrila.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+:root {
+  --ink: #0A0A0A;
+  --paper: #F4F4F2;
+  --red: #D7263D;
+  --paper-dim: #8C8C8C;
+  --line: rgba(10,10,10,.12);
+  --f-display: 'Whosrila', 'Anton', sans-serif;
+  --f-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --f-mono: 'Space Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.6; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* NAV */
+.site { position: sticky; top: 0; z-index: 100; background: var(--paper); border-bottom: 1px solid var(--line); }
+.navrow { display: flex; align-items: center; justify-content: space-between; padding: 0 28px; height: 64px; max-width: 1080px; margin: 0 auto; }
+.logo-nav { height: 36px; width: auto; }
+.links a { font-family: var(--f-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; margin-left: 28px; opacity: .7; transition: opacity .15s; }
+.links a:hover { opacity: 1; }
+.burger { display: none; background: none; border: none; cursor: pointer; font-size: 22px; }
+.mobilenav { display: none; flex-direction: column; padding: 16px 28px; border-top: 1px solid var(--line); }
+.mobilenav a { font-family: var(--f-mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.mobilenav.open { display: flex; }
+@media (max-width: 640px) {
+  .links { display: none; }
+  .burger { display: block; }
+}
+
+/* LAYOUT */
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+.stamp { font-family: var(--f-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .15em; border: 1px solid var(--ink); display: inline-block; padding: 3px 8px; margin-bottom: 16px; }
+.h2 { font-family: var(--f-display); font-size: clamp(52px,7vw,88px); line-height: 1; text-transform: uppercase; letter-spacing: -.01em; }
+
+/* HERO */
+.press-hero { padding: 80px 0 64px; border-bottom: 1px solid var(--line); }
+.press-hero h1 { font-family: var(--f-display); font-size: clamp(64px,10vw,120px); line-height: 1; text-transform: uppercase; letter-spacing: -.02em; margin-bottom: 16px; }
+.press-hero .lede { font-size: clamp(15px,2vw,18px); color: var(--paper-dim); max-width: 540px; margin-top: 16px; }
+
+/* PHOTO */
+.press-photo-wrap { padding: 64px 0 0; }
+.press-photo { width: 100%; max-height: 520px; object-fit: cover; object-position: center 25%; filter: grayscale(1) contrast(1.05); }
+.photo-caption { font-family: var(--f-mono); font-size: 11px; color: var(--paper-dim); margin-top: 10px; }
+.photo-download { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; border: 1px solid var(--ink); padding: 6px 14px; margin-top: 12px; transition: background .15s, color .15s; }
+.photo-download:hover { background: var(--ink); color: var(--paper); }
+
+/* BIO SECTION */
+.press-bio { padding: 80px 0; border-bottom: 1px solid var(--line); }
+.press-bio .bio-text { max-width: 680px; margin-top: 24px; }
+.press-bio p { font-size: clamp(15px,1.8vw,18px); line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
+
+/* PLATFORMS */
+.press-links { padding: 64px 0; border-bottom: 1px solid var(--line); }
+.platform-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 28px; }
+.pl-btn { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); padding: 12px 16px; font-family: var(--f-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; transition: border-color .15s, background .15s; }
+.pl-btn:hover { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.pl-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.sp { background: #1DB954; } .am { background: #fc3c44; } .am2 { background: #FB5BC5; }
+.sc { background: #FF5500; } .ti { background: #000; outline: 1px solid #888; }
+.dz { background: #A238FF; } .yt { background: #FF0000; } .az { background: #25D1DA; }
+.ak { background: #F4820C; }
+
+/* PLACEMENTS */
+.press-placements { padding: 64px 0; border-bottom: 1px solid var(--line); }
+.playlist-list { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+.playlist-item { display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--line); padding: 16px 20px; }
+.playlist-item-name { font-family: var(--f-mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
+.playlist-item-curator { font-size: 13px; color: var(--paper-dim); }
+.playlist-link { font-family: var(--f-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; border: 1px solid var(--ink); padding: 6px 12px; transition: background .15s, color .15s; }
+.playlist-link:hover { background: var(--ink); color: var(--paper); }
+
+/* CONTACT */
+.press-contact { padding: 64px 0 80px; background: var(--ink); color: var(--paper); }
+.press-contact .stamp { border-color: var(--paper); color: var(--paper); }
+.press-contact .h2 { color: var(--paper); }
+.press-contact p { color: rgba(244,244,242,.7); margin-top: 16px; }
+.press-contact a.email-link { font-family: var(--f-mono); font-size: clamp(14px,2vw,18px); color: var(--paper); border-bottom: 1px solid rgba(244,244,242,.4); padding-bottom: 2px; transition: border-color .15s; }
+.press-contact a.email-link:hover { border-color: var(--paper); }
+
+footer { background: var(--ink); color: var(--paper); padding: 24px 28px; font-family: var(--f-mono); font-size: 11px; text-align: center; opacity: .6; border-top: 1px solid rgba(244,244,242,.1); }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="navrow" id="navrow">
+    <a href="/" class="logo-link"><img src="/images/logo.png" alt="WHOSRILA" class="logo-nav"></a>
+    <nav class="links">
+      <a href="/music">Music</a>
+      <a href="/listen">Listen</a>
+      <a href="/#bio">Bio</a>
+      <a href="/press">Press</a>
+    </nav>
+    <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+  </div>
+  <div class="mobilenav" id="mobileNav">
+    <a href="/music">Music</a>
+    <a href="/listen">Listen</a>
+    <a href="/#bio">Bio</a>
+    <a href="/press">Press</a>
+  </div>
+</header>
+
+<section class="press-hero">
+  <div class="wrap">
+    <span class="stamp">Press Kit</span>
+    <h1>WHOSRILA</h1>
+    <p class="lede">Independent. Intentional. Undeniable.<br>Kingston, Jamaica.</p>
+  </div>
+</section>
+
+<section class="press-photo-wrap">
+  <div class="wrap">
+    <img class="press-photo" src="/images/artist-landscape-1.jpg" alt="WHOSRILA — Press Photo">
+    <p class="photo-caption">High-resolution press photo &mdash; WHOSRILA &copy; 2025</p>
+    <a class="photo-download" href="/images/artist-landscape-1.jpg" download="WHOSRILA-press-photo.jpg">
+      &#8595; Download Photo
+    </a>
+  </div>
+</section>
+
+<section class="press-bio">
+  <div class="wrap">
+    <span class="stamp">Biography</span>
+    <h2 class="h2">Bio</h2>
+    <div class="bio-text">
+      <p>WHOSRILA is a Jamaican reggae crossover artist, songwriter, creative director, and self-producing force whose sound moves freely between hip-hop, R&amp;B, reggae, and beyond &mdash; rooted in culture, driven by instinct.</p>
+      <p>With a background in video directing, WHOSRILA brings a full creative vision to every record, from concept to completion. Featured on playlists by <a href="https://open.spotify.com/playlist/0azXBFWMtLzJnyhkh8OQWC" target="_blank" rel="noopener" style="border-bottom:1px solid var(--ink);">Protoje</a> and the <a href="https://open.spotify.com/playlist/4eWLflQlyv6kC4SIc5kM2A" target="_blank" rel="noopener" style="border-bottom:1px solid var(--ink);">Deadly Reggae Playlist</a>, the music speaks for itself.</p>
+    </div>
+  </div>
+</section>
+
+<section class="press-links">
+  <div class="wrap">
+    <span class="stamp">Stream &amp; Buy</span>
+    <h2 class="h2">Listen</h2>
+    <div class="platform-grid">
+      <a class="pl-btn" href="https://itunes.apple.com/us/artist/whosrila/1546979772" target="_blank" rel="noopener"><span class="pl-dot am2"></span>iTunes / Buy</a>
+      <a class="pl-btn" href="https://music.apple.com/us/artist/whosrila/1546979772" target="_blank" rel="noopener"><span class="pl-dot am"></span>Apple Music</a>
+      <a class="pl-btn" href="https://open.spotify.com/playlist/29qMAb0mUXC61wnlcbrGrt?si=5bcb231a079045b1" target="_blank" rel="noopener"><span class="pl-dot sp"></span>Spotify</a>
+      <a class="pl-btn" href="https://audiomack.com/whosrila" target="_blank" rel="noopener"><span class="pl-dot ak"></span>Audiomack</a>
+      <a class="pl-btn" href="https://soundcloud.com/whosrila" target="_blank" rel="noopener"><span class="pl-dot sc"></span>SoundCloud</a>
+      <a class="pl-btn" href="https://tidal.com/artist/22841100/u" target="_blank" rel="noopener"><span class="pl-dot ti"></span>Tidal</a>
+      <a class="pl-btn" href="https://www.deezer.com/us/artist/129464442" target="_blank" rel="noopener"><span class="pl-dot dz"></span>Deezer</a>
+      <a class="pl-btn" href="https://music.youtube.com/@whosrila?si=u8wwIHTz__MBYscE" target="_blank" rel="noopener"><span class="pl-dot yt"></span>YouTube Music</a>
+      <a class="pl-btn" href="https://music.amazon.com/artists/B0925ZJPCM/whosrila" target="_blank" rel="noopener"><span class="pl-dot az"></span>Amazon Music</a>
+    </div>
+  </div>
+</section>
+
+<section class="press-placements">
+  <div class="wrap">
+    <span class="stamp">Playlist Placements</span>
+    <h2 class="h2">Featured</h2>
+    <div class="playlist-list">
+      <div class="playlist-item">
+        <div>
+          <div class="playlist-item-name">New Reggae 2026</div>
+          <div class="playlist-item-curator">Curated by Protoje</div>
+        </div>
+        <a class="playlist-link" href="https://open.spotify.com/playlist/0azXBFWMtLzJnyhkh8OQWC" target="_blank" rel="noopener">Open &#8594;</a>
+      </div>
+      <div class="playlist-item">
+        <div>
+          <div class="playlist-item-name">Deadly Reggae Playlist</div>
+          <div class="playlist-item-curator">D'Riddim</div>
+        </div>
+        <a class="playlist-link" href="https://open.spotify.com/playlist/4eWLflQlyv6kC4SIc5kM2A" target="_blank" rel="noopener">Open &#8594;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="press-contact">
+  <div class="wrap">
+    <span class="stamp">Contact</span>
+    <h2 class="h2">Press</h2>
+    <p>For interviews, features, sync licensing, and all media inquiries:</p>
+    <br>
+    <a class="email-link" href="mailto:whosrila@gmail.com">whosrila@gmail.com</a>
+  </div>
+</section>
+
+<footer>&copy; 2025 WHOSRILA. All rights reserved.</footer>
+
+<script>
+document.getElementById('burgerBtn').addEventListener('click', function() {
+  const nav = document.getElementById('mobileNav');
+  nav.classList.toggle('open');
+  this.setAttribute('aria-expanded', nav.classList.contains('open'));
+});
+</script>
+
+</body>
+</html>
