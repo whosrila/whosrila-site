@@ -7,7 +7,6 @@
 <meta name="description" content="Every WHOSRILA song in one place — stream the current catalog or pre-save the next single.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 @font-face {
   font-family: 'Whosrila';
@@ -16,6 +15,7 @@
   font-style: normal;
   font-display: swap;
 }
+h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
 </style>
 <style>
   :root{
@@ -28,9 +28,9 @@
     --line:       rgba(244,244,242,0.14);
     --line-paper: rgba(10,10,10,0.18);
 
-    --f-display: 'Whosrila', 'Anton', sans-serif;
+    --f-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --f-body:    'Helvetica Neue', Helvetica, Arial, sans-serif;
-    --f-mono:    'Space Mono', monospace;
+    --f-mono: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
     --maxw: 1140px;
   }
@@ -45,7 +45,7 @@
   body{
     margin:0;
     background:var(--ink);
-    color:var(--paper);
+    color:var(--ink);
     font-family:var(--f-body);
     font-size:17px;
     line-height:1.6;
@@ -79,7 +79,7 @@
   .stamp::after{ content:"◂"; }
 
   h1,h2,h3{ font-family:var(--f-display); font-weight:400; margin:0; letter-spacing:0.01em; }
-  .h2{ font-size:clamp(32px,5vw,52px); line-height:1.02; text-transform:uppercase; }
+  .h2{ font-size:clamp(20px,3vw,30px); line-height:1.02; text-transform:uppercase; }
   .lede{ font-family:var(--f-body); font-weight:400; font-size:clamp(17px,2vw,20px); color:var(--paper-dim); max-width:560px; }
 
   /* ---------- Nav ---------- */
@@ -92,7 +92,7 @@
   .navrow{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; }
   .wordmark{ font-family:var(--f-display); font-size:20px; letter-spacing:0.04em; }
   nav.links{ display:flex; gap:28px; font-family:var(--f-mono); font-size:13px; letter-spacing:0.06em; text-transform:uppercase; }
-  nav.links a{ opacity:0.78; transition:opacity .2s; border-bottom:1px solid transparent; padding-bottom:3px; }
+  nav.links a{ opacity:1; color:var(--ink); transition:opacity .2s; border-bottom:1px solid transparent; padding-bottom:3px; }
   nav.links a:hover{ opacity:1; border-color:var(--red); }
   .navcta{
     font-family:var(--f-mono); font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
@@ -100,7 +100,7 @@
     transition:transform .15s, background .2s;
   }
   .navcta:hover{ background:#f2b25a; transform:translateY(-1px); }
-  .burger{ display:none; background:none; border:0; color:var(--paper); font-size:22px; cursor:pointer; }
+  .burger{ display:none; background:none; border:0; color:var(--ink); font-size:22px; cursor:pointer; }
 
   @media (max-width:760px){
     nav.links{ display:none; }
@@ -152,9 +152,9 @@
     border:1px solid var(--line);
   }
   .btn:hover{ transform:translateY(-2px); }
-  .btn-primary{ background:var(--red); color:var(--paper); border-color:var(--red); }
+  .btn-primary{ background:var(--red); color:var(--ink); border-color:var(--red); }
   .btn-primary:hover{ box-shadow:0 8px 24px rgba(215,38,61,0.35); }
-  .btn-ghost{ background:transparent; color:var(--paper); }
+  .btn-ghost{ background:transparent; color:var(--ink); }
   .btn-ghost:hover{ border-color:var(--red); color:var(--red); }
 
   /* soundwave */
@@ -180,7 +180,7 @@
   .presave .stamp::before,.presave .stamp::after{ opacity:0.5; }
   .presave-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:end; }
   @media (max-width:860px){ .presave-grid{ grid-template-columns:1fr; } }
-  .presave h2{ font-size:clamp(40px,7vw,80px); line-height:0.92; margin:14px 0; }
+  .presave h2{ font-size:clamp(22px,3.5vw,34px); line-height:0.92; margin:14px 0; }
   .presave p.lede{ color:rgba(10,10,10,0.78); max-width:480px; }
 
   .countdown{ display:flex; gap:18px; margin:18px 0 22px; }
@@ -188,7 +188,7 @@
   .countdown .num{ font-family:var(--f-display); font-size:38px; line-height:1; }
   .countdown .lab{ font-family:var(--f-mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase; opacity:0.65; }
 
-  .presave .btn-primary{ background:var(--ink); border-color:var(--ink); color:var(--paper); }
+  .presave .btn-primary{ background:var(--ink); border-color:var(--ink); color:var(--ink); }
   .presave .btn-primary:hover{ box-shadow:0 8px 24px rgba(10,10,10,0.35); }
 
   /* ---------- Section shell ---------- */
@@ -218,7 +218,7 @@
     padding:13px 0; border-bottom:1px solid var(--line);
     cursor:pointer; transition:background .15s;
   }
-  .track-row:hover{ background:var(--ink-2); }
+  .track-row:hover{ background:var(--paper); }
   .track-row:hover .title-line{ color:var(--red); }
   .track-row .idx{ font-family:var(--f-mono); font-size:13px; color:var(--paper-dim); }
   .track-row .cover{ width:48px; height:48px; border-radius:3px; object-fit:cover; border:1px solid var(--line); }
@@ -251,7 +251,7 @@
   .facts dt{ color:var(--red); text-transform:uppercase; letter-spacing:0.06em; font-size:11px; padding-top:2px; }
   .facts dd{ margin:0; }
   .press-card p{ color:#3a3530; }
-  .press-card .btn-primary{ background:var(--ink); color:var(--paper); border-color:var(--ink); margin-top:8px; }
+  .press-card .btn-primary{ background:var(--paper); color:var(--ink); border-color:var(--ink); margin-top:8px; }
 
   /* ---------- Tour ---------- */
   .empty-state{
@@ -260,14 +260,14 @@
   .empty-state p{ color:var(--paper-dim); max-width:420px; margin:10px auto 24px; }
 
   /* ---------- Footer / Connect ---------- */
-  footer.site{ background:var(--ink-2); padding:80px 0 36px; }
+  footer.site{ background:var(--paper); padding:80px 0 36px; }
   .connect-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; }
   @media (max-width:860px){ .connect-grid{ grid-template-columns:1fr; } }
 
   form.signup{ display:flex; flex-direction:column; gap:14px; max-width:420px; margin-top:22px; }
   form.signup label{ font-family:var(--f-mono); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--paper-dim); }
   form.signup input{
-    background:transparent; border:none; border-bottom:1px solid var(--line); color:var(--paper);
+    background:transparent; border:none; border-bottom:1px solid var(--line); color:var(--ink);
     font-family:var(--f-body); font-size:16px; padding:10px 2px; outline:none;
   }
   form.signup input:focus{ border-color:var(--red); }
@@ -290,7 +290,7 @@
 
   .reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
   .reveal.in{ opacity:1; transform:none; }
-.h2 { font-size: clamp(52px,7vw,88px); }
+.h2 { font-size: clamp(24px,3.5vw,38px); }
 </style>
 </head>
 
