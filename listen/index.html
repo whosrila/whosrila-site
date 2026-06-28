@@ -107,6 +107,7 @@ footer a:hover { color: var(--paper); }
   .platforms { padding: 0 20px 60px; }
   .platform-link { padding: 16px 18px; gap: 14px; }
 }
+.h2 { font-size: clamp(52px,7vw,88px); }
 </style>
 </head>
 <body>
@@ -114,14 +115,18 @@ footer a:hover { color: var(--paper); }
   <div class="navrow" id="navrow">
     <a href="/" class="wordmark"><img src="/images/logo.png" alt="WHOSRILA" class="logo-nav"></a>
     <nav class="links">
-      <a href="/">Home</a>
       <a href="/music">Music</a>
+      <a href="/listen">Listen</a>
+      <a href="/#bio">Bio</a>
+      <a href="/press">Press</a>
     </nav>
     <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
   </div>
   <div class="mobilenav" id="mobileNav">
-    <a href="/">Home</a>
     <a href="/music">Music</a>
+    <a href="/listen">Listen</a>
+    <a href="/#bio">Bio</a>
+    <a href="/press">Press</a>
   </div>
 </header>
 
@@ -144,6 +149,16 @@ footer a:hover { color: var(--paper); }
     <div class="platform-info">
       <div class="platform-name">iTunes Store</div>
       <div class="platform-sub">Stream now</div>
+    </div>
+    <div class="arrow">&#8594;</div>
+  </a>
+  <a class="platform-link" href="https://music.apple.com/us/artist/whosrila/1546979772" target="_blank" rel="noopener">
+    <div class="platform-icon ic-apple">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.9.8L8.5 3.1v13.2c-.8-.4-1.8-.6-3-.4-2.1.4-3.6 2.2-3.3 4 .3 1.8 2.2 3 4.3 2.6 1.9-.4 3.3-1.9 3.3-3.7V6.3l8.4-1.9v10c-.8-.4-1.8-.6-3-.4-2.1.4-3.6 2.2-3.3 4 .3 1.8 2.2 3 4.3 2.6 1.9-.4 3.3-1.9 3.3-3.7V.8h-1z"/></svg>
+    </div>
+    <div class="platform-info">
+      <div class="platform-name">Apple Music</div>
+      <div class="platform-sub">Buy now</div>
     </div>
     <div class="arrow">&#8594;</div>
   </a>
@@ -228,16 +243,6 @@ footer a:hover { color: var(--paper); }
   </a>
 
 
-  <a class="platform-link" href="https://music.apple.com/us/artist/whosrila/1546979772" target="_blank" rel="noopener">
-    <div class="platform-icon ic-itunes">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.9.8L8.5 3.1v13.2c-.8-.4-1.8-.6-3-.4-2.1.4-3.6 2.2-3.3 4 .3 1.8 2.2 3 4.3 2.6 1.9-.4 3.3-1.9 3.3-3.7V6.3l8.4-1.9v10c-.8-.4-1.8-.6-3-.4-2.1.4-3.6 2.2-3.3 4 .3 1.8 2.2 3 4.3 2.6 1.9-.4 3.3-1.9 3.3-3.7V.8h-1z"/></svg>
-    </div>
-    <div class="platform-info">
-      <div class="platform-name">iTunes Store</div>
-      <div class="platform-sub">Buy now</div>
-    </div>
-    <div class="arrow">&#8594;</div>
-  </a>
 
 </div>
 
