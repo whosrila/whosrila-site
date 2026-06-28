@@ -101,6 +101,13 @@ footer { background: var(--ink); color: var(--paper); padding: 24px 28px; font-f
 .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 .photo-item .press-photo { max-height: 280px; width: 100%; object-fit: cover; }
 .photo-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+
+/* Force Whosrila font glyphs dark on light background */
+@font-palette-values --on-light {
+  font-family: 'Whosrila';
+  override-colors: 0 #0A0A0A, 1 #0A0A0A, 2 #0A0A0A, 3 #0A0A0A;
+}
+h1, h2, h3, .h1, .h2, .h3 { font-palette: --on-light; color: var(--ink); }
 </style>
 </head>
 <body>
