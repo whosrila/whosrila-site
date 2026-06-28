@@ -477,8 +477,9 @@
         Netlify Forms: this form works automatically once deployed on Netlify —
         no backend needed. The hidden field + honeypot are part of Netlify's spam protection.
       -->
-      <form class="signup" id="signupForm" name="signup" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="signup">
+      <form class="signup" id="signupForm" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="71705d41-553f-47fe-a068-61822ae89277">
+        <input type="hidden" name="subject" value="New fan signup — WHOSRILA">
         <p class="hp"><label>Don't fill this out: <input name="bot-field"></label></p>
         <label for="email">Email</label>
         <input id="email" type="email" name="email" placeholder="you@email.com" required>
@@ -568,15 +569,16 @@
       const errorEl = document.getElementById('signupError');
       errorEl.style.display = 'none';
       const data = new FormData(signupForm);
-      fetch('/', {
+      fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(data).toString()
+        body: data
       })
-      .then((res) => {
-        if(!res.ok) throw new Error('Bad response');
-        signupForm.style.display = 'none';
-        document.getElementById('signupSuccess').style.display = 'block';
+      .then((res) => res.json())
+      .then((json) => {
+        if(json.success){
+          signupForm.style.display = 'none';
+          document.getElementById('signupSuccess').style.display = 'block';
+        } else { throw new Error(json.message||'Error'); }
       })
       .catch(() => {
         errorEl.textContent = "Something went wrong — please try again in a moment.";
