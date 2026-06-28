@@ -308,7 +308,6 @@
       <a href="#bio">Bio</a>
       <a href="#press">Press</a>
       </nav>
-    <a href="#presave" class="navcta">Pre-save</a>
     <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
   </div>
   <div class="mobilenav" id="mobileNav">
@@ -333,8 +332,7 @@
         <span style="animation-delay:0.05s"></span><span style="animation-delay:0.35s"></span>
       </div>
       <div class="hero-cta-row">
-        <a href="#presave" class="btn btn-primary">Pre-save &ldquo;Made You&rdquo;</a>
-        <a href="#music" class="btn btn-ghost">Listen now</a>
+<a href="#music" class="btn btn-ghost">Listen now</a>
       </div>
     </div>
   </div>
@@ -356,27 +354,6 @@
   </div>
 </section>
 
-<section class="presave" id="presave">
-  <div class="wrap presave-grid">
-    <div>
-      <span class="stamp">LEAD SINGLE</span>
-      <h2>MADE YOU</h2>
-      <p class="lede">A new transmission, fresh out of the studio — independently written and produced in Kingston, Jamaica.</p>
-      <div class="hero-cta-row">
-        <a href="#" class="btn btn-primary" id="presaveLink">Pre-save on your platform</a>
-      </div>
-    </div>
-    <div>
-      <div class="countdown" id="countdown">
-        <div class="cell"><div class="num" id="cd-days">--</div><div class="lab">Days</div></div>
-        <div class="cell"><div class="num" id="cd-hours">--</div><div class="lab">Hours</div></div>
-        <div class="cell"><div class="num" id="cd-mins">--</div><div class="lab">Mins</div></div>
-      </div>
-      <span class="stamp" style="display:block; margin-bottom:4px;">Out August 13, 2026</span>
-      <span class="stamp">Pre-save opens July 23</span>
-    </div>
-  </div>
-</section>
 
 <section id="music">
   <div class="wrap">
@@ -570,7 +547,6 @@
   const CONFIG = {
     releaseDateISO: '2026-08-13T00:00:00',
     links: {
-      presave:     '#', // your pre-save smart link (e.g. a Linkfire / ToneDen / distributor link)
       instagram:   '#',
       tiktok:      '#',
       youtube:     '#',
@@ -579,7 +555,6 @@
     }
   };
 
-  document.getElementById('presaveLink').href = CONFIG.links.presave;
   document.getElementById('pressLink').href = CONFIG.links.pressEmail;
   const social = document.querySelectorAll('#socialRow a');
   if(social[0]) social[0].href = CONFIG.links.instagram;
