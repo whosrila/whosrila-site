@@ -140,6 +140,14 @@ footer.mini a:hover { opacity: 1; }
 
 /* Force COLR font glyphs to appear dark on light background */
 h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
+
+/* ── Photo category tabs ── */
+.photo-tabs { display: flex; gap: 0; border: 1px solid var(--ink); max-width: 280px; margin-bottom: 28px; }
+.photo-tab { font-family: var(--f-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; padding: 8px 20px; cursor: pointer; border: none; background: transparent; color: var(--paper-dim); transition: background .15s, color .15s; flex: 1; text-align: center; border-right: 1px solid var(--ink); }
+.photo-tab:last-child { border-right: none; }
+.photo-tab.active { background: var(--ink); color: var(--paper); }
+.photo-cat { display: none; }
+.photo-cat.active { display: block; }
 </style>
 </head>
 <body>
@@ -172,29 +180,55 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
 <section class="press-photo-wrap">
   <div class="wrap">
     <span class="stamp">Press Photos</span>
-    <p class="photo-caption" style="margin:12px 0 28px;">Download high-resolution photos for editorial use.</p>
-    <div class="photo-grid">
-      <div class="photo-item">
-        <img class="press-photo" src="/images/portrait-1.jpg" alt="WHOSRILA — Press Photo 1">
-        <div class="photo-meta">
-          <span class="photo-caption">Portrait 01</span>
-          <a class="photo-download" href="/images/portrait-1.jpg" download="WHOSRILA-portrait-01.jpg">&#8595; Download</a>
+    <p class="photo-caption" style="margin:12px 0 20px;">Download high-resolution photos for editorial use.</p>
+
+    <!-- Photo category tabs -->
+    <div class="photo-tabs">
+      <button class="photo-tab active" data-cat="portrait">Portrait</button>
+      <button class="photo-tab" data-cat="lifestyle">Lifestyle</button>
+      <button class="photo-tab" data-cat="release">Release</button>
+    </div>
+
+    <!-- PORTRAIT / EDITORIAL -->
+    <div class="photo-cat active" id="cat-portrait">
+      <div class="photo-grid">
+        <div class="photo-item">
+          <img class="press-photo" src="/images/portrait-1.jpg" alt="WHOSRILA — Press Photo 1">
+          <div class="photo-meta">
+            <span class="photo-caption">Portrait 01</span>
+            <a class="photo-download" href="/images/portrait-1.jpg" download="WHOSRILA-portrait-01.jpg">&#8595; Download</a>
+          </div>
         </div>
-      </div>
-      <div class="photo-item">
-        <img class="press-photo" src="/images/portrait-2.jpg" alt="WHOSRILA — Press Photo 2">
-        <div class="photo-meta">
-          <span class="photo-caption">Portrait 02</span>
-          <a class="photo-download" href="/images/portrait-2.jpg" download="WHOSRILA-portrait-02.jpg">&#8595; Download</a>
+        <div class="photo-item">
+          <img class="press-photo" src="/images/portrait-2.jpg" alt="WHOSRILA — Press Photo 2">
+          <div class="photo-meta">
+            <span class="photo-caption">Portrait 02</span>
+            <a class="photo-download" href="/images/portrait-2.jpg" download="WHOSRILA-portrait-02.jpg">&#8595; Download</a>
+          </div>
         </div>
+        <!-- Add more portrait photos here: <div class="photo-item">...</div> -->
       </div>
-      <div class="photo-item">
-        <img class="press-photo" src="/images/artist-landscape-1.jpg" alt="WHOSRILA — Landscape">
-        <div class="photo-meta">
-          <span class="photo-caption">Landscape</span>
-          <a class="photo-download" href="/images/artist-landscape-1.jpg" download="WHOSRILA-landscape.jpg">&#8595; Download</a>
+    </div>
+
+    <!-- LIFESTYLE / CANDID -->
+    <div class="photo-cat" id="cat-lifestyle">
+      <div class="photo-grid">
+        <div class="photo-item">
+          <img class="press-photo" src="/images/artist-landscape-1.jpg" alt="WHOSRILA — Landscape">
+          <div class="photo-meta">
+            <span class="photo-caption">Landscape 01</span>
+            <a class="photo-download" href="/images/artist-landscape-1.jpg" download="WHOSRILA-landscape.jpg">&#8595; Download</a>
+          </div>
         </div>
+        <!-- Add more lifestyle photos here: <div class="photo-item">...</div> -->
       </div>
+    </div>
+
+    <!-- RELEASE PHOTOS -->
+    <div class="photo-cat" id="cat-release">
+      <p style="font-family:var(--f-mono);font-size:12px;color:var(--paper-dim);text-transform:uppercase;letter-spacing:.1em;padding:40px 0;">Release photos will appear here. Add images to /images/releases/ and link them in this section.</p>
+      <!-- Add release-specific photos here as singles drop -->
+      <!-- Example: <div class="photo-item"><img src="/images/releases/made-you-01.jpg" alt="Made You — Press Photo">...</div> -->
     </div>
   </div>
 </section>
@@ -371,6 +405,16 @@ document.querySelectorAll('.bio-tab').forEach(function(tab) {
     document.querySelectorAll('.bio-panel').forEach(p => p.classList.remove('active'));
     this.classList.add('active');
     document.getElementById('bio-' + this.dataset.panel).classList.add('active');
+  });
+});
+
+// Photo category tabs
+document.querySelectorAll('.photo-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.photo-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.photo-cat').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+    document.getElementById('cat-' + this.dataset.cat).classList.add('active');
   });
 });
 </script>
