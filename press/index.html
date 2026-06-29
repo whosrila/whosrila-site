@@ -37,8 +37,8 @@ img { display: block; max-width: 100%; }
 .links a { font-family: var(--f-mono); font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); opacity: 1; transition: opacity .15s; border-bottom: 1px solid transparent; padding-bottom: 3px; }
 .links a:hover { opacity: 1; }
 .burger { display: none; background: none; border: none; cursor: pointer; font-size: 22px; }
-.mobilenav { display: none; flex-direction: column; padding: 16px 28px; border-top: 1px solid var(--line); }
-.mobilenav a { font-family: var(--f-mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.mobilenav { display: none; flex-direction: column; padding: 16px 28px; border-top: 1px solid var(--line); background: var(--paper); }
+.mobilenav a { font-family: var(--f-mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; padding: 10px 0; border-bottom: 1px solid var(--line); color: var(--ink); }
 .mobilenav.open { display: flex; }
 @media (max-width: 640px) {
   .links { display: none; }
@@ -67,6 +67,41 @@ img { display: block; max-width: 100%; }
 .press-bio .bio-text { max-width: 680px; margin-top: 24px; }
 .press-bio p { font-size: clamp(15px,1.8vw,18px); line-height: 1.75; color: var(--ink); margin-bottom: 20px; }
 
+/* BIO TOGGLE */
+.bio-toggle { display: flex; gap: 0; margin-bottom: 28px; border: 1px solid var(--ink); max-width: 200px; }
+.bio-tab { font-family: var(--f-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; padding: 8px 20px; cursor: pointer; border: none; background: transparent; color: var(--paper-dim); transition: background .15s, color .15s; flex: 1; text-align: center; }
+.bio-tab.active { background: var(--ink); color: var(--paper); }
+.bio-panel { display: none; }
+.bio-panel.active { display: block; }
+
+/* RELEASE SECTION */
+.press-release { padding: 80px 0; border-bottom: 1px solid var(--line); }
+.release-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 32px; margin-top: 40px; margin-bottom: 48px; }
+.release-stat .label { font-family: var(--f-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .15em; color: var(--paper-dim); margin-bottom: 8px; }
+.release-stat .value { font-family: var(--f-display); font-size: clamp(16px,2vw,22px); text-transform: uppercase; letter-spacing: -.01em; line-height: 1.2; }
+.credits-stamp { font-family: var(--f-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .15em; color: var(--paper-dim); margin-bottom: 16px; }
+.credits-table { width: 100%; max-width: 600px; border-collapse: collapse; }
+.credits-table tr { border-bottom: 1px solid var(--line); }
+.credits-table td { padding: 10px 0; font-size: 14px; vertical-align: top; }
+.credits-table td:first-child { font-family: var(--f-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .12em; color: var(--paper-dim); width: 180px; padding-right: 24px; padding-top: 12px; }
+
+/* SOCIAL SECTION */
+.press-social { padding: 64px 0; border-bottom: 1px solid var(--line); }
+.social-grid { display: flex; gap: 16px; margin-top: 28px; flex-wrap: wrap; }
+.social-btn { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); padding: 14px 20px; font-family: var(--f-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; transition: border-color .15s, background .15s; min-width: 220px; }
+.social-btn:hover { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.social-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.ig { background: #E1306C; }
+.tt { background: #010101; outline: 1px solid #888; }
+
+/* ASSETS SECTION */
+.press-assets { padding: 64px 0; border-bottom: 1px solid var(--line); }
+.assets-note { font-size: 13px; color: var(--paper-dim); margin-top: 8px; margin-bottom: 28px; max-width: 480px; }
+.asset-item { display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--line); padding: 16px 20px; margin-bottom: 12px; max-width: 560px; }
+.asset-name { font-family: var(--f-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+.asset-meta { font-size: 12px; color: var(--paper-dim); margin-top: 3px; }
+.asset-dl-soon { font-family: var(--f-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; border: 1px solid var(--line); padding: 6px 12px; color: var(--paper-dim); }
+
 /* PLATFORMS */
 .press-links { padding: 64px 0; border-bottom: 1px solid var(--line); }
 .platform-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 28px; }
@@ -83,7 +118,6 @@ img { display: block; max-width: 100%; }
 .playlist-list { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
 .playlist-item { display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--line); padding: 16px 20px; }
 .playlist-item-name { font-family: var(--f-mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
-.playlist-item-curator { font-size: 13px; color: var(--paper-dim); }
 .playlist-link { font-family: var(--f-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; border: 1px solid var(--ink); padding: 6px 12px; transition: background .15s, color .15s; }
 .playlist-link:hover { background: var(--ink); color: var(--paper); }
 
@@ -92,21 +126,19 @@ img { display: block; max-width: 100%; }
 .press-contact .stamp { border-color: var(--paper); color: var(--paper); }
 .press-contact .h2 { color: var(--paper); }
 .press-contact p { color: rgba(244,244,242,.7); margin-top: 16px; }
-.press-contact h1, .press-contact h2, .press-contact .h1, .press-contact .h2 { filter:none !important; }
+.press-contact h1, .press-contact h2, .press-contact .h1, .press-contact .h2 { filter: none !important; }
 .press-contact a.email-link { font-family: var(--f-mono); font-size: clamp(14px,2vw,18px); color: var(--paper); border-bottom: 1px solid rgba(244,244,242,.4); padding-bottom: 2px; transition: border-color .15s; }
 .press-contact a.email-link:hover { border-color: var(--paper); }
 
-footer.mini { background:var(--ink); color:var(--paper); padding:18px 28px; font-family:var(--f-mono); font-size:11px; }
-footer.mini a { color:var(--paper); text-decoration:none; opacity:0.7; }
-footer.mini a:hover { opacity:1; }
+footer.mini { background: var(--ink); color: var(--paper); padding: 18px 28px; font-family: var(--f-mono); font-size: 11px; }
+footer.mini a { color: var(--paper); text-decoration: none; opacity: 0.7; }
+footer.mini a:hover { opacity: 1; }
 .logo-nav { filter: invert(1); }
 .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 .photo-item .press-photo { max-height: 280px; width: 100%; object-fit: cover; }
 .photo-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
 
-/* Force COLR font glyphs (incl. white 'I') to appear dark on light background */
-h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
-
+/* Force COLR font glyphs to appear dark on light background */
 h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
 </style>
 </head>
@@ -127,6 +159,7 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
   </div>
 </header>
 
+<!-- HERO -->
 <section class="press-hero">
   <div class="wrap">
     <span class="stamp">Press Kit</span>
@@ -135,6 +168,7 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
   </div>
 </section>
 
+<!-- PRESS PHOTOS -->
 <section class="press-photo-wrap">
   <div class="wrap">
     <span class="stamp">Press Photos</span>
@@ -165,17 +199,106 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
   </div>
 </section>
 
+<!-- BIOGRAPHY -->
 <section class="press-bio">
   <div class="wrap">
     <span class="stamp">Biography</span>
     <h2 class="h2">Bio</h2>
+    <div class="bio-toggle">
+      <button class="bio-tab active" data-panel="short">Short</button>
+      <button class="bio-tab" data-panel="long">Full</button>
+    </div>
     <div class="bio-text">
-      <p>WHOSRILA is a Jamaican reggae crossover artist, songwriter, creative director, and self-producing force whose sound moves freely between hip-hop, R&amp;B, reggae, and beyond &mdash; rooted in culture, driven by instinct.</p>
-      <p>With a background in video directing, WHOSRILA brings a full creative vision to every record, from concept to completion. Featured on playlists by <a href="https://open.spotify.com/playlist/0azXBFWMtLzJnyhkh8OQWC" target="_blank" rel="noopener" style="border-bottom:1px solid var(--ink);">New Reggae 2026: Fresh Export</a> and the <a href="https://open.spotify.com/playlist/4eWLflQlyv6kC4SIc5kM2A" target="_blank" rel="noopener" style="border-bottom:1px solid var(--ink);">Deadly Reggae Playlist</a>, the music speaks for itself.</p>
+      <div class="bio-panel active" id="bio-short">
+        <p>WHOSRILA is a Jamaican reggae crossover artist, songwriter, creative director, and self-producing force. Born in Kingston, Jamaica, his sound moves freely between reggae, hip-hop, and R&amp;B &mdash; rooted in culture, driven by instinct. With a background in video directing, every release is a complete creative vision from concept to final cut. Featured on Spotify&rsquo;s New Reggae 2026: Fresh Export and the Deadly Reggae Playlist.</p>
+      </div>
+      <div class="bio-panel" id="bio-long">
+        <p>WHOSRILA is a Kingston-born, independent reggae crossover artist, songwriter, creative director, and self-producing force &mdash; an artist operating entirely on his own terms. His sound moves freely between reggae, hip-hop, and R&amp;B: music rooted in Jamaican culture, but refusing to be contained by it.</p>
+        <p>Growing up in Kingston, WHOSRILA developed a creative voice bigger than any single genre. He came up as a visual artist first &mdash; a video director who understood that music and image are the same conversation. That background shapes everything he makes. Where most artists hand off creative control, WHOSRILA holds it: concept, production, direction &mdash; every record is a complete statement.</p>
+        <p>That intentionality has built an organic, growing audience. Placements on curated Spotify playlists including <a href="https://open.spotify.com/playlist/0azXBFWMtLzJnyhkh8OQWC" target="_blank" rel="noopener" style="border-bottom:1px solid var(--ink);">New Reggae 2026: Fresh Export</a> and the <a href="https://open.spotify.com/playlist/4eWLflQlyv6kC4SIc5kM2A" target="_blank" rel="noopener" style="border-bottom:1px solid var(--ink);">Deadly Reggae Playlist</a> have put his music in front of listeners actively searching for the genre&rsquo;s next wave.</p>
+        <p>Now, WHOSRILA is releasing &ldquo;Made You&rdquo; &mdash; his most ambitious single to date. Directed by Jesse James, with photography by Lumi Pulkkinen and production support from M1 Productions and The Innr City, &ldquo;Made You&rdquo; is the fullest expression of the WHOSRILA creative vision: visually driven, sonically uncompromising, and built to move across formats, playlists, and markets. Pre-save opens July&nbsp;23,&nbsp;2026; the official release follows August&nbsp;13,&nbsp;2026.</p>
+        <p style="font-style:italic; color:var(--paper-dim);">Independent. Intentional. Undeniable.</p>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- MADE YOU RELEASE -->
+<section class="press-release">
+  <div class="wrap">
+    <span class="stamp">New Release</span>
+    <h2 class="h2">Made You</h2>
+    <div class="release-grid">
+      <div class="release-stat">
+        <div class="label">Release Date</div>
+        <div class="value">August 13, 2026</div>
+      </div>
+      <div class="release-stat">
+        <div class="label">Pre-Save Opens</div>
+        <div class="value">July 23, 2026</div>
+      </div>
+      <div class="release-stat">
+        <div class="label">Cat. No.</div>
+        <div class="value">WRL-001-07</div>
+      </div>
+      <div class="release-stat">
+        <div class="label">Format</div>
+        <div class="value">Single</div>
+      </div>
+    </div>
+    <p class="credits-stamp">Video Credits</p>
+    <table class="credits-table">
+      <tr><td>Director</td><td>Jesse James</td></tr>
+      <tr><td>Photography</td><td>Lumi Pulkkinen</td></tr>
+      <tr><td>BTS</td><td>Usheen Ewbanks &amp; Ronaldo Russel</td></tr>
+      <tr><td>Grip</td><td>Ojay Major</td></tr>
+      <tr><td>Styling</td><td>Rickolette Simmonds</td></tr>
+      <tr><td>Model</td><td>Leonie Campbell</td></tr>
+      <tr><td>Production</td><td>M1 Productions / The Innr City</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<section class="press-social">
+  <div class="wrap">
+    <span class="stamp">Follow</span>
+    <h2 class="h2">Social</h2>
+    <div class="social-grid">
+      <a class="social-btn" href="https://www.instagram.com/whosrila" target="_blank" rel="noopener">
+        <span class="social-dot ig"></span>Instagram &mdash; @whosrila
+      </a>
+      <a class="social-btn" href="https://www.tiktok.com/@whosrila" target="_blank" rel="noopener">
+        <span class="social-dot tt"></span>TikTok &mdash; @whosrila
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ASSETS / DOWNLOADS -->
+<section class="press-assets">
+  <div class="wrap">
+    <span class="stamp">Assets</span>
+    <h2 class="h2">Downloads</h2>
+    <p class="assets-note">Logo and release artwork available for editorial use. Contact for full asset pack.</p>
+    <div class="asset-item">
+      <div>
+        <div class="asset-name">WHOSRILA &mdash; Logo</div>
+        <div class="asset-meta">PNG &amp; SVG &mdash; hi-res, transparent background</div>
+      </div>
+      <span class="asset-dl-soon">Coming Soon</span>
+    </div>
+    <div class="asset-item">
+      <div>
+        <div class="asset-name">Made You &mdash; Cover Art</div>
+        <div class="asset-meta">3000 &times; 3000px &mdash; release August 13, 2026</div>
+      </div>
+      <span class="asset-dl-soon">Coming Soon</span>
+    </div>
+  </div>
+</section>
+
+<!-- STREAM & BUY -->
 <section class="press-links">
   <div class="wrap">
     <span class="stamp">Stream &amp; Buy</span>
@@ -194,6 +317,7 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
   </div>
 </section>
 
+<!-- PLAYLIST PLACEMENTS -->
 <section class="press-placements">
   <div class="wrap">
     <span class="stamp">Playlist Placements</span>
@@ -201,7 +325,7 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
     <div class="playlist-list">
       <div class="playlist-item">
         <div>
-          <div class="playlist-item-name">New Reggae 2026</div>
+          <div class="playlist-item-name">New Reggae 2026: Fresh Export</div>
         </div>
         <a class="playlist-link" href="https://open.spotify.com/playlist/0azXBFWMtLzJnyhkh8OQWC" target="_blank" rel="noopener">Open &#8594;</a>
       </div>
@@ -215,6 +339,7 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
   </div>
 </section>
 
+<!-- CONTACT -->
 <section class="press-contact">
   <div class="wrap">
     <span class="stamp">Contact</span>
@@ -237,6 +362,16 @@ document.getElementById('burgerBtn').addEventListener('click', function() {
   const nav = document.getElementById('mobileNav');
   nav.classList.toggle('open');
   this.setAttribute('aria-expanded', nav.classList.contains('open'));
+});
+
+// Bio tab toggle
+document.querySelectorAll('.bio-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.bio-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.bio-panel').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+    document.getElementById('bio-' + this.dataset.panel).classList.add('active');
+  });
 });
 </script>
 
