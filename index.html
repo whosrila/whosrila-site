@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WHOSRILA â Kingston, Jamaica</title>
-<meta name="description" content="WHOSRILA â Kingston, Jamaica. Hip-hop and reggae cut from the same riddim. Lead single 'Made You' â out August 13, 2026.">
+<title>WHOSRILA — Kingston, Jamaica</title>
+<meta name="description" content="WHOSRILA — Kingston, Jamaica. Hip-hop and reggae cut from the same riddim. Lead single 'Made You' — out August 13, 2026.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
@@ -230,7 +230,7 @@
   .play-btn:hover { background:var(--ink); color:var(--paper); }
   .play-btn.playing { background:var(--red); border-color:var(--red); color:#fff; }
   .preview-label { font-size:11px; color:var(--paper-dim); letter-spacing:.05em; text-transform:uppercase; }
-  /* ON RECORD section â light cream overlay: darken secondary text */
+  /* ON RECORD section – light cream overlay: darken secondary text */
   #music{ color:var(--ink); }
   #music .track-row:hover{ color:var(--paper); }
   #music .lede{ color:rgba(10,10,10,0.62); }
@@ -334,7 +334,7 @@
 <body>
 
 <!-- =========================================================
-  EDIT ME â quick links & dates
+  EDIT ME — quick links & dates
   Replace the href="#" placeholders below (search for them)
   with your real streaming, social, and contact links.
 ========================================================== -->
@@ -351,9 +351,9 @@
     <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
   </div>
   <div class="mobilenav" id="mobileNav">
+    <a href="/#bio">Bio</a>
     <a href="/music">Music</a>
     <a href="/listen">Listen</a>
-    <a href="/#bio">Bio</a>
     <a href="/press">Press</a>
     </div>
 </header>
@@ -476,7 +476,7 @@
           <span class="idx">05</span>
           <img class="cover" src="/images/cover-fullymeech.jpg" alt="" loading="lazy">
           <span class="title-block">
-            <span class="title-line">Fully Meech â Acoustic</span>
+            <span class="title-line">Fully Meech — Acoustic</span>
           </span>
           <span class="dur">3:01</span>
         </a>
@@ -595,12 +595,12 @@
       <span class="stamp">STAY IN THE LOOP</span>
       <h2 class="h2" style="margin:14px 0 8px; font-size:clamp(18px,2.5vw,26px);">No noise. Just signal.</h2>
       <!--
-        Netlify Forms: this form works automatically once deployed on Netlify â
+        Netlify Forms: this form works automatically once deployed on Netlify —
         no backend needed. The hidden field + honeypot are part of Netlify's spam protection.
       -->
       <form class="signup" id="signupForm" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="71705d41-553f-47fe-a068-61822ae89277">
-        <input type="hidden" name="subject" value="New fan signup â WHOSRILA">
+        <input type="hidden" name="subject" value="New fan signup — WHOSRILA">
         <p class="hp"><label>Don't fill this out: <input name="bot-field"></label></p>
         <label for="email">Email</label>
         <input id="email" type="email" name="email" placeholder="you@email.com" required>
@@ -644,7 +644,7 @@
 
 <script>
   // ===========================================================
-  // EDIT ME â replace the placeholder links below with the real ones.
+  // EDIT ME — replace the placeholder links below with the real ones.
   // Everything on the page that says href="#" for an outbound link
   // pulls from here, so you only have to update it in one place.
   // ===========================================================
@@ -705,7 +705,7 @@
         } else { throw new Error(json.message||'Error'); }
       })
       .catch(() => {
-        errorEl.textContent = "Something went wrong â please try again in a moment.";
+        errorEl.textContent = "Something went wrong — please try again in a moment.";
         errorEl.style.display = 'block';
       });
     });
@@ -736,7 +736,7 @@
       }
     });
     if(audio.paused){
-      audio.play();btn.classList.add('playing');btn.innerHTML=PAUSE;label.textContent='Playingâ¦';
+      audio.play();btn.classList.add('playing');btn.innerHTML=PAUSE;label.textContent='Playing…';
       audio.onended=function(){btn.classList.remove('playing');btn.innerHTML=PLAY;label.textContent='Preview';};
     }else{
       audio.pause();audio.currentTime=0;btn.classList.remove('playing');btn.innerHTML=PLAY;label.textContent='Preview';
