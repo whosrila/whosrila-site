@@ -217,6 +217,19 @@
 
   /* ---------- Tracklist ---------- */
   .tracklist{ display:flex; flex-direction:column; }
+  .track-item { display:flex; flex-direction:column; border-bottom:1px solid var(--line); }
+  .track-item .track-row { border-bottom:none; }
+  .track-actions { display:flex; align-items:center; gap:12px; padding:4px 0 12px 52px; }
+  .play-btn {
+    display:flex; align-items:center; justify-content:center;
+    width:30px; height:30px; border-radius:50%;
+    border:1.5px solid var(--ink); background:transparent;
+    color:var(--ink); cursor:pointer; flex-shrink:0;
+    transition:background .15s,color .15s;
+  }
+  .play-btn:hover { background:var(--ink); color:var(--paper); }
+  .play-btn.playing { background:var(--red); border-color:var(--red); color:#fff; }
+  .preview-label { font-size:11px; color:var(--paper-dim); letter-spacing:.05em; text-transform:uppercase; }
   .track-row{
     display:grid; grid-template-columns:28px 48px 1fr auto; gap:18px; align-items:center;
     padding:13px 0; border-bottom:1px solid var(--line);
@@ -368,87 +381,160 @@
       <p class="lede" style="margin-top:14px;">Ten songs out now &mdash; new ones land on the list below before anywhere else.</p>
     </div>
     <div class="tracklist">
+      <div class="track-item">
         <a class="track-row reveal" href="/gratitude">
-        <span class="idx">01</span>
-        <img class="cover" src="/images/cover-gratitude.jpg" alt="">
-        <span class="title-block">
-          <span class="title-line">Gratitude</span>
-          
-        </span>
-        <span class="dur">3:13</span>
-      </a>
+          <span class="idx">01</span>
+          <img class="cover" src="/images/cover-gratitude.jpg" alt="">
+          <span class="title-block">
+            <span class="title-line">Gratitude</span>
+          </span>
+          <span class="dur">3:13</span>
+        </a>
+        <div class="track-actions">
+          <audio class="preview-audio" src="/audio/gratitude.mp3" preload="none"></audio>
+          <button class="play-btn" onclick="togglePreview(this)" aria-label="Play preview">
+            <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <span class="preview-label">Preview</span>
+        </div>
+      </div>
+      <div class="track-item">
         <a class="track-row reveal" href="/topform">
-        <span class="idx">02</span>
-        <img class="cover" src="/images/cover-topform.jpg" alt="">
-        <span class="title-block">
-          <span class="title-line">Top Form<span class="exptag" title="Explicit">E</span></span>
-          
-        </span>
-        <span class="dur">2:48</span>
-      </a>
+          <span class="idx">02</span>
+          <img class="cover" src="/images/cover-topform.jpg" alt="" loading="lazy">
+          <span class="title-block">
+            <span class="title-line">Top Form<span class="exptag" title="Explicit">E</span></span>
+          </span>
+          <span class="dur">2:48</span>
+        </a>
+        <div class="track-actions">
+          <audio class="preview-audio" src="/audio/topform.mp3" preload="none"></audio>
+          <button class="play-btn" onclick="togglePreview(this)" aria-label="Play preview">
+            <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <span class="preview-label">Preview</span>
+        </div>
+      </div>
+      <div class="track-item">
         <a class="track-row reveal" href="/wineandbubble">
-        <span class="idx">03</span>
-        <img class="cover" src="/images/cover-winenbubble.jpg" alt="Wine and Bubble cover art" loading="lazy">
-        <span class="title-block">
-          <span class="title-line">Wine and Bubble</span>
+          <span class="idx">03</span>
+          <img class="cover" src="/images/cover-winenbubble.jpg" alt="Wine and Bubble cover art" loading="lazy">
+          <span class="title-block">
+            <span class="title-line">Wine and Bubble</span>
           <span class="credit">feat. Jon Dela, Cres, Kxng Izem</span>
-        </span>
-        <span class="dur">3:50</span>
-      </a>
+          </span>
+          <span class="dur">3:50</span>
+        </a>
+        <div class="track-actions">
+          <audio class="preview-audio" src="/audio/wineandbubble.mp3" preload="none"></audio>
+          <button class="play-btn" onclick="togglePreview(this)" aria-label="Play preview">
+            <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <span class="preview-label">Preview</span>
+        </div>
+      </div>
+      <div class="track-item">
         <a class="track-row reveal" href="/outtaline">
-        <span class="idx">04</span>
-        <img class="cover" src="/images/cover-outtaline.jpg" alt="Outta' Line cover art" loading="lazy">
-        <span class="title-block">
-          <span class="title-line">Outta' Line<span class="exptag" title="Explicit">E</span></span>
-          
-        </span>
-        <span class="dur">2:05</span>
-      </a>
+          <span class="idx">04</span>
+          <img class="cover" src="/images/cover-outtaline.jpg" alt="Outta' Line cover art" loading="lazy">
+          <span class="title-block">
+            <span class="title-line">Outta' Line<span class="exptag" title="Explicit">E</span></span>
+          </span>
+          <span class="dur">2:05</span>
+        </a>
+        <div class="track-actions">
+          <audio class="preview-audio" src="/audio/outtaline.mp3" preload="none"></audio>
+          <button class="play-btn" onclick="togglePreview(this)" aria-label="Play preview">
+            <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <span class="preview-label">Preview</span>
+        </div>
+      </div>
+      <div class="track-item">
         <a class="track-row reveal" href="/fullymeech">
-        <span class="idx">05</span>
-        <img class="cover" src="/images/cover-fullymeech.jpg" alt="">
-        <span class="title-block">
-          <span class="title-line">Fully Meech — Acoustic</span>
-          
-        </span>
-        <span class="dur">3:01</span>
-      </a>
+          <span class="idx">05</span>
+          <img class="cover" src="/images/cover-fullymeech.jpg" alt="" loading="lazy">
+          <span class="title-block">
+            <span class="title-line">Fully Meech — Acoustic</span>
+          </span>
+          <span class="dur">3:01</span>
+        </a>
+        <div class="track-actions">
+          <audio class="preview-audio" src="/audio/fullymeech.mp3" preload="none"></audio>
+          <button class="play-btn" onclick="togglePreview(this)" aria-label="Play preview">
+            <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <span class="preview-label">Preview</span>
+        </div>
+      </div>
+      <div class="track-item">
         <a class="track-row reveal" href="/kingston">
-        <span class="idx">06</span>
-        <img class="cover" src="/images/cover-kingston.jpg" alt="">
-        <span class="title-block">
-          <span class="title-line">Kingston<span class="exptag" title="Explicit">E</span></span>
-          
-        </span>
-        <span class="dur">1:27</span>
-      </a>
+          <span class="idx">06</span>
+          <img class="cover" src="/images/cover-kingston.jpg" alt="" loading="lazy">
+          <span class="title-block">
+            <span class="title-line">Kingston<span class="exptag" title="Explicit">E</span></span>
+          </span>
+          <span class="dur">1:27</span>
+        </a>
+        <div class="track-actions">
+          <audio class="preview-audio" src="/audio/kingston.mp3" preload="none"></audio>
+          <button class="play-btn" onclick="togglePreview(this)" aria-label="Play preview">
+            <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <span class="preview-label">Preview</span>
+        </div>
+      </div>
+      <div class="track-item">
         <a class="track-row reveal" href="/protection">
-        <span class="idx">07</span>
-        <img class="cover" src="/images/cover-protection.jpg" alt="">
-        <span class="title-block">
-          <span class="title-line">Protection<span class="exptag" title="Explicit">E</span></span>
-          
-        </span>
-        <span class="dur">3:18</span>
-      </a>
+          <span class="idx">07</span>
+          <img class="cover" src="/images/cover-protection.jpg" alt="" loading="lazy">
+          <span class="title-block">
+            <span class="title-line">Protection<span class="exptag" title="Explicit">E</span></span>
+          </span>
+          <span class="dur">3:18</span>
+        </a>
+        <div class="track-actions">
+          <audio class="preview-audio" src="/audio/protection.mp3" preload="none"></audio>
+          <button class="play-btn" onclick="togglePreview(this)" aria-label="Play preview">
+            <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <span class="preview-label">Preview</span>
+        </div>
+      </div>
+      <div class="track-item">
         <a class="track-row reveal" href="/bluenotes">
-        <span class="idx">08</span>
-        <img class="cover" src="/images/cover-bluenotes.jpg" alt="">
-        <span class="title-block">
-          <span class="title-line">Blue Notes<span class="exptag" title="Explicit">E</span></span>
-          
-        </span>
-        <span class="dur">2:11</span>
-      </a>
+          <span class="idx">08</span>
+          <img class="cover" src="/images/cover-bluenotes.jpg" alt="" loading="lazy">
+          <span class="title-block">
+            <span class="title-line">Blue Notes<span class="exptag" title="Explicit">E</span></span>
+          </span>
+          <span class="dur">2:11</span>
+        </a>
+        <div class="track-actions">
+          <audio class="preview-audio" src="/audio/bluenotes.mp3" preload="none"></audio>
+          <button class="play-btn" onclick="togglePreview(this)" aria-label="Play preview">
+            <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <span class="preview-label">Preview</span>
+        </div>
+      </div>
+      <div class="track-item">
         <a class="track-row reveal" href="/forme">
-        <span class="idx">09</span>
-        <img class="cover" src="/images/cover-forme.jpg" alt="For Me cover art" loading="lazy">
-        <span class="title-block">
-          <span class="title-line">For Me</span>
-          
-        </span>
-        <span class="dur">2:31</span>
-      </a>
+          <span class="idx">09</span>
+          <img class="cover" src="/images/cover-forme.jpg" alt="For Me cover art" loading="lazy">
+          <span class="title-block">
+            <span class="title-line">For Me</span>
+          </span>
+          <span class="dur">2:31</span>
+        </a>
+        <div class="track-actions">
+          <audio class="preview-audio" src="/audio/forme.mp3" preload="none"></audio>
+          <button class="play-btn" onclick="togglePreview(this)" aria-label="Play preview">
+            <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <span class="preview-label">Preview</span>
+        </div>
+      </div>
       </div>
     <div class="listen-cta-row reveal">
       <a href="/listen" class="btn btn-primary">&#9654; Stream WHOSRILA</a>
@@ -605,6 +691,29 @@
     mobileNav.style.display = open ? 'none' : 'flex';
     burger.setAttribute('aria-expanded', String(!open));
   });
+
+  // ---- Track preview ----
+  function togglePreview(btn){
+    var item=btn.closest('.track-item');
+    var audio=item.querySelector('.preview-audio');
+    var label=item.querySelector('.preview-label');
+    var PLAY='<svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>';
+    var PAUSE='<svg width="12" height="14" viewBox="0 0 12 14"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="8" y="0" width="4" height="14" fill="currentColor"/></svg>';
+    document.querySelectorAll('.preview-audio').forEach(function(a){
+      if(a!==audio&&!a.paused){a.pause();a.currentTime=0;
+        var b=a.closest('.track-item').querySelector('.play-btn');
+        var l=a.closest('.track-item').querySelector('.preview-label');
+        if(b){b.classList.remove('playing');b.innerHTML=PLAY;}
+        if(l){l.textContent='Preview';}
+      }
+    });
+    if(audio.paused){
+      audio.play();btn.classList.add('playing');btn.innerHTML=PAUSE;label.textContent='Playing…';
+      audio.onended=function(){btn.classList.remove('playing');btn.innerHTML=PLAY;label.textContent='Preview';};
+    }else{
+      audio.pause();audio.currentTime=0;btn.classList.remove('playing');btn.innerHTML=PLAY;label.textContent='Preview';
+    }
+  }
 
   // ---- Scroll reveal ----
   const reveals = document.querySelectorAll('.reveal');
