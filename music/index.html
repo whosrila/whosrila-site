@@ -325,6 +325,32 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
   footer.mini{ background:var(--ink); color:var(--paper); padding:18px 28px; font-family:var(--f-mono); font-size:11px; }
   footer.mini a{ color:var(--paper); text-decoration:none; opacity:0.7; }
   footer.mini a:hover{ opacity:1; }
+
+/* ── Compact no-scroll music layout ── */
+html{ height:100%; }
+body{ display:flex; flex-direction:column; height:100dvh; overflow:hidden; }
+header.site{ flex-shrink:0; }
+#records-section{ flex:1; min-height:0; display:flex; flex-direction:column; overflow:hidden; padding:10px 0 0; }
+#records-section .wrap{ flex:1; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+.section-head{ flex-shrink:0; margin-bottom:6px; padding:8px 0 0; }
+.section-head .stamp{ font-size:10px; }
+.h2{ font-size:clamp(16px,2vw,22px) !important; }
+.lede{ font-size:12px; margin-top:4px; }
+.tracklist{ flex:1; min-height:0; overflow:hidden; display:flex; flex-direction:column; justify-content:center; }
+.listen-cta-row{ display:none !important; }
+footer.mini{ flex-shrink:0; }
+#joinlist{ display:none !important; }
+.track-row{ padding:4px 0 !important; grid-template-columns:20px 28px 1fr auto !important; gap:10px !important; }
+.track-row .cover{ width:28px !important; height:28px !important; }
+.track-row .title-line{ font-size:13px; gap:5px; }
+.track-row .idx{ font-size:11px; }
+.track-row .dur{ font-size:11px; }
+.track-row .credit{ display:none; }
+.track-actions{ padding:0px 0 4px 32px !important; gap:8px; }
+.play-btn{ width:22px !important; height:22px !important; }
+.play-btn svg{ width:10px; height:10px; }
+.preview-label{ font-size:9px; }
+.buy-btn{ padding:4px 12px !important; font-size:10px !important; }
 </style>
 </head>
 
@@ -349,7 +375,7 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
   </div>
 </header>
 
-<section style="padding-top:64px; background: linear-gradient(rgba(20,20,20,0.75), rgba(20,20,20,0.75)), url('/images/bg-music-web.jpg') center/cover no-repeat fixed;">
+<section id="records-section" style="padding-top:0; background: linear-gradient(rgba(20,20,20,0.75), rgba(20,20,20,0.75)), url('/images/bg-music-web.jpg') center/cover no-repeat fixed;">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="stamp">DISCOGRAPHY</span>
@@ -373,7 +399,7 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
-          <a class="buy-btn" href="https://shop.whosrila.com/products/gratitude">Buy Â· $2</a>
+          <a class="buy-btn" href="https://shop.whosrila.com/products/gratitude">Buy · $2</a>
         </div>
       </div>
       <div class="track-item">
@@ -391,7 +417,7 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
-          <a class="buy-btn" href="https://shop.whosrila.com/products/top-form">Buy Â· $2</a>
+          <a class="buy-btn" href="https://shop.whosrila.com/products/top-form">Buy · $2</a>
         </div>
       </div>
       <div class="track-item">
@@ -427,7 +453,7 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
-          <a class="buy-btn" href="https://shop.whosrila.com/products/outta-line">Buy Â· $2</a>
+          <a class="buy-btn" href="https://shop.whosrila.com/products/outta-line">Buy · $2</a>
         </div>
       </div>
       <div class="track-item">
@@ -445,7 +471,7 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
-          <a class="buy-btn" href="https://shop.whosrila.com/products/fully-meech-acoustic">Buy Â· $2</a>
+          <a class="buy-btn" href="https://shop.whosrila.com/products/fully-meech-acoustic">Buy · $2</a>
         </div>
       </div>
       <div class="track-item">
@@ -463,7 +489,7 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
-          <a class="buy-btn" href="https://shop.whosrila.com/products/kingston">Buy Â· $2</a>
+          <a class="buy-btn" href="https://shop.whosrila.com/products/kingston">Buy · $2</a>
         </div>
       </div>
       <div class="track-item">
@@ -481,7 +507,7 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
-          <a class="buy-btn" href="https://shop.whosrila.com/products/protection">Buy Â· $2</a>
+          <a class="buy-btn" href="https://shop.whosrila.com/products/protection">Buy · $2</a>
         </div>
       </div>
       <div class="track-item">
@@ -499,7 +525,7 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
-          <a class="buy-btn" href="https://shop.whosrila.com/products/blue-notes">Buy Â· $2</a>
+          <a class="buy-btn" href="https://shop.whosrila.com/products/blue-notes">Buy · $2</a>
         </div>
       </div>
       <div class="track-item">
@@ -517,7 +543,7 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
-          <a class="buy-btn" href="https://shop.whosrila.com/products/for-me">Buy Â· $2</a>
+          <a class="buy-btn" href="https://shop.whosrila.com/products/for-me">Buy · $2</a>
         </div>
       </div>
     </div>
@@ -692,7 +718,7 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
       }
     });
     if(audio.paused){
-      audio.play();btn.classList.add('playing');label.textContent='Playingâ¦';
+      audio.play();btn.classList.add('playing');label.textContent='Playing...';
       audio.onended=function(){btn.classList.remove('playing');label.textContent='Preview';};
     }else{
       audio.pause();audio.currentTime=0;
