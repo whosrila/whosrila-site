@@ -46,7 +46,7 @@ nav.links a:hover{ opacity:1; border-color:var(--red); }
 .stamp::after{ content:"\25C2"; }
 .hero h1{ font-family:var(--f-display); font-size:clamp(18px,2.2vw,26px); letter-spacing:0.04em; line-height:1; margin-bottom:4px; font-weight:400; color:var(--ink); }
 .hero p{ color:var(--paper-dim); font-family:var(--f-mono); font-size:11px; letter-spacing:0.05em; }
-.platforms{ flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr; gap:6px; padding:10px 28px; align-content:center; }
+.platforms{ flex:1; min-height:0; display:grid; grid-template-columns:1fr; gap:6px; padding:10px 28px; align-content:center; }
 .platform-link{ display:flex; align-items:center; gap:12px; padding:9px 14px; border:1px solid var(--line); border-radius:4px; color:var(--ink); transition:background .2s,border-color .2s,color .2s; }
 .platform-link:hover{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
 .platform-link:hover .arrow{ opacity:1; color:var(--paper); }
@@ -80,9 +80,9 @@ footer.mini a:hover{ opacity:1; }
   <div class="navrow" id="navrow">
     <a href="/" class="wordmark"><img src="/images/logo.png" alt="WHOSRILA" class="logo-nav"></a>
     <nav class="links">
+      <a href="/#bio">Bio</a>
       <a href="/music">Music</a>
       <a href="/listen">Listen</a>
-      <a href="/#bio">Bio</a>
       <a href="/press">Press</a>
     </nav>
     <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
