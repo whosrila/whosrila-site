@@ -11,91 +11,67 @@
 @font-face {
   font-family: 'Whosrila';
   src: url('/fonts/whosrila.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+  font-weight: 400; font-style: normal; font-display: swap;
 }
 :root {
-  --ink: #0A0A0A;
-  --ink-2: #161616;
-  --paper: #F4F4F2;
-  --paper-dim: #8C8C8C;
-  --red: #D7263D;
-  --line: rgba(10,10,10,0.12);
-  --f-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --f-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --f-mono: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --maxw: 1140px;
+  --ink:#0A0A0A; --ink-2:#161616; --paper:#F4F4F2; --paper-dim:#8C8C8C;
+  --red:#D7263D; --line:rgba(10,10,10,0.12);
+  --f-display:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --f-body:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --f-mono:'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: linear-gradient(rgba(248,245,240,0.88), rgba(248,245,240,0.88)), url('/images/portrait-1.jpg') center/cover no-repeat fixed; color: var(--ink); font-family: var(--f-body); min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; }
-a { color: inherit; text-decoration: none; }
-img, svg { display: block; max-width: 100%; }
-::selection { background: var(--red); color: var(--paper); }
-header.site {
-  position: sticky; top: 0; z-index: 50;
-  background: var(--paper);
-  border-bottom: 1px solid var(--line);
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ height:100%; }
+body{
+  display:flex; flex-direction:column; height:100dvh; overflow:hidden;
+  background:linear-gradient(rgba(248,245,240,0.88),rgba(248,245,240,0.88)),url('/images/portrait-1.jpg') center/cover no-repeat fixed;
+  color:var(--ink); font-family:var(--f-body);
 }
-.navrow { display: flex; align-items: center; justify-content: space-between; padding: 16px 28px; }
-.wordmark img.logo-nav { height: 24px; width: auto; display: block; }
-nav.links { display: flex; gap: 28px; font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; }
-nav.links a { color: var(--ink); opacity: 1; transition: opacity .2s; border-bottom: 1px solid transparent; padding-bottom: 3px; }
-nav.links a:hover { opacity: 1; border-color: var(--red); }
-.burger { display: none; background: none; border: 0; color: var(--ink); font-size: 22px; cursor: pointer; }
-@media (max-width: 760px) {
-  nav.links { display: none; }
-  .burger { display: block; }
-  .navrow.open + .mobilenav { display: flex; }
+a{ color:inherit; text-decoration:none; }
+img,svg{ display:block; max-width:100%; }
+::selection{ background:var(--red); color:var(--paper); }
+header.site{ flex-shrink:0; background:var(--paper); border-bottom:1px solid var(--line); }
+.navrow{ display:flex; align-items:center; justify-content:space-between; padding:12px 28px; }
+.wordmark img.logo-nav{ height:20px; width:auto; display:block; }
+nav.links{ display:flex; gap:24px; font-family:var(--f-mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; }
+nav.links a{ color:var(--ink); opacity:0.75; transition:opacity .2s; border-bottom:1px solid transparent; padding-bottom:2px; }
+nav.links a:hover{ opacity:1; border-color:var(--red); }
+.burger{ display:none; background:none; border:0; color:var(--ink); font-size:20px; cursor:pointer; }
+@media(max-width:760px){ nav.links{ display:none; } .burger{ display:block; } .navrow.open + .mobilenav{ display:flex; } }
+.mobilenav{ display:none; flex-direction:column; gap:0; border-top:1px solid var(--line); background:var(--paper); }
+.mobilenav a{ padding:12px 28px; font-family:var(--f-mono); font-size:12px; letter-spacing:0.08em; text-transform:uppercase; border-bottom:1px solid var(--line); }
+.hero{ flex-shrink:0; padding:18px 28px 10px; text-align:center; width:100%; }
+.stamp{ font-family:var(--f-mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--red); display:inline-flex; align-items:center; gap:8px; margin-bottom:8px; }
+.stamp::before,.stamp::after{ content:"\25B8"; opacity:0.6; font-size:9px; }
+.stamp::after{ content:"\25C2"; }
+.hero h1{ font-family:var(--f-display); font-size:clamp(18px,2.2vw,26px); letter-spacing:0.04em; line-height:1; margin-bottom:4px; font-weight:400; color:var(--ink); }
+.hero p{ color:var(--paper-dim); font-family:var(--f-mono); font-size:11px; letter-spacing:0.05em; }
+.platforms{ flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr; gap:6px; padding:10px 28px; align-content:center; }
+.platform-link{ display:flex; align-items:center; gap:12px; padding:9px 14px; border:1px solid var(--line); border-radius:4px; color:var(--ink); transition:background .2s,border-color .2s,color .2s; }
+.platform-link:hover{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+.platform-link:hover .arrow{ opacity:1; color:var(--paper); }
+.platform-link:hover .platform-sub{ color:rgba(244,244,242,0.6); }
+.platform-icon{ width:30px; height:30px; border-radius:7px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.platform-name{ font-family:var(--f-body); font-size:13px; font-weight:600; }
+.platform-sub{ font-size:9px; color:var(--paper-dim); font-family:var(--f-mono); letter-spacing:0.08em; text-transform:uppercase; margin-top:1px; transition:color .2s; }
+.platform-info{ flex:1; min-width:0; }
+.arrow{ font-size:13px; color:var(--paper-dim); opacity:0.4; transition:opacity .2s,color .2s; flex-shrink:0; }
+.ic-spotify{background:#1DB954} .ic-apple{background:#fc3c44} .ic-tidal{background:#000;border:1px solid #ccc}
+.ic-deezer{background:#A238FF} .ic-audiomack{background:#F4820C} .ic-youtube{background:#FF0000}
+.ic-amazon{background:#25D1DA} .ic-itunes{background:#FB5BC5} .ic-soundcloud{background:#FF5500}
+.logo-nav{ filter:invert(1); }
+footer.mini{ flex-shrink:0; background:var(--ink); color:var(--paper); padding:10px 28px; font-family:var(--f-mono); font-size:11px; }
+footer.mini a{ color:var(--paper); text-decoration:none; opacity:0.7; }
+footer.mini a:hover{ opacity:1; }
+@media(max-width:480px){
+  .navrow{ padding:10px 16px; }
+  .hero{ padding:12px 16px 8px; }
+  .platforms{ padding:8px 16px; gap:5px; }
+  .platform-link{ padding:8px 10px; gap:8px; }
+  .platform-icon{ width:26px; height:26px; border-radius:6px; }
+  .platform-name{ font-size:12px; }
+  .platform-sub{ font-size:8px; }
 }
-.mobilenav { display: none; flex-direction: column; gap: 0; border-top: 1px solid var(--line); background: var(--paper); }
-.mobilenav a { padding: 16px 28px; font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 1px solid var(--line); color: var(--ink); }
-.hero { padding: 72px 28px 48px; text-align: center; max-width: 680px; margin: 0 auto; width: 100%; }
-.stamp {
-  font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--red); display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px;
-}
-.stamp::before, .stamp::after { content: "\25B8"; opacity: 0.6; font-size: 10px; }
-.stamp::after { content: "\25C2"; }
-.hero h1 { font-family: var(--f-display); font-size: clamp(22px,3.5vw,34px); letter-spacing: 0.04em; line-height: 1; margin-bottom: 14px; font-weight: 400; color: var(--ink); }
-.hero p { color: var(--paper-dim); font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.06em; }
-.platforms { flex: 1; max-width: 680px; width: 100%; margin: 0 auto; padding: 0 28px 80px; }
-.platform-link {
-  display: flex; align-items: center; gap: 20px; padding: 20px 24px;
-  border: 1px solid var(--line); border-radius: 4px; text-decoration: none;
-  color: var(--ink); margin-bottom: 12px; transition: background .2s, border-color .2s, color .2s;
-}
-.platform-link:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-.platform-link:hover .arrow { opacity: 1; color: var(--paper); }
-.platform-link:hover .platform-sub { color: rgba(244,244,242,0.6); }
-.platform-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.platform-name { font-family: var(--f-body); font-size: 18px; font-weight: 600; letter-spacing: 0; }
-.platform-sub { font-size: 11px; color: var(--paper-dim); font-family: var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; transition: color .2s; }
-.platform-info { flex: 1; }
-.arrow { font-size: 18px; color: var(--paper-dim); opacity: 0.4; transition: opacity .2s, color .2s; }
-.ic-spotify  { background: #1DB954; }
-.ic-apple    { background: #fc3c44; }
-.ic-tidal    { background: #000; border: 1px solid #ccc; }
-.ic-deezer   { background: #A238FF; }
-.ic-audiomack{ background: #F4820C; }
-.ic-youtube  { background: #FF0000; }
-.ic-amazon   { background: #25D1DA; }
-.ic-itunes   { background: #FB5BC5; }
-.ic-soundcloud { background: #FF5500; }
-@media (max-width: 480px) {
-  .navrow { padding: 14px 20px; }
-  .hero { padding: 52px 20px 36px; }
-  .platforms { padding: 0 20px 60px; }
-  .platform-link { padding: 16px 18px; gap: 14px; }
-}
-.logo-nav { filter: invert(1); }
-.h2 { font-size: clamp(24px,3.5vw,38px); }
-
-h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
-  /* ── Mini footer ── */
-  footer.mini{ background:var(--ink); color:var(--paper); padding:18px 28px; font-family:var(--f-mono); font-size:11px; }
-  footer.mini a{ color:var(--paper); text-decoration:none; opacity:0.7; }
-  footer.mini a:hover{ opacity:1; }
 </style>
 </head>
 <body>
@@ -124,47 +100,47 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
 </div>
 <div class="platforms">
   <a class="platform-link" href="https://itunes.apple.com/us/artist/whosrila/1546979772" target="_blank" rel="noopener">
-    <div class="platform-icon ic-itunes"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701z"/></svg></div>
+    <div class="platform-icon ic-itunes"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701z"/></svg></div>
     <div class="platform-info"><div class="platform-name">iTunes Store</div><div class="platform-sub">Buy now</div></div>
     <div class="arrow">&#8594;</div>
   </a>
   <a class="platform-link" href="https://music.apple.com/us/artist/whosrila/1546979772" target="_blank" rel="noopener">
-    <div class="platform-icon ic-apple"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.9.8L8.5 3.1v13.2c-.8-.4-1.8-.6-3-.4-2.1.4-3.6 2.2-3.3 4 .3 1.8 2.2 3 4.3 2.6 1.9-.4 3.3-1.9 3.3-3.7V6.3l8.4-1.9v10c-.8-.4-1.8-.6-3-.4-2.1.4-3.6 2.2-3.3 4 .3 1.8 2.2 3 4.3 2.6 1.9-.4 3.3-1.9 3.3-3.7V.8h-1z"/></svg></div>
+    <div class="platform-icon ic-apple"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18.9.8L8.5 3.1v13.2c-.8-.4-1.8-.6-3-.4-2.1.4-3.6 2.2-3.3 4 .3 1.8 2.2 3 4.3 2.6 1.9-.4 3.3-1.9 3.3-3.7V6.3l8.4-1.9v10c-.8-.4-1.8-.6-3-.4-2.1.4-3.6 2.2-3.3 4 .3 1.8 2.2 3 4.3 2.6 1.9-.4 3.3-1.9 3.3-3.7V.8h-1z"/></svg></div>
     <div class="platform-info"><div class="platform-name">Apple Music</div><div class="platform-sub">Stream now</div></div>
     <div class="arrow">&#8594;</div>
   </a>
   <a class="platform-link" href="https://open.spotify.com/playlist/29qMAb0mUXC61wnlcbrGrt?si=5bcb231a079045b1" target="_blank" rel="noopener">
-    <div class="platform-icon ic-spotify"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.516 17.316a.75.75 0 0 1-1.031.249c-2.824-1.726-6.377-2.116-10.563-1.16a.75.75 0 1 1-.334-1.462c4.578-1.047 8.505-.596 11.68 1.341a.75.75 0 0 1 .248 1.032zm1.472-3.277a.937.937 0 0 1-1.288.309c-3.232-1.988-8.16-2.563-11.984-1.404a.937.937 0 1 1-.543-1.79c4.37-1.327 9.8-.68 13.506 1.598a.937.937 0 0 1 .31 1.287zm.126-3.409C15.457 8.4 9.386 8.2 5.985 9.252a1.125 1.125 0 1 1-.652-2.152c3.895-1.18 10.37-.951 14.45 1.742a1.125 1.125 0 1 1-1.669 1.788z"/></svg></div>
+    <div class="platform-icon ic-spotify"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.516 17.316a.75.75 0 0 1-1.031.249c-2.824-1.726-6.377-2.116-10.563-1.16a.75.75 0 1 1-.334-1.462c4.578-1.047 8.505-.596 11.68 1.341a.75.75 0 0 1 .248 1.032zm1.472-3.277a.937.937 0 0 1-1.288.309c-3.232-1.988-8.16-2.563-11.984-1.404a.937.937 0 1 1-.543-1.79c4.37-1.327 9.8-.68 13.506 1.598a.937.937 0 0 1 .31 1.287zm.126-3.409C15.457 8.4 9.386 8.2 5.985 9.252a1.125 1.125 0 1 1-.652-2.152c3.895-1.18 10.37-.951 14.45 1.742a1.125 1.125 0 1 1-1.669 1.788z"/></svg></div>
     <div class="platform-info"><div class="platform-name">Spotify</div><div class="platform-sub">Stream now</div></div>
     <div class="arrow">&#8594;</div>
   </a>
   <a class="platform-link" href="https://audiomack.com/whosrila" target="_blank" rel="noopener">
-    <div class="platform-icon ic-audiomack"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg></div>
+    <div class="platform-icon ic-audiomack"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg></div>
     <div class="platform-info"><div class="platform-name">Audiomack</div><div class="platform-sub">Stream now</div></div>
     <div class="arrow">&#8594;</div>
   </a>
   <a class="platform-link" href="https://tidal.com/artist/22841100/u" target="_blank" rel="noopener">
-    <div class="platform-icon ic-tidal"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004L20.02 12l4.004-4.004-4.004-4.004-4.004 4.004-4.004-4.004zM8.008 16.004l4.004-4.004 4.004 4.004-4.004 4.004z"/></svg></div>
+    <div class="platform-icon ic-tidal"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004L20.02 12l4.004-4.004-4.004-4.004-4.004 4.004-4.004-4.004zM8.008 16.004l4.004-4.004 4.004 4.004-4.004 4.004z"/></svg></div>
     <div class="platform-info"><div class="platform-name">Tidal</div><div class="platform-sub">Stream now</div></div>
     <div class="arrow">&#8594;</div>
   </a>
   <a class="platform-link" href="https://www.deezer.com/us/artist/129464442" target="_blank" rel="noopener">
-    <div class="platform-icon ic-deezer"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.81 4.16v3.03H24V4.16h-5.19zM6.27 8.38v3.027h5.189V8.38H6.27zm6.27 0v3.027h5.19V8.38h-5.19zm6.27 0v3.027H24V8.38h-5.19zM6.27 12.6v3.027h5.189V12.6H6.27zm6.27 0v3.027h5.19V12.6h-5.19zm6.27 0v3.027H24V12.6h-5.19zM0 16.81v3.027h5.19V16.81H0zm6.27 0v3.027h5.189V16.81H6.27zm6.27 0v3.027h5.19V16.81h-5.19zm6.27 0v3.027H24V16.81h-5.19z"/></svg></div>
+    <div class="platform-icon ic-deezer"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18.81 4.16v3.03H24V4.16h-5.19zM6.27 8.38v3.027h5.189V8.38H6.27zm6.27 0v3.027h5.19V8.38h-5.19zm6.27 0v3.027H24V8.38h-5.19zM6.27 12.6v3.027h5.189V12.6H6.27zm6.27 0v3.027h5.19V12.6h-5.19zm6.27 0v3.027H24V12.6h-5.19zM0 16.81v3.027h5.19V16.81H0zm6.27 0v3.027h5.189V16.81H6.27zm6.27 0v3.027h5.19V16.81h-5.19zm6.27 0v3.027H24V16.81h-5.19z"/></svg></div>
     <div class="platform-info"><div class="platform-name">Deezer</div><div class="platform-sub">Stream now</div></div>
     <div class="arrow">&#8594;</div>
   </a>
   <a class="platform-link" href="https://music.youtube.com/@whosrila?si=u8wwIHTz__MBYscE" target="_blank" rel="noopener">
-    <div class="platform-icon ic-youtube"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div>
+    <div class="platform-icon ic-youtube"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div>
     <div class="platform-info"><div class="platform-name">YouTube Music</div><div class="platform-sub">Stream now</div></div>
     <div class="arrow">&#8594;</div>
   </a>
   <a class="platform-link" href="https://music.amazon.com/artists/B0925ZJPCM/whosrila" target="_blank" rel="noopener">
-    <div class="platform-icon ic-amazon"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.699-3.182v.685zm3.186 7.706a.657.657 0 0 1-.748.074c-1.051-.873-1.239-1.279-1.814-2.111-1.732 1.767-2.958 2.296-5.201 2.296-2.656 0-4.718-1.638-4.718-4.921 0-2.565 1.386-4.309 3.359-5.163 1.712-.754 4.104-.889 5.933-1.097v-.409c0-.753.059-1.642-.384-2.294-.384-.581-1.122-.822-1.775-.822-1.205 0-2.279.618-2.54 1.898-.054.285-.261.567-.549.582l-3.061-.33c-.259-.057-.547-.266-.474-.661.702-3.706 4.049-4.823 7.046-4.823 1.532 0 3.532.407 4.738 1.569 1.532 1.43 1.385 3.34 1.385 5.42v4.908c0 1.475.612 2.122 1.188 2.919.204.284.248.625-.011.836l-2.374 2.129z"/><path d="M20.991 20.515c-3.285 2.394-8.054 3.667-12.158 3.667-5.752 0-10.929-2.126-14.843-5.664-.308-.278-.033-.657.337-.441 4.226 2.457 9.449 3.935 14.843 3.935 3.636 0 7.635-.753 11.321-2.314.555-.236 1.021.363.5.817z"/></svg></div>
+    <div class="platform-icon ic-amazon"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.699-3.182v.685zm3.186 7.706a.657.657 0 0 1-.748.074c-1.051-.873-1.239-1.279-1.814-2.111-1.732 1.767-2.958 2.296-5.201 2.296-2.656 0-4.718-1.638-4.718-4.921 0-2.565 1.386-4.309 3.359-5.163 1.712-.754 4.104-.889 5.933-1.097v-.409c0-.753.059-1.642-.384-2.294-.384-.581-1.122-.822-1.775-.822-1.205 0-2.279.618-2.54 1.898-.054.285-.261.567-.549.582l-3.061-.33c-.259-.057-.547-.266-.474-.661.702-3.706 4.049-4.823 7.046-4.823 1.532 0 3.532.407 4.738 1.569 1.532 1.43 1.385 3.34 1.385 5.42v4.908c0 1.475.612 2.122 1.188 2.919.204.284.248.625-.011.836l-2.374 2.129z"/><path d="M20.991 20.515c-3.285 2.394-8.054 3.667-12.158 3.667-5.752 0-10.929-2.126-14.843-5.664-.308-.278-.033-.657.337-.441 4.226 2.457 9.449 3.935 14.843 3.935 3.636 0 7.635-.753 11.321-2.314.555-.236 1.021.363.5.817z"/></svg></div>
     <div class="platform-info"><div class="platform-name">Amazon Music</div><div class="platform-sub">Stream now</div></div>
     <div class="arrow">&#8594;</div>
   </a>
   <a class="platform-link" href="https://soundcloud.com/whosrila" target="_blank" rel="noopener">
-    <div class="platform-icon ic-soundcloud"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M1.175 12.225c-.052 0-.094.046-.101.1l-.233 2.154.233 2.105c.007.058.05.098.101.098.05 0 .09-.04.099-.098l.255-2.105-.27-2.154c-.009-.06-.05-.1-.1-.1m-.899.828c-.06 0-.109.05-.116.11L0 14.479l.16 1.308c.007.06.056.11.116.11.057 0 .105-.05.114-.11l.19-1.308-.19-1.316c-.009-.06-.057-.11-.114-.11m1.81-.7c-.065 0-.12.055-.126.12l-.208 2.006.208 2.06c.006.065.06.12.126.12.064 0 .118-.055.125-.12l.237-2.06-.237-2.006c-.007-.065-.061-.12-.125-.12m.91-.24c-.076 0-.14.063-.145.14l-.187 2.246.187 2.085c.005.077.069.14.145.14.075 0 .14-.063.145-.14l.214-2.085-.214-2.246c-.005-.077-.07-.14-.145-.14m.915-.19c-.088 0-.163.072-.168.16l-.165 2.436.165 2.07c.005.088.08.16.168.16.087 0 .162-.072.167-.16l.188-2.07-.188-2.436c-.005-.088-.08-.16-.167-.16m.927-.08c-.1 0-.182.08-.186.18l-.144 2.516.144 2.055c.004.1.086.18.186.18.1 0 .18-.08.186-.18l.163-2.055-.163-2.516c-.006-.1-.086-.18-.186-.18m.927-.02c-.112 0-.203.09-.207.2l-.122 2.536.122 2.05c.004.11.095.2.207.2.11 0 .2-.09.206-.2l.14-2.05-.14-2.536c-.006-.11-.096-.2-.206-.2m1.854 1.3c-.027-.965-.76-1.738-1.677-1.738-.25 0-.485.06-.694.165V17.43c.01.107.088.193.187.2h2.184c.217 0 .393-.182.393-.406l.005-.084-.398-3.675zm.925-1.79c-.3 0-.576.1-.8.268-.048-1.595-1.315-2.876-2.876-2.876-.41 0-.8.09-1.15.25-.134.06-.17.12-.172.18v5.67c.003.066.05.12.113.126h5.084c.322 0 .583-.268.583-.597v-.016c0-1.6-1.262-2.9-2.782-3.005"/></svg></div>
+    <div class="platform-icon ic-soundcloud"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M1.175 12.225c-.052 0-.094.046-.101.1l-.233 2.154.233 2.105c.007.058.05.098.101.098.05 0 .09-.04.099-.098l.255-2.105-.27-2.154c-.009-.06-.05-.1-.1-.1m-.899.828c-.06 0-.109.05-.116.11L0 14.479l.16 1.308c.007.06.056.11.116.11.057 0 .105-.05.114-.11l.19-1.308-.19-1.316c-.009-.06-.057-.11-.114-.11m1.81-.7c-.065 0-.12.055-.126.12l-.208 2.006.208 2.06c.006.065.06.12.126.12.064 0 .118-.055.125-.12l.237-2.06-.237-2.006c-.007-.065-.061-.12-.125-.12m.91-.24c-.076 0-.14.063-.145.14l-.187 2.246.187 2.085c.005.077.069.14.145.14.075 0 .14-.063.145-.14l.214-2.085-.214-2.246c-.005-.077-.07-.14-.145-.14m.915-.19c-.088 0-.163.072-.168.16l-.165 2.436.165 2.07c.005.088.08.16.168.16.087 0 .162-.072.167-.16l.188-2.07-.188-2.436c-.005-.088-.08-.16-.167-.16m.927-.08c-.1 0-.182.08-.186.18l-.144 2.516.144 2.055c.004.1.086.18.186.18.1 0 .18-.08.186-.18l.163-2.055-.163-2.516c-.006-.1-.086-.18-.186-.18m.927-.02c-.112 0-.203.09-.207.2l-.122 2.536.122 2.05c.004.11.095.2.207.2.11 0 .2-.09.206-.2l.14-2.05-.14-2.536c-.006-.11-.096-.2-.206-.2m1.854 1.3c-.027-.965-.76-1.738-1.677-1.738-.25 0-.485.06-.694.165V17.43c.01.107.088.193.187.2h2.184c.217 0 .393-.182.393-.406l.005-.084-.398-3.675zm.925-1.79c-.3 0-.576.1-.8.268-.048-1.595-1.315-2.876-2.876-2.876-.41 0-.8.09-1.15.25-.134.06-.17.12-.172.18v5.67c.003.066.05.12.113.126h5.084c.322 0 .583-.268.583-.597v-.016c0-1.6-1.262-2.9-2.782-3.005"/></svg></div>
     <div class="platform-info"><div class="platform-name">SoundCloud</div><div class="platform-sub">Stream now</div></div>
     <div class="arrow">&#8594;</div>
   </a>
