@@ -18,19 +18,24 @@
 h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
 
 /* ── Track actions ── */
-.track-item { display:flex; flex-direction:column; border-bottom:1px solid var(--line); }
-.track-item .track-row { border-bottom:none; }
+.track-item { display:flex; flex-direction:column; border-bottom:1px solid rgba(244,244,242,0.12); background:rgba(244,244,242,0.06); }
+.track-item .track-row { border-bottom:none; color:var(--paper); }
+  .track-item .track-row .idx { color:rgba(244,244,242,0.55); }
+  .track-item .track-row .title-line { color:var(--paper); }
+  .track-item .track-row .dur { color:rgba(244,244,242,0.55); opacity:1; }
+  .track-item .track-row:hover .title-line { color:var(--red); }
+  .track-item .track-row:hover { background:rgba(244,244,242,0.08); }
 .track-actions { display:flex; align-items:center; gap:12px; padding:4px 0 12px 52px; }
 .play-btn {
   display:flex; align-items:center; justify-content:center;
   width:30px; height:30px; border-radius:50%;
-  border:1.5px solid var(--ink); background:transparent;
-  color:var(--ink); cursor:pointer; flex-shrink:0;
+  border:1.5px solid var(--paper); background:transparent;
+  color:var(--paper); cursor:pointer; flex-shrink:0;
   transition:background .15s,color .15s;
 }
-.play-btn:hover { background:var(--ink); color:var(--paper); }
+.play-btn:hover { background:var(--paper); color:var(--ink); }
 .play-btn.playing { background:var(--red); border-color:var(--red); color:#fff; }
-.preview-label { font-size:11px; color:var(--paper-dim); letter-spacing:.05em; text-transform:uppercase; }
+.preview-label { font-size:11px; color:rgba(244,244,242,0.6); letter-spacing:.05em; text-transform:uppercase; }
 .buy-btn {
   margin-left:auto;
   display:inline-block; padding:6px 20px;
@@ -343,8 +348,8 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
   <div class="wrap">
     <div class="section-head reveal">
       <span class="stamp">DISCOGRAPHY</span>
-      <h2 class="h2" style="margin-top:14px;">All Music</h2>
-      <p class="lede" style="margin-top:14px;">Every song WHOSRILA has out, plus what&rsquo;s coming next &mdash; in one place.</p>
+      <h2 class="h2" style="margin-top:14px;color:var(--paper);filter:none;">All Music</h2>
+      <p class="lede" style="margin-top:14px;color:rgba(244,244,242,0.75);">Every song WHOSRILA has out, plus what&rsquo;s coming next &mdash; in one place.</p>
     </div>
 
 <div class="tracklist">
