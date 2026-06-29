@@ -106,6 +106,27 @@ footer.mini a:hover{ color:var(--paper); border-color:var(--paper); }
 .h2 { font-size: clamp(24px,3.5vw,38px); }
 
 h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
+
+.preview-player{
+  display:flex; align-items:center; gap:16px;
+  padding:16px 20px; margin-bottom:16px;
+  border:1px solid var(--line); border-radius:6px; background:var(--paper);
+}
+.preview-btn{
+  width:44px; height:44px; border-radius:50%; flex-shrink:0;
+  border:2px solid var(--ink); background:transparent; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--ink); transition:background .2s, border-color .2s, color .2s;
+}
+.preview-btn:hover,.preview-btn.playing{
+  background:var(--red); border-color:var(--red); color:#fff;
+}
+.preview-meta{ display:flex; flex-direction:column; gap:2px; }
+.preview-tag{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--paper-dim);
+}
+
 </style>
 </head>
 <body>
@@ -142,6 +163,15 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
       The height (900) can be adjusted to match what Feature.fm
       recommends for your specific campaign layout.
     ========================================================== -->
+    <div class="preview-player">
+      <audio class="preview-audio" src="/audio/kingston.mp3" preload="none"></audio>
+      <button class="preview-btn" aria-label="Play preview">
+        <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+      </button>
+      <div class="preview-meta">
+        <span class="preview-tag">Preview</span>
+      </div>
+    </div>
     <div class="embed-frame">
       <iframe
         src="https://ffm.to/whosrila-kingston"
@@ -177,5 +207,23 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
   })();
 </script>
 
+<script>
+(function(){
+  var btn=document.querySelector('.preview-btn');
+  var audio=document.querySelector('.preview-audio');
+  var tag=document.querySelector('.preview-tag');
+  if(!btn||!audio)return;
+  var PLAY='<svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>';
+  var PAUSE='<svg width="12" height="14" viewBox="0 0 12 14"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="8" y="0" width="4" height="14" fill="currentColor"/></svg>';
+  btn.addEventListener('click',function(){
+    if(audio.paused){
+      audio.play();btn.classList.add('playing');btn.innerHTML=PAUSE;tag.textContent='Playing…';
+      audio.onended=function(){btn.classList.remove('playing');btn.innerHTML=PLAY;tag.textContent='Preview';};
+    }else{
+      audio.pause();audio.currentTime=0;btn.classList.remove('playing');btn.innerHTML=PLAY;tag.textContent='Preview';
+    }
+  });
+})();
+</script>
 </body>
 </html>
