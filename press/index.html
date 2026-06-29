@@ -95,18 +95,9 @@ img { display: block; max-width: 100%; }
 .press-contact a.email-link { font-family: var(--f-mono); font-size: clamp(14px,2vw,18px); color: var(--paper); border-bottom: 1px solid rgba(244,244,242,.4); padding-bottom: 2px; transition: border-color .15s; }
 .press-contact a.email-link:hover { border-color: var(--paper); }
 
-footer.mini {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 18px 28px;
-  font-family: var(--f-mono);
-  font-size: 11px;
-  text-align: center;
-  opacity: 0.7;
-  border-top: 1px solid rgba(244,244,242,.1);
-}
-footer.mini a { color: var(--paper); text-decoration: none; opacity: 0.7; }
-footer.mini a:hover { opacity: 1; }
+footer.mini { background:var(--ink); color:var(--paper); padding:18px 28px; font-family:var(--f-mono); font-size:11px; }
+footer.mini a { color:var(--paper); text-decoration:none; opacity:0.7; }
+footer.mini a:hover { opacity:1; }
 .logo-nav { filter: invert(1); }
 .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 .photo-item .press-photo { max-height: 280px; width: 100%; object-fit: cover; }
@@ -238,7 +229,7 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
 </section>
 
 <footer class="mini">
-  <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+  <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
     <span>&copy; 2026 WHOSRILA LLC</span>
     <a href="/">whosrila.com</a>
   </div>
