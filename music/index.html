@@ -141,7 +141,7 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
     display:none; flex-direction:column; gap:0; border-top:1px solid var(--line);
   }
   .mobilenav a{
-    padding:16px 28px; font-family:var(--f-mono); font-size:13px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--paper); padding:16px 28px; font-family:var(--f-mono); font-size:13px; letter-spacing:0.08em; text-transform:uppercase;
     border-bottom:1px solid var(--line);
   }
 
@@ -326,19 +326,14 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
   footer.mini a{ color:var(--paper); text-decoration:none; opacity:0.7; }
   footer.mini a:hover{ opacity:1; }
 
-/* ── Compact no-scroll music layout ── */
-html{ height:100%; }
-body{ display:flex; flex-direction:column; height:100dvh; overflow:hidden; }
-header.site{ flex-shrink:0; }
-#records-section{ flex:1; min-height:0; display:flex; flex-direction:column; overflow:hidden; padding:10px 0 0; }
-#records-section .wrap{ flex:1; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
-.section-head{ flex-shrink:0; margin-bottom:6px; padding:8px 0 0; }
+/* ── Compact scrollable music layout ── */
+#records-section{ padding:30px 0 60px; }
+.section-head{ margin-bottom:12px; padding:8px 0 0; }
 .section-head .stamp{ font-size:10px; }
-.h2{ font-size:clamp(16px,2vw,22px) !important; }
-.lede{ font-size:12px; margin-top:4px; }
-.tracklist{ flex:1; min-height:0; overflow:hidden; display:flex; flex-direction:column; justify-content:center; }
+.h2{ font-size:clamp(18px,2.5vw,26px) !important; }
+.lede{ font-size:13px; margin-top:4px; }
+.tracklist{ display:block; }
 .listen-cta-row{ display:none !important; }
-footer.mini{ flex-shrink:0; }
 #joinlist{ display:none !important; }
 .track-row{ padding:4px 0 !important; grid-template-columns:20px 28px 1fr auto !important; gap:10px !important; }
 .track-row .cover{ width:28px !important; height:28px !important; }
@@ -368,9 +363,9 @@ footer.mini{ flex-shrink:0; }
     <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
   </div>
   <div class="mobilenav" id="mobileNav">
+    <a href="/#bio">Bio</a>
     <a href="/music">Music</a>
     <a href="/listen">Listen</a>
-    <a href="/#bio">Bio</a>
     <a href="/press">Press</a>
   </div>
 </header>
