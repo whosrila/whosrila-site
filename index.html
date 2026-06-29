@@ -333,10 +333,14 @@
 /* ── Track rows link to individual song pages ── */
 #music .track-row .title-line::after {
   content: " →";
-  font-size: 11px;
+  font-size: 16px;
   font-family: var(--f-mono);
-  opacity: 0.45;
+  opacity: 0;
   letter-spacing: 0.05em;
+  transition: opacity .15s;
+}
+#music .track-row:hover .title-line::after {
+  opacity: 1;
 }
 #music .track-row:hover .title-line {
   text-decoration: underline;
