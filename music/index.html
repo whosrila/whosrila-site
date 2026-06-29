@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Music â WHOSRILA</title>
-<meta name="description" content="Every WHOSRILA song in one place â stream the current catalog or pre-save the next single.">
+<title>Music — WHOSRILA</title>
+<meta name="description" content="Every WHOSRILA song in one place — stream the current catalog or pre-save the next single.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
@@ -17,7 +17,7 @@
 }
 h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
 
-/* ââ Track actions ââ */
+/* ── Track actions ── */
 .track-item { display:flex; flex-direction:column; border-bottom:1px solid rgba(244,244,242,0.12); background:rgba(244,244,242,0.06); }
 .track-item .track-row { border-bottom:none; color:var(--paper); }
   .track-item .track-row .idx { color:rgba(244,244,242,0.55); }
@@ -104,8 +104,8 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
     align-items:center;
     gap:10px;
   }
-  .stamp::before,.stamp::after{ content:"â¸"; opacity:0.6; font-size:10px; }
-  .stamp::after{ content:"â"; }
+  .stamp::before,.stamp::after{ content:"▸"; opacity:0.6; font-size:10px; }
+  .stamp::after{ content:"◂"; }
 
   h1,h2,h3{ font-family:var(--f-display); font-weight:400; margin:0; letter-spacing:0.01em; }
   .h2{ font-size:clamp(20px,3vw,30px); line-height:1.02; text-transform:uppercase; }
@@ -321,7 +321,7 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
   .reveal.in{ opacity:1; transform:none; }
 .h2 { font-size: clamp(24px,3.5vw,38px); }
 
-  /* ââ Mini footer ââ */
+  /* ── Mini footer ── */
   footer.mini{ background:var(--ink); color:var(--paper); padding:18px 28px; font-family:var(--f-mono); font-size:11px; }
   footer.mini a{ color:var(--paper); text-decoration:none; opacity:0.7; }
   footer.mini a:hover{ opacity:1; }
@@ -461,7 +461,7 @@ footer.mini{ flex-shrink:0; }
           <span class="idx">05</span>
           <img class="cover" src="/images/cover-fullymeech.jpg" alt="" loading="lazy">
           <span class="title-block">
-            <span class="title-line">Fully Meech â Acoustic</span>
+            <span class="title-line">Fully Meech — Acoustic</span>
           </span>
           <span class="dur">3:01</span>
         </a>
@@ -560,7 +560,7 @@ footer.mini{ flex-shrink:0; }
       <span class="stamp">STAY IN THE LOOP</span>
       <h2 class="h2" style="margin:14px 0 8px; font-size:clamp(26px,4vw,38px);">No noise. Just signal.</h2>
       <!--
-        Netlify Forms: this form works automatically once deployed on Netlify â
+        Netlify Forms: this form works automatically once deployed on Netlify —
         no backend needed. The hidden field + honeypot are part of Netlify's spam protection.
       -->
       <form class="signup" id="signupForm" action="https://api.web3forms.com/submit" method="POST">
@@ -611,7 +611,7 @@ footer.mini{ flex-shrink:0; }
 
 <script>
   // ===========================================================
-  // EDIT ME â replace the placeholder links below with the real ones.
+  // EDIT ME — replace the placeholder links below with the real ones.
   // Everything on the page that says href="#" for an outbound link
   // pulls from here, so you only have to update it in one place.
   // ===========================================================
@@ -676,7 +676,7 @@ footer.mini{ flex-shrink:0; }
         document.getElementById('signupSuccess').style.display = 'block';
       })
       .catch(() => {
-        errorEl.textContent = "Something went wrong â please try again in a moment.";
+        errorEl.textContent = "Something went wrong — please try again in a moment.";
         errorEl.style.display = 'block';
       });
     });
