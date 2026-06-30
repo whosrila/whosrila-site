@@ -191,6 +191,7 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
       <button class="photo-tab active" data-cat="portrait">Portrait</button>
       <button class="photo-tab" data-cat="lifestyle">Lifestyle</button>
       <button class="photo-tab" data-cat="release">Release</button>
+      <button class="photo-tab" data-cat="artwork">Artwork</button>
     </div>
 
     <!-- PORTRAIT / EDITORIAL -->
@@ -210,7 +211,20 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
             <a class="photo-download" href="/images/portrait-2.jpg" download="WHOSRILA-portrait-02.jpg">&#8595; Download</a>
           </div>
         </div>
-        <!-- Add more portrait photos here: <div class="photo-item">...</div> -->
+        <div class="photo-item">
+          <img class="press-photo" src="/images/portrait-3.jpg" alt="WHOSRILA &#8212; Press Photo 3">
+          <div class="photo-meta">
+            <span class="photo-caption">Portrait 03</span>
+            <a class="photo-download" href="/images/portrait-3.jpg" download="WHOSRILA-portrait-03.jpg">&#8595; Download</a>
+          </div>
+        </div>
+        <div class="photo-item">
+          <img class="press-photo" src="/images/portrait-4.jpg" alt="WHOSRILA &#8212; Press Photo 4">
+          <div class="photo-meta">
+            <span class="photo-caption">Portrait 04</span>
+            <a class="photo-download" href="/images/portrait-4.jpg" download="WHOSRILA-portrait-04.jpg">&#8595; Download</a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -230,9 +244,37 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
 
     <!-- RELEASE PHOTOS -->
     <div class="photo-cat" id="cat-release">
-      <p style="font-family:var(--f-mono);font-size:12px;color:var(--paper-dim);text-transform:uppercase;letter-spacing:.1em;padding:40px 0;">Release photos will appear here. Add images to /images/releases/ and link them in this section.</p>
-      <!-- Add release-specific photos here as singles drop -->
-      <!-- Example: <div class="photo-item"><img src="/images/releases/made-you-01.jpg" alt="Made You — Press Photo">...</div> -->
+      <div class="photo-grid">
+        <div class="photo-item">
+          <img class="press-photo" src="/images/press-color-1.jpg" alt="WHOSRILA &#8212; Made You 01">
+          <div class="photo-meta"><span class="photo-caption">Made You &#8212; 01</span><a class="photo-download" href="/images/press-color-1.jpg" download="WHOSRILA-made-you-01.jpg">&#8595; Download</a></div>
+        </div>
+        <div class="photo-item">
+          <img class="press-photo" src="/images/press-color-2.jpg" alt="WHOSRILA &#8212; Made You 02">
+          <div class="photo-meta"><span class="photo-caption">Made You &#8212; 02</span><a class="photo-download" href="/images/press-color-2.jpg" download="WHOSRILA-made-you-02.jpg">&#8595; Download</a></div>
+        </div>
+        <div class="photo-item">
+          <img class="press-photo" src="/images/press-color-3.jpg" alt="WHOSRILA &#8212; Made You 03">
+          <div class="photo-meta"><span class="photo-caption">Made You &#8212; 03</span><a class="photo-download" href="/images/press-color-3.jpg" download="WHOSRILA-made-you-03.jpg">&#8595; Download</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTWORK -->
+    <div class="photo-cat" id="cat-artwork">
+      <div class="photo-grid">
+        <div class="photo-item"><img class="press-photo" src="/images/art-madeyou.jpg" alt="Made You"><div class="photo-meta"><span class="photo-caption">Made You</span><a class="photo-download" href="/images/art-madeyou.jpg" download="WHOSRILA-made-you-art.jpg">&#8595; Download</a></div></div>
+        <div class="photo-item"><img class="press-photo" src="/images/art-kng.jpg" alt="KNG"><div class="photo-meta"><span class="photo-caption">KNG</span><a class="photo-download" href="/images/art-kng.jpg" download="WHOSRILA-kng-art.jpg">&#8595; Download</a></div></div>
+        <div class="photo-item"><img class="press-photo" src="/images/art-protection.jpg" alt="Protection"><div class="photo-meta"><span class="photo-caption">Protection</span><a class="photo-download" href="/images/art-protection.jpg" download="WHOSRILA-protection-art.jpg">&#8595; Download</a></div></div>
+        <div class="photo-item"><img class="press-photo" src="/images/art-bluenotes.jpg" alt="Blue Notes"><div class="photo-meta"><span class="photo-caption">Blue Notes</span><a class="photo-download" href="/images/art-bluenotes.jpg" download="WHOSRILA-bluenotes-art.jpg">&#8595; Download</a></div></div>
+        <div class="photo-item"><img class="press-photo" src="/images/art-forme.jpg" alt="For Me"><div class="photo-meta"><span class="photo-caption">For Me</span><a class="photo-download" href="/images/art-forme.jpg" download="WHOSRILA-forme-art.jpg">&#8595; Download</a></div></div>
+        <div class="photo-item"><img class="press-photo" src="/images/art-fullymeech.jpg" alt="Fully Meech"><div class="photo-meta"><span class="photo-caption">Fully Meech</span><a class="photo-download" href="/images/art-fullymeech.jpg" download="WHOSRILA-fullymeech-art.jpg">&#8595; Download</a></div></div>
+        <div class="photo-item"><img class="press-photo" src="/images/art-gratitude.jpg" alt="Gratitude"><div class="photo-meta"><span class="photo-caption">Gratitude</span><a class="photo-download" href="/images/art-gratitude.jpg" download="WHOSRILA-gratitude-art.jpg">&#8595; Download</a></div></div>
+        <div class="photo-item"><img class="press-photo" src="/images/art-outtaline.jpg" alt="Outtaline"><div class="photo-meta"><span class="photo-caption">Outtaline</span><a class="photo-download" href="/images/art-outtaline.jpg" download="WHOSRILA-outtaline-art.jpg">&#8595; Download</a></div></div>
+        <div class="photo-item"><img class="press-photo" src="/images/art-topform.jpg" alt="Top Form"><div class="photo-meta"><span class="photo-caption">Top Form</span><a class="photo-download" href="/images/art-topform.jpg" download="WHOSRILA-topform-art.jpg">&#8595; Download</a></div></div>
+        <div class="photo-item"><img class="press-photo" src="/images/art-winenbubble.jpg" alt="Wine N Bubble"><div class="photo-meta"><span class="photo-caption">Wine N Bubble</span><a class="photo-download" href="/images/art-winenbubble.jpg" download="WHOSRILA-winenbubble-art.jpg">&#8595; Download</a></div></div>
+      </div>
+    </div> -->
     </div>
   </div>
 </section>
