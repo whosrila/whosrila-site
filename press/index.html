@@ -61,7 +61,7 @@ img { display: block; max-width: 100%; }
 
 /* PHOTO */
 .press-photo-wrap { padding: 64px 0 0; }
-.press-photo { width: 100%; max-height: 520px; object-fit: cover; object-position: center 25%; }
+.press-photo { width: 100%; height: auto; display: block; }
 .photo-caption { font-family: var(--f-mono); font-size: 11px; color: var(--paper-dim); margin-top: 10px; }
 .photo-download { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; border: 1px solid var(--ink); padding: 6px 14px; margin-top: 12px; transition: background .15s, color .15s; }
 .photo-download:hover { background: var(--ink); color: var(--paper); }
@@ -139,7 +139,7 @@ footer.mini a { color: var(--paper); text-decoration: none; opacity: 0.7; }
 footer.mini a:hover { opacity: 1; }
 .logo-nav { filter: invert(1); }
 .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-.photo-item .press-photo { max-height: 280px; width: 100%; object-fit: cover; }
+.photo-item .press-photo { width: 100%; height: auto; display: block; }
 .photo-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
 
 /* Force COLR font glyphs to appear dark on light background */
@@ -184,7 +184,7 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
 <section class="press-photo-wrap">
   <div class="wrap">
     <span class="stamp">Press Photos</span>
-    <p class="photo-caption" style="margin:12px 0 20px;">Download high-resolution photos for editorial use.</p>
+    <p class="photo-caption" style="margin:12px 0 20px;">Download high-resolution photos for editorial use. <a class="photo-download" href="#" onclick="(function(){var t='WHOSRILA PRESS PHOTO LICENSE\n\n\u00a9 2026 WHOSRILA LLC. All rights reserved.\n\nCREDIT REQUIRED\nAll uses must include: Photo courtesy of WHOSRILA LLC\n\nPERMITTED USES\nEditorial and press coverage of WHOSRILA only:\n  - Music journalism, reviews, and interviews\n  - Event listings and promotional features\n  - Blog posts, podcasts, and streaming profiles\n  - Print and digital media publications\n\nRESTRICTIONS\n  - No commercial use without written permission\n  - No advertising, sponsorships, or endorsements\n  - No alteration, cropping, or filtering\n  - No resale or redistribution as standalone assets\n  - No implication of endorsement\n\nINQUIRIES\nwhosrila@gmail.com\n\nBy downloading these photos you agree to these terms.';var b=new Blob([t],{type:'text/plain'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='WHOSRILA-press-license.txt';a.click();})();return false;" style="white-space:nowrap;">&#8595; Usage License</a></p>
     <div class="photo-grid">
       <div class="photo-item">
         <img class="press-photo" src="/images/portrait-1.jpg" alt="WHOSRILA &#8212; Portrait 01">
