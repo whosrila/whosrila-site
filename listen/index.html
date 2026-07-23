@@ -54,11 +54,12 @@ img{display:block;max-width:100%}
 .platform-link:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .platform-link:hover .platform-sub{color:rgba(244,244,242,.55)}
 .platform-link:hover .arrow{opacity:1}
-.platform-link:hover .picon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
+.picon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
 .picon img{width:40px;height:40px;object-fit:contain}
 .platform-name{font-size:15px;font-weight:600}
 .platform-sub{font-size:11px;color:var(--paper-dim);font-family:var(--f-mono);letter-spacing:.06em;text-transform:uppercase;margin-top:2px;transition:color .2s}
 .arrow{font-size:16px;opacity:0.3;transition:opacity .2s;margin-left:auto;flex-shrink:0}
+.platform-link:hover .picon{filter:brightness(0) invert(1)}
 footer.mini{background:var(--ink);color:var(--paper);padding:18px 28px;font-family:var(--f-mono);font-size:11px}
 footer.mini .fw{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;max-width:1080px;margin:0 auto}
 footer.mini a{color:var(--paper);opacity:.7}
