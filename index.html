@@ -401,18 +401,21 @@
   .btn-soon:hover{ transform:none; box-shadow:none; }
 
   /* ---------- Watch / video grid ----------
-     These are vertical (Shorts-format) videos. YouTube serves their
-     thumbnails padded into a 4:3 frame with blurred side-fill, so the
-     cards are 9:16 with object-fit:cover — that crops the padding away
-     and leaves just the real vertical footage. */
-  .video-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:24px; margin-top:8px; max-width:900px; }
+     Default cards are 16:9 (music videos, visualisers, sessions).
+     Add .video-grid--vertical for Shorts-format clips: YouTube serves
+     those thumbnails padded into a 4:3 frame with blurred side-fill,
+     so 9:16 + object-fit:cover crops the padding back off and leaves
+     just the real vertical footage. */
+  .video-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; margin-top:8px; }
+  .video-grid--vertical{ grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); max-width:900px; }
   .video-subhead{ margin:52px 0 22px; }
   .vid-card{ display:flex; flex-direction:column; gap:10px; }
   .vid-thumb{
-    position:relative; display:block; width:100%; aspect-ratio:9/16; padding:0;
+    position:relative; display:block; width:100%; aspect-ratio:16/9; padding:0;
     border:1px solid var(--line); background:var(--ink-2); overflow:hidden;
     cursor:pointer; border-radius:3px;
   }
+  .video-grid--vertical .vid-thumb{ aspect-ratio:9/16; }
   .vid-thumb img{
     width:100%; height:100%; object-fit:cover; display:block;
     filter:grayscale(1) contrast(1.05); transition:filter .3s, transform .4s;
@@ -430,9 +433,10 @@
   .vid-num{ font-family:var(--f-mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--red); }
   .vid-title{ font-family:var(--f-body); font-weight:600; font-size:15px; color:var(--paper); line-height:1.3; margin-top:-4px; }
   @media (max-width:560px){
-    .video-grid{ grid-template-columns:repeat(2,1fr); gap:16px; }
+    .video-grid{ grid-template-columns:1fr; gap:20px; }
+    .video-grid--vertical{ grid-template-columns:repeat(2,1fr); gap:16px; }
     .vid-play{ width:44px; height:44px; }
-    .vid-title{ font-size:13px; }
+    .vid-title{ font-size:14px; }
   }
 
 </style>
@@ -613,13 +617,15 @@
     <a href="/" class="wordmark"><img src="/images/logo.png" alt="WHOSRILA" class="logo-nav"></a>
     <nav class="links">
       <a href="/listen">Listen</a>
+      <a href="/watch">Watch</a>
       <a href="/press">Press</a>
       </nav>
     <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
   </div>
   <div class="mobilenav" id="mobileNav">
     <a href="/listen">Listen</a>
-    <a href="/press">Press</a>
+    <a href="/watch">Watch</a>
+      <a href="/press">Press</a>
     </div>
 </header>
 
@@ -960,115 +966,66 @@
 </section>
 
 <!-- ============================================================
-  WATCH — YouTube videos.
-  Thumbnails load as images; the YouTube player is only fetched
-  when someone actually clicks (keeps the page fast).
-  To add/change a video: copy a .vid-card block and swap
-  data-yt="VIDEO_ID" plus the title/label text.
+  WATCH — homepage strip. Shows the four most-watched videos only;
+  the full library lives at /watch.
+  Thumbnails are plain images — YouTube's player is fetched only
+  when someone presses play (see the .vid-thumb handler below).
+  To swap a video: change data-yt="VIDEO_ID", the <img> src, and
+  the title/label text.
 ============================================================ -->
 <section id="watch">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="stamp">Watch</span>
-      <h2 class="h2" style="margin-top:14px;">Behind The Music</h2>
-      <p class="lede" style="margin-top:14px;">Nine conversations on where the lyrics came from &mdash; what, when, why and where.</p>
+      <h2 class="h2" style="margin-top:14px;">Videos</h2>
+      <p class="lede" style="margin-top:14px;">Visualisers, sessions, and freestyles.</p>
     </div>
 
     <div class="video-grid">
-      <div class="vid-card reveal" data-yt="eqHOXzFe8HI">
-        <button class="vid-thumb" aria-label="Play: The Story Behind Protection">
-          <img src="https://i.ytimg.com/vi/eqHOXzFe8HI/hqdefault.jpg" alt="" loading="lazy">
+      <div class="vid-card reveal" data-yt="pj-5xh_bvqA">
+        <button class="vid-thumb" aria-label="Play: Gratitude">
+          <img src="https://i.ytimg.com/vi/pj-5xh_bvqA/hqdefault.jpg" alt="" loading="lazy">
           <span class="vid-play" aria-hidden="true">
             <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
           </span>
         </button>
-        <span class="vid-num">Pt. 4</span>
-        <span class="vid-title">The Story Behind Protection</span>
+        <span class="vid-title">Gratitude</span>
       </div>
 
-      <div class="vid-card reveal" data-yt="UGUQ5IhS770">
-        <button class="vid-thumb" aria-label="Play: The Story Behind Kingston">
-          <img src="https://i.ytimg.com/vi/UGUQ5IhS770/hqdefault.jpg" alt="" loading="lazy">
+      <div class="vid-card reveal" data-yt="7KixQD8viTs">
+        <button class="vid-thumb" aria-label="Play: For Me">
+          <img src="https://i.ytimg.com/vi/7KixQD8viTs/hqdefault.jpg" alt="" loading="lazy">
           <span class="vid-play" aria-hidden="true">
             <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
           </span>
         </button>
-        <span class="vid-num">Pt. 3</span>
-        <span class="vid-title">The Story Behind Kingston</span>
+        <span class="vid-title">For Me</span>
       </div>
 
-      <div class="vid-card reveal" data-yt="4oNycH8-y3s">
-        <button class="vid-thumb" aria-label="Play: The Story Behind Blue Notes">
-          <img src="https://i.ytimg.com/vi/4oNycH8-y3s/hqdefault.jpg" alt="" loading="lazy">
+      <div class="vid-card reveal" data-yt="vwlpnaLAuh8">
+        <button class="vid-thumb" aria-label="Play: Good Freestyle">
+          <img src="https://i.ytimg.com/vi/vwlpnaLAuh8/hqdefault.jpg" alt="" loading="lazy">
           <span class="vid-play" aria-hidden="true">
             <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
           </span>
         </button>
-        <span class="vid-num">Pt. 2</span>
-        <span class="vid-title">The Story Behind Blue Notes</span>
+        <span class="vid-title">Good Freestyle</span>
       </div>
 
-      <div class="vid-card reveal" data-yt="t5ORRDXzy2c">
-        <button class="vid-thumb" aria-label="Play: The Series Begins">
-          <img src="https://i.ytimg.com/vi/t5ORRDXzy2c/hqdefault.jpg" alt="" loading="lazy">
+      <div class="vid-card reveal" data-yt="oOgH1dByUnU">
+        <button class="vid-thumb" aria-label="Play: Blue Notes">
+          <img src="https://i.ytimg.com/vi/oOgH1dByUnU/hqdefault.jpg" alt="" loading="lazy">
           <span class="vid-play" aria-hidden="true">
             <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
           </span>
         </button>
-        <span class="vid-num">Pt. 1</span>
-        <span class="vid-title">The Series Begins</span>
-      </div>
-    </div>
-
-    <div class="video-subhead reveal">
-      <span class="stamp">Top Form</span>
-      <p class="lede" style="margin-top:10px;">Bars from the <a href="/topform" style="border-bottom:1px solid var(--red);">Top Form</a> run.</p>
-    </div>
-
-    <div class="video-grid">
-      <div class="vid-card reveal" data-yt="6TA9P655gj4">
-        <button class="vid-thumb" aria-label="Play: Call Me Lightning">
-          <img src="https://i.ytimg.com/vi/6TA9P655gj4/hqdefault.jpg" alt="" loading="lazy">
-          <span class="vid-play" aria-hidden="true">
-            <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
-          </span>
-        </button>
-        <span class="vid-title">&ldquo;Call me lightning&rdquo;</span>
-      </div>
-
-      <div class="vid-card reveal" data-yt="tdbP_ujrCM8">
-        <button class="vid-thumb" aria-label="Play: Bomb Dem Up">
-          <img src="https://i.ytimg.com/vi/tdbP_ujrCM8/hqdefault.jpg" alt="" loading="lazy">
-          <span class="vid-play" aria-hidden="true">
-            <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
-          </span>
-        </button>
-        <span class="vid-title">&ldquo;Bomb dem up&rdquo;</span>
-      </div>
-
-      <div class="vid-card reveal" data-yt="m66Y_sLGq6c">
-        <button class="vid-thumb" aria-label="Play: Energy Unmatched">
-          <img src="https://i.ytimg.com/vi/m66Y_sLGq6c/hqdefault.jpg" alt="" loading="lazy">
-          <span class="vid-play" aria-hidden="true">
-            <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
-          </span>
-        </button>
-        <span class="vid-title">&ldquo;Energy unmatched&rdquo;</span>
-      </div>
-
-      <div class="vid-card reveal" data-yt="fdAzONyv-dQ">
-        <button class="vid-thumb" aria-label="Play: The Form Is Immaculate">
-          <img src="https://i.ytimg.com/vi/fdAzONyv-dQ/hqdefault.jpg" alt="" loading="lazy">
-          <span class="vid-play" aria-hidden="true">
-            <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
-          </span>
-        </button>
-        <span class="vid-title">&ldquo;The form is immaculate&rdquo;</span>
+        <span class="vid-title">Blue Notes</span>
       </div>
     </div>
 
     <div class="listen-cta-row reveal">
-      <a href="https://www.youtube.com/@WHOSRILA" target="_blank" rel="noopener" class="btn btn-ghost">More on YouTube</a>
+      <a href="/watch" class="btn btn-primary">See All Videos</a>
+      <a href="https://www.youtube.com/@WHOSRILA" target="_blank" rel="noopener" class="btn btn-ghost">YouTube Channel</a>
     </div>
   </div>
 </section>
