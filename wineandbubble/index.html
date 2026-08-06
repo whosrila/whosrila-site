@@ -183,7 +183,7 @@
     var PAUSE='<svg width="12" height="14" viewBox="0 0 12 14"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="8" y="0" width="4" height="14" fill="currentColor"/></svg>';
     btn.addEventListener('click',function(){
       if(audio.paused){
-        audio.play();btn.classList.add('playing');btn.innerHTML=PAUSE;tag.textContent='Playing…';
+        var _p=audio.play(); if(_p&&_p.catch)_p.catch(function(){});btn.classList.add('playing');btn.innerHTML=PAUSE;tag.textContent='Playing…';
         audio.onended=function(){btn.classList.remove('playing');btn.innerHTML=PLAY;tag.textContent='Preview';};
       }else{
         audio.pause();audio.currentTime=0;btn.classList.remove('playing');btn.innerHTML=PLAY;tag.textContent='Preview';
@@ -204,5 +204,6 @@
 </script>
 
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3fc16cf549f44cb4bbde3934b15904d3"}'></script><!-- End Cloudflare Web Analytics -->
+<script defer src="/js/track.js"></script>
 </body>
 </html>

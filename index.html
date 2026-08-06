@@ -1225,7 +1225,7 @@
       }
     });
     if(audio.paused){
-      audio.play();btn.classList.add('playing');btn.innerHTML=PAUSE;label.textContent='Playing…';
+      var _p=audio.play(); if(_p&&_p.catch)_p.catch(function(){});btn.classList.add('playing');btn.innerHTML=PAUSE;label.textContent='Playing…';
       audio.onended=function(){btn.classList.remove('playing');btn.innerHTML=PLAY;label.textContent='Preview';};
     }else{
       audio.pause();audio.currentTime=0;btn.classList.remove('playing');btn.innerHTML=PLAY;label.textContent='Preview';
@@ -1371,6 +1371,7 @@
 </footer>
 
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3fc16cf549f44cb4bbde3934b15904d3"}'></script><!-- End Cloudflare Web Analytics -->
+<script defer src="/js/track.js"></script>
 </body>
 </html>
  
