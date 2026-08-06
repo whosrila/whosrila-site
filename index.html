@@ -400,7 +400,204 @@
   .btn-soon{ background:transparent; color:var(--paper-dim); border:1px solid var(--line); cursor:not-allowed; opacity:0.75; }
   .btn-soon:hover{ transform:none; box-shadow:none; }
 
+  /* ---------- Watch / video grid ----------
+     These are vertical (Shorts-format) videos. YouTube serves their
+     thumbnails padded into a 4:3 frame with blurred side-fill, so the
+     cards are 9:16 with object-fit:cover — that crops the padding away
+     and leaves just the real vertical footage. */
+  .video-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:24px; margin-top:8px; max-width:900px; }
+  .vid-card{ display:flex; flex-direction:column; gap:10px; }
+  .vid-thumb{
+    position:relative; display:block; width:100%; aspect-ratio:9/16; padding:0;
+    border:1px solid var(--line); background:var(--ink-2); overflow:hidden;
+    cursor:pointer; border-radius:3px;
+  }
+  .vid-thumb img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    filter:grayscale(1) contrast(1.05); transition:filter .3s, transform .4s;
+  }
+  .vid-thumb:hover img{ filter:grayscale(0) contrast(1); transform:scale(1.04); }
+  .vid-play{
+    position:absolute; inset:0; margin:auto; width:56px; height:56px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(10,10,10,0.6); color:var(--paper); backdrop-filter:blur(2px);
+    border:1px solid rgba(244,244,242,0.5);
+    transition:background .2s, border-color .2s, transform .2s;
+  }
+  .vid-thumb:hover .vid-play{ background:var(--red); border-color:var(--red); transform:scale(1.08); }
+  .vid-thumb iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .vid-num{ font-family:var(--f-mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--red); }
+  .vid-title{ font-family:var(--f-body); font-weight:600; font-size:15px; color:var(--paper); line-height:1.3; margin-top:-4px; }
+  @media (max-width:560px){
+    .video-grid{ grid-template-columns:repeat(2,1fr); gap:16px; }
+    .vid-play{ width:44px; height:44px; }
+    .vid-title{ font-size:13px; }
+  }
+
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  "@id": "https://whosrila.com/#artist",
+  "name": "WHOSRILA",
+  "url": "https://whosrila.com/",
+  "image": "https://whosrila.com/images/portrait-1.jpg",
+  "logo": "https://whosrila.com/images/logo.png",
+  "description": "WHOSRILA is a Jamaican reggae crossover artist, songwriter, creative director, and self-producing force from Kingston, Jamaica, whose sound moves freely between hip-hop, R&B, and reggae.",
+  "genre": [
+    "Reggae",
+    "Hip-Hop",
+    "Dancehall",
+    "R&B"
+  ],
+  "foundingLocation": {
+    "@type": "Place",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Kingston",
+      "addressCountry": "JM"
+    }
+  },
+  "sameAs": [
+    "https://open.spotify.com/artist/29qMAb0mUXC61wnlcbrGrt",
+    "https://music.apple.com/us/artist/whosrila/1546979772",
+    "https://www.youtube.com/@WHOSRILA",
+    "https://music.youtube.com/@whosrila",
+    "https://www.instagram.com/whosrila/",
+    "https://www.tiktok.com/@whosrila",
+    "https://soundcloud.com/whosrila",
+    "https://audiomack.com/whosrila",
+    "https://music.amazon.com/artists/B0925ZJPCM/whosrila",
+    "https://tidal.com/artist/22841100/u",
+    "https://www.deezer.com/us/artist/129464442"
+  ],
+  "track": [
+    {
+      "@type": "MusicRecording",
+      "name": "Gratitude",
+      "url": "https://whosrila.com/gratitude",
+      "image": "https://whosrila.com/images/art-gratitude.jpg",
+      "duration": "PT3M13S",
+      "byArtist": {
+        "@id": "https://whosrila.com/#artist"
+      }
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Top Form",
+      "url": "https://whosrila.com/topform",
+      "image": "https://whosrila.com/images/art-topform.jpg",
+      "duration": "PT2M48S",
+      "byArtist": {
+        "@id": "https://whosrila.com/#artist"
+      }
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Wine and Bubble",
+      "url": "https://whosrila.com/wineandbubble",
+      "image": "https://whosrila.com/images/art-winenbubble.jpg",
+      "duration": "PT3M50S",
+      "byArtist": {
+        "@id": "https://whosrila.com/#artist"
+      }
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Outta' Line",
+      "url": "https://whosrila.com/outtaline",
+      "image": "https://whosrila.com/images/art-outtaline.jpg",
+      "duration": "PT2M5S",
+      "byArtist": {
+        "@id": "https://whosrila.com/#artist"
+      }
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Fully Meech — Acoustic",
+      "url": "https://whosrila.com/fullymeech",
+      "image": "https://whosrila.com/images/art-fullymeech.jpg",
+      "duration": "PT3M1S",
+      "byArtist": {
+        "@id": "https://whosrila.com/#artist"
+      }
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Kingston",
+      "url": "https://whosrila.com/kingston",
+      "image": "https://whosrila.com/images/art-kng.jpg",
+      "duration": "PT1M27S",
+      "byArtist": {
+        "@id": "https://whosrila.com/#artist"
+      }
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Protection",
+      "url": "https://whosrila.com/protection",
+      "image": "https://whosrila.com/images/art-protection.jpg",
+      "duration": "PT3M18S",
+      "byArtist": {
+        "@id": "https://whosrila.com/#artist"
+      }
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Blue Notes",
+      "url": "https://whosrila.com/bluenotes",
+      "image": "https://whosrila.com/images/art-bluenotes.jpg",
+      "duration": "PT2M11S",
+      "byArtist": {
+        "@id": "https://whosrila.com/#artist"
+      }
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "For Me",
+      "url": "https://whosrila.com/forme",
+      "image": "https://whosrila.com/images/art-forme.jpg",
+      "duration": "PT2M31S",
+      "byArtist": {
+        "@id": "https://whosrila.com/#artist"
+      }
+    }
+  ],
+  "album": [
+    {
+      "@type": "MusicRelease",
+      "name": "Made You",
+      "url": "https://whosrila.com/madeyou",
+      "image": "https://whosrila.com/images/art-madeyou.jpg",
+      "datePublished": "2026-08-13",
+      "byArtist": {
+        "@id": "https://whosrila.com/#artist"
+      }
+    },
+    {
+      "@type": "MusicRelease",
+      "name": "Energy",
+      "url": "https://whosrila.com/energy",
+      "image": "https://whosrila.com/images/art-energy.jpg",
+      "datePublished": "2026-09-11",
+      "byArtist": {
+        "@id": "https://whosrila.com/#artist"
+      }
+    },
+    {
+      "@type": "MusicRelease",
+      "name": "Angels On Sofa",
+      "url": "https://whosrila.com/angelsonsofa",
+      "image": "https://whosrila.com/images/art-angels.jpg",
+      "datePublished": "2026-09-17",
+      "byArtist": {
+        "@id": "https://whosrila.com/#artist"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -447,9 +644,9 @@
   <div class="wrap bio-grid">
     <div class="reveal in">
       <div class="bio-photo-wrap">
-        <img class="bio-slide" src="/images/portrait-1.jpg" alt="WHOSRILA portrait">
-        <img class="bio-slide" src="/images/portrait-2.jpg" alt="WHOSRILA portrait">
-        <img class="bio-slide" src="/images/portrait-3.jpg" alt="WHOSRILA portrait">
+        <img class="bio-slide" src="/images/portrait-1.jpg" alt="WHOSRILA portrait" loading="lazy">
+        <img class="bio-slide" src="/images/portrait-2.jpg" alt="WHOSRILA portrait" loading="lazy">
+        <img class="bio-slide" src="/images/portrait-3.jpg" alt="WHOSRILA portrait" loading="lazy">
       </div>
     </div>
     <div class="reveal">
@@ -509,7 +706,7 @@
 
         <!-- 2. Energy (Kum3ra ft. WHOSRILA) — pre-save LIVE -->
         <div class="up-card">
-          <a href="/energy" class="up-cover"><img src="/images/art-energy.jpg" alt="Energy cover art"></a>
+          <a href="/energy" class="up-cover"><img src="/images/art-energy.jpg" alt="Energy cover art" loading="lazy"></a>
           <span class="up-title">Energy</span>
           <span class="up-feat">Kum3ra ft. WHOSRILA</span>
           <span class="up-date">Out September 11, 2026</span>
@@ -518,7 +715,7 @@
 
         <!-- 3. Angels On Sofa (collab with Pascal Pressure & Justice Case) — pre-save pending -->
         <div class="up-card">
-          <a href="/angelsonsofa" class="up-cover"><img src="/images/art-angels.jpg" alt="Angels On Sofa cover art"></a>
+          <a href="/angelsonsofa" class="up-cover"><img src="/images/art-angels.jpg" alt="Angels On Sofa cover art" loading="lazy"></a>
           <span class="up-title">Angels On Sofa</span>
           <span class="up-feat">A collab with Pascal Pressure &amp; Justice Case</span>
           <span class="up-date">Out September 17, 2026</span>
@@ -603,7 +800,7 @@
       <div class="track-item">
         <a class="track-row reveal" href="/gratitude">
           <span class="idx">04</span>
-          <img class="cover" src="/images/cover-gratitude.jpg" alt="">
+          <img class="cover" src="/images/cover-gratitude.jpg" alt="" loading="lazy">
           <span class="title-block">
             <span class="title-line">Gratitude</span>
           </span>
@@ -757,6 +954,73 @@
       </div>
     <div class="listen-cta-row reveal">
       <a href="/listen" class="btn btn-primary">&#9654; Stream WHOSRILA</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  WATCH — YouTube videos.
+  Thumbnails load as images; the YouTube player is only fetched
+  when someone actually clicks (keeps the page fast).
+  To add/change a video: copy a .vid-card block and swap
+  data-yt="VIDEO_ID" plus the title/label text.
+============================================================ -->
+<section id="watch">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="stamp">Watch</span>
+      <h2 class="h2" style="margin-top:14px;">Behind The Music</h2>
+      <p class="lede" style="margin-top:14px;">Nine conversations on where the lyrics came from &mdash; what, when, why and where.</p>
+    </div>
+
+    <div class="video-grid">
+      <div class="vid-card reveal" data-yt="eqHOXzFe8HI">
+        <button class="vid-thumb" aria-label="Play: The Story Behind Protection">
+          <img src="https://i.ytimg.com/vi/eqHOXzFe8HI/hqdefault.jpg" alt="" loading="lazy">
+          <span class="vid-play" aria-hidden="true">
+            <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
+          </span>
+        </button>
+        <span class="vid-num">Pt. 4</span>
+        <span class="vid-title">The Story Behind Protection</span>
+      </div>
+
+      <div class="vid-card reveal" data-yt="UGUQ5IhS770">
+        <button class="vid-thumb" aria-label="Play: The Story Behind Kingston">
+          <img src="https://i.ytimg.com/vi/UGUQ5IhS770/hqdefault.jpg" alt="" loading="lazy">
+          <span class="vid-play" aria-hidden="true">
+            <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
+          </span>
+        </button>
+        <span class="vid-num">Pt. 3</span>
+        <span class="vid-title">The Story Behind Kingston</span>
+      </div>
+
+      <div class="vid-card reveal" data-yt="4oNycH8-y3s">
+        <button class="vid-thumb" aria-label="Play: The Story Behind Blue Notes">
+          <img src="https://i.ytimg.com/vi/4oNycH8-y3s/hqdefault.jpg" alt="" loading="lazy">
+          <span class="vid-play" aria-hidden="true">
+            <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
+          </span>
+        </button>
+        <span class="vid-num">Pt. 2</span>
+        <span class="vid-title">The Story Behind Blue Notes</span>
+      </div>
+
+      <div class="vid-card reveal" data-yt="t5ORRDXzy2c">
+        <button class="vid-thumb" aria-label="Play: The Series Begins">
+          <img src="https://i.ytimg.com/vi/t5ORRDXzy2c/hqdefault.jpg" alt="" loading="lazy">
+          <span class="vid-play" aria-hidden="true">
+            <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
+          </span>
+        </button>
+        <span class="vid-num">Pt. 1</span>
+        <span class="vid-title">The Series Begins</span>
+      </div>
+    </div>
+
+    <div class="listen-cta-row reveal">
+      <a href="https://www.youtube.com/@WHOSRILA" target="_blank" rel="noopener" class="btn btn-ghost">More on YouTube</a>
     </div>
   </div>
 </section>
@@ -929,6 +1193,22 @@
       audio.pause();audio.currentTime=0;btn.classList.remove('playing');btn.innerHTML=PLAY;label.textContent='Preview';
     }
   }
+
+  // ---- Watch: swap thumbnail for the real player only on click ----
+  // (avoids loading YouTube's ~1MB player on every page view)
+  document.querySelectorAll('.vid-thumb').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.closest('.vid-card').dataset.yt;
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+      f.title = btn.getAttribute('aria-label') || 'WHOSRILA video';
+      f.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen = true;
+      btn.innerHTML = '';
+      btn.appendChild(f);
+      btn.style.cursor = 'default';
+    }, { once: true });
+  });
 
   // ---- Scroll reveal ----
   const reveals = document.querySelectorAll('.reveal');
