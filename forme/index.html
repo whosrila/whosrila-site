@@ -80,6 +80,21 @@
   font-family:var(--f-mono); font-size:11px; letter-spacing:0.14em;
   text-transform:uppercase; color:var(--paper-dim);
 }
+
+.quick-links{ display:flex; gap:10px; flex-wrap:wrap; margin:0 0 18px; }
+.ql{
+  display:inline-flex; align-items:center; gap:8px; flex:1 1 auto; justify-content:center;
+  font-family:var(--f-mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase;
+  padding:13px 18px; border-radius:3px; border:1px solid var(--line); color:var(--ink);
+  transition:background .18s, color .18s, border-color .18s, transform .15s;
+}
+.ql:hover{ transform:translateY(-1px); }
+.ql-spotify:hover{ background:#1DB954; border-color:#1DB954; color:#fff; }
+.ql-apple:hover{ background:var(--ink); border-color:var(--ink); color:var(--paper); }
+.ql-note{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--paper-dim); margin:0 0 8px;
+}
 </style>
 <script type="application/ld+json">
 {
@@ -130,6 +145,12 @@
       The height (900) can be adjusted to match what Feature.fm
       recommends for your specific campaign layout.
     ========================================================== -->
+    <p class="ql-note">Listen now</p>
+    <div class="quick-links">
+      <a class="ql ql-spotify" href="https://open.spotify.com/album/3bgLTAB3Ln2xRTyFjDzEp7" target="_blank" rel="noopener">Spotify</a>
+      <a class="ql ql-apple" href="https://geo.music.apple.com/us/album/for-me/1895471320?i=6763745598" target="_blank" rel="noopener">Apple Music</a>
+    </div>
+
     <div class="preview-player">
       <audio class="preview-audio" src="/audio/forme.mp3" preload="none"></audio>
       <button class="preview-btn" aria-label="Play preview">
