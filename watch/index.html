@@ -579,8 +579,9 @@
     function open(id, vertical, label, fromRect){
       lastTrigger = document.activeElement;
 
-      lb = document.createElement('div');
-      lb.className = 'lb';
+      var node = document.createElement('div');
+      lb = node;
+      node.className = 'lb';
       lb.setAttribute('role','dialog');
       lb.setAttribute('aria-modal','true');
       lb.setAttribute('aria-label', label || 'Video');
@@ -633,7 +634,7 @@
         panel.style.transition = 'transform .42s cubic-bezier(.22,1,.36,1)';
         panel.style.transform = 'none';
       }
-      requestAnimationFrame(function(){ lb.classList.add('open'); });
+      requestAnimationFrame(function(){ if(node.isConnected) node.classList.add('open'); });
       window.addEventListener('keydown', onKey);
       btn.focus();
     }
