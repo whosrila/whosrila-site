@@ -22,9 +22,15 @@
     data = data || {};
     try { if (window.fbq) window.fbq('trackCustom', event, data); } catch (e) {}
     try { if (window.ttq) window.ttq.track(event, data); } catch (e) {}
-    // standard conversion event, for ad-platform optimisation
+    // standard conversion events, for ad-platform optimisation
     if (event === 'PlatformClick' || event === 'PreSaveClick') {
       try { if (window.fbq) window.fbq('track', 'Lead', data); } catch (e) {}
+    }
+    // a click on the iTunes buy link is purchase intent, not just a stream —
+    // worth its own standard event so campaigns can optimise for sales
+    if (event === 'PlatformClick' && data.platform === 'iTunes') {
+      try { if (window.fbq) window.fbq('track', 'InitiateCheckout', data); } catch (e) {}
+      try { if (window.ttq) window.ttq.track('InitiateCheckout', data); } catch (e) {}
     }
     if (window.__TRACK_DEBUG) console.log('[track]', event, data);
   }
