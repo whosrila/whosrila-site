@@ -20,8 +20,8 @@
   'use strict';
 
   var MAIL = {
-    provider:   'web3forms',                              // 'web3forms' | 'kit'
-    kitFormId:  '',                                       // e.g. '1234567'
+    provider:   'kit',                                    // 'web3forms' | 'kit'
+    kitFormId:  '9777004',                                // whosrila.com — site signup
     web3Key:    '71705d41-553f-47fe-a068-61822ae89277'
   };
 
