@@ -232,6 +232,30 @@
   .vid-play{ width:44px; height:44px; }
   .vid-title{ font-size:14px; }
 }
+
+/* ---------- Cookie consent ---------- */
+.cc{
+  position:fixed; left:16px; right:16px; bottom:16px; z-index:300;
+  display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  max-width:760px; margin:0 auto; padding:16px 20px;
+  background:#141414; color:#F4F4F2; border:1px solid rgba(244,244,242,.18);
+  border-radius:6px; box-shadow:0 16px 48px rgba(0,0,0,.5);
+  opacity:0; transform:translateY(14px); transition:opacity .26s ease, transform .26s ease;
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+.cc-open{ opacity:1; transform:none; }
+.cc-text{ margin:0; font-size:13.5px; line-height:1.5; flex:1 1 300px; color:rgba(244,244,242,.86); }
+.cc-text a{ color:#F4F4F2; border-bottom:1px solid #D7263D; }
+.cc-actions{ display:flex; gap:10px; flex:0 0 auto; }
+.cc-btn{
+  font-family:inherit; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+  padding:10px 20px; border-radius:3px; cursor:pointer; border:1px solid rgba(244,244,242,.35);
+  background:transparent; color:#F4F4F2; transition:background .16s, color .16s, border-color .16s;
+}
+.cc-btn:hover{ border-color:#F4F4F2; }
+.cc-yes{ background:#F4F4F2; color:#0A0A0A; border-color:#F4F4F2; }
+.cc-yes:hover{ background:#D7263D; border-color:#D7263D; color:#F4F4F2; }
+@media (prefers-reduced-motion: reduce){ .cc{ transition:none; } }
 </style>
 <script type="application/ld+json">
 {
@@ -249,23 +273,6 @@
   }
 }
 </script>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1475977817606217');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1475977817606217&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -373,6 +380,7 @@ src="https://www.facebook.com/tr?id=1475977817606217&ev=PageView&noscript=1"
 <footer class="mini">
   <div class="wrap" style="display:flex; justify-content:space-between; width:100%;">
     <span>&copy; 2026 WHOSRILA LLC</span>
+    <a href="/privacy">Privacy</a>
     <a href="/">whosrila.com</a>
   </div>
 </footer>
@@ -412,5 +420,6 @@ src="https://www.facebook.com/tr?id=1475977817606217&ev=PageView&noscript=1"
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3fc16cf549f44cb4bbde3934b15904d3"}'></script><!-- End Cloudflare Web Analytics -->
 <script defer src="/js/track.js?v=b8498e91"></script>
 <script defer src="/js/lightbox.js?v=9ca9d7dc"></script>
+<script defer src="/js/consent.js"></script>
 </body>
 </html>
