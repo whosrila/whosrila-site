@@ -250,16 +250,25 @@
   .play-btn:hover { background:var(--ink); color:var(--paper); }
   .play-btn.playing { background:var(--red); border-color:var(--red); color:#fff; }
   .preview-label { font-size:11px; color:var(--paper-dim); letter-spacing:.05em; text-transform:uppercase; }
-  /* ON RECORD section – light cream overlay: darken secondary text */
-  #music{ color:var(--ink); }
-  #music .track-row:hover{ color:var(--paper); }
-  #music .lede{ color:rgba(10,10,10,0.62); }
-  #music .track-row .idx{ color:rgba(10,10,10,0.5); }
-  #music .track-row .dur{ color:rgba(10,10,10,0.55); opacity:1; }
-  #music .track-row .credit{ color:rgba(10,10,10,0.5); opacity:1; }
-  #music .preview-label{ color:rgba(10,10,10,0.52); }
+  /* ON RECORD – dark overlay so artwork and text both read cleanly */
+  #music{ color:var(--paper); }
+  #music .lede{ color:rgba(244,244,242,0.64); }
+  #music .track-row .idx{ color:rgba(244,244,242,0.45); }
+  #music .track-row .dur{ color:rgba(244,244,242,0.55); opacity:1; }
+  #music .track-row .credit{ color:rgba(244,244,242,0.5); opacity:1; }
+  #music .preview-label{ color:rgba(244,244,242,0.5); }
+  #music .track-row:hover{ background:rgba(244,244,242,0.07); }
   #music .track-row:hover .idx,
-  #music .track-row:hover .dur{ color:rgba(244,244,242,0.55); opacity:1; }
+  #music .track-row:hover .dur{ color:rgba(244,244,242,0.7); opacity:1; }
+  #music .track-row .cover{ border-color:rgba(244,244,242,0.18); }
+  #music .up-title{ color:var(--paper); }
+  #music .up-feat, #music .up-date{ color:rgba(244,244,242,0.6); }
+  #music .up-cover{ border-color:rgba(244,244,242,0.16); }
+  #music .play-btn{ border-color:rgba(244,244,242,0.6); color:var(--paper); }
+  #music .play-btn:hover{ background:var(--paper); color:var(--ink); border-color:var(--paper); }
+  #music .btn-soon{ color:rgba(244,244,242,0.6); border-color:rgba(244,244,242,0.25); }
+  #music .track-item{ border-bottom-color:rgba(244,244,242,0.12); }
+  #music .upcoming{ border-bottom-color:rgba(244,244,242,0.14); }
   .track-row{
     display:grid; grid-template-columns:28px 48px 1fr auto; gap:18px; align-items:center;
     padding:13px 0; border-bottom:1px solid var(--line);
@@ -717,23 +726,9 @@ src="https://www.facebook.com/tr?id=1475977817606217&ev=PageView&noscript=1"
   </div>
 </section>
 
-<section id="featured-playlists" style="background:var(--paper);padding:72px 0;border-top:1px solid rgba(10,10,10,0.1);">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="stamp">Playlist Placements</span>
-      <h2 class="h2" style="margin-top:14px;color:var(--ink);">Featured</h2>
-    </div>
-    <div style="margin-top:40px;display:flex;flex-direction:column;gap:14px;max-width:680px;">
-      <a class="playlist-row reveal" href="https://open.spotify.com/playlist/0azXBFWMtLzJnyhkh8OQWC" target="_blank" rel="noopener">
-        <div class="playlist-title">New Reggae 2026</div>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
 
 
-<section id="music" style="background: linear-gradient(rgba(245,242,238,0.82), rgba(245,242,238,0.82)), url('/images/bg-discography-new.jpg') center/cover no-repeat;">
+<section id="music" style="background: linear-gradient(rgba(10,10,10,0.90), rgba(10,10,10,0.94)), url('/images/bg-discography-new.jpg') center/cover no-repeat;">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="stamp">DISCOGRAPHY</span>
