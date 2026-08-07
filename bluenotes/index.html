@@ -22,7 +22,7 @@
 <meta name="twitter:image" content="https://whosrila.com/images/cover-bluenotes.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="/css/site.css">
+<link rel="stylesheet" href="/css/site.css?v=2e11a145">
 <style>
 @font-face {
   font-family: 'Whosrila';
@@ -95,6 +95,33 @@
   font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
   color:var(--paper-dim); margin:0 0 8px;
 }
+
+/* ---------- Streaming links (replaces the Feature.fm embed) ---------- */
+.listen-list{ display:flex; flex-direction:column; gap:8px; margin:0 0 20px; }
+.lrow{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:15px 20px; border:1px solid var(--line); border-radius:4px;
+  background:var(--paper); color:var(--ink);
+  transition:background .16s, color .16s, border-color .16s, transform .14s;
+}
+.lrow:hover{ transform:translateY(-1px); border-color:var(--ink); }
+.lname{ font-weight:600; font-size:15px; display:flex; align-items:center; gap:11px; }
+.ldot{ width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+.ldot-spotify{ background:#1DB954; }  .ldot-apple{ background:#FA243C; }
+.ldot-itunes{ background:#A855F7; }   .ldot-deezer{ background:#A238FF; }
+.ldot-tidal{ background:#00FFFF; outline:1px solid rgba(10,10,10,.25); }
+.ldot-soundcloud{ background:#FF5500; } .ldot-audiomack{ background:#FFA200; }
+.ldot-pandora{ background:#3668FF; }
+.lgo{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--paper-dim); border:1px solid var(--line); border-radius:2px; padding:6px 13px;
+  transition:background .16s, color .16s, border-color .16s; flex-shrink:0;
+}
+.lrow:hover .lgo{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+.listen-note{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--paper-dim); margin:0 0 10px;
+}
 </style>
 <script type="application/ld+json">
 {
@@ -155,17 +182,36 @@ src="https://www.facebook.com/tr?id=1475977817606217&ev=PageView&noscript=1"
     <h1 class="title">Blue Notes</h1>
     <p class="hook">Out now.</p>
 
-    <!-- =========================================================
-      EDIT ME — paste your Feature.fm embed code here.
-      In Feature.fm: open your campaign → Share/Embed → copy the
-      iframe code → replace the src below with that URL.
-      The height (900) can be adjusted to match what Feature.fm
-      recommends for your specific campaign layout.
-    ========================================================== -->
-    <p class="ql-note">Listen now</p>
-    <div class="quick-links">
-      <a class="ql ql-spotify" href="https://open.spotify.com/album/7ALFE1GqQNxbQeKPKT36UK" target="_blank" rel="noopener">Spotify</a>
-      <a class="ql ql-apple" href="https://geo.music.apple.com/us/album/blue-notes/1895341536?i=6763494871" target="_blank" rel="noopener">Apple Music</a>
+    <p class="listen-note">Listen now</p>
+    <div class="listen-list">
+      <a class="lrow" href="https://open.spotify.com/album/7ALFE1GqQNxbQeKPKT36UK" target="_blank" rel="noopener">
+        <span class="lname"><span class="ldot ldot-spotify"></span>Spotify</span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://geo.music.apple.com/us/album/blue-notes/1895341536?i=6763494871" target="_blank" rel="noopener">
+        <span class="lname"><span class="ldot ldot-apple"></span>Apple Music</span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://geo.music.apple.com/us/album/_/1895341536?i=6763494871&mt=1&app=itunes&ls=1&at=1000lHKX&ct=api_http&itscg=30200&itsct=odsl_m" target="_blank" rel="noopener">
+        <span class="lname"><span class="ldot ldot-itunes"></span>iTunes</span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://www.deezer.com/track/4003826261" target="_blank" rel="noopener">
+        <span class="lname"><span class="ldot ldot-deezer"></span>Deezer</span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://listen.tidal.com/track/518413579" target="_blank" rel="noopener">
+        <span class="lname"><span class="ldot ldot-tidal"></span>Tidal</span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://audiomack.com/whosrila/song/blue-notes" target="_blank" rel="noopener">
+        <span class="lname"><span class="ldot ldot-audiomack"></span>Audiomack</span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://www.pandora.com/TR:43667744" target="_blank" rel="noopener">
+        <span class="lname"><span class="ldot ldot-pandora"></span>Pandora</span>
+        <span class="lgo">Play</span>
+      </a>
     </div>
 
     <div class="preview-player">
@@ -177,17 +223,7 @@ src="https://www.facebook.com/tr?id=1475977817606217&ev=PageView&noscript=1"
         <span class="preview-tag">Preview</span>
       </div>
     </div>
-    <div class="embed-frame">
-      <iframe
-        src="https://ffm.to/whosrila-bluenotes"
-        width="100%" height="1600" frameborder="0" allowtransparency="true" scrolling="no"
-        title="Blue Notes — pre-save and listen">
-      </iframe>
-    </div>
 
-    <p class="fallback">
-      Trouble loading? <a href="https://ffm.to/whosrila-bluenotes" target="_blank" rel="noopener">Open directly</a>
-    </p>
   </div>
 </main>
 
@@ -231,6 +267,6 @@ src="https://www.facebook.com/tr?id=1475977817606217&ev=PageView&noscript=1"
 })();
 </script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3fc16cf549f44cb4bbde3934b15904d3"}'></script><!-- End Cloudflare Web Analytics -->
-<script defer src="/js/track.js"></script>
+<script defer src="/js/track.js?v=89fb7f16"></script>
 </body>
 </html>

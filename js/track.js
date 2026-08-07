@@ -48,6 +48,9 @@
   // Work out which service a URL points at.
   var HOSTS = [
     [/open\.spotify\.com/,        'Spotify'],
+    // iTunes Store and Apple Music share music.apple.com — the app= param
+    // is what separates them, so this has to be tested first.
+    [/apple\.com.*[?&]app=itunes/, 'iTunes'],
     [/music\.apple\.com|itunes\.apple\.com/, 'Apple Music'],
     [/music\.amazon\./,           'Amazon Music'],
     [/(^|\.)deezer\.com/,         'Deezer'],
@@ -56,6 +59,8 @@
     [/audiomack\.com/,            'Audiomack'],
     [/music\.youtube\.com/,       'YouTube Music'],
     [/(^|\.)youtube\.com|youtu\.be/, 'YouTube'],
+    [/(^|\.)pandora\.com/,        'Pandora'],
+    [/music\.yandex\./,           'Yandex Music'],
     [/even\.biz/,                 'EVEN'],
     [/instagram\.com/,            'Instagram'],
     [/tiktok\.com/,               'TikTok'],
