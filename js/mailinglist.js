@@ -53,6 +53,11 @@
     if (!form) return;
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      // honeypot: humans never see this field, so anything in it is a bot.
+      // Show the success state so the bot doesn't retry, but send nothing.
+      var trap = form.querySelector('input[name="bot-field"]');
+      if (trap && trap.value) { form.hidden = true; if (doneEl) doneEl.hidden = false; return; }
+
       var input = form.querySelector('input[type="email"]');
       var email = input && input.value.trim();
       if (!email) return;

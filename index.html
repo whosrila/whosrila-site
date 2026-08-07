@@ -352,7 +352,9 @@
     font-family:var(--f-body); font-size:16px; padding:10px 2px; outline:none;
   }
   form.signup input:focus{ border-color:var(--red); }
-  form.signup .hp{ display:none; }
+  /* honeypot — must stay hidden from people, visible to bots */
+  .hp{ position:absolute !important; left:-9999px !important; width:1px; height:1px;
+       overflow:hidden; opacity:0; pointer-events:none; }
   form.signup .note{ font-family:var(--f-mono); font-size:11px; color:var(--paper-dim); opacity:0.6; margin-top:-4px; }
 
   .social-row{ display:flex; gap:18px; margin-top:22px; flex-wrap:wrap; }
@@ -468,7 +470,7 @@
 
 
   /* ---------- Notify capture ---------- */
-  #notify{ padding:0 0 72px; border-bottom:1px solid var(--line); }
+  #notify{ padding:64px 0 72px; border-bottom:1px solid var(--line); }
   .notify-box{
     display:grid; grid-template-columns:1.15fr .85fr; gap:36px; align-items:center;
     background:var(--ink-2); border:1px solid var(--line); border-radius:8px; padding:34px 36px;
@@ -484,6 +486,24 @@
   .notify-form .btn{ justify-content:center; }
   .notify-note{ font-family:var(--f-mono); font-size:11px; color:var(--paper-dim); opacity:.8; }
   @media (max-width:760px){ .notify-box{ grid-template-columns:1fr; gap:24px; padding:26px 22px; } }
+
+
+  .prefs{ border:0; margin:2px 0 4px; padding:0; display:flex; flex-direction:column; gap:7px; }
+  .prefs-legend{
+    font-family:var(--f-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--paper-dim); padding:0; margin:0 0 3px;
+  }
+  .pref{ display:flex; align-items:flex-start; gap:9px; cursor:pointer; font-size:13.5px;
+         color:rgba(244,244,242,.82); line-height:1.35; }
+  .pref input{ appearance:none; -webkit-appearance:none; width:15px; height:15px; flex:0 0 15px;
+    margin-top:1px; border:1px solid rgba(244,244,242,.4); border-radius:3px; background:transparent;
+    cursor:pointer; position:relative; transition:background .15s, border-color .15s; }
+  .pref input:checked{ background:var(--red); border-color:var(--red); }
+  .pref input:checked::after{
+    content:''; position:absolute; left:4px; top:1px; width:4px; height:8px;
+    border:solid #fff; border-width:0 1.5px 1.5px 0; transform:rotate(45deg);
+  }
+  .pref input:focus-visible{ outline:2px solid var(--red); outline-offset:2px; }
 
   /* ---------- Watch / video grid ----------
      Default cards are 16:9 (music videos, visualisers, sessions).
@@ -1061,6 +1081,12 @@
         <input type="hidden" name="subject" value="New fan signup — WHOSRILA (notify)">
         <p class="hp"><label>Don't fill this out: <input name="bot-field"></label></p>
         <input class="notify-input" type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
+        <fieldset class="prefs">
+          <legend class="prefs-legend">What do you want from me?</legend>
+          <label class="pref"><input type="checkbox" name="pref" value="music" checked><span>Music &mdash; early listens before release</span></label>
+          <label class="pref"><input type="checkbox" name="pref" value="video" checked><span>Video &mdash; behind the scenes</span></label>
+          <label class="pref"><input type="checkbox" name="pref" value="shows" checked><span>Shows &mdash; when I&rsquo;m playing near you</span></label>
+        </fieldset>
         <button class="btn btn-primary" type="submit">Notify Me</button>
         <span class="notify-note">No spam. Unsubscribe any time.</span>
       </form>
@@ -1178,6 +1204,12 @@
         <p class="hp"><label>Don't fill this out: <input name="bot-field"></label></p>
         <label for="email">Email</label>
         <input id="email" type="email" name="email" placeholder="you@email.com" required>
+        <fieldset class="prefs">
+          <legend class="prefs-legend">What do you want from me?</legend>
+          <label class="pref"><input type="checkbox" name="pref" value="music" checked><span>Music &mdash; early listens before release</span></label>
+          <label class="pref"><input type="checkbox" name="pref" value="video" checked><span>Video &mdash; behind the scenes</span></label>
+          <label class="pref"><input type="checkbox" name="pref" value="shows" checked><span>Shows &mdash; when I&rsquo;m playing near you</span></label>
+        </fieldset>
         <button type="submit" class="btn btn-primary" style="align-self:flex-start; margin-top:6px;">Get First Listen</button>
         <span class="note">One email a month, max. Unsubscribe anytime.</span>
         <span class="note" id="signupError" style="color:var(--red);"></span>
@@ -1322,7 +1354,7 @@
 <script defer src="/js/track.js?v=b8498e91"></script>
 <script defer src="/js/lightbox.js?v=9ca9d7dc"></script>
 <script defer src="/js/consent.js"></script>
-<script defer src="/js/mailinglist.js?v=6f56fba3"></script>
+<script defer src="/js/mailinglist.js?v=cffbe887"></script>
 </body>
 </html>
  
