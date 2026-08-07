@@ -1179,9 +1179,9 @@
         <input id="email" type="email" name="email" placeholder="you@email.com" required>
         <button type="submit" class="btn btn-primary" style="align-self:flex-start; margin-top:6px;">Get First Listen</button>
         <span class="note">One email a month, max. Unsubscribe anytime.</span>
-        <span class="note" id="signupError" style="color:var(--red); display:none;"></span>
+        <span class="note" id="signupError" style="color:var(--red);"></span>
       </form>
-      <div class="signup-success" id="signupSuccess" style="display:none;">
+      <div class="signup-success" id="signupSuccess" hidden>
         <span class="stamp" style="margin-bottom:10px;">YOU'RE ON THE LIST</span>
         <p style="color:var(--paper-dim); max-width:380px; margin-top:10px;">New music and shows land in your inbox first. Nowhere else.</p>
       </div>
@@ -1248,50 +1248,8 @@
   tick();
   setInterval(tick, 30000);
 
-  // ---- Signup form (stays on page, no redirect to Netlify's blank default page) ----
-  const signupForm = document.getElementById('signupForm');
-  if(signupForm){
-    signupForm.addEventListener('submit', function(e){
-      e.preventDefault();
-      const errorEl = document.getElementById('signupError');
-      errorEl.style.display = 'none';
-      const data = new FormData(signupForm);
-      fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: data
-      })
-      .then((res) => res.json())
-      .then((json) => {
-        if(json.success){
-          signupForm.style.display = 'none';
-          document.getElementById('signupSuccess').style.display = 'block';
-        } else { throw new Error(json.message||'Error'); }
-      })
-      .catch(() => {
-        errorEl.textContent = "Something went wrong — please try again in a moment.";
-        errorEl.style.display = 'block';
-      });
-    });
-  }
 
 
-  // ---- Notify form (same no-redirect behaviour as the footer signup) ----
-  var nf = document.getElementById('notifyForm');
-  if (nf) {
-    nf.addEventListener('submit', function (e) {
-      e.preventDefault();
-      fetch(nf.action, { method: 'POST', body: new FormData(nf) })
-        .then(function (r) { return r.json(); })
-        .then(function (j) {
-          if (!j.success) throw new Error('failed');
-          nf.hidden = true;
-          document.getElementById('notifyDone').hidden = false;
-          if (window.wrTrack) window.wrTrack('SignUp', { where: 'notify' });
-          if (window.fbq) window.fbq('track', 'CompleteRegistration', { where: 'notify' });
-        })
-        .catch(function () { nf.querySelector('.notify-note').textContent = 'Something went wrong — try again in a moment.'; });
-    });
-  }
 
   // ---- Mobile nav ----
   const burger = document.getElementById('burgerBtn');
@@ -1363,6 +1321,7 @@
 <script defer src="/js/track.js?v=b8498e91"></script>
 <script defer src="/js/lightbox.js?v=9ca9d7dc"></script>
 <script defer src="/js/consent.js"></script>
+<script defer src="/js/mailinglist.js?v=8e33e1ed"></script>
 </body>
 </html>
  
