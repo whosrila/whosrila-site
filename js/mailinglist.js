@@ -31,10 +31,18 @@
       : 'https://api.web3forms.com/submit';
   }
 
-  function payload(email) {
+  function payload(email, prefs) {
     var d = new FormData();
     if (MAIL.provider === 'kit') {
       d.append('email_address', email);
+      // Custom fields auto-create in Kit on first use, so this needs no setup
+      // and no hardcoded ids. Broadcasts can then be filtered on them.
+      if (prefs) {
+        d.append('fields[interests]', prefs.join(', ') || 'none');
+        d.append('fields[wants_music]',  prefs.indexOf('music') !== -1 ? 'yes' : 'no');
+        d.append('fields[wants_video]',  prefs.indexOf('video') !== -1 ? 'yes' : 'no');
+        d.append('fields[wants_shows]',  prefs.indexOf('shows') !== -1 ? 'yes' : 'no');
+      }
     } else {
       d.append('access_key', MAIL.web3Key);
       d.append('subject', 'New fan signup — WHOSRILA');
@@ -62,16 +70,19 @@
       var email = input && input.value.trim();
       if (!email) return;
 
+      var prefs = [].slice.call(form.querySelectorAll('input[name="pref"]:checked'))
+                    .map(function (c) { return c.value; });
+
       var btn = form.querySelector('button[type="submit"]');
       if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = 'Sending…'; }
 
-      fetch(endpoint(), { method: 'POST', body: payload(email) })
+      fetch(endpoint(), { method: 'POST', body: payload(email, prefs) })
         .then(function (r) { return r.json().catch(function () { return { success: r.ok }; }); })
         .then(function (j) {
           if (!accepted(j)) throw new Error('rejected');
           form.hidden = true;
           if (doneEl) doneEl.hidden = false;
-          if (window.wrTrack) window.wrTrack('SignUp', { where: label });
+          if (window.wrTrack) window.wrTrack('SignUp', { where: label, interests: prefs.join('|') });
           try { if (window.fbq) window.fbq('track', 'CompleteRegistration', { where: label }); } catch (e) {}
         })
         .catch(function () {
