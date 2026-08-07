@@ -61,11 +61,6 @@
 .fallback a{ border-bottom:1px solid var(--red); color:var(--paper); padding-bottom:1px; }
 .fallback a:hover{ color:var(--red); }
 
-.preview-player{
-  display:flex; align-items:center; gap:16px;
-  padding:16px 20px; margin-bottom:16px;
-  border:1px solid var(--line); border-radius:6px; background:var(--paper);
-}
 .preview-btn{
   width:44px; height:44px; border-radius:50%; flex-shrink:0;
   border:2px solid var(--ink); background:transparent; cursor:pointer;
@@ -96,46 +91,147 @@
   color:var(--paper-dim); margin:0 0 8px;
 }
 
-/* ---------- Streaming links (replaces the Feature.fm embed) ---------- */
-.listen-list{ display:flex; flex-direction:column; gap:8px; margin:0 0 20px; }
-.lrow{
-  display:flex; align-items:center; justify-content:space-between; gap:16px;
-  padding:15px 20px; border:1px solid var(--line); border-radius:4px;
-  background:var(--paper); color:var(--ink);
-  transition:background .16s, color .16s, border-color .16s, transform .14s;
+
+
+/* ---------- Song page: media, preview and links share one column width ---------- */
+.song-media{ width:100%; margin:0 0 18px; }
+.song-media--art{
+  border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--ink-2);
 }
-.lrow:hover{ transform:translateY(-1px); border-color:var(--ink); }
-.lname{ font-weight:600; font-size:15px; display:flex; align-items:center; gap:11px; }
-.ldot{ width:9px; height:9px; border-radius:50%; flex-shrink:0; }
-.ldot-spotify{ background:#1DB954; }  .ldot-apple{ background:#FA243C; }
-.ldot-itunes{ background:#A855F7; }   .ldot-deezer{ background:#A238FF; }
-.ldot-tidal{ background:#00FFFF; outline:1px solid rgba(10,10,10,.25); }
-.ldot-soundcloud{ background:#FF5500; } .ldot-audiomack{ background:#FFA200; }
-.ldot-pandora{ background:#3668FF; }
-.lgo{
-  font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
-  color:var(--paper-dim); border:1px solid var(--line); border-radius:2px; padding:6px 13px;
-  transition:background .16s, color .16s, border-color .16s; flex-shrink:0;
+.song-media--art img{ display:block; width:100%; height:auto; }
+.song-media .vid-card{ display:flex; flex-direction:column; gap:9px; }
+.song-media .vid-thumb{
+  position:relative; display:block; width:100%; aspect-ratio:16/9; padding:0;
+  border:1px solid var(--line); border-radius:6px; overflow:hidden;
+  background:var(--ink-2); cursor:pointer;
 }
-.lrow:hover .lgo{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
-.listen-note{
-  font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
-  color:var(--paper-dim); margin:0 0 10px;
+.song-media .vid-thumb img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  filter:grayscale(1) contrast(1.02) brightness(1.12); transition:filter .3s, transform .4s;
+}
+.song-media .vid-thumb:hover img{ filter:none; transform:scale(1.03); }
+.song-media .vid-play{
+  position:absolute; inset:0; margin:auto; width:54px; height:54px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(10,10,10,.6); color:#F4F4F2; border:1px solid rgba(244,244,242,.5);
+  transition:background .2s, border-color .2s, transform .2s;
+}
+.song-media .vid-thumb:hover .vid-play{ background:var(--red); border-color:var(--red); transform:scale(1.07); }
+.song-media .vid-thumb iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.song-media .vid-title{
+  font-family:var(--f-mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--paper-dim);
 }
 
-.song-art{
-  width:100%; max-width:340px; margin:0 0 22px; border:1px solid var(--line);
-  border-radius:6px; overflow:hidden; background:var(--ink-2);
+.preview-player{
+  display:flex; align-items:center; gap:15px; width:100%;
+  padding:14px 18px; margin:0 0 18px;
+  border:1px solid var(--line); border-radius:6px; background:var(--paper);
 }
-.song-art img{ display:block; width:100%; height:auto; }
+
+.listen-note{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--paper-dim); margin:0 0 9px;
+}
+.listen-list{ display:flex; flex-direction:column; gap:8px; margin:0 0 8px; }
+.lrow{
+  display:flex; align-items:center; gap:13px; width:100%;
+  padding:14px 18px; border:1px solid var(--line); border-radius:4px;
+  background:var(--paper); color:var(--ink);
+  transition:border-color .16s, transform .14s;
+}
+.lrow:hover{ border-color:var(--ink); transform:translateY(-1px); }
+.ldot{ width:9px; height:9px; border-radius:50%; flex:0 0 9px; }
+.ltext{ display:flex; flex-direction:column; gap:1px; flex:1 1 auto; min-width:0; }
+.lname{ font-weight:600; font-size:15px; line-height:1.25; }
+.lsub{
+  font-family:var(--f-mono); font-size:10px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--paper-dim);
+}
+.lgo{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--paper-dim); border:1px solid var(--line); border-radius:2px;
+  padding:6px 13px; flex:0 0 auto; transition:background .16s, color .16s, border-color .16s;
+}
+.lrow:hover .lgo{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
 .lrow-buy{ border-color:var(--ink); }
 .lrow-buy .lgo{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
 .lrow-buy:hover .lgo{ background:var(--red); border-color:var(--red); }
-.lname{ flex-direction:column; align-items:flex-start; gap:2px; }
-.lname > .ldot{ position:absolute; margin-left:-20px; margin-top:7px; }
-.lrow{ position:relative; padding-left:40px; }
-.lsub{ font-family:var(--f-mono); font-size:10px; letter-spacing:.08em;
-       text-transform:uppercase; color:var(--paper-dim); font-weight:400; }
+.ldot-spotify{background:#1DB954}.ldot-apple{background:#FA243C}.ldot-itunes{background:#A855F7}
+.ldot-deezer{background:#A238FF}.ldot-tidal{background:#00D8D8}.ldot-soundcloud{background:#FF5500}
+.ldot-audiomack{background:#FFA200}.ldot-pandora{background:#3668FF}
+
+/* ---------- Video lightbox ----------
+   Clicking a thumbnail flies the player from the card to the centre
+   of the screen (FLIP: measure the card, invert, animate to identity)
+   rather than embedding it inline in the grid. */
+.lb{
+  position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center;
+  background:rgba(6,6,6,0.94); opacity:0; transition:opacity .3s ease;
+  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+}
+.lb.open{ opacity:1; }
+.lb-panel{
+  position:relative; background:#000; overflow:hidden; border-radius:4px;
+  border:1px solid rgba(244,244,242,0.16); box-shadow:0 30px 90px rgba(0,0,0,0.7);
+  transform-origin:top left; will-change:transform;
+}
+.lb-panel iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.lb-close{
+  position:fixed; top:20px; right:24px; width:44px; height:44px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  background:rgba(20,20,20,0.8); color:#F4F4F2; border:1px solid rgba(244,244,242,0.3);
+  transition:background .2s, border-color .2s, transform .2s; z-index:2;
+}
+.lb-close:hover{ background:var(--red); border-color:var(--red); transform:rotate(90deg); }
+.lb-cap{
+  position:fixed; left:0; right:0; bottom:22px; text-align:center;
+  font-family:var(--f-mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+  color:rgba(244,244,242,0.65); pointer-events:none; padding:0 24px;
+}
+@media (prefers-reduced-motion: reduce){
+  .lb, .lb-panel{ transition:none !important; }
+}
+
+
+/* ---------- Watch / video grid ----------
+   Default cards are 16:9 (music videos, visualisers, sessions).
+   Add .video-grid--vertical for Shorts-format clips: YouTube serves
+   those thumbnails padded into a 4:3 frame with blurred side-fill,
+   so 9:16 + object-fit:cover crops the padding back off and leaves
+   just the real vertical footage. */
+.video-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; margin-top:8px; }
+.video-grid--vertical{ grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); max-width:900px; }
+.video-subhead{ margin:52px 0 22px; }
+.vid-card{ display:flex; flex-direction:column; gap:10px; }
+.vid-thumb{
+  position:relative; display:block; width:100%; aspect-ratio:16/9; padding:0;
+  border:1px solid var(--line); background:var(--ink-2); overflow:hidden;
+  cursor:pointer; border-radius:3px;
+}
+.video-grid--vertical .vid-thumb{ aspect-ratio:9/16; }
+.vid-thumb img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  filter:grayscale(1) contrast(1.05); transition:filter .3s, transform .4s;
+}
+.vid-thumb:hover img{ filter:grayscale(0) contrast(1); transform:scale(1.04); }
+.vid-play{
+  position:absolute; inset:0; margin:auto; width:56px; height:56px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(10,10,10,0.6); color:var(--paper); backdrop-filter:blur(2px);
+  border:1px solid rgba(244,244,242,0.5);
+  transition:background .2s, border-color .2s, transform .2s;
+}
+.vid-thumb:hover .vid-play{ background:var(--red); border-color:var(--red); transform:scale(1.08); }
+.vid-thumb iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.vid-num{ font-family:var(--f-mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--red); }
+.vid-title{ font-family:var(--f-body); font-weight:600; font-size:15px; color:var(--paper); line-height:1.3; margin-top:-4px; }
+@media (max-width:560px){
+  .video-grid{ grid-template-columns:1fr; gap:20px; }
+  .video-grid--vertical{ grid-template-columns:repeat(2,1fr); gap:16px; }
+  .vid-play{ width:44px; height:44px; }
+  .vid-title{ font-size:14px; }
+}
 </style>
 <script type="application/ld+json">
 {
@@ -196,43 +292,17 @@ src="https://www.facebook.com/tr?id=1475977817606217&ev=PageView&noscript=1"
     <h1 class="title">Kingston</h1>
     <p class="hook">Out now.</p>
 
-    <div class="song-art">
-      <img src="/images/art-kng.jpg" alt="Kingston cover art" width="800" height="800">
+    <div class="song-media">
+      <div class="vid-card" data-yt="9D-Z2B5eQfQ">
+        <button class="vid-thumb" aria-label="Play Kingston video">
+          <img src="https://i.ytimg.com/vi/9D-Z2B5eQfQ/maxresdefault.jpg" alt="" loading="lazy">
+          <span class="vid-play" aria-hidden="true">
+            <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
+          </span>
+        </button>
+        <span class="vid-title">Kingston</span>
+      </div>
     </div>
-
-    <p class="listen-note">Listen or buy</p>
-    <div class="listen-list">
-      <a class="lrow lrow-buy" href="https://music.apple.com/us/album/kingston/1895390939?i=6763591791&app=itunes" target="_blank" rel="noopener">
-        <span class="lname"><span class="ldot ldot-itunes"></span>iTunes
-          <span class="lsub">Own the song</span></span>
-        <span class="lgo">Buy</span>
-      </a>
-      <a class="lrow" href="https://open.spotify.com/album/3g1t2lsdTUo0oiuGIF3V48" target="_blank" rel="noopener">
-        <span class="lname"><span class="ldot ldot-spotify"></span>Spotify</span>
-        <span class="lgo">Play</span>
-      </a>
-      <a class="lrow" href="https://geo.music.apple.com/us/album/kingston/1895390939?i=6763591791" target="_blank" rel="noopener">
-        <span class="lname"><span class="ldot ldot-apple"></span>Apple Music</span>
-        <span class="lgo">Play</span>
-      </a>
-      <a class="lrow" href="https://www.deezer.com/track/4150958402" target="_blank" rel="noopener">
-        <span class="lname"><span class="ldot ldot-deezer"></span>Deezer</span>
-        <span class="lgo">Play</span>
-      </a>
-      <a class="lrow" href="https://listen.tidal.com/track/518688293" target="_blank" rel="noopener">
-        <span class="lname"><span class="ldot ldot-tidal"></span>Tidal</span>
-        <span class="lgo">Play</span>
-      </a>
-      <a class="lrow" href="https://audiomack.com/whosrila/song/kingston-1" target="_blank" rel="noopener">
-        <span class="lname"><span class="ldot ldot-audiomack"></span>Audiomack</span>
-        <span class="lgo">Play</span>
-      </a>
-      <a class="lrow" href="https://www.pandora.com/TR:119148249" target="_blank" rel="noopener">
-        <span class="lname"><span class="ldot ldot-pandora"></span>Pandora</span>
-        <span class="lgo">Play</span>
-      </a>
-    </div>
-
 
     <div class="preview-player">
       <audio class="preview-audio" src="/audio/kingston.mp3" preload="none"></audio>
@@ -244,6 +314,59 @@ src="https://www.facebook.com/tr?id=1475977817606217&ev=PageView&noscript=1"
       </div>
     </div>
 
+    <p class="listen-note">Listen or buy</p>
+    <div class="listen-list">
+      <a class="lrow lrow-buy" href="https://music.apple.com/us/album/kingston/1895390939?i=6763591791&app=itunes" target="_blank" rel="noopener">
+        <span class="ldot ldot-itunes"></span>
+        <span class="ltext">
+          <span class="lname">iTunes</span>
+          <span class="lsub">Own the song</span>
+        </span>
+        <span class="lgo">Buy</span>
+      </a>
+      <a class="lrow" href="https://open.spotify.com/album/3g1t2lsdTUo0oiuGIF3V48" target="_blank" rel="noopener">
+        <span class="ldot ldot-spotify"></span>
+        <span class="ltext">
+          <span class="lname">Spotify</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://geo.music.apple.com/us/album/kingston/1895390939?i=6763591791" target="_blank" rel="noopener">
+        <span class="ldot ldot-apple"></span>
+        <span class="ltext">
+          <span class="lname">Apple Music</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://www.deezer.com/track/4150958402" target="_blank" rel="noopener">
+        <span class="ldot ldot-deezer"></span>
+        <span class="ltext">
+          <span class="lname">Deezer</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://listen.tidal.com/track/518688293" target="_blank" rel="noopener">
+        <span class="ldot ldot-tidal"></span>
+        <span class="ltext">
+          <span class="lname">Tidal</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://audiomack.com/whosrila/song/kingston-1" target="_blank" rel="noopener">
+        <span class="ldot ldot-audiomack"></span>
+        <span class="ltext">
+          <span class="lname">Audiomack</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://www.pandora.com/TR:119148249" target="_blank" rel="noopener">
+        <span class="ldot ldot-pandora"></span>
+        <span class="ltext">
+          <span class="lname">Pandora</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
+    </div>
   </div>
 </main>
 
@@ -288,5 +411,6 @@ src="https://www.facebook.com/tr?id=1475977817606217&ev=PageView&noscript=1"
 </script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3fc16cf549f44cb4bbde3934b15904d3"}'></script><!-- End Cloudflare Web Analytics -->
 <script defer src="/js/track.js?v=b8498e91"></script>
+<script defer src="/js/lightbox.js?v=9ca9d7dc"></script>
 </body>
 </html>
