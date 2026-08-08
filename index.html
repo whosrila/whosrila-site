@@ -20,6 +20,7 @@
 <meta name="twitter:title" content="WHOSRILA — Kingston, Jamaica">
 <meta name="twitter:description" content="WHOSRILA — Kingston, Jamaica. Hip-hop and reggae cut from the same riddim. Lead single &#39;Made You&#39; — out August 13, 2026.">
 <meta name="twitter:image" content="https://whosrila.com/images/art-madeyou.jpg">
+<link rel="preload" as="image" href="/images/press/press-01.webp" type="image/webp" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
@@ -260,7 +261,9 @@
   }
 
   /* ---------- Tracklist ---------- */
-  .tracklist{ display:flex; flex-direction:column; }
+  /* Two columns from tablet up — halves the height of a 12-song list */
+  .tracklist{ display:grid; grid-template-columns:1fr 1fr; column-gap:34px; align-items:start; }
+  @media (max-width:860px){ .tracklist{ grid-template-columns:1fr; column-gap:0; } }
   .track-item { display:flex; flex-direction:column; border-bottom:1px solid var(--line); }
   .track-item .track-row { border-bottom:none; }
   .track-actions { display:flex; align-items:center; gap:12px; padding:4px 0 12px 52px; }
@@ -314,6 +317,51 @@
     display:inline-block; margin-left:8px; vertical-align:middle; letter-spacing:0.04em;
   }
   .listen-cta-row{ display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; }
+  /* ---------- Buy button + pop-out ---------- */
+  .cta-row{ display:flex; gap:8px; align-items:stretch; margin-top:auto; }
+  .cta-row > .btn{ flex:1 1 auto; }
+  .buybox{ position:relative; flex:0 0 auto; }
+  .btn-buy{
+    display:flex; align-items:center; gap:6px; height:100%;
+    padding:12px 15px; cursor:pointer;
+    background:transparent; color:var(--paper);
+    border:1px solid rgba(244,244,242,0.3); border-radius:3px;
+    font-family:var(--f-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+    transition:border-color .18s, color .18s, background .18s;
+  }
+  .btn-buy:hover,.btn-buy[aria-expanded="true"]{ border-color:var(--red); color:var(--red); background:rgba(215,38,61,0.07); }
+  .btn-buy .bb-chev{ transition:transform .3s cubic-bezier(.4,0,.2,1); }
+  .btn-buy[aria-expanded="true"] .bb-chev{ transform:rotate(180deg); }
+
+  .buy-pop{
+    position:absolute; right:0; bottom:calc(100% + 8px); z-index:40; width:252px;
+    background:#141414; border:1px solid rgba(244,244,242,0.16); border-radius:5px;
+    box-shadow:0 18px 44px rgba(0,0,0,0.6); overflow:hidden;
+    opacity:0; transform:translateY(6px) scale(.97); transform-origin:bottom right;
+    transition:opacity .22s ease, transform .22s cubic-bezier(.22,.61,.36,1);
+    pointer-events:none;
+  }
+  .buy-pop.open{ opacity:1; transform:none; pointer-events:auto; }
+  .buy-opt{
+    display:flex; flex-direction:column; gap:2px; padding:12px 14px; text-align:left;
+    border-bottom:1px solid rgba(244,244,242,0.09); transition:background .16s;
+  }
+  .buy-opt:last-child{ border-bottom:none; }
+  .buy-opt:hover{ background:rgba(244,244,242,0.06); }
+  .buy-opt-t{ font-size:13px; font-weight:600; color:var(--paper); line-height:1.25; }
+  .buy-opt-s{ font-family:var(--f-mono); font-size:10px; letter-spacing:.06em; color:var(--paper-dim); }
+  .buy-opt[aria-disabled="true"]{ opacity:.45; cursor:default; pointer-events:none; }
+
+  @media (max-width:560px){
+    .cta-row{ flex-direction:column; gap:6px; }
+    .btn-buy{ justify-content:center; padding:10px; }
+    .buy-pop{ width:100%; right:auto; left:0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .buy-pop{ transition:none; }
+    .btn-buy .bb-chev{ transition:none; }
+  }
+
   /* ---------- Collapsible track list ---------- */
   .tracklist{ overflow:hidden; transition:max-height .55s cubic-bezier(.4,0,.2,1); }
   .tracklist.collapsed{ -webkit-mask-image:linear-gradient(#000 62%, transparent 100%);
@@ -502,7 +550,7 @@
   .hero-gallery{ position:absolute; inset:0; z-index:0; }
   .hg-slide{
     position:absolute; inset:0; opacity:0;
-    transition:opacity 1.5s ease-in-out;
+    transition:opacity 1.05s ease-in-out;
   }
   .hg-slide img{
     width:100%; height:100%; object-fit:cover;
@@ -510,7 +558,7 @@
   }
   .hg-slide.on{ opacity:1; }
   /* Ken Burns only on the slide that's showing, so idle slides cost nothing */
-  .hg-slide.on img{ animation:kenburns 8s ease-out both; }
+  .hg-slide.on img{ animation:kenburns 5.4s ease-out both; }
   @keyframes kenburns{
     from{ transform:scale(1.02) translate3d(0,0,0); }
     to  { transform:scale(1.12) translate3d(-1.2%,-1.6%,0); }
@@ -519,8 +567,8 @@
   .featured-hero::after{
     content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
     background:
-      linear-gradient(100deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.72) 38%, rgba(10,10,10,0.28) 100%),
-      linear-gradient(rgba(10,10,10,0.20), rgba(10,10,10,0.55));
+      radial-gradient(ellipse 70% 80% at 50% 50%, rgba(10,10,10,0.90) 0%, rgba(10,10,10,0.62) 55%, rgba(10,10,10,0.30) 100%),
+      linear-gradient(rgba(10,10,10,0.28), rgba(10,10,10,0.58));
   }
   .featured-hero-inner{ position:relative; z-index:2; }
 
@@ -533,18 +581,25 @@
     .hg-slide{ transition:none; }
     .rise{ animation:none; opacity:1; transform:none; }
   }
-  .featured-hero-inner{ display:grid; grid-template-columns:300px 1fr; gap:44px; align-items:center; }
-  .featured-cover{ display:block; border:1px solid rgba(244,244,242,0.15); overflow:hidden; box-shadow:0 18px 50px rgba(0,0,0,0.5); }
+  .featured-hero-inner{
+    display:flex; flex-direction:column; align-items:center; text-align:center; gap:30px;
+  }
+  .featured-cover{
+    display:block; width:100%; max-width:420px;
+    border:1px solid rgba(244,244,242,0.15); overflow:hidden;
+    box-shadow:0 24px 64px rgba(0,0,0,0.6);
+  }
   .featured-cover img{ width:100%; height:auto; display:block; aspect-ratio:1/1; object-fit:cover; transition:transform .4s; animation:fadeInArt 1.6s ease-in-out both; }
   .featured-cover:hover img{ transform:scale(1.03); }
   @keyframes fadeInArt{ from{ opacity:0; } to{ opacity:1; } }
-  .featured-copy .featured-title{ font-family:var(--f-display); color:var(--paper); font-weight:800; font-size:clamp(34px,5vw,58px); line-height:1.02; margin:16px 0 6px; }
-  .featured-copy .featured-date{ font-family:var(--f-mono); text-transform:uppercase; letter-spacing:0.12em; font-size:14px; color:var(--paper-dim); margin:0 0 26px; }
+  .featured-copy{ display:flex; flex-direction:column; align-items:center; }
+  .featured-copy .featured-title{ font-family:var(--f-display); color:var(--paper); font-weight:800; font-size:clamp(36px,5.4vw,64px); line-height:1.02; margin:14px 0 6px; }
+  .featured-copy .featured-date{ font-family:var(--f-mono); text-transform:uppercase; letter-spacing:0.12em; font-size:14px; color:var(--paper-dim); margin:0 0 24px; }
   .featured-btn{ background:var(--red); color:var(--paper); border-color:var(--red); }
   .featured-btn:hover{ box-shadow:0 8px 24px rgba(215,38,61,0.4); }
   @media (max-width:760px){
-    .featured-hero-inner{ grid-template-columns:1fr; gap:26px; text-align:left; }
-    .featured-cover{ max-width:260px; }
+    .featured-hero-inner{ gap:22px; }
+    .featured-cover{ max-width:300px; }
   }
   /* ---------- Upcoming Releases ---------- */
   .upcoming{ margin-bottom:52px; padding-bottom:40px; border-bottom:1px solid var(--line); }
@@ -891,8 +946,7 @@
       </picture>
       <picture class="hg-slide">
         <source srcset="/images/press/press-02.webp" type="image/webp">
-        <img src="/images/press/press-02.jpg" alt="" style="object-position:center 42%"
-             loading="lazy">
+        <img src="/images/press/press-02.jpg" alt="" style="object-position:center 42%">
       </picture>
       <picture class="hg-slide">
         <source srcset="/images/press/press-05.webp" type="image/webp">
@@ -965,11 +1019,19 @@
 
     <!-- ============================================================
       UPCOMING RELEASES — soonest first.
-      Made You pre-save is LIVE (too.fm). The other four are pending
-      their pre-save links: when a link goes live, swap the disabled
-      <span class="btn btn-soon"> for:
-        <a class="btn btn-primary" href="PRESAVE_URL" target="_blank" rel="noopener">Pre-Save</a>
-      and replace the placeholder cover with the real art in /images.
+
+      Made You and Energy have live pre-saves (too.fm). The rest are
+      pending: when a pre-save link goes live, swap that card's
+      <a class="btn btn-soon"> for
+      <a class="btn btn-primary" href="PRESAVE_URL" target="_blank" rel="noopener">Pre-Save</a>
+      and drop the real cover art into /images.
+
+      Each card's Buy pop-out has two options. The iTunes one turns into a
+      real link on release day — take the URL from Apple's own API, not
+      Odesli, and make sure it carries app=itunes or it opens Apple Music
+      instead of the store. The direct option stays disabled until there is
+      a checkout to point it at; set WR_DIRECT_STORE near the bottom of this
+      file and every card picks it up at once.
     ============================================================ -->
     <div class="upcoming reveal">
       <span class="stamp">Upcoming Releases</span>
@@ -980,7 +1042,21 @@
           <a href="/madeyou" class="up-cover"><img src="/images/art-madeyou.jpg" alt="Made You cover art"></a>
           <span class="up-title">Made You</span>
           <span class="up-date">Out August 13, 2026</span>
-          <a class="btn btn-primary" href="/madeyou">Pre-Save</a>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="/madeyou">Pre-Save</a>
+            <div class="buybox">
+            <button class="btn-buy" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="10" height="7" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt" aria-disabled="true"><span class="buy-opt-t">Own it on iTunes</span><span class="buy-opt-s">On release day</span></span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
+          </div>
         </div>
 
         <!-- 2. Energy (Kum3ra ft. WHOSRILA) — pre-save LIVE -->
@@ -989,7 +1065,21 @@
           <span class="up-title">Energy</span>
           <span class="up-feat">Kum3ra ft. WHOSRILA</span>
           <span class="up-date">Out September 11, 2026</span>
-          <a class="btn btn-primary" href="/energy">Pre-Save</a>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="/energy">Pre-Save</a>
+            <div class="buybox">
+            <button class="btn-buy" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="10" height="7" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt" aria-disabled="true"><span class="buy-opt-t">Own it on iTunes</span><span class="buy-opt-s">On release day</span></span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
+          </div>
         </div>
 
         <!-- 3. Angels On Sofa (collab with Pascal Pressure & Justice Case) — pre-save pending -->
@@ -999,7 +1089,21 @@
           <span class="up-feat">A collab with Pascal Pressure &amp; Justice Case</span>
           <span class="up-date">Out September 17, 2026</span>
           <!-- TODO: add pre-save link when live -->
-          <a class="btn btn-soon" href="/angelsonsofa" aria-disabled="true">Pre-Save Coming Soon</a>
+          <div class="cta-row">
+            <a class="btn btn-soon" href="/angelsonsofa" aria-disabled="true">Pre-Save Coming Soon</a>
+            <div class="buybox">
+            <button class="btn-buy" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="10" height="7" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt" aria-disabled="true"><span class="buy-opt-t">Own it on iTunes</span><span class="buy-opt-s">On release day</span></span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
+          </div>
         </div>
 
         <!-- 4. Manifesting — pre-save pending -->
@@ -1008,7 +1112,21 @@
           <span class="up-title">Manifesting</span>
           <span class="up-date">Out December 3, 2026</span>
           <!-- TODO: swap for the pre-save link when live -->
-          <a class="btn btn-soon" href="/manifesting" aria-disabled="true">Pre-Save Coming Soon</a>
+          <div class="cta-row">
+            <a class="btn btn-soon" href="/manifesting" aria-disabled="true">Pre-Save Coming Soon</a>
+            <div class="buybox">
+            <button class="btn-buy" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="10" height="7" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt" aria-disabled="true"><span class="buy-opt-t">Own it on iTunes</span><span class="buy-opt-s">On release day</span></span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
+          </div>
         </div>
 
         <!-- 5. Bombs Away — pre-save pending -->
@@ -1017,7 +1135,21 @@
           <span class="up-title">Bombs Away</span>
           <span class="up-date">Out December 17, 2026</span>
           <!-- TODO: swap for the pre-save link when live -->
-          <a class="btn btn-soon" href="/bombsaway" aria-disabled="true">Pre-Save Coming Soon</a>
+          <div class="cta-row">
+            <a class="btn btn-soon" href="/bombsaway" aria-disabled="true">Pre-Save Coming Soon</a>
+            <div class="buybox">
+            <button class="btn-buy" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="10" height="7" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt" aria-disabled="true"><span class="buy-opt-t">Own it on iTunes</span><span class="buy-opt-s">On release day</span></span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
+          </div>
         </div>
 
       </div>
@@ -1494,6 +1626,55 @@
     reveals.forEach(el => el.classList.add('in'));
   }
 
+  // ---------- Buy pop-out ----------
+  // Set this to a real checkout URL and every "Buy direct" option turns
+  // into a live link. Left empty the option stays visibly disabled rather
+  // than pointing somewhere that doesn't exist yet.
+  var WR_DIRECT_STORE = '';
+
+  (function(){
+    var boxes = [].slice.call(document.querySelectorAll('.buybox'));
+    if(!boxes.length) return;
+
+    if(WR_DIRECT_STORE){
+      document.querySelectorAll('.buy-direct').forEach(function(el){
+        var a = document.createElement('a');
+        a.className = 'buy-opt buy-direct';
+        a.href = WR_DIRECT_STORE;
+        a.target = '_blank'; a.rel = 'noopener';
+        a.innerHTML = '<span class="buy-opt-t">Buy direct from WHOSRILA</span>' +
+                      '<span class="buy-opt-s">Straight from me</span>';
+        el.parentNode.replaceChild(a, el);
+      });
+    }
+
+    function closeAll(except){
+      boxes.forEach(function(b){
+        if(b === except) return;
+        b.querySelector('.buy-pop').classList.remove('open');
+        b.querySelector('.btn-buy').setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    boxes.forEach(function(box){
+      var btn = box.querySelector('.btn-buy');
+      var pop = box.querySelector('.buy-pop');
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var open = pop.classList.contains('open');
+        closeAll(box);
+        pop.classList.toggle('open', !open);
+        btn.setAttribute('aria-expanded', String(!open));
+      });
+      pop.addEventListener('click', function(e){ e.stopPropagation(); });
+    });
+
+    document.addEventListener('click', function(){ closeAll(null); });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closeAll(null);
+    });
+  })();
+
   // ---------- Collapsible track list ----------
   (function(){
     var list = document.getElementById('trackList');
@@ -1503,7 +1684,12 @@
     var items = [].slice.call(list.querySelectorAll('.track-item'));
     // how many stay visible when collapsed — two rows on the mobile grid,
     // five on the desktop list
-    function visibleCount(){ return window.matchMedia('(max-width:560px)').matches ? 4 : 5; }
+    // keep the cut on a row boundary: 2-up above 860px, single column below
+    function visibleCount(){
+      if(window.matchMedia('(max-width:560px)').matches) return 4;   // 2 cols x 2
+      if(window.matchMedia('(max-width:860px)').matches) return 5;   // single column
+      return 6;                                                      // 2 cols x 3
+    }
 
     var open = false;
 
@@ -1511,8 +1697,13 @@
       var n = Math.min(visibleCount(), items.length);
       if(!n) return 0;
       var top = list.getBoundingClientRect().top;
-      var last = items[n-1].getBoundingClientRect();
-      return Math.round(last.bottom - top);
+      // tallest bottom edge among the visible items — in a grid the last one
+      // in source order may be the shorter of its row
+      var bottom = 0;
+      for(var k = 0; k < n; k++){
+        bottom = Math.max(bottom, items[k].getBoundingClientRect().bottom);
+      }
+      return Math.round(bottom - top);
     }
 
     function mark(){
@@ -1597,12 +1788,12 @@
       i = n;
     }
 
-    var timer = setInterval(function(){ show((i + 1) % slides.length); }, 5600);
+    var timer = setInterval(function(){ show((i + 1) % slides.length); }, 4200);
 
     // don't burn cycles animating a tab nobody is looking at
     document.addEventListener('visibilitychange', function(){
       if(document.hidden){ clearInterval(timer); timer = null; }
-      else if(!timer){ timer = setInterval(function(){ show((i + 1) % slides.length); }, 5600); }
+      else if(!timer){ timer = setInterval(function(){ show((i + 1) % slides.length); }, 4200); }
     });
   })();
 
