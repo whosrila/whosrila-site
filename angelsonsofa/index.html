@@ -41,11 +41,11 @@
   .burger{ display:block; }
 }
 
-.cover-art{
-  width:100%; max-width:320px; border:1px solid var(--line); border-radius:6px;
-  overflow:hidden; margin:0 0 28px; display:block;
+.song-media{ width:100%; margin:0 0 18px; }
+.song-media--art{
+  border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--ink-2);
 }
-.cover-art img{ display:block; width:100%; height:auto; }
+.song-media--art img{ display:block; width:100%; height:auto; }
 
 .soon-frame{
   border:1px solid var(--line); border-radius:6px; padding:28px 24px;
@@ -154,6 +154,10 @@
     <h1 class="title">Angels On Sofa</h1>
     <p class="hook">A collaboration with Pascal Pressure &amp; Justice Case &mdash; out September 17, 2026.</p>
 
+    <div class="song-media song-media--art">
+      <img src="/images/art-angels.jpg" alt="Angels On Sofa cover art" width="800" height="800">
+    </div>
+
     <div class="preview-player">
       <audio class="preview-audio" src="/audio/angelsonsofa.m4a" preload="none"></audio>
       <button class="preview-btn" aria-label="Play preview">
@@ -162,10 +166,6 @@
       <div class="preview-meta">
         <span class="preview-tag">Preview</span>
       </div>
-    </div>
-
-    <div class="cover-art">
-      <img src="/images/art-angels.jpg" alt="Angels On Sofa cover art" loading="lazy">
     </div>
 
     <!-- Countdown: delete this whole <div class="countdown">...</div> block once released. -->

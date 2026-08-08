@@ -7,30 +7,23 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Made You — WHOSRILA</title>
-<meta name="description" content="New single out August 13, 2026. Pre-save now.">
+<title>Bombs Away — WHOSRILA</title>
+<meta name="description" content="Out December 17, 2026.">
 <!-- Open Graph tags help this page look right when shared/linked in ad platforms -->
-<meta property="og:title" content="Made You — WHOSRILA">
-<meta property="og:description" content="New single out August 13, 2026. Pre-save now.">
+<meta property="og:title" content="Bombs Away — WHOSRILA">
+<meta property="og:description" content="Out December 17, 2026.">
 <meta property="og:type" content="music.song">
-<meta property="og:image" content="https://whosrila.com/images/art-madeyou.jpg">
-<meta property="og:url" content="https://whosrila.com/madeyou">
+<meta property="og:image" content="https://whosrila.com/images/logo.png">
+<meta property="og:url" content="https://whosrila.com/bombsaway">
 <meta property="og:site_name" content="WHOSRILA">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Made You — WHOSRILA">
-<meta name="twitter:description" content="New single out August 13, 2026. Pre-save now.">
-<meta name="twitter:image" content="https://whosrila.com/images/art-madeyou.jpg">
+<meta name="twitter:title" content="Bombs Away — WHOSRILA">
+<meta name="twitter:description" content="Out December 17, 2026.">
+<meta name="twitter:image" content="https://whosrila.com/images/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="/css/site.css?v=a7459f2f">
 <style>
-@font-face {
-  font-family: 'Whosrila';
-  src: url('/fonts/whosrila.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
 :root{
   --ink:        #0A0A0A;
   --ink-2:      #161616;
@@ -54,6 +47,32 @@
 }
 .song-media--art img{ display:block; width:100%; height:auto; }
 
+.soon-frame{
+  border:1px solid var(--line); border-radius:6px; padding:28px 24px;
+  margin-bottom:16px; text-align:center;
+}
+.soon-frame .soon-label{
+  font-family:var(--f-mono); font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--paper-dim); margin:0 0 6px;
+}
+.soon-frame .soon-sub{ font-size:15px; color:var(--ink-2); margin:0; }
+
+
+/* Placeholder art and preview — swap these out when the assets land.
+   Dashed border so it never reads as a finished cover. */
+.song-media--soon{
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+  aspect-ratio:1/1; border:1px dashed rgba(10,10,10,0.22); border-radius:6px;
+  background:var(--ink-2);
+}
+.song-media--soon img{ width:88px; height:auto; opacity:.45; }
+.song-media--soon span{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--paper-dim);
+}
+.preview-player--soon{ border-style:dashed; opacity:.7; }
+.preview-player--soon .preview-btn{ border-color:var(--paper-dim); color:var(--paper-dim); cursor:default; }
+
 .preview-player{
   display:flex; align-items:center; gap:16px;
   padding:16px 20px; margin-bottom:16px;
@@ -73,19 +92,6 @@
   font-family:var(--f-mono); font-size:11px; letter-spacing:0.14em;
   text-transform:uppercase; color:var(--paper-dim);
 }
-
-.embed-frame{
-  border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--paper);
-  margin-bottom:16px;
-}
-.embed-frame iframe{ display:block; width:100%; border:0; }
-
-.fallback{
-  font-family:var(--f-mono); font-size:12px; letter-spacing:0.04em; color:var(--paper-dim);
-  text-align:center; margin-bottom:8px;
-}
-.fallback a{ border-bottom:1px solid var(--red); color:var(--paper); padding-bottom:1px; }
-.fallback a:hover{ color:var(--red); }
 
 /* ---------- Cookie consent ---------- */
 .cc{
@@ -115,17 +121,16 @@
 {
   "@context": "https://schema.org",
   "@type": "MusicRecording",
-  "name": "Made You",
-  "url": "https://whosrila.com/madeyou",
-  "image": "https://whosrila.com/images/art-madeyou.jpg",
+  "name": "Bombs Away",
+  "url": "https://whosrila.com/bombsaway",
   "byArtist": {
     "@id": "https://whosrila.com/#artist"
   },
   "inAlbum": {
     "@type": "MusicRelease",
-    "name": "Made You"
+    "name": "Bombs Away"
   },
-  "datePublished": "2026-08-13"
+  "datePublished": "2026-12-17"
 }
 </script>
 </head>
@@ -150,26 +155,36 @@
 
 <main>
   <div class="wrap">
-    <span class="stamp">LEAD SINGLE &middot; WRL-001</span>
-    <h1 class="title">Made You</h1>
-    <p class="hook">The lead single. Pre-save it now &mdash; out August 13, 2026.</p>
+    <span class="stamp">Upcoming Single</span>
+    <h1 class="title">Bombs Away</h1>
+    <p class="hook">Out December 17, 2026.</p>
 
-    <div class="song-media song-media--art">
-      <img src="/images/art-madeyou.jpg" alt="Made You cover art" width="800" height="800">
+    <!-- EDIT ME — when the cover art lands, drop it in /images as
+         art-bombsaway.jpg and replace this whole block with:
+         <div class="song-media song-media--art">
+           <img src="/images/art-bombsaway.jpg" alt="Bombs Away cover art" width="800" height="800">
+         </div> -->
+    <div class="song-media song-media--soon">
+      <img src="/images/logo.png" alt="">
+      <span>Artwork coming soon</span>
     </div>
 
-    <div class="preview-player">
-      <audio class="preview-audio" src="/audio/madeyou.m4a" preload="none"></audio>
-      <button class="preview-btn" aria-label="Play preview">
+    <!-- EDIT ME — when the preview clip lands, drop it in /audio as
+         bombsaway.m4a and restore the working player: give this div
+         class="preview-player", put <audio class="preview-audio"
+         src="/audio/bombsaway.m4a" preload="none"></audio> back inside,
+         make the span a <button class="preview-btn">, and set the tag to
+         "Preview". The handler at the bottom of this page needs no changes. -->
+    <div class="preview-player preview-player--soon">
+      <span class="preview-btn" aria-hidden="true">
         <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
-      </button>
+      </span>
       <div class="preview-meta">
-        <span class="preview-tag">Preview</span>
+        <span class="preview-tag">Preview coming soon</span>
       </div>
     </div>
 
-    <!-- Countdown: delete this whole <div class="countdown">...</div> block for
-         already-released songs. Only useful for pre-save / upcoming releases. -->
+    <!-- Countdown: delete this whole <div class="countdown">...</div> block once released. -->
     <div class="countdown" id="countdown">
       <div class="cell"><div class="num" id="cd-days">--</div><div class="lab">Days</div></div>
       <div class="cell"><div class="num" id="cd-hours">--</div><div class="lab">Hrs</div></div>
@@ -177,23 +192,14 @@
     </div>
 
     <!-- =========================================================
-      EDIT ME — paste your Feature.fm embed code here.
-      In Feature.fm: open your campaign → Share/Embed → copy the
-      iframe code → replace the src below with that URL.
-      The height (900) can be adjusted to match what Feature.fm
-      recommends for your specific campaign layout.
+      EDIT ME — once the Feature.fm / too.fm pre-save link is live,
+      replace this .soon-frame block with an .embed-frame iframe
+      the same way /madeyou does it.
     ========================================================== -->
-    <div class="embed-frame">
-      <iframe
-        src="https://too.fm/whosrila-madeyou?autoplay=1"
-        width="100%" height="1300" frameborder="0" allowtransparency="true" scrolling="no"
-        title="Made You — pre-save and listen">
-      </iframe>
+    <div class="soon-frame">
+      <p class="soon-label">Pre-Save Coming Soon</p>
+      <p class="soon-sub">The pre-save link isn&rsquo;t live yet &mdash; check back closer to release.</p>
     </div>
-
-    <p class="fallback">
-      Trouble loading? <a href="https://too.fm/whosrila-madeyou" target="_blank" rel="noopener">Open directly</a>
-    </p>
   </div>
 </main>
 
@@ -207,9 +213,7 @@
 
 <script>
   // EDIT ME — set this song's release date for the countdown.
-  // If the song is already out, delete the countdown <div> above
-  // and this whole script block.
-  const RELEASE_DATE_ISO = '2026-08-13T00:00:00';
+  const RELEASE_DATE_ISO = '2026-12-17T00:00:00';
 
   const cdEl = document.getElementById('countdown');
 

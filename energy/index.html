@@ -54,6 +54,12 @@
 .fallback a{ border-bottom:1px solid var(--red); color:var(--paper); padding-bottom:1px; }
 .fallback a:hover{ color:var(--red); }
 
+.song-media{ width:100%; margin:0 0 18px; }
+.song-media--art{
+  border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--ink-2);
+}
+.song-media--art img{ display:block; width:100%; height:auto; }
+
 .preview-player{
   display:flex; align-items:center; gap:16px;
   padding:16px 20px; margin-bottom:16px;
@@ -146,6 +152,10 @@
     <span class="stamp">Upcoming Single &middot; Kum3ra ft. WHOSRILA</span>
     <h1 class="title">Energy</h1>
     <p class="hook">Kum3ra ft. WHOSRILA &mdash; pre-save it now, out September 11, 2026.</p>
+
+    <div class="song-media song-media--art">
+      <img src="/images/art-energy.jpg" alt="Energy cover art" width="800" height="800">
+    </div>
 
     <div class="preview-player">
       <audio class="preview-audio" src="/audio/energy.m4a" preload="none"></audio>
