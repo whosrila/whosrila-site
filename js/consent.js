@@ -31,7 +31,11 @@
           event, create the conversion in Ads and paste its send-to
           string into WR_ADS_CONVERSIONS below
   --------------------------------------------------------------- */
-  var GA4 = '';
+  var GA4 = 'G-B6C4N1Z49C';
+  // No Ads ID yet: both Google Ads accounts on this login are cancelled,
+  // so there is nothing live to send conversions to. GA4 still records
+  // every event, and those can be imported as conversions once an
+  // account is active again.
   var ADS = '';
 
   // event name -> Google Ads 'AW-XXXXXXXXXX/AbCdEfGhIj' conversion string
