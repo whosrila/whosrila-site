@@ -4,8 +4,9 @@
  * unless a pixel is actually installed, so the site behaves identically
  * with or without them.
  *
- * To switch pixels on, add the Meta and/or TikTok base snippet to the
- * page <head>. This file needs no edits — it detects them.
+ * Detection-based: it fires into Meta (fbq), TikTok (ttq) and Google
+ * (gtag) if they're present and stays silent if they aren't. Turning a
+ * platform on is done in consent.js — this file needs no edits.
  *
  * Events sent:
  *   PlatformClick  — someone left for Spotify/Apple/etc  (+ platform, song)
@@ -13,15 +14,30 @@
  *   VideoPlay      — opened a video
  *   PreviewPlay    — played an audio preview
  * PlatformClick and PreSaveClick also fire Meta's standard `Lead` event,
- * which is the one worth optimising ad delivery against.
+ * which is the one worth optimising ad delivery against. On Google the
+ * same events land in GA4, where they can be marked as key events and
+ * imported into Google Ads — or mapped straight to an Ads conversion
+ * label via WR_ADS_CONVERSIONS in consent.js.
  */
 (function () {
   'use strict';
+
+  // Google Ads counts a conversion only when the event carries a
+  // send_to naming the conversion. Anything not mapped still reaches
+  // GA4 as a normal event.
+  function googleConversion(event) {
+    var map = window.WR_ADS_CONVERSIONS;
+    return map && map[event] ? map[event] : null;
+  }
 
   function send(event, data) {
     data = data || {};
     try { if (window.fbq) window.fbq('trackCustom', event, data); } catch (e) {}
     try { if (window.ttq) window.ttq.track(event, data); } catch (e) {}
+    // GA4 takes every event as-is; `song` and `platform` come through as
+    // event parameters, so one event type still breaks down per song.
+    try { if (window.gtag) window.gtag('event', event, data); } catch (e) {}
+
     // standard conversion events, for ad-platform optimisation
     if (event === 'PlatformClick' || event === 'PreSaveClick') {
       try { if (window.fbq) window.fbq('track', 'Lead', data); } catch (e) {}
@@ -32,6 +48,12 @@
       try { if (window.fbq) window.fbq('track', 'InitiateCheckout', data); } catch (e) {}
       try { if (window.ttq) window.ttq.track('InitiateCheckout', data); } catch (e) {}
     }
+
+    try {
+      var conv = googleConversion(event);
+      if (window.gtag && conv) window.gtag('event', 'conversion', { send_to: conv });
+    } catch (e) {}
+
     if (window.__TRACK_DEBUG) console.log('[track]', event, data);
   }
   window.wrTrack = send;
