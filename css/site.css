@@ -35,3 +35,10 @@ footer.mini a{ border-bottom:1px solid var(--line); }
 footer.mini a:hover{ color:var(--paper); border-color:var(--paper); }
 .h2 { font-size: clamp(24px,3.5vw,38px); }
 h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
+
+/* Countdown after the release date has passed. */
+.countdown.done{ align-items:center; }
+.countdown .cd-live{
+  font-family:var(--f-mono); font-size:12px; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--red);
+}

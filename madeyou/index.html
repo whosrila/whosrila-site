@@ -22,7 +22,7 @@
 <meta name="twitter:image" content="https://whosrila.com/images/art-madeyou.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="/css/site.css?v=2e11a145">
+<link rel="stylesheet" href="/css/site.css?v=a7459f2f">
 <style>
 @font-face {
   font-family: 'Whosrila';
@@ -171,9 +171,24 @@
   // and this whole script block.
   const RELEASE_DATE_ISO = '2026-08-13T00:00:00';
 
+  const cdEl = document.getElementById('countdown');
+
   function tick(){
     const target = new Date(RELEASE_DATE_ISO).getTime();
-    const diff = Math.max(0, target - Date.now());
+    const diff = target - Date.now();
+
+    // Release day. Stop counting and say so — a clock frozen at 0/00/00
+    // reads as broken, and this page may sit here a while before it's
+    // rebuilt as a released-song page.
+    if(diff <= 0){
+      if(cdEl){
+        cdEl.classList.add('done');
+        cdEl.innerHTML = '<span class="cd-live">Out now</span>';
+      }
+      clearInterval(timer);
+      return;
+    }
+
     const days = Math.floor(diff / 86400000);
     const hours = Math.floor((diff % 86400000) / 3600000);
     const mins = Math.floor((diff % 3600000) / 60000);
@@ -184,8 +199,9 @@
     if(h) h.textContent = String(hours).padStart(2,'0');
     if(m) m.textContent = String(mins).padStart(2,'0');
   }
+  // assigned before the first tick so tick() can always clear it
+  const timer = setInterval(tick, 30000);
   tick();
-  setInterval(tick, 30000);
 </script>
 
 <script>
