@@ -357,7 +357,7 @@
        overflow:hidden; opacity:0; pointer-events:none; }
   form.signup .note{ font-family:var(--f-mono); font-size:11px; color:var(--paper-dim); opacity:0.6; margin-top:-4px; }
 
-  .social-row{ display:flex; gap:18px; margin-top:22px; flex-wrap:wrap; }
+  .social-row{ display:flex; gap:18px; margin-top:22px; flex-wrap:wrap; justify-content:center; }
   .social-row a{
     width:42px; height:42px; border:1px solid var(--line); border-radius:50%;
     display:flex; align-items:center; justify-content:center; transition:border-color .2s, transform .2s;
@@ -1188,37 +1188,8 @@
   </div>
 </section>
 
-<section id="joinlist" style="background:var(--ink-2); padding:80px 0 36px;">
-  <div class="wrap connect-grid">
-    <div>
-      <span class="stamp">Don&rsquo;t miss a drop</span>
-      <h2 class="h2" style="margin:14px 0 8px; font-size:clamp(18px,2.5vw,26px);">New music, before anyone else.</h2>
-      <p class="lede" style="font-size:14px;margin:0 0 4px;">Unreleased music and videos, pre-save links and show dates &mdash; and a direct line to me. Reply to anything and I&rsquo;ll see it.</p>
-      <!--
-        Netlify Forms: this form works automatically once deployed on Netlify —
-        no backend needed. The hidden field + honeypot are part of Netlify's spam protection.
-      -->
-      <form class="signup" id="signupForm" action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="71705d41-553f-47fe-a068-61822ae89277">
-        <input type="hidden" name="subject" value="New fan signup — WHOSRILA">
-        <p class="hp"><label>Don't fill this out: <input name="bot-field"></label></p>
-        <label for="email">Email</label>
-        <input id="email" type="email" name="email" placeholder="you@email.com" required>
-        <fieldset class="prefs">
-          <legend class="prefs-legend">What do you want from me?</legend>
-          <label class="pref"><input type="checkbox" name="pref" value="music" checked><span>Music &mdash; early listens before release</span></label>
-          <label class="pref"><input type="checkbox" name="pref" value="video" checked><span>Video &mdash; behind the scenes</span></label>
-          <label class="pref"><input type="checkbox" name="pref" value="shows" checked><span>Shows &mdash; when I&rsquo;m playing near you</span></label>
-        </fieldset>
-        <button type="submit" class="btn btn-primary" style="align-self:flex-start; margin-top:6px;">Get First Listen</button>
-        <span class="note">One email a month, max. Unsubscribe anytime.</span>
-        <span class="note" id="signupError" style="color:var(--red);"></span>
-      </form>
-      <div class="signup-success" id="signupSuccess" hidden>
-        <span class="stamp" style="margin-bottom:10px;">YOU'RE ON THE LIST</span>
-        <p style="color:var(--paper-dim); max-width:380px; margin-top:10px;">Unreleased music and videos land in your inbox first. Reply any time &mdash; it comes straight to me.</p>
-      </div>
-    </div>
+<section id="joinlist" style="background:var(--ink-2); padding:56px 0 36px;">
+  <div class="wrap" style="text-align:center;">
     <div>
       <span class="stamp">CONNECT</span>
       <div class="social-row" id="socialRow">
@@ -1354,7 +1325,7 @@
 <script defer src="/js/track.js?v=b8498e91"></script>
 <script defer src="/js/lightbox.js?v=9ca9d7dc"></script>
 <script defer src="/js/consent.js"></script>
-<script defer src="/js/mailinglist.js?v=9adaacb3"></script>
+<script defer src="/js/mailinglist.js?v=ee50121d"></script>
 </body>
 </html>
  

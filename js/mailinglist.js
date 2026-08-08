@@ -96,9 +96,6 @@
     wire(document.getElementById('notifyForm'),
          document.getElementById('notifyDone'),
          document.querySelector('#notifyForm .notify-note'), 'notify');
-    wire(document.getElementById('signupForm'),
-         document.getElementById('signupSuccess'),
-         document.getElementById('signupError'), 'footer');
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
