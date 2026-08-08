@@ -15,7 +15,7 @@ straight onto the song page.
 | Outta' Line | 8 | Amazon Music, YouTube Music |
 | Protection | 8 | Amazon Music, YouTube Music |
 | Top Form | 7 | Audiomack, Amazon Music, YouTube Music |
-| Wine and Bubble | 5 | Spotify, SoundCloud, Audiomack, Amazon Music, YouTube Music |
+| Wine and Bubble | 6 | SoundCloud, Audiomack, Amazon Music, YouTube Music |
 
 ## Why each is missing
 
@@ -35,9 +35,13 @@ Protection).
 **Tidal / Deezer / Pandora** — gaps are where the distributor didn't deliver the
 track, not a lookup failure.
 
-**Spotify — Wine and Bubble** is the one real gap worth chasing. It's credited to
-another primary artist there, so it doesn't appear on the WHOSRILA discography.
-Grab it from the Spotify app: ⋯ → Share → Copy Song Link.
+**Spotify — complete.** Wine and Bubble was the last gap. It's a Jon Dela record
+(album *Don't Forget Your Loved Ones*, ISRC QZHZ52659621) that WHOSRILA is
+featured on, so it never appeared on the WHOSRILA discography and the public
+link APIs couldn't match it. Supplied directly and now live on the page.
+
+Everything still listed as missing above is a platform the track genuinely
+isn't on, not a lookup that failed. Nothing here needs chasing.
 
 ## How to add one
 
