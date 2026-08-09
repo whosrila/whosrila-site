@@ -64,5 +64,8 @@ h1, h2, h3, .h1, .h2, .h3, .title { filter: brightness(0); }
 .burger{ transition:transform .35s cubic-bezier(.22,.61,.36,1); }
 .burger[aria-expanded="true"]{ transform:rotate(90deg); }
 @media (prefers-reduced-motion: reduce){
-  .mobilenav,.mobilenav a,.burger{ transition:none; }
+  /* the panel still folds and the links still fade — only the small
+     upward slide on each link is dropped */
+  .mobilenav a{ transform:none; }
+  .burger{ transition:none; }
 }

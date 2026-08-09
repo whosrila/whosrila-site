@@ -368,7 +368,10 @@
 .burger{ transition:transform .35s cubic-bezier(.22,.61,.36,1); }
 .burger[aria-expanded="true"]{ transform:rotate(90deg); }
 @media (prefers-reduced-motion: reduce){
-  .mobilenav,.mobilenav a,.burger{ transition:none; }
+  /* the panel still folds and the links still fade — only the small
+     upward slide on each link is dropped */
+  .mobilenav a{ transform:none; }
+  .burger{ transition:none; }
 }
 
 /* ---------- Back to top ---------- */
@@ -409,7 +412,7 @@
 @keyframes railNudge{ 0%,100%{ transform:translateX(0); } 50%{ transform:translateX(5px); } }
 .video-grid--vertical .vid-card{ transition:transform .25s cubic-bezier(.22,.61,.36,1); }
 .video-grid--vertical .vid-card:hover{ transform:translateY(-4px); }
-@media (prefers-reduced-motion: reduce){ .rail-hint svg{ animation:none; } }
+@media (prefers-reduced-motion: reduce){ .rail-hint svg{ animation:none; } .video-grid--vertical .vid-card{ transition:none; } }
 </style>
 </head>
 <body>
@@ -686,7 +689,7 @@
   if('IntersectionObserver' in window){
     var obs = new IntersectionObserver(function(entries){
       entries.filter(function(e){ return e.isIntersecting; }).forEach(function(e){ e.target.classList.add('in'); });
-      entries.filter(function(e){ return !e.isIntersecting; }).forEach(function(e){ e.target.classList.remove('in'); });
+      entries.forEach(function(e){ if(e.isIntersecting) obs.unobserve(e.target); });
     }, { threshold: 0.12, rootMargin:'-4% 0px -4% 0px' });
     rev.forEach(function(el){ obs.observe(el); });
   } else { rev.forEach(function(el){ el.classList.add('in'); }); }
@@ -713,6 +716,10 @@
   }
   function setOpen(open){
     var px = open ? measure() : 0;
+    // measure() suppresses the transition while it works. Restoring it and
+    // setting the new height in the same frame lets the browser coalesce
+    // them and skip straight to the end, so force a reflow between.
+    void n.offsetHeight;
     n.classList.toggle('open', open);
     n.style.maxHeight = px + 'px';
     b.setAttribute('aria-expanded', String(open));
