@@ -74,6 +74,7 @@
     --paper:      #F4F4F2;
     --paper-dim:  #8C8C8C;
     --red:        #D7263D;
+  --cyan:       #35D6C4;
     --line:       rgba(244,244,242,0.14);
     --line-paper: rgba(10,10,10,0.18);
 
@@ -280,7 +281,7 @@
   #music .track-row .idx{ color:rgba(244,244,242,0.45); }
   #music .track-row .dur{ color:rgba(244,244,242,0.55); opacity:1; }
   #music .track-row .credit{ color:rgba(244,244,242,0.5); opacity:1; }
-  #music .preview-label{ color:rgba(244,244,242,0.5); }
+  #music .preview-label{ color:var(--cyan); opacity:.85; }
   #music .track-row:hover{ background:rgba(244,244,242,0.07); }
   #music .track-row:hover .idx,
   #music .track-row:hover .dur{ color:rgba(244,244,242,0.7); opacity:1; }
@@ -288,8 +289,9 @@
   #music .up-title{ color:var(--paper); }
   #music .up-feat, #music .up-date{ color:rgba(244,244,242,0.6); }
   #music .up-cover{ border-color:rgba(244,244,242,0.16); }
-  #music .play-btn{ border-color:rgba(244,244,242,0.6); color:var(--paper); }
-  #music .play-btn:hover{ background:var(--paper); color:var(--ink); border-color:var(--paper); }
+  #music .play-btn{ border-color:var(--cyan); color:var(--cyan); }
+  #music .play-btn:hover,
+  #music .play-btn.playing{ background:var(--cyan); color:#0A0A0A; border-color:var(--cyan); }
   #music .btn-soon{ color:rgba(244,244,242,0.6); border-color:rgba(244,244,242,0.25); }
   #music .track-item{ border-bottom-color:rgba(244,244,242,0.12); }
   #music .upcoming{ border-bottom-color:rgba(244,244,242,0.14); }
@@ -418,7 +420,14 @@
     86%        { box-shadow:0 0 0 0 rgba(215,38,61,.45); }
   }
   .track-item:hover .go{ animation:none; }
-  .track-item:hover .go{ background:var(--red); border-color:var(--red); color:#fff; transform:translate(2px,-2px); }
+  .track-item:hover .go{
+    background:var(--red); border-color:var(--red); color:#fff;
+    animation:goSpin .55s cubic-bezier(.34,1.4,.5,1) both;
+  }
+  @keyframes goSpin{
+    from{ transform:rotate(0) scale(1); }
+    to  { transform:rotate(360deg) scale(1.1); }
+  }
   .track-row .title-block{
     display:flex; flex-direction:column; align-items:center; gap:3px;
     padding:11px 12px 0; min-width:0;
@@ -445,15 +454,25 @@
     margin:0 12px 10px; text-align:center; font-size:10px; padding:9px 8px; letter-spacing:.08em;
   }
   .track-actions{
-    display:flex; align-items:center; gap:8px; padding:9px 12px 11px;
-    border-top:1px solid rgba(244,244,242,0.08);
+    display:flex; align-items:center; gap:8px; padding:10px 12px 12px;
+    border-top:1px solid rgba(53,214,196,0.22);
+    background:rgba(53,214,196,0.06);
+    transition:background .2s;
   }
+  .track-item:hover .track-actions{ background:rgba(53,214,196,0.11); }
+  .track-actions .play-btn{
+    border-color:var(--cyan); color:var(--cyan);
+    transition:background .18s, color .18s, transform .18s;
+  }
+  .track-actions .play-btn:hover,
+  .track-actions .play-btn.playing{ background:var(--cyan); color:#0A0A0A; transform:scale(1.08); }
+  .track-actions .preview-label{ color:var(--cyan); opacity:.85; }
   /* Buy sits on its own line under the title and time, not crowded
      next to the preview control */
   .tc-buy-row{ padding:0 12px 10px; }
   .tc-buy-row .btn-buy{ width:100%; justify-content:center; margin-left:0; padding:8px 10px; }
   .track-actions .play-btn{ width:30px; height:30px; flex:0 0 30px; }
-  .preview-label{ font-family:var(--f-mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; opacity:.65; }
+  .preview-label{ font-family:var(--f-mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; }
 
   /* Buy control + inline panel. Inline rather than a floating pop-out —
      the card and the collapsing list both clip overflow, so an absolutely
@@ -484,6 +503,7 @@
   @media (prefers-reduced-motion: reduce){
     .track-item,.bb-chev,.buy-panel{ transition:none; }
     .track-row .go{ animation:none; transition:none; }
+    .track-item:hover .go{ animation:none; }
   }
 
   /* ---------- Collapsible track list ---------- */
