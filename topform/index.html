@@ -259,6 +259,8 @@
 
 /* ---------- Story + related, appended to each song page ---------- */
 .song-extra{ margin-top:44px; }
+.song-extra{ text-align:center; }
+.lyrics{ text-align:left; }
 .song-extra h2{
   font-family:var(--f-mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
   color:var(--paper-dim); margin:0 0 14px; font-weight:400;
@@ -266,7 +268,7 @@
 .story-embed{
   position:relative; width:100%; aspect-ratio:9/16; max-width:300px;
   border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--ink-2);
-  cursor:pointer; display:block; padding:0;
+  cursor:pointer; display:block; padding:0; margin:0 auto;
 }
 .story-embed img,.story-embed iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; object-fit:cover; }
 .story-embed .sp{
@@ -276,7 +278,7 @@
   transition:background .2s, transform .2s;
 }
 .story-embed:hover .sp{ background:var(--red); border-color:var(--red); transform:translate(-50%,-50%) scale(1.08); }
-.story-cap{ display:block; margin-top:9px; font-size:13px; color:var(--ink-2); }
+.story-cap{ display:block; margin-top:9px; font-size:13px; color:var(--ink-2); text-align:center; }
 
 .more-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
 @media (max-width:560px){ .more-grid{ grid-template-columns:repeat(3,1fr); gap:8px; } }
@@ -285,6 +287,29 @@
 .more-card:hover{ transform:translateY(-3px); border-color:var(--ink); }
 .more-card img{ display:block; width:100%; aspect-ratio:1/1; object-fit:cover; }
 .more-card span{ display:block; padding:8px 9px 10px; font-size:12px; line-height:1.25; font-weight:600; color:var(--ink); }
+
+/* ---------- Lyrics ---------- */
+.lyrics{ margin-top:40px; }
+.lyrics-body{
+  font-size:15px; line-height:1.75; color:var(--ink-2);
+  max-height:300px; overflow:hidden; position:relative;
+  transition:max-height .55s cubic-bezier(.4,0,.2,1);
+}
+.lyrics-body::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:90px;
+  background:linear-gradient(transparent, var(--paper)); pointer-events:none;
+  transition:opacity .3s;
+}
+.lyrics.open .lyrics-body::after{ opacity:0; }
+.lyrics-body p{ margin:0 0 18px; white-space:pre-line; }
+.lyrics-more{
+  display:block; width:100%; margin-top:6px; padding:11px 16px; cursor:pointer;
+  background:transparent; color:var(--ink); border:1px solid var(--line); border-radius:3px;
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  transition:border-color .18s, color .18s;
+}
+.lyrics-more:hover{ border-color:var(--red); color:var(--red); }
+@media (prefers-reduced-motion: reduce){ .lyrics-body{ transition:none; } }
 </style>
 <script type="application/ld+json">
 {
@@ -404,6 +429,68 @@
       </a>
     </div>
     <div class="song-extra">
+
+      <div class="lyrics" style="margin-top:34px;">
+      <h2>Lyrics</h2>
+      <div class="lyrics-body">
+        <p>Tough times, tough times
+Used make me pre evilous
+I’ve seen the things dem dat evil does
+Jah cover me, so me nah pre yuh clothes
+Top form wah me inna, careful how you roll
+Make sense of your choice when you keep people close
+I’ve seen the things badmind people does
+Smell the good life I swear evil nose
+Anuh everyting yuh fi talk weh yuh know</p>
+        <p>Times changes, so we gotta change too
+Just like the dollars sign you’ve got to upgrade you
+I see them judging from the sidelines
+Bomb them up just like landmine
+Everybody so suprise, just to see another one rise</p>
+        <p>Billionaire mindset
+That’s where my mind is
+Body and soul aligning
+On perfect timing
+Jah bless me and I’m shining it’s blinding
+Fly, Dem haﬃ watch me like a Breitling
+Call me lightning shock dem till it frying
+Can you see the picture Im describing
+The fire is timeless
+Theres no denying
+Man a flow, like the smoke from the dro
+I’m on the road like it’s tyre pon tolls
+Call, collect the cash and I go
+Progress a mek, all when it slow
+You know how the story goes ?
+Nah, I don’t think you do
+I don’t mean to assume
+Or make an ass of, me or you
+But the flow so sick it make your girl say, ah true
+And I sneeze on the track with alot of attitude
+Not a cappa dude, Just a Fyah youth
+Sign and seal from Jah Crew
+How you mean ?
+Sign een like Tattoo</p>
+        <p>Times changes, so we gotta change too
+Just like the dollars signs, you’ve got to upgrade you
+I see them, judging from the sidelines
+Bomb them up just like landmine
+Everybody so suprise, just to see another one rise</p>
+        <p>Jah stay guiding me through my days
+I know that he covers my head
+I know that he deh give me strength
+The presence of Jah is never MIA
+See Rila inna Top Form
+Used to mawga, now dem see me
+How me back broad ?
+Top Class, when you see the Benz
+The girl a match car, back broad
+And the simile dem bad nuh bloodclaat</p>
+        <p>Times changes, and people change too
+Just like the dollars signs, I hope they don’t change you</p>
+      </div>
+      <button class="lyrics-more" type="button">Read full lyrics</button>
+      </div>
       <h2 style="margin-top:34px;">More like this</h2>
       <div class="more-grid">
         <a class="more-card" href="/gratitude"><img src="/images/cover-gratitude.jpg" alt="" loading="lazy"><span>Gratitude</span></a>
@@ -474,6 +561,22 @@
       b.appendChild(f);
       if(window.wrTrack) window.wrTrack('VideoPlay', { title: f.title, song: document.title });
     }, { once:true });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var box = document.querySelector('.lyrics');
+  if(!box) return;
+  var body = box.querySelector('.lyrics-body');
+  var btn  = box.querySelector('.lyrics-more');
+  // only worth a toggle if there is something hidden
+  if(body.scrollHeight <= 310){ body.style.maxHeight='none'; body.classList.add('nofade'); btn.remove(); box.classList.add('open'); return; }
+  btn.addEventListener('click', function(){
+    var open = box.classList.toggle('open');
+    body.style.maxHeight = open ? body.scrollHeight + 'px' : '300px';
+    btn.textContent = open ? 'Hide lyrics' : 'Read full lyrics';
   });
 })();
 </script>

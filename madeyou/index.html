@@ -110,6 +110,29 @@
 .cc-yes{ background:#F4F4F2; color:#0A0A0A; border-color:#F4F4F2; }
 .cc-yes:hover{ background:#D7263D; border-color:#D7263D; color:#F4F4F2; }
 @media (prefers-reduced-motion: reduce){ .cc{ transition:none; } }
+
+/* ---------- Lyrics ---------- */
+.lyrics{ margin-top:40px; }
+.lyrics-body{
+  font-size:15px; line-height:1.75; color:var(--ink-2);
+  max-height:300px; overflow:hidden; position:relative;
+  transition:max-height .55s cubic-bezier(.4,0,.2,1);
+}
+.lyrics-body::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:90px;
+  background:linear-gradient(transparent, var(--paper)); pointer-events:none;
+  transition:opacity .3s;
+}
+.lyrics.open .lyrics-body::after{ opacity:0; }
+.lyrics-body p{ margin:0 0 18px; white-space:pre-line; }
+.lyrics-more{
+  display:block; width:100%; margin-top:6px; padding:11px 16px; cursor:pointer;
+  background:transparent; color:var(--ink); border:1px solid var(--line); border-radius:3px;
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  transition:border-color .18s, color .18s;
+}
+.lyrics-more:hover{ border-color:var(--red); color:var(--red); }
+@media (prefers-reduced-motion: reduce){ .lyrics-body{ transition:none; } }
 </style>
 <script type="application/ld+json">
 {
@@ -194,6 +217,47 @@
     <p class="fallback">
       Trouble loading? <a href="https://too.fm/whosrila-madeyou" target="_blank" rel="noopener">Open directly</a>
     </p>
+    <div class="lyrics">
+      <h2>Lyrics</h2>
+      <div class="lyrics-body">
+        <p>I love the way Jah that made you, made you
+This must be a Déjà vu, Ja vu
+Saw you in my dreams
+Are you the one Jah send, for me </p>
+        <p>The things that coincide between you and I, 
+It’s like the cycle of the full moon
+The way pulling water out my eyes
+It&#x27;s no surprise, your an angel in disguise
+Beyond divine, the reality resides in the peace you bring to I 
+Enlightening my light, natural beauty by design
+Enough to make the Mona Lisa cry
+Of The Black Madonna you&#x27;re a child </p>
+        <p>I love the way Jah that made you, made you
+This must be a Déjà vu, Ja vu
+Saw you in my dreams
+Are you the one Jah send, for me</p>
+        <p>You make
+My days
+Not so plain 
+I can’t complain
+Tell me what you want 
+Girl your body round
+Giving you work
+You got what I need
+I think I agree
+We can rendezvous
+Can’t believe it’s free
+You smile, somehow its worth the while
+Ooh child, the journey is worth the miles
+In love with your anatomy baby
+Function and your autonomy, lady</p>
+        <p>I love the way Jah that made you, made you
+This must be a Déjà vu, Ja vu
+Saw you in my dreams
+Are you the one Jah send, for me</p>
+      </div>
+      <button class="lyrics-more" type="button">Read full lyrics</button>
+    </div>
   </div>
 </main>
 
@@ -280,5 +344,21 @@
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3fc16cf549f44cb4bbde3934b15904d3"}'></script><!-- End Cloudflare Web Analytics -->
 <script defer src="/js/track.js?v=51022b32"></script>
 <script defer src="/js/consent.js?v=5c0fd4c1"></script>
+
+<script>
+(function(){
+  var box = document.querySelector('.lyrics');
+  if(!box) return;
+  var body = box.querySelector('.lyrics-body');
+  var btn  = box.querySelector('.lyrics-more');
+  // only worth a toggle if there is something hidden
+  if(body.scrollHeight <= 310){ body.style.maxHeight='none'; body.classList.add('nofade'); btn.remove(); box.classList.add('open'); return; }
+  btn.addEventListener('click', function(){
+    var open = box.classList.toggle('open');
+    body.style.maxHeight = open ? body.scrollHeight + 'px' : '300px';
+    btn.textContent = open ? 'Hide lyrics' : 'Read full lyrics';
+  });
+})();
+</script>
 </body>
 </html>

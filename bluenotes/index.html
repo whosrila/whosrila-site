@@ -259,6 +259,8 @@
 
 /* ---------- Story + related, appended to each song page ---------- */
 .song-extra{ margin-top:44px; }
+.song-extra{ text-align:center; }
+.lyrics{ text-align:left; }
 .song-extra h2{
   font-family:var(--f-mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
   color:var(--paper-dim); margin:0 0 14px; font-weight:400;
@@ -266,7 +268,7 @@
 .story-embed{
   position:relative; width:100%; aspect-ratio:9/16; max-width:300px;
   border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--ink-2);
-  cursor:pointer; display:block; padding:0;
+  cursor:pointer; display:block; padding:0; margin:0 auto;
 }
 .story-embed img,.story-embed iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; object-fit:cover; }
 .story-embed .sp{
@@ -276,7 +278,7 @@
   transition:background .2s, transform .2s;
 }
 .story-embed:hover .sp{ background:var(--red); border-color:var(--red); transform:translate(-50%,-50%) scale(1.08); }
-.story-cap{ display:block; margin-top:9px; font-size:13px; color:var(--ink-2); }
+.story-cap{ display:block; margin-top:9px; font-size:13px; color:var(--ink-2); text-align:center; }
 
 .more-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
 @media (max-width:560px){ .more-grid{ grid-template-columns:repeat(3,1fr); gap:8px; } }
@@ -285,6 +287,29 @@
 .more-card:hover{ transform:translateY(-3px); border-color:var(--ink); }
 .more-card img{ display:block; width:100%; aspect-ratio:1/1; object-fit:cover; }
 .more-card span{ display:block; padding:8px 9px 10px; font-size:12px; line-height:1.25; font-weight:600; color:var(--ink); }
+
+/* ---------- Lyrics ---------- */
+.lyrics{ margin-top:40px; }
+.lyrics-body{
+  font-size:15px; line-height:1.75; color:var(--ink-2);
+  max-height:300px; overflow:hidden; position:relative;
+  transition:max-height .55s cubic-bezier(.4,0,.2,1);
+}
+.lyrics-body::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:90px;
+  background:linear-gradient(transparent, var(--paper)); pointer-events:none;
+  transition:opacity .3s;
+}
+.lyrics.open .lyrics-body::after{ opacity:0; }
+.lyrics-body p{ margin:0 0 18px; white-space:pre-line; }
+.lyrics-more{
+  display:block; width:100%; margin-top:6px; padding:11px 16px; cursor:pointer;
+  background:transparent; color:var(--ink); border:1px solid var(--line); border-radius:3px;
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  transition:border-color .18s, color .18s;
+}
+.lyrics-more:hover{ border-color:var(--red); color:var(--red); }
+@media (prefers-reduced-motion: reduce){ .lyrics-body{ transition:none; } }
 </style>
 <script type="application/ld+json">
 {
@@ -410,6 +435,60 @@
         <span class="sp" aria-hidden="true"><svg width="17" height="19" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg></span>
       </button>
       <span class="story-cap">Where the lyrics came from &mdash; what, when, why and where.</span>
+
+      <div class="lyrics" style="margin-top:34px;">
+      <h2>Lyrics</h2>
+      <div class="lyrics-body">
+        <p>If it ain&#x27;t bout the money dawg
+I don&#x27;t wanna talk
+Talk to me nice or don talk to me at all</p>
+        <p>Talkin&#x27; money, blue hunneds
+Its all I see
+(Big cars, big lots)
+Talkin&#x27; money, blue hunneds
+Its all I need
+(Gotta get it for ma Mom and Pops)
+Talkin&#x27; money, blue hunneds
+You get it, capeeesh
+(Get the gwap and neva&#x27; flop, big guap, big dough)
+Talkin&#x27; money, blue hunneds
+This that shit that make her head bop</p>
+        <p>Rila need a big dinner, habachi dreams
+Feel like a winnner when the family feast
+I&#x27;ma live long niggas gon&#x27; memba&#x27; me
+Big business, low key like centipedes
+Gotta have it all for I see a century
+Life is like rocks it&#x27;s not tempur pedic
+Sky is not the limit it&#x27;s just the ceiling
+Times getting rough but I got a good feeling
+Life stay revealing to me all the secrets
+I attract what I am, money is what I&#x27;m being
+Money is all I&#x27;m seeing
+Get the yo money stack it up up up</p>
+        <p>Talk to me nice or don&#x27;t talk to me at all
+(Get my money stack it up up up)
+If aint bout the mula&#x27; dawg I don&#x27;t wanna talk
+(Gotta stack my money up up up)</p>
+        <p>Yeah, Ima need the money ASAP
+Baby I&#x27;m a dawg so I chase dat
+I rake it all in don&#x27;t waste dat
+Money can&#x27;t buy love gotta face dat
+Money in the mirror when I face dat
+Yeah its comin&#x27; in quick when I pace dat
+N*gga
+Just know where yo place at
+Talk to me nice
+They gon&#x27; look yo eyes
+They gon&#x27; lie where yo face at
+Yeah
+They wanna know where your wage at
+Yeah
+They gon&#x27; watch how you packback
+They ont&#x27; wanna see you laid in maybach
+I&#x27;ma big dawg don&#x27;t play dat</p>
+      </div>
+      <button class="lyrics-more" type="button">Read full lyrics</button>
+      </div>
       <h2 style="margin-top:34px;">More like this</h2>
       <div class="more-grid">
         <a class="more-card" href="/forme"><img src="/images/cover-forme.jpg" alt="" loading="lazy"><span>For Me</span></a>
@@ -480,6 +559,22 @@
       b.appendChild(f);
       if(window.wrTrack) window.wrTrack('VideoPlay', { title: f.title, song: document.title });
     }, { once:true });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var box = document.querySelector('.lyrics');
+  if(!box) return;
+  var body = box.querySelector('.lyrics-body');
+  var btn  = box.querySelector('.lyrics-more');
+  // only worth a toggle if there is something hidden
+  if(body.scrollHeight <= 310){ body.style.maxHeight='none'; body.classList.add('nofade'); btn.remove(); box.classList.add('open'); return; }
+  btn.addEventListener('click', function(){
+    var open = box.classList.toggle('open');
+    body.style.maxHeight = open ? body.scrollHeight + 'px' : '300px';
+    btn.textContent = open ? 'Hide lyrics' : 'Read full lyrics';
   });
 })();
 </script>
