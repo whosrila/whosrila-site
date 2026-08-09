@@ -97,9 +97,12 @@ footer.mini a:hover{opacity:1}
   transition:max-height .42s cubic-bezier(.4,0,.2,1), opacity .3s ease, border-top-width .3s ease;
 }
 .mobilenav.open{ opacity:1; border-top-width:1px; }
-.mobilenav a{ transform:translateY(-8px); opacity:.35;
-  transition:transform .4s cubic-bezier(.22,.61,.36,1), opacity .4s ease; }
+.mobilenav a{ transform:translateY(-10px); opacity:0;
+  transition:transform .38s cubic-bezier(.22,.61,.36,1), opacity .34s ease; }
 .mobilenav.open a{ transform:none; opacity:1; }
+/* closing runs in reverse: the links fade out first, then the panel folds,
+   so it collapses rather than snapping shut */
+.mobilenav:not(.open) a{ transition-duration:.18s; transition-delay:0s; }
 .mobilenav.open a:nth-child(1){ transition-delay:.05s; }
 .mobilenav.open a:nth-child(2){ transition-delay:.11s; }
 .mobilenav.open a:nth-child(3){ transition-delay:.17s; }
@@ -118,6 +121,46 @@ footer.mini a:hover{opacity:1}
 }
 .reveal.in{ opacity:1; transform:none; }
 @media (prefers-reduced-motion: reduce){ .reveal{ transition:none; opacity:1; transform:none; } }
+
+/* ---------- Back to top ---------- */
+.to-top{
+  position:fixed; right:20px; bottom:20px; z-index:120;
+  width:46px; height:46px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(10,10,10,.72); color:var(--paper);
+  border:1px solid rgba(244,244,242,.26);
+  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  cursor:pointer; opacity:0; transform:translateY(14px) scale(.9); pointer-events:none;
+  transition:opacity .3s ease, transform .35s cubic-bezier(.22,.61,.36,1), background .2s, border-color .2s;
+}
+.to-top.show{ opacity:1; transform:none; pointer-events:auto; }
+.to-top:hover{ background:var(--red); border-color:var(--red); }
+.to-top svg{ display:block; }
+@media (max-width:560px){ .to-top{ right:14px; bottom:14px; width:42px; height:42px; } }
+@media (prefers-reduced-motion: reduce){ .to-top{ transition:opacity .2s ease; transform:none; } }
+
+/* ---------- Platform links: settle in, then invite a tap ---------- */
+.platform-link{
+  opacity:0; transform:translateY(22px);
+  transition:opacity .55s cubic-bezier(.22,.61,.36,1), transform .55s cubic-bezier(.22,.61,.36,1),
+             border-color .2s, background .2s;
+  transition-delay:var(--pd, 0s);
+}
+.platform-link.in{ opacity:1; transform:none; }
+/* a short nudge once it has arrived — enough to read as tappable without
+   turning the page into a fairground */
+.platform-link.in.nudge{ animation:linkNudge .62s cubic-bezier(.36,.07,.19,.97) var(--nd,0s) 1; }
+@keyframes linkNudge{
+  0%,100%{ transform:none; }
+  22%    { transform:translateX(6px); }
+  55%    { transform:translateX(-3px); }
+  78%    { transform:translateX(2px); }
+}
+.platform-link:hover{ transform:translateX(4px); }
+@media (prefers-reduced-motion: reduce){
+  .platform-link{ transition:none; opacity:1; transform:none; }
+  .platform-link.in.nudge{ animation:none; }
+}
 </style>
 </head>
 <body>
@@ -305,6 +348,59 @@ footer.mini a:hover{opacity:1}
     });
   }, { threshold:0.12, rootMargin:'-4% 0px -4% 0px' });
   els.forEach(function(e){ obs.observe(e); });
+})();
+</script>
+<button class="to-top" id="toTop" type="button" aria-label="Back to top">
+  <svg width="15" height="9" viewBox="0 0 16 10" aria-hidden="true"><path d="M1 8.5 L8 2 L15 8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script>
+(function(){
+  var b = document.getElementById('toTop');
+  if(!b) return;
+  var reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  // A flat 600px never fired on the shorter pages — /listen tops out at
+  // 585px of scroll. Tied to the viewport instead, and only on pages with
+  // enough length for it to be worth offering.
+  function check(){
+    var worthIt = document.documentElement.scrollHeight > innerHeight * 1.35;
+    b.classList.toggle('show', worthIt && window.scrollY > innerHeight * 0.55);
+  }
+  check();
+  window.addEventListener('scroll', check, { passive:true });
+  b.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var links = [].slice.call(document.querySelectorAll('.platform-link'));
+  if(!links.length) return;
+  if(!('IntersectionObserver' in window)){
+    links.forEach(function(l){ l.classList.add('in'); }); return;
+  }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var i = links.indexOf(e.target);
+      if(e.isIntersecting){
+        e.target.style.setProperty('--pd', (i % 8) * 0.05 + 's');
+        e.target.classList.add('in');
+        // the nudge fires once, a beat after it lands
+        if(!e.target.dataset.nudged){
+          e.target.dataset.nudged = '1';
+          e.target.style.setProperty('--nd', (0.5 + (i % 8) * 0.09) + 's');
+          e.target.classList.add('nudge');
+        }
+      } else {
+        e.target.style.setProperty('--pd','0s');
+        e.target.classList.remove('in');
+      }
+    });
+  }, { threshold:0.2, rootMargin:'-2% 0px -6% 0px' });
+  links.forEach(function(l){ obs.observe(l); });
 })();
 </script>
 </body>

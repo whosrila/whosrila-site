@@ -196,9 +196,12 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
   transition:max-height .42s cubic-bezier(.4,0,.2,1), opacity .3s ease, border-top-width .3s ease;
 }
 .mobilenav.open{ opacity:1; border-top-width:1px; }
-.mobilenav a{ transform:translateY(-8px); opacity:.35;
-  transition:transform .4s cubic-bezier(.22,.61,.36,1), opacity .4s ease; }
+.mobilenav a{ transform:translateY(-10px); opacity:0;
+  transition:transform .38s cubic-bezier(.22,.61,.36,1), opacity .34s ease; }
 .mobilenav.open a{ transform:none; opacity:1; }
+/* closing runs in reverse: the links fade out first, then the panel folds,
+   so it collapses rather than snapping shut */
+.mobilenav:not(.open) a{ transition-duration:.18s; transition-delay:0s; }
 .mobilenav.open a:nth-child(1){ transition-delay:.05s; }
 .mobilenav.open a:nth-child(2){ transition-delay:.11s; }
 .mobilenav.open a:nth-child(3){ transition-delay:.17s; }
@@ -217,6 +220,23 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
 }
 .reveal.in{ opacity:1; transform:none; }
 @media (prefers-reduced-motion: reduce){ .reveal{ transition:none; opacity:1; transform:none; } }
+
+/* ---------- Back to top ---------- */
+.to-top{
+  position:fixed; right:20px; bottom:20px; z-index:120;
+  width:46px; height:46px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(10,10,10,.72); color:var(--paper);
+  border:1px solid rgba(244,244,242,.26);
+  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  cursor:pointer; opacity:0; transform:translateY(14px) scale(.9); pointer-events:none;
+  transition:opacity .3s ease, transform .35s cubic-bezier(.22,.61,.36,1), background .2s, border-color .2s;
+}
+.to-top.show{ opacity:1; transform:none; pointer-events:auto; }
+.to-top:hover{ background:var(--red); border-color:var(--red); }
+.to-top svg{ display:block; }
+@media (max-width:560px){ .to-top{ right:14px; bottom:14px; width:42px; height:42px; } }
+@media (prefers-reduced-motion: reduce){ .to-top{ transition:opacity .2s ease; transform:none; } }
 </style>
 </head>
 <body>
@@ -286,15 +306,15 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
   <div class="wrap">
     <span class="stamp">Biography</span>
     <h2 class="h2">Bio</h2>
-    <div class="bio-toggle">
+    <div class="bio-toggle reveal">
       <button class="bio-tab active" data-panel="short">Short</button>
       <button class="bio-tab" data-panel="long">Full</button>
     </div>
     <div class="bio-text">
-      <div class="bio-panel active" id="bio-short">
+      <div class="bio-panel active reveal" id="bio-short">
         <p>WHOSRILA is a Jamaican reggae crossover artist, songwriter, creative director, and self-producing force. Born in Kingston, Jamaica, his sound moves freely between reggae, hip-hop, and R&amp;B &mdash; rooted in culture, driven by instinct. With a background in video directing, every release is a complete creative vision from concept to final cut. Featured on Spotify&rsquo;s New Reggae 2026: Fresh Export.</p>
       </div>
-      <div class="bio-panel" id="bio-long">
+      <div class="bio-panel reveal" id="bio-long">
         <p>WHOSRILA is a Kingston-born, independent reggae crossover artist, songwriter, creative director, and self-producing force &mdash; an artist operating entirely on his own terms. His sound moves freely between reggae, hip-hop, and R&amp;B: music rooted in Jamaican culture, but refusing to be contained by it.</p>
         <p>Growing up in Kingston, WHOSRILA developed a creative voice bigger than any single genre. He came up as a visual artist first &mdash; a video director who understood that music and image are the same conversation. That background shapes everything he makes. Where most artists hand off creative control, WHOSRILA holds it: concept, production, direction &mdash; every record is a complete statement.</p>
         <p>That intentionality has built an organic, growing audience. Placements on curated Spotify playlists including <a href="https://open.spotify.com/playlist/0azXBFWMtLzJnyhkh8OQWC" target="_blank" rel="noopener" style="border-bottom:1px solid var(--ink);">New Reggae 2026: Fresh Export</a> have put his music in front of listeners actively searching for the genre&rsquo;s next wave.</p>
@@ -329,7 +349,7 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
       </div>
     </div>
     <p class="credits-stamp">Video Credits</p>
-    <table class="credits-table">
+    <table class="credits-table reveal">
       <tr><td>Director</td><td>Jesse James</td></tr>
       <tr><td>Photography</td><td>Lumi Pulkkinen</td></tr>
       <tr><td>BTS</td><td>Usheen Ewbanks &amp; Ronaldo Russel</td></tr>
@@ -363,8 +383,8 @@ h1, h2, h3, .h1, .h2, .h3 { filter: brightness(0); }
   <div class="wrap">
     <span class="stamp">Assets</span>
     <h2 class="h2">Downloads</h2>
-    <p class="assets-note">Release artwork available for editorial use.</p>
-    <div class="asset-item" style="align-items:center;">
+    <p class="assets-note reveal">Release artwork available for editorial use.</p>
+    <div class="asset-item reveal" style="align-items:center;">
       <img src="/images/art-madeyou.jpg" alt="Made You &#8212; Cover Art" style="width:72px;height:72px;object-fit:cover;border:1px solid var(--line);flex-shrink:0;">
       <div>
         <div class="asset-name">Made You &#8212; Cover Art</div>
@@ -559,6 +579,30 @@ document.querySelectorAll('.photo-tab').forEach(function(tab) {
     });
   }, { threshold:0.12, rootMargin:'-4% 0px -4% 0px' });
   els.forEach(function(e){ obs.observe(e); });
+})();
+</script>
+<button class="to-top" id="toTop" type="button" aria-label="Back to top">
+  <svg width="15" height="9" viewBox="0 0 16 10" aria-hidden="true"><path d="M1 8.5 L8 2 L15 8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script>
+(function(){
+  var b = document.getElementById('toTop');
+  if(!b) return;
+  var reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  // A flat 600px never fired on the shorter pages — /listen tops out at
+  // 585px of scroll. Tied to the viewport instead, and only on pages with
+  // enough length for it to be worth offering.
+  function check(){
+    var worthIt = document.documentElement.scrollHeight > innerHeight * 1.35;
+    b.classList.toggle('show', worthIt && window.scrollY > innerHeight * 0.55);
+  }
+  check();
+  window.addEventListener('scroll', check, { passive:true });
+  b.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: reduce ? 'auto' : 'smooth' });
+  });
 })();
 </script>
 </body>

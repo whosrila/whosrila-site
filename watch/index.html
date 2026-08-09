@@ -355,9 +355,12 @@
   transition:max-height .42s cubic-bezier(.4,0,.2,1), opacity .3s ease, border-top-width .3s ease;
 }
 .mobilenav.open{ opacity:1; border-top-width:1px; }
-.mobilenav a{ transform:translateY(-8px); opacity:.35;
-  transition:transform .4s cubic-bezier(.22,.61,.36,1), opacity .4s ease; }
+.mobilenav a{ transform:translateY(-10px); opacity:0;
+  transition:transform .38s cubic-bezier(.22,.61,.36,1), opacity .34s ease; }
 .mobilenav.open a{ transform:none; opacity:1; }
+/* closing runs in reverse: the links fade out first, then the panel folds,
+   so it collapses rather than snapping shut */
+.mobilenav:not(.open) a{ transition-duration:.18s; transition-delay:0s; }
 .mobilenav.open a:nth-child(1){ transition-delay:.05s; }
 .mobilenav.open a:nth-child(2){ transition-delay:.11s; }
 .mobilenav.open a:nth-child(3){ transition-delay:.17s; }
@@ -367,6 +370,46 @@
 @media (prefers-reduced-motion: reduce){
   .mobilenav,.mobilenav a,.burger{ transition:none; }
 }
+
+/* ---------- Back to top ---------- */
+.to-top{
+  position:fixed; right:20px; bottom:20px; z-index:120;
+  width:46px; height:46px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(10,10,10,.72); color:var(--paper);
+  border:1px solid rgba(244,244,242,.26);
+  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  cursor:pointer; opacity:0; transform:translateY(14px) scale(.9); pointer-events:none;
+  transition:opacity .3s ease, transform .35s cubic-bezier(.22,.61,.36,1), background .2s, border-color .2s;
+}
+.to-top.show{ opacity:1; transform:none; pointer-events:auto; }
+.to-top:hover{ background:var(--red); border-color:var(--red); }
+.to-top svg{ display:block; }
+@media (max-width:560px){ .to-top{ right:14px; bottom:14px; width:42px; height:42px; } }
+@media (prefers-reduced-motion: reduce){ .to-top{ transition:opacity .2s ease; transform:none; } }
+
+/* ---------- The Stories rail: make the sideways scroll legible ---------- */
+.rail-wrap{ position:relative; }
+/* fades at each end say "there is more this way" without a caption */
+.rail-wrap::before,.rail-wrap::after{
+  content:""; position:absolute; top:0; bottom:16px; width:56px; z-index:2; pointer-events:none;
+  transition:opacity .3s ease;
+}
+.rail-wrap::before{ left:0;  background:linear-gradient(to right, var(--ink), transparent); opacity:0; }
+.rail-wrap::after{  right:0; background:linear-gradient(to left,  var(--ink), transparent); }
+.rail-wrap.at-start::before{ opacity:0; }
+.rail-wrap.scrolled::before{ opacity:1; }
+.rail-wrap.at-end::after{ opacity:0; }
+.rail-hint{
+  display:flex; align-items:center; gap:8px; margin:0 0 12px;
+  font-family:var(--f-mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--paper-dim);
+}
+.rail-hint svg{ animation:railNudge 1.9s ease-in-out infinite; }
+@keyframes railNudge{ 0%,100%{ transform:translateX(0); } 50%{ transform:translateX(5px); } }
+.video-grid--vertical .vid-card{ transition:transform .25s cubic-bezier(.22,.61,.36,1); }
+.video-grid--vertical .vid-card:hover{ transform:translateY(-4px); }
+@media (prefers-reduced-motion: reduce){ .rail-hint svg{ animation:none; } }
 </style>
 </head>
 <body>
@@ -527,7 +570,11 @@
       <p class="lede" style="margin-top:12px;">Conversations on where the lyrics came from &mdash; what, when, why and where.</p>
     </div>
 
-    <div class="video-grid video-grid--vertical">
+    <p class="rail-hint">Swipe for the whole series
+      <svg width="16" height="9" viewBox="0 0 18 10" aria-hidden="true"><path d="M1 5h14M11 1l5 4-5 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </p>
+    <div class="rail-wrap">
+      <div class="video-grid video-grid--vertical">
       <div class="vid-card reveal" data-yt="MIFgDtYw_jI">
         <button class="vid-thumb" aria-label="Play: The Story Behind Fully Meech">
           <img src="https://i.ytimg.com/vi/MIFgDtYw_jI/hqdefault.jpg" alt="" loading="lazy">
@@ -591,6 +638,7 @@
         <span class="vid-num">Pt. 1</span>
         <span class="vid-title">The Series Begins</span>
       </div>
+    </div>
     </div>
     <div class="section-head reveal" style="margin-top:64px;">
       <span class="stamp">Behind The Scenes</span>
@@ -672,6 +720,47 @@
   b.addEventListener('click', function(e){ e.preventDefault(); setOpen(!n.classList.contains('open')); });
   n.addEventListener('click', function(e){ if(e.target.closest('a')) setOpen(false); });
   window.addEventListener('resize', function(){ if(n.classList.contains('open')) n.style.maxHeight = measure() + 'px'; });
+})();
+</script>
+<button class="to-top" id="toTop" type="button" aria-label="Back to top">
+  <svg width="15" height="9" viewBox="0 0 16 10" aria-hidden="true"><path d="M1 8.5 L8 2 L15 8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script>
+(function(){
+  var b = document.getElementById('toTop');
+  if(!b) return;
+  var reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  // A flat 600px never fired on the shorter pages — /listen tops out at
+  // 585px of scroll. Tied to the viewport instead, and only on pages with
+  // enough length for it to be worth offering.
+  function check(){
+    var worthIt = document.documentElement.scrollHeight > innerHeight * 1.35;
+    b.classList.toggle('show', worthIt && window.scrollY > innerHeight * 0.55);
+  }
+  check();
+  window.addEventListener('scroll', check, { passive:true });
+  b.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var wrap = document.querySelector('.rail-wrap');
+  if(!wrap) return;
+  var rail = wrap.querySelector('.video-grid--vertical');
+  if(!rail) return;
+  function edges(){
+    var max = rail.scrollWidth - rail.clientWidth;
+    wrap.classList.toggle('scrolled', rail.scrollLeft > 8);
+    wrap.classList.toggle('at-end', rail.scrollLeft >= max - 8);
+  }
+  edges();
+  rail.addEventListener('scroll', edges, { passive:true });
+  window.addEventListener('resize', edges);
 })();
 </script>
 </body>

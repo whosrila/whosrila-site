@@ -91,9 +91,12 @@
   transition:max-height .42s cubic-bezier(.4,0,.2,1), opacity .3s ease, border-top-width .3s ease;
 }
 .mobilenav.open{ opacity:1; border-top-width:1px; }
-.mobilenav a{ transform:translateY(-8px); opacity:.35;
-  transition:transform .4s cubic-bezier(.22,.61,.36,1), opacity .4s ease; }
+.mobilenav a{ transform:translateY(-10px); opacity:0;
+  transition:transform .38s cubic-bezier(.22,.61,.36,1), opacity .34s ease; }
 .mobilenav.open a{ transform:none; opacity:1; }
+/* closing runs in reverse: the links fade out first, then the panel folds,
+   so it collapses rather than snapping shut */
+.mobilenav:not(.open) a{ transition-duration:.18s; transition-delay:0s; }
 .mobilenav.open a:nth-child(1){ transition-delay:.05s; }
 .mobilenav.open a:nth-child(2){ transition-delay:.11s; }
 .mobilenav.open a:nth-child(3){ transition-delay:.17s; }
@@ -103,6 +106,23 @@
 @media (prefers-reduced-motion: reduce){
   .mobilenav,.mobilenav a,.burger{ transition:none; }
 }
+
+/* ---------- Back to top ---------- */
+.to-top{
+  position:fixed; right:20px; bottom:20px; z-index:120;
+  width:46px; height:46px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(10,10,10,.72); color:var(--paper);
+  border:1px solid rgba(244,244,242,.26);
+  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  cursor:pointer; opacity:0; transform:translateY(14px) scale(.9); pointer-events:none;
+  transition:opacity .3s ease, transform .35s cubic-bezier(.22,.61,.36,1), background .2s, border-color .2s;
+}
+.to-top.show{ opacity:1; transform:none; pointer-events:auto; }
+.to-top:hover{ background:var(--red); border-color:var(--red); }
+.to-top svg{ display:block; }
+@media (max-width:560px){ .to-top{ right:14px; bottom:14px; width:42px; height:42px; } }
+@media (prefers-reduced-motion: reduce){ .to-top{ transition:opacity .2s ease; transform:none; } }
 </style>
 <style>
   :root{
@@ -2403,6 +2423,30 @@
   // a tap on a link should close it on the way out
   n.addEventListener('click', function(e){ if(e.target.closest('a')) setOpen(false); });
   window.addEventListener('resize', function(){ if(n.classList.contains('open')) n.style.maxHeight = measure() + 'px'; });
+})();
+</script>
+<button class="to-top" id="toTop" type="button" aria-label="Back to top">
+  <svg width="15" height="9" viewBox="0 0 16 10" aria-hidden="true"><path d="M1 8.5 L8 2 L15 8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script>
+(function(){
+  var b = document.getElementById('toTop');
+  if(!b) return;
+  var reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  // A flat 600px never fired on the shorter pages — /listen tops out at
+  // 585px of scroll. Tied to the viewport instead, and only on pages with
+  // enough length for it to be worth offering.
+  function check(){
+    var worthIt = document.documentElement.scrollHeight > innerHeight * 1.35;
+    b.classList.toggle('show', worthIt && window.scrollY > innerHeight * 0.55);
+  }
+  check();
+  window.addEventListener('scroll', check, { passive:true });
+  b.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: reduce ? 'auto' : 'smooth' });
+  });
 })();
 </script>
 </body>
