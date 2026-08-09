@@ -409,6 +409,26 @@
     .featured-cover{ animation:none; }
   }
 
+  /* ---------- Music video behind the artwork while previewing ---------- */
+  .track-row .cover{ transition:opacity .5s ease; }
+  .track-item.previewing .cover{ opacity:.12; }
+  .pv-video{
+    position:absolute; top:0; left:0; width:100%; aspect-ratio:1/1;
+    z-index:1; overflow:hidden; pointer-events:none;
+    opacity:0; transition:opacity .6s ease; background:#000;
+  }
+  .track-item.previewing .pv-video{ opacity:1; }
+  /* the clip is 16:9 inside a square cover, so blow it up and centre-crop */
+  .pv-video iframe{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:178%; height:100%; border:0; pointer-events:none;
+  }
+  .track-item.previewing .idx,
+  .track-item.previewing .go{ z-index:3; }
+  @media (prefers-reduced-motion: reduce){
+    .track-row .cover,.pv-video{ transition:none; }
+  }
+
   /* ---------- Track cards ---------- */
   .tl-group{ margin-bottom:38px; }
   .tl-group-label{
@@ -1807,14 +1827,60 @@
   });
 
   // ---- Track preview ----
+  // Songs with a music video. Nothing is loaded until a preview actually
+  // starts, and it comes down again when the preview stops — no iframes
+  // sitting on the page doing nothing.
+  var SONG_VIDEOS = {
+    gratitude: 'pj-5xh_bvqA',
+    forme: '7KixQD8viTs',
+    bluenotes: 'oOgH1dByUnU',
+    protection: 'wxYcDcR-nlk',
+    kingston: '9D-Z2B5eQfQ',
+    fullymeech: 'p8UN2GUxA54',
+    outtaline: 'GEI27YDfmQE'
+  };
+
+  function pvVideoStart(item){
+    var id = SONG_VIDEOS[item.getAttribute('data-release')];
+    if(!id || item.querySelector('.pv-video')) return;
+    var wrap = document.createElement('div');
+    wrap.className = 'pv-video';
+    var f = document.createElement('iframe');
+    // nocookie host, muted, no controls, looping on itself
+    f.src = 'https://www.youtube-nocookie.com/embed/' + id +
+            '?autoplay=1&mute=1&controls=0&loop=1&playlist=' + id +
+            '&modestbranding=1&playsinline=1&rel=0&disablekb=1' +
+            // no auto-captions or annotations over the artwork
+            '&cc_load_policy=0&iv_load_policy=3&fs=0';
+    f.setAttribute('allow', 'autoplay; encrypted-media');
+    f.setAttribute('tabindex', '-1');
+    f.setAttribute('aria-hidden', 'true');
+    f.title = '';
+    wrap.appendChild(f);
+    item.querySelector('.track-row').appendChild(wrap);
+    requestAnimationFrame(function(){ item.classList.add('previewing'); });
+  }
+
+  function pvVideoStop(item){
+    item.classList.remove('previewing');
+    var v = item.querySelector('.pv-video');
+    if(!v) return;
+    setTimeout(function(){ if(v && v.parentNode) v.parentNode.removeChild(v); }, 600);
+  }
+
   function togglePreview(btn){
     var item=btn.closest('.track-item');
     var audio=item.querySelector('.preview-audio');
     var label=item.querySelector('.preview-label');
     var PLAY='<svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>';
     var PAUSE='<svg width="12" height="14" viewBox="0 0 12 14"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="8" y="0" width="4" height="14" fill="currentColor"/></svg>';
+    // stop any video still running on another card
+    document.querySelectorAll('.track-item.previewing').forEach(function(other){
+      if(other !== item) pvVideoStop(other);
+    });
     document.querySelectorAll('.preview-audio').forEach(function(a){
       if(a!==audio&&!a.paused){a.pause();a.currentTime=0;
+        pvVideoStop(a.closest('.track-item'));
         var b=a.closest('.track-item').querySelector('.play-btn');
         var l=a.closest('.track-item').querySelector('.preview-label');
         if(b){b.classList.remove('playing');b.innerHTML=PLAY;}
@@ -1823,9 +1889,11 @@
     });
     if(audio.paused){
       var _p=audio.play(); if(_p&&_p.catch)_p.catch(function(){});btn.classList.add('playing');btn.innerHTML=PAUSE;label.textContent='Playing…';
-      audio.onended=function(){btn.classList.remove('playing');btn.innerHTML=PLAY;label.textContent='Preview';};
+      pvVideoStart(item);
+      audio.onended=function(){btn.classList.remove('playing');btn.innerHTML=PLAY;label.textContent='Preview';pvVideoStop(item);};
     }else{
       audio.pause();audio.currentTime=0;btn.classList.remove('playing');btn.innerHTML=PLAY;label.textContent='Preview';
+      pvVideoStop(item);
     }
   }
 

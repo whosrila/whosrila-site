@@ -256,6 +256,35 @@
 .cc-yes{ background:#F4F4F2; color:#0A0A0A; border-color:#F4F4F2; }
 .cc-yes:hover{ background:#D7263D; border-color:#D7263D; color:#F4F4F2; }
 @media (prefers-reduced-motion: reduce){ .cc{ transition:none; } }
+
+/* ---------- Story + related, appended to each song page ---------- */
+.song-extra{ margin-top:44px; }
+.song-extra h2{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--paper-dim); margin:0 0 14px; font-weight:400;
+}
+.story-embed{
+  position:relative; width:100%; aspect-ratio:9/16; max-width:300px;
+  border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--ink-2);
+  cursor:pointer; display:block; padding:0;
+}
+.story-embed img,.story-embed iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; object-fit:cover; }
+.story-embed .sp{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:rgba(10,10,10,.62); border:1px solid rgba(244,244,242,.5); color:#fff;
+  transition:background .2s, transform .2s;
+}
+.story-embed:hover .sp{ background:var(--red); border-color:var(--red); transform:translate(-50%,-50%) scale(1.08); }
+.story-cap{ display:block; margin-top:9px; font-size:13px; color:var(--ink-2); }
+
+.more-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+@media (max-width:560px){ .more-grid{ grid-template-columns:repeat(3,1fr); gap:8px; } }
+.more-card{ display:block; border:1px solid var(--line); border-radius:5px; overflow:hidden; background:var(--paper);
+  transition:transform .2s cubic-bezier(.22,.61,.36,1), border-color .2s; }
+.more-card:hover{ transform:translateY(-3px); border-color:var(--ink); }
+.more-card img{ display:block; width:100%; aspect-ratio:1/1; object-fit:cover; }
+.more-card span{ display:block; padding:8px 9px 10px; font-size:12px; line-height:1.25; font-weight:600; color:var(--ink); }
 </style>
 <script type="application/ld+json">
 {
@@ -381,6 +410,20 @@
         <span class="lgo">Play</span>
       </a>
     </div>
+    <div class="song-extra">
+      <h2>Behind the song &middot; Pt. 5</h2>
+      <button class="story-embed" data-yt="mLWLz7OVp1Q" aria-label="Play the story behind Gratitude">
+        <img src="https://i.ytimg.com/vi/mLWLz7OVp1Q/hqdefault.jpg" alt="" loading="lazy">
+        <span class="sp" aria-hidden="true"><svg width="17" height="19" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg></span>
+      </button>
+      <span class="story-cap">Where the lyrics came from &mdash; what, when, why and where.</span>
+      <h2 style="margin-top:34px;">More like this</h2>
+      <div class="more-grid">
+        <a class="more-card" href="/fullymeech"><img src="/images/cover-fullymeech.jpg" alt="" loading="lazy"><span>Fully Meech — Acoustic</span></a>
+        <a class="more-card" href="/outtaline"><img src="/images/cover-outtaline.jpg" alt="" loading="lazy"><span>Outta' Line</span></a>
+        <a class="more-card" href="/wineandbubble"><img src="/images/cover-winenbubble.jpg" alt="" loading="lazy"><span>Wine and Bubble</span></a>
+      </div>
+    </div>
   </div>
 </main>
 
@@ -428,5 +471,24 @@
 <script defer src="/js/track.js?v=51022b32"></script>
 <script defer src="/js/lightbox.js?v=9ca9d7dc"></script>
 <script defer src="/js/consent.js?v=5c0fd4c1"></script>
+
+<script>
+(function(){
+  // click-to-load: no YouTube iframe until someone actually asks for it
+  document.querySelectorAll('.story-embed').forEach(function(b){
+    b.addEventListener('click', function(){
+      var id = b.getAttribute('data-yt');
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1&rel=0&modestbranding=1';
+      f.setAttribute('allow','autoplay; encrypted-media; picture-in-picture');
+      f.setAttribute('allowfullscreen','');
+      f.title = b.getAttribute('aria-label') || 'Video';
+      b.innerHTML = '';
+      b.appendChild(f);
+      if(window.wrTrack) window.wrTrack('VideoPlay', { title: f.title, song: document.title });
+    }, { once:true });
+  });
+})();
+</script>
 </body>
 </html>
