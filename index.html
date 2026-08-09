@@ -463,7 +463,12 @@
 
   @media (prefers-reduced-motion: reduce){
     .pulse::after,.featured-buy,.listen-cta-row .btn::after{ animation:none; }
-    .featured-cover{ animation:none; }
+    /* The cover sits at opacity:0 and is brought in by coverIn. Turning the
+       animation off without restoring opacity left the artwork invisible for
+       anyone with Reduce Motion switched on. Needs html in front of it: this
+       block sits above the .featured-cover base rule, and a media query adds
+       no specificity, so an unqualified selector loses on source order. */
+    html .featured-cover{ animation:none !important; opacity:1 !important; }
   }
 
   /* ---------- Music video behind the artwork while previewing ---------- */
@@ -758,8 +763,10 @@
   .featured-hero-inner{ position:relative; z-index:2; }
 
   /* ---------- Staggered entrance ---------- */
-  /* held until the splash has gone, so the entrance is actually watched
-     rather than playing out behind a black screen */
+  /* Held until the splash has gone, so the entrance is actually watched
+     rather than playing out behind a black screen. Anything hidden this way
+     must have a guaranteed route back to visible — see the reduced-motion
+     and no-JS rules below. */
   .rise{ opacity:0; transform:translateY(18px); }
   html.intro-ready .rise{ animation:rise 1.05s cubic-bezier(.22,.61,.36,1) forwards; animation-delay:var(--d,0s); }
   @keyframes rise{ to{ opacity:1; transform:none; } }
@@ -1162,7 +1169,7 @@
     #splash{ transition:opacity .3s ease, visibility .3s ease; }
   }
 </style>
-<noscript><style>#splash{ display:none !important; } html .rise{ opacity:1 !important; transform:none !important; } html.splash-on, html.splash-on body{ overflow:auto !important; }</style></noscript>
+<noscript><style>#splash{ display:none !important; } html .rise{ opacity:1 !important; transform:none !important; } html .featured-cover{ opacity:1 !important; } html.splash-on, html.splash-on body{ overflow:auto !important; }</style></noscript>
 </head>
 <body>
 
