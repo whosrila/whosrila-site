@@ -82,6 +82,27 @@
 .cc-yes{ background:#F4F4F2; color:#0A0A0A; border-color:#F4F4F2; }
 .cc-yes:hover{ background:#D7263D; border-color:#D7263D; color:#F4F4F2; }
 @media (prefers-reduced-motion: reduce){ .cc{ transition:none; } }
+
+/* ---------- Mobile menu, animated ---------- */
+.mobilenav{
+  display:flex !important; flex-direction:column; gap:0;
+  max-height:0; overflow:hidden; opacity:0;
+  border-top:0 solid var(--line);
+  transition:max-height .42s cubic-bezier(.4,0,.2,1), opacity .3s ease, border-top-width .3s ease;
+}
+.mobilenav.open{ opacity:1; border-top-width:1px; }
+.mobilenav a{ transform:translateY(-8px); opacity:.35;
+  transition:transform .4s cubic-bezier(.22,.61,.36,1), opacity .4s ease; }
+.mobilenav.open a{ transform:none; opacity:1; }
+.mobilenav.open a:nth-child(1){ transition-delay:.05s; }
+.mobilenav.open a:nth-child(2){ transition-delay:.11s; }
+.mobilenav.open a:nth-child(3){ transition-delay:.17s; }
+.mobilenav.open a:nth-child(4){ transition-delay:.23s; }
+.burger{ transition:transform .35s cubic-bezier(.22,.61,.36,1); }
+.burger[aria-expanded="true"]{ transform:rotate(90deg); }
+@media (prefers-reduced-motion: reduce){
+  .mobilenav,.mobilenav a,.burger{ transition:none; }
+}
 </style>
 <style>
   :root{
@@ -183,10 +204,6 @@
     nav.links{ display:none; }
     .navcta{ display:none; }
     .burger{ display:block; }
-    .navrow.open + .mobilenav{ display:flex; }
-  }
-  .mobilenav{
-    display:none; flex-direction:column; gap:0; border-top:1px solid var(--line);
   }
   .mobilenav a{ color:var(--paper);
     padding:16px 28px; font-family:var(--f-mono); font-size:13px; letter-spacing:0.08em; text-transform:uppercase;
@@ -374,7 +391,8 @@
   @media (max-width:560px){ .listen-cta-row .btn{ padding:15px 20px; } }
   /* ---------- Featured CTA ---------- */
   .featured-cta{ display:flex; gap:9px; align-items:stretch; justify-content:center; flex-wrap:wrap; }
-  .featured-buy{ padding:12px 16px; font-size:11px; animation:buyGlow 4.2s ease-in-out 2.6s infinite; }
+  .featured-buy{ padding:12px 16px; font-size:11px; }
+  html.intro-ready .featured-buy{ animation:buyGlow 4.2s ease-in-out 2.6s infinite; }
   @keyframes buyGlow{
     0%,88%,100%{ border-color:rgba(244,244,242,0.24); }
     94%        { border-color:rgba(244,244,242,0.62); }
@@ -401,14 +419,15 @@
     box-shadow:0 0 0 0 rgba(215,38,61,.55);
     /* held until the entrance has finished, so it reads as an invitation
        rather than something already happening as the page draws */
-    animation:ctaPulse 2.6s cubic-bezier(.4,0,.6,1) 2.3s infinite;
+    animation:none;
   }
   @keyframes ctaPulse{
     0%   { box-shadow:0 0 0 0 rgba(215,38,61,.5); }
     70%  { box-shadow:0 0 0 14px rgba(215,38,61,0); }
     100% { box-shadow:0 0 0 0 rgba(215,38,61,0); }
   }
-  .pulse:hover::after{ animation:none; }
+  html.intro-ready .pulse::after{ animation:ctaPulse 2.6s cubic-bezier(.4,0,.6,1) 2.3s infinite; }
+  .pulse:hover::after{ animation:none !important; }
 
   /* ---------- Bio, centred ---------- */
   .bio-grid{ align-items:center; }
@@ -656,9 +675,9 @@
   }
 
   .reveal{
-    opacity:0; transform:translateY(26px) scale(.985);
-    transition:opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1);
-    transition-delay:var(--rd,0s);
+    opacity:0; transform:translateY(34px);
+    transition:opacity .62s cubic-bezier(.22,.61,.36,1), transform .62s cubic-bezier(.22,.61,.36,1);
+    transition-delay:var(--rd,0s); will-change:opacity, transform;
   }
   .reveal.in{ opacity:1; transform:none; }
   @media (prefers-reduced-motion: reduce){
@@ -680,25 +699,29 @@
 
 
   /* ---------- Featured Release Hero (Made You) ---------- */
-  .featured-hero{ position:relative; overflow:hidden; border-bottom:1px solid var(--line); padding:64px 0; background:var(--ink); }
+  .featured-hero{
+    position:relative; overflow:hidden; border-bottom:1px solid var(--line);
+    background:var(--ink);
+    /* fills the viewport under the sticky header so it is the whole first
+       screen rather than a band across the top */
+    min-height:calc(100svh - 62px); padding:72px 0;
+    display:flex; align-items:center;
+  }
+  .featured-hero > .wrap{ width:100%; }
+  @media (max-width:760px){ .featured-hero{ min-height:calc(100svh - 58px); padding:48px 0; } }
 
   /* ---------- Hero photo gallery ---------- */
   .hero-gallery{ position:absolute; inset:0; z-index:0; }
   .hg-slide{
     position:absolute; inset:0; opacity:0;
-    transition:opacity 1.05s ease-in-out;
+    transition:opacity 1.35s ease-in-out;
   }
   .hg-slide img{
     width:100%; height:100%; object-fit:cover;
-    display:block; transform:scale(1.06);
+    display:block; transform:scale(1.04);
   }
   .hg-slide.on{ opacity:1; }
   /* Ken Burns only on the slide that's showing, so idle slides cost nothing */
-  .hg-slide.on img{ animation:kenburns 5.4s ease-out both; }
-  @keyframes kenburns{
-    from{ transform:scale(1.02) translate3d(0,0,0); }
-    to  { transform:scale(1.12) translate3d(-1.2%,-1.6%,0); }
-  }
   /* Scrim: the photos sit under this so the type stays readable */
   .featured-hero::after{
     content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
@@ -709,13 +732,15 @@
   .featured-hero-inner{ position:relative; z-index:2; }
 
   /* ---------- Staggered entrance ---------- */
-  .rise{ opacity:0; transform:translateY(18px); animation:rise 1.05s cubic-bezier(.22,.61,.36,1) forwards; animation-delay:var(--d,0s); }
+  /* held until the splash has gone, so the entrance is actually watched
+     rather than playing out behind a black screen */
+  .rise{ opacity:0; transform:translateY(18px); }
+  html.intro-ready .rise{ animation:rise 1.05s cubic-bezier(.22,.61,.36,1) forwards; animation-delay:var(--d,0s); }
   @keyframes rise{ to{ opacity:1; transform:none; } }
 
   @media (prefers-reduced-motion: reduce){
     /* drop the Ken Burns movement but keep the crossfade — the fade is
        what stops the slideshow looking like it is hard-cutting */
-    .hg-slide.on img{ animation:none; transform:scale(1.04); }
     .rise{ animation:none; opacity:1; transform:none; }
   }
   .featured-hero-inner{
@@ -723,11 +748,12 @@
   }
   .featured-cover{
     display:block; width:100%; max-width:420px;
-    animation:coverIn 1.3s cubic-bezier(.22,.61,.36,1) both;
+    opacity:0;
     border:1px solid rgba(244,244,242,0.15); overflow:hidden;
     box-shadow:0 24px 64px rgba(0,0,0,0.6);
   }
-  .featured-cover img{ width:100%; height:auto; display:block; aspect-ratio:1/1; object-fit:cover; transition:transform .4s; animation:fadeInArt 1.9s ease-in-out both; }
+  .featured-cover img{ width:100%; height:auto; display:block; aspect-ratio:1/1; object-fit:cover; transition:transform .4s; }
+  html.intro-ready .featured-cover{ animation:coverIn 1.3s cubic-bezier(.22,.61,.36,1) both; }
   .featured-cover:hover img{ transform:scale(1.03); }
   @keyframes fadeInArt{ from{ opacity:0; } to{ opacity:1; } }
   @keyframes coverIn{ from{ opacity:0; transform:translateY(22px) scale(.97); } to{ opacity:1; transform:none; } }
@@ -1110,7 +1136,7 @@
     #splash{ transition:opacity .3s ease, visibility .3s ease; }
   }
 </style>
-<noscript><style>#splash{ display:none !important; } html.splash-on, html.splash-on body{ overflow:auto !important; }</style></noscript>
+<noscript><style>#splash{ display:none !important; } html .rise{ opacity:1 !important; transform:none !important; } html.splash-on, html.splash-on body{ overflow:auto !important; }</style></noscript>
 </head>
 <body>
 
@@ -1246,7 +1272,8 @@
 <script>
 (function(){
   var el = document.getElementById('splash');
-  if(!el) return;
+  // no splash on this load — let the hero animate straight away
+  if(!el){ document.documentElement.classList.add('intro-ready'); return; }
   document.documentElement.classList.add('splash-on');
 
   var done = false;
@@ -1255,6 +1282,8 @@
     el.classList.add('gone');
     if(window.wrStopGlobe) window.wrStopGlobe();
     document.documentElement.classList.remove('splash-on');
+    // hand off to the hero: its entrance starts as the splash fades out
+    document.documentElement.classList.add('intro-ready');
     setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 800);
   }
   // hold it long enough to read, then go as soon as the page is ready
@@ -2054,15 +2083,6 @@
 
 
 
-  // ---- Mobile nav ----
-  const burger = document.getElementById('burgerBtn');
-  const mobileNav = document.getElementById('mobileNav');
-  burger.addEventListener('click', () => {
-    const open = mobileNav.style.display === 'flex';
-    mobileNav.style.display = open ? 'none' : 'flex';
-    burger.setAttribute('aria-expanded', String(!open));
-  });
-
   // ---- Track preview ----
   // Songs with a music video. Nothing is loaded until a preview actually
   // starts, and it comes down again when the preview stops — no iframes
@@ -2145,16 +2165,19 @@
   // ---- Scroll reveal ----
   const reveals = document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
+    // kept observing rather than unobserved, so sections settle back down
+    // on the way past and lift again coming back — both directions
     const obs = new IntersectionObserver((entries) => {
-      // stagger anything that comes into view together, so a row of cards
-      // cascades instead of snapping in as one block
       const shown = entries.filter(e => e.isIntersecting);
       shown.forEach((e, i) => {
-        e.target.style.setProperty('--rd', Math.min(i, 6) * 0.07 + 's');
+        e.target.style.setProperty('--rd', Math.min(i, 6) * 0.06 + 's');
         e.target.classList.add('in');
-        obs.unobserve(e.target);
       });
-    }, { threshold: 0.15 });
+      entries.filter(e => !e.isIntersecting).forEach(e => {
+        e.target.style.setProperty('--rd', '0s');
+        e.target.classList.remove('in');
+      });
+    }, { threshold: 0.12, rootMargin: '-4% 0px -4% 0px' });
     reveals.forEach(el => obs.observe(el));
   } else {
     reveals.forEach(el => el.classList.add('in'));
@@ -2264,10 +2287,8 @@
     function show(n){
       var prev = slides[i], next = slides[n];
       prev.classList.remove('on');
-      var img = next.querySelector('img');
-      img.style.animation = 'none';
-      void img.offsetWidth;          // force reflow so the animation replays
-      img.style.animation = '';
+      // a pure cross-fade: no transform to restart, which is what made it
+      // jump before settling into the next photo
       next.classList.add('on');
       i = n;
     }
@@ -2308,6 +2329,35 @@
 <script defer src="/js/lightbox.js?v=9ca9d7dc"></script>
 <script defer src="/js/consent.js?v=5c0fd4c1"></script>
 <script defer src="/js/mailinglist.js?v=b7031979"></script>
+
+<script>
+(function(){
+  var b = document.getElementById('burgerBtn'), n = document.getElementById('mobileNav');
+  if(!b || !n) return;
+  function measure(){
+    // scrollHeight reads low while the element is clamped, so lift the cap,
+    // measure, put it back, then animate to the number
+    var prev = n.style.maxHeight;
+    n.style.transition = 'none';
+    n.style.maxHeight = 'none';
+    var px = n.scrollHeight;
+    n.style.maxHeight = prev || '0px';
+    void n.offsetHeight;
+    n.style.transition = '';
+    return px;
+  }
+  function setOpen(open){
+    var px = open ? measure() : 0;
+    n.classList.toggle('open', open);
+    n.style.maxHeight = px + 'px';
+    b.setAttribute('aria-expanded', String(open));
+  }
+  b.addEventListener('click', function(e){ e.preventDefault(); setOpen(!n.classList.contains('open')); });
+  // a tap on a link should close it on the way out
+  n.addEventListener('click', function(e){ if(e.target.closest('a')) setOpen(false); });
+  window.addEventListener('resize', function(){ if(n.classList.contains('open')) n.style.maxHeight = measure() + 'px'; });
+})();
+</script>
 </body>
 </html>
  

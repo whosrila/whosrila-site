@@ -22,7 +22,7 @@
 <meta name="twitter:image" content="https://whosrila.com/images/art-angels.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="/css/site.css?v=a7459f2f">
+<link rel="stylesheet" href="/css/site.css?v=8a84f67b">
 <style>
 :root{
   --ink:        #0A0A0A;
@@ -233,17 +233,6 @@
 </script>
 
 <script>
-  (function(){
-    var burger = document.getElementById('burgerBtn');
-    var mobileNav = document.getElementById('mobileNav');
-    if(burger && mobileNav){
-      burger.addEventListener('click', function(){
-        var open = mobileNav.style.display === 'flex';
-        mobileNav.style.display = open ? 'none' : 'flex';
-        burger.setAttribute('aria-expanded', String(!open));
-      });
-    }
-  })();
 </script>
 
 <script>
@@ -268,5 +257,36 @@
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3fc16cf549f44cb4bbde3934b15904d3"}'></script><!-- End Cloudflare Web Analytics -->
 <script defer src="/js/track.js?v=51022b32"></script>
 <script defer src="/js/consent.js?v=5c0fd4c1"></script>
+
+<script>
+(function(){
+  var b = document.getElementById('burgerBtn'), n = document.getElementById('mobileNav');
+  if(!b || !n) return;
+  // animate to the menu's real height. A fixed max-height has to be larger
+  // than the content, so the visible part of the travel is over long before
+  // the transition is, and it reads as a snap rather than a slide.
+  function measure(){
+    // scrollHeight reads ~0 while the element is still clamped, so lift the
+    // cap, measure, put it back, then animate to the number
+    var prev = n.style.maxHeight;
+    n.style.transition = 'none';
+    n.style.maxHeight = 'none';
+    var px = n.scrollHeight;
+    n.style.maxHeight = prev || '0px';
+    void n.offsetHeight;
+    n.style.transition = '';
+    return px;
+  }
+  function setOpen(open){
+    var px = open ? measure() : 0;
+    n.classList.toggle('open', open);
+    n.style.maxHeight = px + 'px';
+    b.setAttribute('aria-expanded', String(open));
+  }
+  b.addEventListener('click', function(e){ e.preventDefault(); setOpen(!n.classList.contains('open')); });
+  n.addEventListener('click', function(e){ if(e.target.closest('a')) setOpen(false); });
+  window.addEventListener('resize', function(){ if(n.classList.contains('open')) n.style.maxHeight = measure() + 'px'; });
+})();
+</script>
 </body>
 </html>
