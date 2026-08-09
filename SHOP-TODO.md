@@ -45,13 +45,22 @@ first:
 2. **Unlisted download page.** Confirmation page links to an obscure,
    `noindex` URL on whosrila.com holding the files. Instant, no server, but the
    URL is the only thing protecting it — one buyer can pass it on.
-3. **Cloudflare Worker.** Redirect carries `?session_id=`; a Worker verifies it
-   against the Stripe API and issues a short-lived signed URL. Proper, still
-   free at this volume, and Cloudflare is already in front of the site. Needs a
-   Stripe secret key pasted into Cloudflare — WHOSRILA does that, not Claude.
+3. **Cloudflare Worker + R2.** Stripe redirects to a page on whosrila.com
+   carrying `?session_id=`; a Worker verifies that session against the Stripe
+   API, confirms it is paid, and returns a short-lived signed R2 link. Instant,
+   automatic, and the link expires so forwarding it is useless.
 
-Recommendation: launch on 1, move to 3 if volume justifies it. 2 is a trap —
-it looks automated but the file leaks the first time someone shares the link.
+   DNS is on GoDaddy pointing straight at GitHub Pages — **Cloudflare is not in
+   front of this site** (the Web Analytics beacon is only a script, which is
+   easy to misread as proxying). No DNS move is needed though: the Worker can
+   live on its own `workers.dev` subdomain and be called cross-origin. Free at
+   this volume — R2 gives 10 GB and charges nothing for egress, against about
+   57 MB of audio. Needs a Cloudflare account, and the Stripe secret key pasted
+   in as a Worker secret — WHOSRILA does that, not Claude.
+
+Recommendation: 3 if the goal is a real shop, because it is the only one that
+is both instant and safe. 1 is the zero-setup stopgap. 2 is a trap — it looks
+automated but the file leaks the first time a buyer forwards the link.
 
 ## Masters — done, 9 Aug 2026
 
