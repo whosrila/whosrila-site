@@ -1,0 +1,21 @@
+name = "whosrila-downloads"
+main = "src/worker.js"
+compatibility_date = "2026-08-09"
+
+# The audio lives here. Private bucket — no public access, no custom domain.
+# The Worker is the only thing that can read it, which is the whole point.
+[[r2_buckets]]
+binding = "FILES"
+bucket_name = "whosrila-downloads"
+
+# Optional: counts downloads per purchase so one link cannot be passed round
+# forever. The Worker skips the cap entirely if this binding is absent, so it
+# deploys fine without it — uncomment once the namespace exists:
+#
+#   npx wrangler kv namespace create DOWNLOADS
+#
+# then paste the id it prints below and redeploy.
+#
+# [[kv_namespaces]]
+# binding = "DOWNLOADS"
+# id = "PASTE_THE_ID_WRANGLER_PRINTS"

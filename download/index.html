@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your download — WHOSRILA</title>
+<!-- Never index this. It is only ever reached by coming back from Stripe,
+     and the page is meaningless without a session id. -->
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --ink:#0A0A0A; --ink-2:#161616; --paper:#F4F4F2; --paper-dim:#8C8C8C;
+    --red:#D7263D; --cyan:#35D6C4; --line:rgba(244,244,242,0.14); --maxw:1140px;
+    --f-display:'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --f-body:'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --f-mono:'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  *{ box-sizing:border-box; }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+  }
+  body{ margin:0; background:var(--ink); color:var(--paper);
+    font-family:var(--f-body); font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  a{ color:inherit; text-decoration:none; }
+  img{ display:block; max-width:100%; }
+  :focus-visible{ outline:2px solid var(--red); outline-offset:3px; }
+  .wrap{ width:100%; max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+
+  header.site{ border-bottom:1px solid var(--line); background:var(--ink); }
+  .navrow{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; }
+  .wordmark img{ height:24px; width:auto; }
+  nav.links{ display:flex; gap:28px; font-family:var(--f-mono); font-size:13px;
+    letter-spacing:.06em; text-transform:uppercase; }
+  nav.links a{ opacity:.78; transition:opacity .2s; }
+  nav.links a:hover{ opacity:1; }
+
+  main{ padding:72px 0 96px; }
+  .dl{ max-width:620px; }
+  .stamp{ font-family:var(--f-mono); font-size:12px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--cyan); }
+  h1{ font-family:var(--f-display); font-weight:400; font-size:clamp(28px,4.5vw,44px);
+    line-height:1.02; text-transform:uppercase; margin:14px 0 0; }
+  .sub{ color:var(--paper-dim); font-size:16px; margin:14px 0 0; }
+
+  .files{ margin:34px 0 0; display:flex; flex-direction:column; gap:12px; }
+  .file{
+    display:flex; align-items:center; justify-content:space-between; gap:18px;
+    border:1px solid var(--line); border-radius:4px; background:var(--ink-2);
+    padding:16px 18px; transition:border-color .2s, transform .15s;
+  }
+  .file:hover{ border-color:var(--cyan); transform:translateY(-1px); }
+  .file-name{ font-size:15px; font-weight:600; word-break:break-word; }
+  .file-get{
+    flex:0 0 auto; font-family:var(--f-mono); font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; padding:11px 18px; border-radius:2px;
+    background:var(--cyan); color:#07110F; border:1px solid var(--cyan);
+    transition:background .2s;
+  }
+  .file-get:hover{ background:#4FE6D5; }
+
+  .note{ margin-top:32px; color:var(--paper-dim); font-size:14px; line-height:1.7; }
+  .note a{ color:var(--paper); border-bottom:1px solid var(--red); }
+
+  .msg{ border:1px solid var(--line); border-left:2px solid var(--red);
+    border-radius:4px; background:var(--ink-2); padding:20px 22px; margin-top:30px; }
+  .msg p{ margin:0; font-size:15px; color:rgba(244,244,242,.86); }
+  .msg a{ color:var(--paper); border-bottom:1px solid var(--red); }
+
+  .spin{ display:inline-block; width:15px; height:15px; margin-right:10px;
+    border:2px solid rgba(244,244,242,.25); border-top-color:var(--cyan);
+    border-radius:50%; animation:sp .8s linear infinite; vertical-align:-2px; }
+  @keyframes sp{ to{ transform:rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce){ .spin{ animation:none; } }
+
+  footer.mini{ background:var(--ink-2); padding:24px 28px; font-family:var(--f-mono);
+    font-size:11px; color:var(--paper-dim); }
+  footer.mini .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; padding:0; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="navrow">
+    <a href="/" class="wordmark"><img src="/images/logo.png" alt="WHOSRILA"></a>
+    <nav class="links"><a href="/listen">Listen</a><a href="/watch">Watch</a><a href="/press">Press</a></nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap dl">
+    <span class="stamp" id="stamp">Thank you</span>
+    <h1 id="head">Your music</h1>
+    <p class="sub" id="sub"><span class="spin"></span>Checking your order&hellip;</p>
+    <div class="files" id="files"></div>
+    <div id="msg"></div>
+    <p class="note" id="note" hidden>
+      Files are 320&nbsp;kbps MP3. This link works for 7 days &mdash; save the
+      files somewhere safe rather than relying on it. What you can and cannot do
+      with them is set out in the <a href="/license">licence</a>.
+      Anything wrong, email <a href="mailto:press@whosrila.com">press@whosrila.com</a>.
+    </p>
+  </div>
+</main>
+
+<footer class="mini">
+  <div class="wrap">
+    <span>&copy; 2026 WHOSRILA LLC</span>
+    <a href="/license">Licence</a>
+    <a href="/">whosrila.com</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* Set this to the deployed Worker once `wrangler deploy` prints its URL.
+     Everything else on this page is already finished. */
+  var WORKER = 'https://whosrila-downloads.whosrila.workers.dev';
+
+  var stamp = document.getElementById('stamp');
+  var head  = document.getElementById('head');
+  var sub   = document.getElementById('sub');
+  var files = document.getElementById('files');
+  var msg   = document.getElementById('msg');
+  var note  = document.getElementById('note');
+
+  function fail(text){
+    sub.hidden = true;
+    /* "Thank you" over "Nothing to download" reads like a taunt. */
+    stamp.textContent = 'Download';
+    stamp.style.color = 'var(--red)';
+    msg.innerHTML = '<div class="msg"><p>' + text + '</p></div>';
+  }
+
+  var session = new URLSearchParams(location.search).get('session_id');
+
+  if(!session){
+    head.textContent = 'Nothing to download';
+    fail('This page only works straight after a purchase. If you have already ' +
+         'bought something and lost the link, email ' +
+         '<a href="mailto:press@whosrila.com">press@whosrila.com</a> and it will be resent.');
+    return;
+  }
+
+  fetch(WORKER + '/api/order?session_id=' + encodeURIComponent(session))
+    .then(function(r){ return r.json().then(function(b){ return { ok:r.ok, body:b }; }); })
+    .then(function(res){
+      if(!res.ok || res.body.error){
+        head.textContent = 'Hm.';
+        fail(res.body.error || 'We could not check that order.');
+        return;
+      }
+      var list = res.body.files || [];
+      if(!list.length){ head.textContent = 'Hm.'; fail('That order had no files attached.'); return; }
+
+      sub.textContent = list.length === 1
+        ? 'Paid and ready. Here it is.'
+        : 'Paid and ready. ' + list.length + ' files.';
+
+      list.forEach(function(f){
+        var row = document.createElement('div');
+        row.className = 'file';
+        var name = document.createElement('span');
+        name.className = 'file-name';
+        name.textContent = f.name;
+        var a = document.createElement('a');
+        a.className = 'file-get';
+        a.href = f.url;
+        a.textContent = 'Download';
+        /* No `download` attribute — the Worker sets Content-Disposition, and
+           letting it own the filename keeps the apostrophe in "Outta' Line"
+           and the spaces intact across browsers. */
+        row.appendChild(name); row.appendChild(a);
+        files.appendChild(row);
+      });
+      note.hidden = false;
+    })
+    .catch(function(){
+      head.textContent = 'Hm.';
+      fail('We could not reach the download service. Check your connection and ' +
+           'reload, or email <a href="mailto:press@whosrila.com">press@whosrila.com</a>.');
+    });
+})();
+</script>
+</body>
+</html>
