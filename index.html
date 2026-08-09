@@ -286,7 +286,19 @@
   .presave .btn-primary:hover{ box-shadow:0 8px 24px rgba(10,10,10,0.35); }
 
   /* ---------- Section shell ---------- */
-  section{ padding:88px 0; border-bottom:1px solid var(--line); }
+  section{
+    padding:88px 0; border-bottom:none; position:relative;
+    /* inset shadows rather than pseudo-elements: several sections already
+       use ::before/::after (the hero scrim among them), and this layers
+       over the background but under the content either way */
+    box-shadow:
+      inset 0  96px 78px -78px var(--ink),
+      inset 0 -96px 78px -78px var(--ink);
+  }
+  /* the hero opens the page and the footer strip closes it — neither wants
+     a fade against nothing */
+  .featured-hero{ box-shadow:inset 0 -110px 90px -90px var(--ink); }
+  #joinlist{ box-shadow:inset 0 96px 78px -78px var(--ink); }
   section:last-of-type{ border-bottom:none; }
   .section-head{ margin-bottom:40px; }
   .section-head .stamp{ margin-bottom:14px; }
@@ -389,6 +401,28 @@
   }
   .listen-cta-row .btn:hover::after{ animation:none; }
   @media (max-width:560px){ .listen-cta-row .btn{ padding:15px 20px; } }
+  /* ---------- Scroll hint ---------- */
+  .scroll-hint{
+    position:absolute; left:50%; bottom:26px; transform:translateX(-50%);
+    z-index:3; display:flex; flex-direction:column; align-items:center; gap:7px;
+    color:var(--paper-dim); text-decoration:none;
+    font-family:var(--f-mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+    opacity:0; pointer-events:none;
+    transition:opacity .5s ease, color .2s ease;
+  }
+  /* only once the hero has finished arriving, and only while you are at the
+     top — it is a nudge, not a permanent fixture */
+  html.intro-ready .scroll-hint{ opacity:.75; pointer-events:auto; animation:hintIn .8s ease 1.8s both; }
+  html.scrolled .scroll-hint{ opacity:0 !important; pointer-events:none; }
+  .scroll-hint:hover{ color:var(--paper); }
+  .scroll-hint svg{ animation:hintBob 1.9s ease-in-out infinite; }
+  @keyframes hintIn{ from{ opacity:0; transform:translate(-50%,10px); } to{ opacity:.75; transform:translateX(-50%); } }
+  @keyframes hintBob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(5px); } }
+  @media (prefers-reduced-motion: reduce){
+    .scroll-hint svg{ animation:none; }
+    html.intro-ready .scroll-hint{ animation:none; opacity:.75; }
+  }
+
   /* ---------- Featured CTA ---------- */
   .featured-cta{ display:flex; gap:9px; align-items:stretch; justify-content:center; flex-wrap:wrap; }
   .featured-buy{ padding:12px 16px; font-size:11px; }
@@ -700,7 +734,7 @@
 
   /* ---------- Featured Release Hero (Made You) ---------- */
   .featured-hero{
-    position:relative; overflow:hidden; border-bottom:1px solid var(--line);
+    position:relative; overflow:hidden; border-bottom:none;
     background:var(--ink);
     /* fills the viewport under the sticky header so it is the whole first
        screen rather than a band across the top */
@@ -828,7 +862,7 @@
 
 
   /* ---------- Notify capture ---------- */
-  #notify{ padding:64px 0 72px; border-bottom:1px solid var(--line); }
+  #notify{ padding:64px 0 72px; border-bottom:none; }
   .notify-box{
     display:grid; grid-template-columns:1.15fr .85fr; gap:36px; align-items:center;
     background:var(--ink-2); border:1px solid var(--line); border-radius:8px; padding:34px 36px;
@@ -1392,6 +1426,12 @@
       </div>
     </div>
   </div>
+  <a class="scroll-hint" href="#bio" aria-label="Scroll down for more">
+    <span>Scroll</span>
+    <svg width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
+      <path d="M1 1.5 L8 8 L15 1.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
 </section>
 
 <section id="bio" style="background: linear-gradient(rgba(20,20,20,0.72), rgba(20,20,20,0.72)), url('/images/bg-bio-new.jpg') center/cover no-repeat;">
@@ -2161,6 +2201,14 @@
     }
   }
 
+
+  // ---- Scroll hint: gone the moment they start moving ----
+  (function(){
+    var root = document.documentElement;
+    function check(){ root.classList.toggle('scrolled', window.scrollY > 40); }
+    check();
+    window.addEventListener('scroll', check, { passive:true });
+  })();
 
   // ---- Scroll reveal ----
   const reveals = document.querySelectorAll('.reveal');
