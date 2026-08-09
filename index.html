@@ -286,19 +286,11 @@
   .presave .btn-primary:hover{ box-shadow:0 8px 24px rgba(10,10,10,0.35); }
 
   /* ---------- Section shell ---------- */
-  section{
-    padding:88px 0; border-bottom:none; position:relative;
-    /* inset shadows rather than pseudo-elements: several sections already
-       use ::before/::after (the hero scrim among them), and this layers
-       over the background but under the content either way */
-    box-shadow:
-      inset 0  96px 78px -78px var(--ink),
-      inset 0 -96px 78px -78px var(--ink);
-  }
-  /* the hero opens the page and the footer strip closes it — neither wants
-     a fade against nothing */
-  .featured-hero{ box-shadow:inset 0 -110px 90px -90px var(--ink); }
-  #joinlist{ box-shadow:inset 0 96px 78px -78px var(--ink); }
+  /* No seam treatment here. Every section sits on #0A0A0A, so the ones
+     that differ carry their own colour back to that at top and bottom —
+     the blend is in the backgrounds themselves rather than a shadow laid
+     over the join. */
+  section{ padding:88px 0; border-bottom:none; position:relative; }
   section:last-of-type{ border-bottom:none; }
   .section-head{ margin-bottom:40px; }
   .section-head .stamp{ margin-bottom:14px; }
@@ -761,7 +753,7 @@
     content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
     background:
       radial-gradient(ellipse 70% 80% at 50% 50%, rgba(10,10,10,0.90) 0%, rgba(10,10,10,0.62) 55%, rgba(10,10,10,0.30) 100%),
-      linear-gradient(rgba(10,10,10,0.28), rgba(10,10,10,0.58));
+      linear-gradient(to bottom, rgba(10,10,10,0.28) 0%, rgba(10,10,10,0.52) 62%, #0A0A0A 100%);
   }
   .featured-hero-inner{ position:relative; z-index:2; }
 
@@ -1434,7 +1426,7 @@
   </a>
 </section>
 
-<section id="bio" style="background: linear-gradient(rgba(20,20,20,0.72), rgba(20,20,20,0.72)), url('/images/bg-bio-new.jpg') center/cover no-repeat;">
+<section id="bio" style="background: linear-gradient(to bottom, #0A0A0A 0%, rgba(18,18,18,0.80) 14%, rgba(20,20,20,0.72) 34%, rgba(20,20,20,0.72) 66%, rgba(18,18,18,0.80) 86%, #0A0A0A 100%), url('/images/bg-bio-new.jpg') center/cover no-repeat;">
   <div class="wrap bio-grid">
     <div class="reveal in">
       <a href="/press" class="bio-photo-wrap" aria-label="WHOSRILA press kit">
@@ -1460,7 +1452,7 @@
 
 
 
-<section id="music" style="background: linear-gradient(rgba(10,10,10,0.90), rgba(10,10,10,0.94)), url('/images/bg-discography-new.jpg') center/cover no-repeat;">
+<section id="music" style="background: linear-gradient(to bottom, #0A0A0A 0%, rgba(10,10,10,0.90) 12%, rgba(10,10,10,0.94) 88%, #0A0A0A 100%), url('/images/bg-discography-new.jpg') center/cover no-repeat;">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="stamp">DISCOGRAPHY</span>
@@ -2056,7 +2048,7 @@
   </div>
 </section>
 
-<section id="joinlist" style="background:var(--ink-2); padding:56px 0 36px;">
+<section id="joinlist" style="background:linear-gradient(to bottom, #0A0A0A 0%, #161616 26%, #161616 100%); padding:56px 0 36px;">
   <div class="wrap" style="text-align:center;">
     <div>
       <span class="stamp">CONNECT</span>
