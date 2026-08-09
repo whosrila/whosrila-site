@@ -57,6 +57,32 @@
     return json.success === true || !!json.subscription || json.status === 'success';
   }
 
+  // Re-send the subscriber with their current choices. Kit matches on email,
+  // so this updates the record created a moment ago rather than adding one.
+  function livePrefs(box, email, label) {
+    var note = document.getElementById('prefsNote');
+    var t;
+    box.addEventListener('change', function () {
+      var chosen = [].slice.call(box.querySelectorAll('input[name="pref"]:checked'))
+                     .map(function (c) { return c.value; });
+      if (note) note.textContent = 'Saving…';
+      clearTimeout(t);
+      // debounce so ticking three boxes quickly is one request, not three
+      t = setTimeout(function () {
+        fetch(endpoint(), { method: 'POST', body: payload(email, chosen) })
+          .then(function (r) { return r.json().catch(function () { return { success: r.ok }; }); })
+          .then(function (j) {
+            if (!accepted(j)) throw new Error('rejected');
+            if (note) note.textContent = chosen.length
+              ? 'Saved — sending you ' + chosen.join(', ') + '.'
+              : 'Saved — you will only get the occasional big one.';
+            if (window.wrTrack) window.wrTrack('PrefsUpdate', { where: label, interests: chosen.join('|') });
+          })
+          .catch(function () { if (note) note.textContent = 'Could not save that — try again.'; });
+      }, 600);
+    });
+  }
+
   function wire(form, doneEl, noteEl, label) {
     if (!form) return;
     form.addEventListener('submit', function (e) {
@@ -70,8 +96,13 @@
       var email = input && input.value.trim();
       if (!email) return;
 
-      var prefs = [].slice.call(form.querySelectorAll('input[name="pref"]:checked'))
-                    .map(function (c) { return c.value; });
+      // Preferences are asked for AFTER this submit, so the first call goes
+      // out with everything on. Losing someone at a second step would mean
+      // losing the address entirely, and the address is the point.
+      var prefsBox = doneEl && doneEl.querySelector('.prefs');
+      var prefs = prefsBox
+        ? [].slice.call(prefsBox.querySelectorAll('input[name="pref"]')).map(function (c) { return c.value; })
+        : [].slice.call(form.querySelectorAll('input[name="pref"]:checked')).map(function (c) { return c.value; });
 
       var btn = form.querySelector('button[type="submit"]');
       if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = 'Sending…'; }
@@ -84,6 +115,7 @@
           if (doneEl) doneEl.hidden = false;
           if (window.wrTrack) window.wrTrack('SignUp', { where: label, interests: prefs.join('|') });
           try { if (window.fbq) window.fbq('track', 'CompleteRegistration', { where: label }); } catch (e) {}
+          if (prefsBox) livePrefs(prefsBox, email, label);
         })
         .catch(function () {
           if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || 'Try again'; }
