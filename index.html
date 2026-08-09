@@ -316,11 +316,16 @@
     letter-spacing:.06em; white-space:nowrap;
   }
   /* inside a card the badge sits on its own line, so no left margin */
-  .track-row .exptag{ margin-left:0; align-self:flex-start; }
+  .track-row .exptag{ margin-left:0; align-self:center; }
   .listen-cta-row{ display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; justify-content:center; }
   /* ---------- Featured CTA ---------- */
   .featured-cta{ display:flex; gap:9px; align-items:stretch; justify-content:center; flex-wrap:wrap; }
-  .featured-buy{ padding:12px 16px; font-size:11px; }
+  .featured-buy{ padding:12px 16px; font-size:11px; animation:buyGlow 4.2s ease-in-out 2.6s infinite; }
+  @keyframes buyGlow{
+    0%,88%,100%{ border-color:rgba(244,244,242,0.24); }
+    94%        { border-color:rgba(244,244,242,0.62); }
+  }
+  .featured-buy:hover{ animation:none; }
   .featured-panel{ width:100%; max-width:340px; margin:10px auto 0; text-align:left;
     border:1px solid rgba(244,244,242,0.16); border-radius:5px; background:rgba(20,20,20,.75); }
   .featured-panel .buy-opt:first-child{ border-top:none; }
@@ -331,7 +336,9 @@
   .pulse::after{
     content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
     box-shadow:0 0 0 0 rgba(215,38,61,.55);
-    animation:ctaPulse 2.8s cubic-bezier(.4,0,.6,1) infinite;
+    /* held until the entrance has finished, so it reads as an invitation
+       rather than something already happening as the page draws */
+    animation:ctaPulse 2.6s cubic-bezier(.4,0,.6,1) 2.3s infinite;
   }
   @keyframes ctaPulse{
     0%   { box-shadow:0 0 0 0 rgba(215,38,61,.5); }
@@ -346,7 +353,10 @@
   .bio-copy .stamp, .bio-grid .stamp{ display:inline-block; }
   @media (max-width:860px){ .bio-grid{ text-align:center; } }
 
-  @media (prefers-reduced-motion: reduce){ .pulse::after{ animation:none; } }
+  @media (prefers-reduced-motion: reduce){
+    .pulse::after,.featured-buy{ animation:none; }
+    .featured-cover{ animation:none; }
+  }
 
   /* ---------- Track cards ---------- */
   .tl-group{ margin-bottom:38px; }
@@ -378,9 +388,7 @@
 
   .track-row{
     display:flex; flex-direction:column; position:relative;
-    /* stretch, not the centre inherited from the old row layout — in a
-       flex column align-items controls horizontal placement */
-    align-items:stretch; text-align:left;
+    align-items:stretch; text-align:center;
     padding:0; border:none; cursor:pointer; flex:1 1 auto;
   }
   .track-row .cover{
@@ -394,15 +402,33 @@
     background:rgba(10,10,10,0.72); color:rgba(244,244,242,0.85);
   }
   .track-row .go{
-    position:absolute; top:8px; right:8px; z-index:2; margin:0;
-    width:24px; height:24px; flex:0 0 24px;
+    position:absolute; top:9px; right:9px; z-index:2; margin:0;
+    width:34px; height:34px; flex:0 0 34px;
     display:inline-flex; align-items:center; justify-content:center;
-    border-radius:50%; color:rgba(244,244,242,0.85);
-    background:rgba(10,10,10,0.66); border:1px solid rgba(244,244,242,0.28);
+    border-radius:50%; color:#fff;
+    background:rgba(10,10,10,0.72); border:1px solid rgba(244,244,242,0.34);
     transition:transform .2s cubic-bezier(.22,.61,.36,1), color .2s, border-color .2s, background .2s;
+    animation:goNudge 3.4s ease-in-out infinite;
   }
+  /* a small periodic nudge so the arrow reads as something to press,
+     rather than sitting there as decoration */
+  @keyframes goNudge{
+    0%,72%,100%{ transform:none; box-shadow:0 0 0 0 rgba(215,38,61,0); }
+    80%        { transform:translate(2px,-2px); box-shadow:0 0 0 7px rgba(215,38,61,0); }
+    86%        { box-shadow:0 0 0 0 rgba(215,38,61,.45); }
+  }
+  .track-item:hover .go{ animation:none; }
   .track-item:hover .go{ background:var(--red); border-color:var(--red); color:#fff; transform:translate(2px,-2px); }
-  .track-row .title-block{ display:flex; flex-direction:column; gap:3px; padding:11px 12px 0; min-width:0; }
+  .track-row .title-block{
+    display:flex; flex-direction:column; align-items:center; gap:3px;
+    padding:11px 12px 0; min-width:0;
+    /* the badge and credit lines are optional, so reserve their space —
+       otherwise cards without them sit ~20px shorter than the rest */
+    min-height:52px; justify-content:flex-start;
+  }
+  /* upcoming cards usually carry a badge AND a credit line, so they need
+     more reserved space than the out-now ones */
+  .tracklist-up .track-row .title-block{ min-height:66px; }
   .track-row .title-line{
     font-size:14.5px; font-weight:600; line-height:1.25;
     display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
@@ -456,7 +482,8 @@
   .buy-opt[aria-disabled="true"]{ opacity:.42; pointer-events:none; }
 
   @media (prefers-reduced-motion: reduce){
-    .track-item,.track-row .go,.bb-chev,.buy-panel{ transition:none; }
+    .track-item,.bb-chev,.buy-panel{ transition:none; }
+    .track-row .go{ animation:none; transition:none; }
   }
 
   /* ---------- Collapsible track list ---------- */
@@ -577,7 +604,7 @@
   .featured-hero-inner{ position:relative; z-index:2; }
 
   /* ---------- Staggered entrance ---------- */
-  .rise{ opacity:0; transform:translateY(14px); animation:rise .75s cubic-bezier(.22,.61,.36,1) forwards; animation-delay:var(--d,0s); }
+  .rise{ opacity:0; transform:translateY(18px); animation:rise 1.05s cubic-bezier(.22,.61,.36,1) forwards; animation-delay:var(--d,0s); }
   @keyframes rise{ to{ opacity:1; transform:none; } }
 
   @media (prefers-reduced-motion: reduce){
@@ -591,12 +618,14 @@
   }
   .featured-cover{
     display:block; width:100%; max-width:420px;
+    animation:coverIn 1.3s cubic-bezier(.22,.61,.36,1) both;
     border:1px solid rgba(244,244,242,0.15); overflow:hidden;
     box-shadow:0 24px 64px rgba(0,0,0,0.6);
   }
-  .featured-cover img{ width:100%; height:auto; display:block; aspect-ratio:1/1; object-fit:cover; transition:transform .4s; animation:fadeInArt 1.6s ease-in-out both; }
+  .featured-cover img{ width:100%; height:auto; display:block; aspect-ratio:1/1; object-fit:cover; transition:transform .4s; animation:fadeInArt 1.9s ease-in-out both; }
   .featured-cover:hover img{ transform:scale(1.03); }
   @keyframes fadeInArt{ from{ opacity:0; } to{ opacity:1; } }
+  @keyframes coverIn{ from{ opacity:0; transform:translateY(22px) scale(.97); } to{ opacity:1; transform:none; } }
   .featured-copy{ display:flex; flex-direction:column; align-items:center; }
   .featured-copy .featured-title{ font-family:var(--f-display); color:var(--paper); font-weight:800; font-size:clamp(36px,5.4vw,64px); line-height:1.02; margin:14px 0 6px; }
   .featured-copy .featured-date{ font-family:var(--f-mono); text-transform:uppercase; letter-spacing:0.12em; font-size:14px; color:var(--paper-dim); margin:0 0 24px; }
@@ -985,10 +1014,10 @@
       <img src="/images/art-madeyou.jpg" alt="Made You — cover art">
     </a>
     <div class="featured-copy">
-      <span class="stamp rise" style="color:var(--red);border-color:var(--red);--d:.05s">Featured Release</span>
-      <h2 class="featured-title rise" style="--d:.15s">Made You</h2>
-      <p class="featured-date rise" style="--d:.25s">Out August 13, 2026</p>
-      <div class="featured-cta rise" style="--d:.35s">
+      <span class="stamp rise" style="color:var(--red);border-color:var(--red);--d:.55s">Featured Release</span>
+      <h2 class="featured-title rise" style="--d:.75s">Made You</h2>
+      <p class="featured-date rise" style="--d:.95s">Out August 13, 2026</p>
+      <div class="featured-cta rise" style="--d:1.2s">
         <a class="btn btn-primary featured-btn pulse" href="/madeyou" id="featuredCta">Pre-Save</a>
         <button class="btn-buy featured-buy" type="button" aria-expanded="false">Own it
           <svg class="bb-chev" width="10" height="7" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -1048,7 +1077,7 @@
           <a class="track-row" href="/madeyou">
             <span class="idx">01</span>
             <img class="cover" src="/images/art-madeyou.jpg" alt="Made You cover art" loading="lazy">
-            <span class="go" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="title-block">
               <span class="title-line">Made You</span>
             <span class="exptag" title="Not yet released">UPCOMING</span>
@@ -1085,7 +1114,7 @@
           <a class="track-row" href="/energy">
             <span class="idx">02</span>
             <img class="cover" src="/images/art-energy.jpg" alt="Energy cover art" loading="lazy">
-            <span class="go" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="title-block">
               <span class="title-line">Energy</span>
             <span class="exptag" title="Not yet released">UPCOMING</span>
@@ -1123,7 +1152,7 @@
           <a class="track-row" href="/angelsonsofa">
             <span class="idx">03</span>
             <img class="cover" src="/images/art-angels.jpg" alt="Angels On Sofa cover art" loading="lazy">
-            <span class="go" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="title-block">
               <span class="title-line">Angels On Sofa</span>
             <span class="exptag" title="Not yet released">UPCOMING</span>
@@ -1167,7 +1196,7 @@
           <a class="track-row" href="/topform">
             <span class="idx">04</span>
             <img class="cover" src="/images/cover-topform.jpg" alt="" loading="lazy">
-            <span class="go" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="title-block">
               <span class="title-line">Top Form</span>
             <span class="exptag" title="Explicit">Explicit</span>
@@ -1203,7 +1232,7 @@
           <a class="track-row" href="/gratitude">
             <span class="idx">05</span>
             <img class="cover" src="/images/cover-gratitude.jpg" alt="" loading="lazy">
-            <span class="go" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="title-block">
               <span class="title-line">Gratitude</span>
             </span>
@@ -1238,7 +1267,7 @@
           <a class="track-row" href="/fullymeech">
             <span class="idx">06</span>
             <img class="cover" src="/images/cover-fullymeech.jpg" alt="" loading="lazy">
-            <span class="go" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="title-block">
               <span class="title-line">Fully Meech — Acoustic</span>
             </span>
@@ -1273,7 +1302,7 @@
           <a class="track-row" href="/outtaline">
             <span class="idx">07</span>
             <img class="cover" src="/images/cover-outtaline.jpg" alt="Outta' Line cover art" loading="lazy">
-            <span class="go" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="title-block">
               <span class="title-line">Outta' Line</span>
             <span class="exptag" title="Explicit">Explicit</span>
@@ -1309,7 +1338,7 @@
           <a class="track-row" href="/wineandbubble">
             <span class="idx">08</span>
             <img class="cover" src="/images/cover-winenbubble.jpg" alt="Wine and Bubble cover art" loading="lazy">
-            <span class="go" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="title-block">
               <span class="title-line">Wine and Bubble</span>
           <span class="credit">Jon Dela ft. Cres, Kxng Izem &amp; WHOSRILA</span>
@@ -1345,7 +1374,7 @@
           <a class="track-row" href="/kingston">
             <span class="idx">09</span>
             <img class="cover" src="/images/cover-kingston.jpg" alt="" loading="lazy">
-            <span class="go" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="title-block">
               <span class="title-line">Kingston</span>
             <span class="exptag" title="Explicit">Explicit</span>
@@ -1381,7 +1410,7 @@
           <a class="track-row" href="/protection">
             <span class="idx">10</span>
             <img class="cover" src="/images/cover-protection.jpg" alt="" loading="lazy">
-            <span class="go" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="title-block">
               <span class="title-line">Protection</span>
             <span class="exptag" title="Explicit">Explicit</span>
@@ -1417,7 +1446,7 @@
           <a class="track-row" href="/bluenotes">
             <span class="idx">11</span>
             <img class="cover" src="/images/cover-bluenotes.jpg" alt="" loading="lazy">
-            <span class="go" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="title-block">
               <span class="title-line">Blue Notes</span>
             <span class="exptag" title="Explicit">Explicit</span>
@@ -1453,7 +1482,7 @@
           <a class="track-row" href="/forme">
             <span class="idx">12</span>
             <img class="cover" src="/images/cover-forme.jpg" alt="For Me cover art" loading="lazy">
-            <span class="go" aria-hidden="true"><svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="title-block">
               <span class="title-line">For Me</span>
             </span>
