@@ -53,12 +53,34 @@ first:
 Recommendation: launch on 1, move to 3 if volume justifies it. 2 is a trap —
 it looks automated but the file leaks the first time someone shares the link.
 
-## Blocker 2 — the masters do not exist
+## Masters — done, 9 Aug 2026
 
-Only the 30-second previews are in the repo. Nothing can be sold until
-full-length MP3 320 (or WAV to convert from) exists for each of the seven
-songs. This has been asked about several times and is now the single thing
-standing between a built shop and a working one.
+Built in `/Users/whosrila/Desktop/WHOSRILA/Shop Masters` (deliberately NOT in
+this repo — GitHub Pages would serve them to anyone). Nine files, 320 kbps CBR,
+LAME quality 0, native sample rate kept, ID3v2.3, front cover embedded, album
+and genre taken from Apple's own metadata so tags match the stores. All nine
+pass a full decode with zero errors.
+
+Everything was encoded **from the WAV masters, never from the supplied MP3s**:
+
+- `Top Form [44Khz 24bit Stereo].mp3` was 128 kbps audio inside a 22 MB ID3
+  tag — unusable. The WAV was fine.
+- The other supplied MP3s were 320 but had been resampled to 48 kHz from
+  44.1 kHz sources. Re-encoding those would have compounded the loss.
+
+`Fully Meech` was not among the files sent over but its WAV was in the same
+folder, so all seven sellable songs are covered. `Outta' Line` was converted
+too but stays out of the shop until its split is agreed. `Made You` is ready
+for the 13th.
+
+The bundle ZIP (`WHOSRILA - Complete Digital Collection.zip`, 43.8 MB) holds
+the seven songs plus `LICENCE.txt`. Singles ship as a single MP3 — no ZIP to
+unpack — with the licence pointer in the comment tag and the full text at
+whosrila.com/license.
+
+**Possible lead on a missing name:** the Made You session folder is called
+"WHOSRILA, Cin - Made You". *Cin* may be the 50% producer credit. Confirm
+before using it in a payout.
 
 ## Sellable now — split agreed
 
@@ -87,15 +109,15 @@ the rest of the swap.
 
 ## Outstanding
 
-1. **Masters.** See blocker 2. Everything else is done and waiting on this.
-2. **Delivery method.** Pick one of the three above.
-3. **Outta' Line split** — the only thing keeping a released song off the shop.
-4. **Three names.** The split percentages are enough to *sell*; the names are
+1. **Delivery method.** The one thing left before the shop can open. See
+   blocker 1 — the files now exist, but nothing yet hands them to a buyer.
+2. **Outta' Line split** — the only thing keeping a released song off the shop.
+3. **Three names.** The split percentages are enough to *sell*; the names are
    needed to *pay*. Currently recorded as shares only:
-   - Made You — the producer
+   - Made You — the producer (possibly "Cin" — confirm)
    - Gratitude and Top Form — the 50% collaborator
    - Energy — the third 25%
-5. **Product images.** The eight products have no artwork at checkout. The
+4. **Product images.** The eight products have no artwork at checkout. The
    files are ready in `images/art-*.jpg`; the upload tool was failing this
    session, so they go in by hand or on a later pass.
 
