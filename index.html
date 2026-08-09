@@ -346,11 +346,13 @@
   }
   /* inside a card the badge sits on its own line, so no left margin */
   .track-row .exptag{ margin-left:0; align-self:center; }
-  .listen-cta-row{ display:flex; gap:14px; margin-top:36px; flex-wrap:wrap; justify-content:center; }
+  .listen-cta-row{ display:block; margin-top:36px; }
   /* the stream button carries the preview colour, not the buy red — it
      sends people to listen, which is what the teal means everywhere else */
   .listen-cta-row .btn{
-    min-width:320px; padding:16px 34px; font-size:12px; letter-spacing:.14em;
+    /* spans the full grid so it lines up with the three columns above it */
+    width:100%; padding:18px 34px; font-size:12px; letter-spacing:.14em;
+    display:flex; align-items:center; justify-content:center;
     background:var(--cyan); color:#07110F; border-color:var(--cyan);
     position:relative;
   }
@@ -369,7 +371,7 @@
     100% { box-shadow:0 0 0 0 rgba(53,214,196,0); }
   }
   .listen-cta-row .btn:hover::after{ animation:none; }
-  @media (max-width:560px){ .listen-cta-row .btn{ min-width:0; width:100%; padding:15px 20px; } }
+  @media (max-width:560px){ .listen-cta-row .btn{ padding:15px 20px; } }
   /* ---------- Featured CTA ---------- */
   .featured-cta{ display:flex; gap:9px; align-items:stretch; justify-content:center; flex-wrap:wrap; }
   .featured-buy{ padding:12px 16px; font-size:11px; animation:buyGlow 4.2s ease-in-out 2.6s infinite; }
@@ -449,12 +451,11 @@
   #music .tl-group-label{ color:rgba(244,244,242,0.55); }
 
   .tracklist{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
     /* start, not stretch: a grid row sizes to its tallest cell, so stretching
        made every sibling grow when one card's buy panel opened */
     align-items:start; overflow:visible;
   }
-  @media (max-width:1200px){ .tracklist{ grid-template-columns:repeat(3,1fr); } }
   @media (max-width:900px){  .tracklist{ grid-template-columns:repeat(2,1fr); } }
   @media (max-width:560px){  .tracklist{ grid-template-columns:repeat(2,1fr); gap:12px; } }
 
@@ -1845,7 +1846,7 @@
       </div>
     </div>
     <div class="listen-cta-row reveal">
-      <a href="/listen" class="btn btn-primary">&#9654; Stream WHOSRILA</a>
+      <a href="/listen" class="btn btn-primary">Stream WHOSRILA</a>
     </div>
   </div>
 </section>
