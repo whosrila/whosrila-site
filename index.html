@@ -106,7 +106,17 @@
   html{ scroll-behavior:smooth; }
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior:auto; }
-    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+    /* This used to be a blanket rule zeroing every animation and transition
+       on the page with !important. It also killed the photo cross-fades and
+       every subtle cue, which is why a phone with Reduce Motion switched on
+       saw the slideshows hard-cut. Motion sensitivity is about movement, not
+       about opacity, so movement is what gets stopped — the specific rules
+       further down each turn off their own transforms, and cross-fades are
+       left alone. */
+    *{ animation-name:none !important; }
+    /* the two slideshows and anything else fading stay exactly as they are */
+    .hg-slide, .bio-slide, .buy-opt, .cc, .lb{ animation-name:none !important; }
+    .hg-slide.on img{ transform:scale(1.04) !important; }
   }
 
   body{
@@ -489,6 +499,10 @@
     86%        { box-shadow:0 0 0 0 rgba(215,38,61,.45); }
   }
   .track-item:hover .go{ animation:none; }
+  @keyframes goFlash{
+    0%,74%,100%{ background:rgba(10,10,10,0.72); border-color:rgba(244,244,242,0.34); }
+    84%        { background:var(--red); border-color:var(--red); }
+  }
   .track-item:hover .go{
     background:var(--red); border-color:var(--red); color:#fff;
     animation:goSpin .55s cubic-bezier(.34,1.4,.5,1) both;
@@ -571,8 +585,9 @@
 
   @media (prefers-reduced-motion: reduce){
     .track-item,.bb-chev,.buy-panel{ transition:none; }
-    .track-row .go{ animation:none; transition:none; }
-    .track-item:hover .go{ animation:none; }
+    /* keep a cue on the arrow, just not a moving one */
+    .track-row .go{ transition:none; animation:goFlash 3.4s ease-in-out infinite !important; }
+    .track-item:hover .go{ animation:none !important; }
   }
 
   /* ---------- Collapsible track list ---------- */
@@ -1840,7 +1855,14 @@
     outtaline: 'GEI27YDfmQE'
   };
 
+  // PARKED — waiting on 1:1 video previews. The YouTube embeds were 16:9
+  // blown up and centre-cropped inside a square cover, which lost the sides
+  // of every shot. Set WR_PREVIEW_VIDEO to true once square clips exist and
+  // point SONG_VIDEOS at them.
+  var WR_PREVIEW_VIDEO = false;
+
   function pvVideoStart(item){
+    if(!WR_PREVIEW_VIDEO) return;
     var id = SONG_VIDEOS[item.getAttribute('data-release')];
     if(!id || item.querySelector('.pv-video')) return;
     var wrap = document.createElement('div');
