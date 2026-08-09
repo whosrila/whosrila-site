@@ -23,6 +23,7 @@
 <style>
 :root{
   --ink:#0A0A0A;--paper:#F4F4F2;--red:#D7263D;
+  --cyan:       #35D6C4;
   --paper-dim:#8C8C8C;--line:rgba(10,10,10,.12);
   --f-sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
   --f-mono:'Helvetica Neue',Helvetica,Arial,sans-serif;
@@ -339,6 +340,25 @@ footer.mini a:hover{opacity:1}
 </script>
 
 <script>
+
+  // Safety net: .reveal starts at opacity 0 and only the observer brings it
+  // back. If that never fires — unsupported, throttled, an odd browser — the
+  // page would sit blank. Anything already on screen is revealed immediately,
+  // and a timer releases the rest regardless.
+  function wrRevealAll(list){ [].forEach.call(list, function(el){ el.classList.add('in'); }); }
+  (function(){
+    var all = document.querySelectorAll('.reveal');
+    if(!all.length) return;
+    [].forEach.call(all, function(el){
+      var r = el.getBoundingClientRect();
+      if(r.top < innerHeight && r.bottom > 0) el.classList.add('in');
+    });
+    setTimeout(function(){
+      var stuck = document.querySelectorAll('.reveal:not(.in)');
+      if(stuck.length) wrRevealAll(stuck);
+    }, 2500);
+  })();
+
 (function(){
   var els = document.querySelectorAll('.reveal');
   if(!els.length) return;

@@ -2234,6 +2234,25 @@
     window.addEventListener('scroll', check, { passive:true });
   })();
 
+
+  // Safety net: .reveal starts at opacity 0 and only the observer brings it
+  // back. If that never fires — unsupported, throttled, an odd browser — the
+  // page would sit blank. Anything already on screen is revealed immediately,
+  // and a timer releases the rest regardless.
+  function wrRevealAll(list){ [].forEach.call(list, function(el){ el.classList.add('in'); }); }
+  (function(){
+    var all = document.querySelectorAll('.reveal');
+    if(!all.length) return;
+    [].forEach.call(all, function(el){
+      var r = el.getBoundingClientRect();
+      if(r.top < innerHeight && r.bottom > 0) el.classList.add('in');
+    });
+    setTimeout(function(){
+      var stuck = document.querySelectorAll('.reveal:not(.in)');
+      if(stuck.length) wrRevealAll(stuck);
+    }, 2500);
+  })();
+
   // ---- Scroll reveal ----
   const reveals = document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){

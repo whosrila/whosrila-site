@@ -3,7 +3,8 @@
    byte-identical across all of them. Page-specific rules stay inline
    on each page and still override these, since this file loads first. */
 
-:root{ --ink: #0A0A0A; --ink-2: #161616; --paper: #F4F4F2; --paper-dim: #8C8C8C; --red: #D7263D; --line: rgba(10,10,10,0.12); --f-display: 'Helvetica Neue', Helvetica, Arial, sans-serif; --f-body: 'Helvetica Neue', Helvetica, Arial, sans-serif; --f-mono: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+:root{
+  --cyan:#35D6C4; --ink: #0A0A0A; --ink-2: #161616; --paper: #F4F4F2; --paper-dim: #8C8C8C; --red: #D7263D; --line: rgba(10,10,10,0.12); --f-display: 'Helvetica Neue', Helvetica, Arial, sans-serif; --f-body: 'Helvetica Neue', Helvetica, Arial, sans-serif; --f-mono: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
 *{ box-sizing:border-box; }
 body{ margin:0; background:var(--paper); color:var(--ink); font-family:var(--f-body); font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; min-height:100vh; display:flex; flex-direction:column; }
 a{ color:inherit; text-decoration:none; }
