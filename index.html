@@ -297,7 +297,7 @@
   #music .track-item{ border-bottom-color:rgba(244,244,242,0.12); }
   #music .upcoming{ border-bottom-color:rgba(244,244,242,0.14); }
   .track-row{
-    display:grid; grid-template-columns:28px 48px 1fr auto; gap:18px; align-items:center;
+    display:grid; grid-template-columns:28px 48px 1fr auto 22px; gap:18px; align-items:center;
     padding:13px 0; border-bottom:1px solid var(--line);
     cursor:pointer; transition:background .15s;
   }
@@ -362,6 +362,40 @@
     .btn-buy .bb-chev{ transition:none; }
   }
 
+  /* Compact buy control inside a track row */
+  .buybox-row{ margin-left:auto; }
+  .btn-buy-sm{ padding:7px 11px; font-size:10px; letter-spacing:.1em; border-color:rgba(244,244,242,0.22); }
+  .buybox-row .buy-pop{ width:240px; }
+  @media (max-width:560px){
+    .buybox-row{ margin-left:0; }
+    .btn-buy-sm{ padding:6px 9px; font-size:9px; }
+  }
+
+  /* ---------- Signal that a track row opens its page ---------- */
+  .track-row{ position:relative; }
+  .track-row .go{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px; flex:0 0 22px;
+    border-radius:50%; color:var(--paper-dim);
+    border:1px solid rgba(244,244,242,0.22);
+    transition:transform .2s cubic-bezier(.22,.61,.36,1), color .2s, border-color .2s, background .2s;
+  }
+  #music .track-row .go{ color:rgba(244,244,242,0.55); }
+  .track-row:hover .go,
+  .track-row:focus-visible .go{
+    color:var(--paper); border-color:var(--red); background:var(--red);
+    transform:translateX(3px);
+  }
+  /* underline the title on hover as well — colour alone is a weak cue */
+  .track-row .title-line{ text-decoration:underline; text-decoration-color:transparent;
+    text-underline-offset:3px; transition:text-decoration-color .2s, color .2s; }
+  .track-row:hover .title-line{ text-decoration-color:var(--red); }
+  @media (max-width:560px){
+    .track-row .go{ position:absolute; top:8px; right:8px; margin:0;
+      background:rgba(10,10,10,0.72); border-color:rgba(244,244,242,0.28); }
+  }
+  @media (prefers-reduced-motion: reduce){ .track-row .go{ transition:none; } }
+
   /* ---------- Collapsible track list ---------- */
   .tracklist{ overflow:hidden; transition:max-height .55s cubic-bezier(.4,0,.2,1); }
   .tracklist.collapsed{ -webkit-mask-image:linear-gradient(#000 62%, transparent 100%);
@@ -387,7 +421,7 @@
   }
 
   @media (max-width:560px){
-    .track-row{ grid-template-columns:22px 40px 1fr auto; gap:12px; }
+    .track-row{ grid-template-columns:22px 40px 1fr auto; gap:12px; }  /* .go goes absolute here */
     .track-row .dur{ font-size:12px; }
   }
 
@@ -604,9 +638,10 @@
   /* ---------- Upcoming Releases ---------- */
   .upcoming{ margin-bottom:52px; padding-bottom:40px; border-bottom:1px solid var(--line); }
   .upcoming .stamp{ margin-bottom:22px; }
-  .upcoming-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:26px; }
+  .upcoming-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
   /* Two-up on phones — one card per screen was a lot of scrolling.
      Declared after the base rule above so it wins on source order. */
+  @media (max-width:860px){ .upcoming-grid{ grid-template-columns:repeat(2,1fr); gap:18px; } }
   @media (max-width:560px){
     .upcoming-grid{ grid-template-columns:1fr 1fr; gap:12px; }
     .up-card{ gap:7px; }
@@ -1115,57 +1150,7 @@
           </div>
         </div>
 
-        <!-- 4. Manifesting — pre-save pending -->
-        <div class="up-card">
-          <a href="/manifesting" class="up-cover placeholder"><img src="/images/logo.png" alt=""></a>
-          <span class="up-title">Manifesting</span>
-          <span class="up-date">Out December 3, 2026</span>
-          <!-- TODO: swap for the pre-save link when live -->
-          <div class="cta-row">
-            <a class="btn btn-soon" href="/manifesting" aria-disabled="true">Pre-Save Coming Soon</a>
-            <div class="buybox" data-release="manifesting">
-              <button class="btn-buy" type="button" aria-expanded="false">Buy
-                <svg class="bb-chev" width="10" height="7" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-              </button>
-              <div class="buy-pop">
-                <span class="buy-opt buy-preorder" aria-disabled="true">
-                  <span class="buy-opt-t">Pre-order on iTunes</span>
-                  <span class="buy-opt-s">Not open yet</span>
-                </span>
-                <span class="buy-opt buy-direct" aria-disabled="true">
-                  <span class="buy-opt-t">Buy direct from WHOSRILA</span>
-                  <span class="buy-opt-s">Coming soon</span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- 5. Bombs Away — pre-save pending -->
-        <div class="up-card">
-          <a href="/bombsaway" class="up-cover placeholder"><img src="/images/logo.png" alt=""></a>
-          <span class="up-title">Bombs Away</span>
-          <span class="up-date">Out December 17, 2026</span>
-          <!-- TODO: swap for the pre-save link when live -->
-          <div class="cta-row">
-            <a class="btn btn-soon" href="/bombsaway" aria-disabled="true">Pre-Save Coming Soon</a>
-            <div class="buybox" data-release="bombsaway">
-              <button class="btn-buy" type="button" aria-expanded="false">Buy
-                <svg class="bb-chev" width="10" height="7" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-              </button>
-              <div class="buy-pop">
-                <span class="buy-opt buy-preorder" aria-disabled="true">
-                  <span class="buy-opt-t">Pre-order on iTunes</span>
-                  <span class="buy-opt-s">Not open yet</span>
-                </span>
-                <span class="buy-opt buy-direct" aria-disabled="true">
-                  <span class="buy-opt-t">Buy direct from WHOSRILA</span>
-                  <span class="buy-opt-s">Coming soon</span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
 
       </div>
     </div>
@@ -1178,6 +1163,9 @@
             <span class="title-line">Made You<span class="exptag" title="Not yet released">UPCOMING</span></span>
           </span>
           <span class="dur">2:45</span>
+          <span class="go" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </a>
         <div class="track-actions">
           <audio class="preview-audio" src="/audio/madeyou.m4a" preload="none"></audio>
@@ -1185,6 +1173,21 @@
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
+          <div class="buybox buybox-row" data-release="madeyou">
+            <button class="btn-buy btn-buy-sm" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="9" height="6" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt buy-preorder" aria-disabled="true">
+                <span class="buy-opt-t">Pre-order on iTunes</span>
+                <span class="buy-opt-s">Not open yet</span>
+              </span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="track-item">
@@ -1196,6 +1199,9 @@
             <span class="credit">Kum3ra ft. WHOSRILA</span>
           </span>
           <span class="dur">3:23</span>
+          <span class="go" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </a>
         <div class="track-actions">
           <audio class="preview-audio" src="/audio/energy.m4a" preload="none"></audio>
@@ -1203,6 +1209,21 @@
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
+          <div class="buybox buybox-row" data-release="energy">
+            <button class="btn-buy btn-buy-sm" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="9" height="6" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt buy-preorder" aria-disabled="true">
+                <span class="buy-opt-t">Pre-order on iTunes</span>
+                <span class="buy-opt-s">Not open yet</span>
+              </span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="track-item">
@@ -1214,6 +1235,9 @@
             <span class="credit">A collab with Pascal Pressure &amp; Justice Case</span>
           </span>
           <span class="dur">4:28</span>
+          <span class="go" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </a>
         <div class="track-actions">
           <audio class="preview-audio" src="/audio/angelsonsofa.m4a" preload="none"></audio>
@@ -1221,6 +1245,21 @@
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
+          <div class="buybox buybox-row" data-release="angelsonsofa">
+            <button class="btn-buy btn-buy-sm" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="9" height="6" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt buy-preorder" aria-disabled="true">
+                <span class="buy-opt-t">Pre-order on iTunes</span>
+                <span class="buy-opt-s">Not open yet</span>
+              </span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="track-item">
@@ -1231,6 +1270,9 @@
             <span class="title-line">Gratitude</span>
           </span>
           <span class="dur">3:13</span>
+          <span class="go" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </a>
         <div class="track-actions">
           <audio class="preview-audio" src="/audio/gratitude.mp3" preload="none"></audio>
@@ -1238,6 +1280,21 @@
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
+          <div class="buybox buybox-row" data-release="gratitude">
+            <button class="btn-buy btn-buy-sm" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="9" height="6" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt buy-preorder" aria-disabled="true">
+                <span class="buy-opt-t">Pre-order on iTunes</span>
+                <span class="buy-opt-s">Not open yet</span>
+              </span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="track-item">
@@ -1248,6 +1305,9 @@
             <span class="title-line">Top Form<span class="exptag" title="Explicit">E</span></span>
           </span>
           <span class="dur">2:48</span>
+          <span class="go" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </a>
         <div class="track-actions">
           <audio class="preview-audio" src="/audio/topform.mp3" preload="none"></audio>
@@ -1255,6 +1315,21 @@
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
+          <div class="buybox buybox-row" data-release="topform">
+            <button class="btn-buy btn-buy-sm" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="9" height="6" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt buy-preorder" aria-disabled="true">
+                <span class="buy-opt-t">Pre-order on iTunes</span>
+                <span class="buy-opt-s">Not open yet</span>
+              </span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="track-item">
@@ -1266,6 +1341,9 @@
           <span class="credit">Jon Dela ft. Cres, Kxng Izem &amp; WHOSRILA</span>
           </span>
           <span class="dur">3:50</span>
+          <span class="go" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </a>
         <div class="track-actions">
           <audio class="preview-audio" src="/audio/wineandbubble.mp3" preload="none"></audio>
@@ -1273,6 +1351,21 @@
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
+          <div class="buybox buybox-row" data-release="wineandbubble">
+            <button class="btn-buy btn-buy-sm" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="9" height="6" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt buy-preorder" aria-disabled="true">
+                <span class="buy-opt-t">Pre-order on iTunes</span>
+                <span class="buy-opt-s">Not open yet</span>
+              </span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="track-item">
@@ -1283,6 +1376,9 @@
             <span class="title-line">Outta' Line<span class="exptag" title="Explicit">E</span></span>
           </span>
           <span class="dur">2:05</span>
+          <span class="go" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </a>
         <div class="track-actions">
           <audio class="preview-audio" src="/audio/outtaline.mp3" preload="none"></audio>
@@ -1290,6 +1386,21 @@
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
+          <div class="buybox buybox-row" data-release="outtaline">
+            <button class="btn-buy btn-buy-sm" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="9" height="6" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt buy-preorder" aria-disabled="true">
+                <span class="buy-opt-t">Pre-order on iTunes</span>
+                <span class="buy-opt-s">Not open yet</span>
+              </span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="track-item">
@@ -1300,6 +1411,9 @@
             <span class="title-line">Fully Meech — Acoustic</span>
           </span>
           <span class="dur">3:01</span>
+          <span class="go" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </a>
         <div class="track-actions">
           <audio class="preview-audio" src="/audio/fullymeech.mp3" preload="none"></audio>
@@ -1307,6 +1421,21 @@
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
+          <div class="buybox buybox-row" data-release="fullymeech">
+            <button class="btn-buy btn-buy-sm" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="9" height="6" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt buy-preorder" aria-disabled="true">
+                <span class="buy-opt-t">Pre-order on iTunes</span>
+                <span class="buy-opt-s">Not open yet</span>
+              </span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="track-item">
@@ -1317,6 +1446,9 @@
             <span class="title-line">Kingston<span class="exptag" title="Explicit">E</span></span>
           </span>
           <span class="dur">1:27</span>
+          <span class="go" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </a>
         <div class="track-actions">
           <audio class="preview-audio" src="/audio/kingston.mp3" preload="none"></audio>
@@ -1324,6 +1456,21 @@
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
+          <div class="buybox buybox-row" data-release="kingston">
+            <button class="btn-buy btn-buy-sm" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="9" height="6" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt buy-preorder" aria-disabled="true">
+                <span class="buy-opt-t">Pre-order on iTunes</span>
+                <span class="buy-opt-s">Not open yet</span>
+              </span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="track-item">
@@ -1334,6 +1481,9 @@
             <span class="title-line">Protection<span class="exptag" title="Explicit">E</span></span>
           </span>
           <span class="dur">3:18</span>
+          <span class="go" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </a>
         <div class="track-actions">
           <audio class="preview-audio" src="/audio/protection.mp3" preload="none"></audio>
@@ -1341,6 +1491,21 @@
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
+          <div class="buybox buybox-row" data-release="protection">
+            <button class="btn-buy btn-buy-sm" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="9" height="6" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt buy-preorder" aria-disabled="true">
+                <span class="buy-opt-t">Pre-order on iTunes</span>
+                <span class="buy-opt-s">Not open yet</span>
+              </span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="track-item">
@@ -1351,6 +1516,9 @@
             <span class="title-line">Blue Notes<span class="exptag" title="Explicit">E</span></span>
           </span>
           <span class="dur">2:11</span>
+          <span class="go" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </a>
         <div class="track-actions">
           <audio class="preview-audio" src="/audio/bluenotes.mp3" preload="none"></audio>
@@ -1358,6 +1526,21 @@
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
+          <div class="buybox buybox-row" data-release="bluenotes">
+            <button class="btn-buy btn-buy-sm" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="9" height="6" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt buy-preorder" aria-disabled="true">
+                <span class="buy-opt-t">Pre-order on iTunes</span>
+                <span class="buy-opt-s">Not open yet</span>
+              </span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="track-item">
@@ -1368,6 +1551,9 @@
             <span class="title-line">For Me</span>
           </span>
           <span class="dur">2:31</span>
+          <span class="go" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </a>
         <div class="track-actions">
           <audio class="preview-audio" src="/audio/forme.mp3" preload="none"></audio>
@@ -1375,6 +1561,21 @@
             <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
           <span class="preview-label">Preview</span>
+          <div class="buybox buybox-row" data-release="forme">
+            <button class="btn-buy btn-buy-sm" type="button" aria-expanded="false">Buy
+              <svg class="bb-chev" width="9" height="6" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="buy-pop">
+              <span class="buy-opt buy-preorder" aria-disabled="true">
+                <span class="buy-opt-t">Pre-order on iTunes</span>
+                <span class="buy-opt-s">Not open yet</span>
+              </span>
+              <span class="buy-opt buy-direct" aria-disabled="true">
+                <span class="buy-opt-t">Buy direct from WHOSRILA</span>
+                <span class="buy-opt-s">Coming soon</span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       </div>
@@ -1656,11 +1857,20 @@
      WR_DIRECT_STORE is shared by every card — one checkout URL turns
      "Buy direct" on everywhere at once. */
   var WR_RELEASE_LINKS = {
-    madeyou:      { preorder: '', itunes: '' },
-    energy:       { preorder: '', itunes: '' },
-    angelsonsofa: { preorder: '', itunes: '' },
-    manifesting:  { preorder: '', itunes: '' },
-    bombsaway:    { preorder: '', itunes: '' }
+    madeyou:       { preorder: '', itunes: '' },
+    energy:        { preorder: '', itunes: '' },
+    angelsonsofa:  { preorder: '', itunes: '' },
+    gratitude:     { preorder: '', itunes: 'https://music.apple.com/us/album/gratitude/1896081645?i=6765803659&app=itunes' },
+    topform:       { preorder: '', itunes: 'https://music.apple.com/us/album/top-form/1896081568?i=6765803334&app=itunes' },
+    wineandbubble: { preorder: '', itunes: 'https://music.apple.com/us/album/wine-and-bubble-feat-cres-kxng-izem-whosrila/6778977735?i=6778977749&app=itunes' },
+    outtaline:     { preorder: '', itunes: 'https://music.apple.com/us/album/outta-line/6764900796?i=6764900797&app=itunes' },
+    fullymeech:    { preorder: '', itunes: 'https://music.apple.com/us/album/fully-meech-acoustic/1896129316?i=6765927069&app=itunes' },
+    kingston:      { preorder: '', itunes: 'https://music.apple.com/us/album/kingston/1895390939?i=6763591791&app=itunes' },
+    protection:    { preorder: '', itunes: 'https://music.apple.com/us/album/protection/1895478930?i=6763765299&app=itunes' },
+    bluenotes:     { preorder: '', itunes: 'https://music.apple.com/us/album/blue-notes/1895341536?i=6763494871&app=itunes' },
+    forme:         { preorder: '', itunes: 'https://music.apple.com/us/album/for-me/1895471320?i=6763745598&app=itunes' },
+    manifesting:   { preorder: '', itunes: '' },
+    bombsaway:     { preorder: '', itunes: '' }
   };
   var WR_DIRECT_STORE = '';
 
