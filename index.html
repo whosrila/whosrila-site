@@ -1051,6 +1051,7 @@
     position:fixed; inset:0; z-index:9999; overflow:hidden;
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
     background:#0A0A0A; text-align:center; padding:24px;
+    box-sizing:border-box;
     transition:opacity .75s ease, visibility .75s ease;
   }
   #splash.gone{ opacity:0; visibility:hidden; pointer-events:none; }
@@ -1077,16 +1078,20 @@
   }
   #splash .sp-line{
     position:relative; z-index:2;
+    /* full width and text-align rather than relying on the flex item
+       shrink-wrapping to its content — that is what let the block sit off
+       the globe's centre on a real handset */
+    width:100%; text-align:center;
     margin:0; color:#F4F4F2; font-weight:800; line-height:1.02;
     font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
     font-size:clamp(26px,7.2vw,64px); letter-spacing:0.01em; text-transform:uppercase;
-    display:flex; flex-direction:column; align-items:center; gap:2px;
+    display:block;
     /* the globe runs behind the words, so they need their own backing to
        stay legible where a bright line crosses them */
     text-shadow:0 2px 26px rgba(10,10,10,.95), 0 0 10px rgba(10,10,10,.9);
   }
   #splash .sp-line > *{
-    display:block; font-style:normal;
+    display:block; font-style:normal; margin:0 auto 2px;
     opacity:0; animation:spLine .62s cubic-bezier(.22,.61,.36,1) forwards;
   }
   #splash .sp-line > *:nth-child(1){ animation-delay:.8s; }
@@ -1099,8 +1104,8 @@
   /* nothing behind it should scroll while it is up */
   html.splash-on, html.splash-on body{ overflow:hidden; }
   @media (prefers-reduced-motion: reduce){
-    #splash .sp-logo,#splash .sp-line > *,#splash .sp-globe{ animation:none; opacity:1; transform:translate(-50%,-50%); }
-    #splash .sp-logo{ transform:none; }
+    #splash .sp-logo,#splash .sp-line > *{ animation:none; opacity:1; transform:none; }
+    #splash .sp-globe{ animation:none; opacity:1; }
     #splash{ transition:opacity .3s ease, visibility .3s ease; }
   }
 </style>
@@ -1148,8 +1153,13 @@
   ];
 
   var TILT = 21 * Math.PI/180, rot = 0, raf = null;
+  // Reduce Motion used to stop this dead, which just looked like a broken
+  // globe. A slow constant turn of a small decorative object is not what
+  // that setting is protecting against — jarring movement is — so it keeps
+  // turning, at roughly half speed.
   var reduce = false;
   try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  var SPEED = reduce ? 0.075 : 0.16;
 
   function size(){
     var d = Math.min(cv.clientWidth, cv.clientHeight) || 600;
@@ -1219,14 +1229,14 @@
   }
 
   function tick(){
-    rot -= 0.16;                 // ~22s for a full turn — slow and constant
+    rot -= SPEED;                // ~22s for a full turn, ~48s reduced
     if(rot <= -360) rot += 360;
     draw();
     raf = requestAnimationFrame(tick);
   }
 
   draw();
-  if(!reduce) raf = requestAnimationFrame(tick);
+  raf = requestAnimationFrame(tick);
   window.addEventListener('resize', draw);
   // stop the loop the moment the splash is dismissed
   window.wrStopGlobe = function(){ if(raf) cancelAnimationFrame(raf); raf = null; };
