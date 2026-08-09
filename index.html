@@ -1095,8 +1095,9 @@
 </head>
 <body>
 
-<!-- Intro splash. Shown once per browser session, and it removes itself on
-     load with a hard timeout behind it so it can never strand anyone. -->
+<!-- Intro splash. Runs on every load of the homepage. It removes itself on
+     load, with a hard timeout and a click-to-skip behind it so it can never
+     strand anyone. -->
 <div id="splash" role="status" aria-label="Loading">
   <img class="sp-logo" src="/images/logo.png" alt="">
   <p class="sp-line">
@@ -1110,15 +1111,11 @@
 (function(){
   var el = document.getElementById('splash');
   if(!el) return;
-  // returning within the same session goes straight in
-  var seen; try { seen = sessionStorage.getItem('wr-splash'); } catch(e){}
-  if(seen){ el.parentNode.removeChild(el); return; }
   document.documentElement.classList.add('splash-on');
 
   var done = false;
   function drop(){
     if(done) return; done = true;
-    try { sessionStorage.setItem('wr-splash','1'); } catch(e){}
     el.classList.add('gone');
     document.documentElement.classList.remove('splash-on');
     setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 800);
