@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<title>Page not found — WHOSRILA</title>
+<!-- Nothing here should ever be indexed. This page is served for every
+     unknown path, including the leftovers from the old Shopify store
+     (/collections, /password) that Google still has on file. -->
+<meta name="robots" content="noindex, follow">
+<link rel="stylesheet" href="/css/site.css?v=a7459f2f">
+<style>
+:root{
+  --ink:#0A0A0A; --ink-2:#161616; --paper:#F4F4F2; --paper-dim:#8C8C8C;
+  --red:#D7263D; --cyan:#35D6C4; --line:rgba(244,244,242,0.12);
+  --f-display:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --f-body:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --f-mono:'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+body{ background:var(--ink); color:var(--paper); margin:0; font-family:var(--f-body); }
+/* site.css gives the header a light background by default and the dark
+   pages each override it — this page is dark, so it needs the same */
+header.site{ background:var(--ink); border-bottom-color:rgba(244,244,242,0.12); }
+header.site .logo-link img{ filter:none; }
+header.site nav.links a{ color:var(--paper); }
+header.site nav.links a:hover{ color:var(--red); }
+footer.mini{ background:var(--ink); border-top:1px solid rgba(244,244,242,0.12); color:var(--paper-dim); }
+footer.mini a{ color:var(--paper-dim); }
+footer.mini a:hover{ color:var(--paper); }
+.nf{
+  min-height:78vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center;
+  padding:70px 24px 60px; max-width:620px; margin:0 auto;
+}
+.nf-code{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--red); margin:0 0 18px;
+}
+.nf h1{
+  font-family:var(--f-display); font-weight:800; line-height:1.02; margin:0 0 16px;
+  font-size:clamp(32px,6vw,54px); color:var(--paper);
+  /* site.css forces every heading to brightness(0) for the light song
+     pages. This page is dark, so that filter turned the headline black
+     no matter what colour was set on it. */
+  filter:none;
+}
+.nf p{ color:var(--paper-dim); font-size:15px; line-height:1.65; margin:0 0 32px; max-width:430px; }
+.nf-links{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+.nf-links a{
+  display:inline-block; padding:13px 22px; border-radius:3px;
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  border:1px solid rgba(244,244,242,0.28); color:var(--paper);
+  transition:border-color .18s, color .18s, background .18s;
+}
+.nf-links a:hover{ border-color:var(--paper); }
+.nf-links a.pri{
+  background:var(--cyan); border-color:var(--cyan); color:#07110F;
+}
+.nf-links a.pri:hover{ background:#4FE6D5; border-color:#4FE6D5; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="navrow">
+    <a href="/" class="logo-link"><img src="/images/logo.png" alt="WHOSRILA"></a>
+    <nav class="links">
+      <a href="/listen">Listen</a>
+      <a href="/watch">Watch</a>
+      <a href="/press">Press</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="nf">
+    <p class="nf-code">Error 404</p>
+    <h1>This page moved on.</h1>
+    <p>The link you followed points at an old version of this site. The music
+       is all still here &mdash; it just lives somewhere else now.</p>
+    <div class="nf-links">
+      <a class="pri" href="/">Home</a>
+      <a href="/listen">Listen</a>
+      <a href="/watch">Watch</a>
+      <a href="/press">Press</a>
+    </div>
+  </div>
+</main>
+
+<footer class="mini">
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%;">
+    <span>&copy; 2026 WHOSRILA LLC</span>
+    <a href="/privacy">Privacy</a>
+    <a href="/">whosrila.com</a>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3fc16cf549f44cb4bbde3934b15904d3"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
