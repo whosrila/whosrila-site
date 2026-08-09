@@ -1043,8 +1043,96 @@
   ]
 }
 </script>
+<style>
+  /* ---------- Intro splash ----------
+     Sits over the page rather than replacing it, so the real markup is in
+     the DOM from the start and crawlers never see a holding screen. */
+  #splash{
+    position:fixed; inset:0; z-index:9999;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px;
+    background:#0A0A0A; text-align:center; padding:24px;
+    transition:opacity .75s ease, visibility .75s ease;
+  }
+  #splash.gone{ opacity:0; visibility:hidden; pointer-events:none; }
+  #splash .sp-logo{
+    width:132px; height:auto; opacity:0;
+    animation:spLogo .9s cubic-bezier(.22,.61,.36,1) .15s forwards;
+  }
+  #splash .sp-line{
+    margin:0; color:#F4F4F2; font-weight:800; line-height:1.02;
+    font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size:clamp(30px,8vw,64px); letter-spacing:0.01em; text-transform:uppercase;
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+  }
+  /* each word arrives under the one above it */
+  #splash .sp-line > *{
+    display:block; font-style:normal;
+    opacity:0; animation:spLine .62s cubic-bezier(.22,.61,.36,1) forwards;
+  }
+  #splash .sp-line > *:nth-child(1){ animation-delay:.45s; }
+  #splash .sp-line > *:nth-child(2){ animation-delay:.68s; }
+  #splash .sp-line > *:nth-child(3){ animation-delay:.91s; }
+  #splash .sp-line em{ color:#D7263D; }
+  #splash .sp-bar{
+    width:132px; height:2px; background:rgba(244,244,242,.16); overflow:hidden; border-radius:2px;
+    opacity:0; animation:spLine .5s ease 1.25s forwards;
+  }
+  #splash .sp-bar i{
+    display:block; width:40%; height:100%; background:#D7263D;
+    animation:spBar 1.15s cubic-bezier(.4,0,.2,1) 1.25s infinite;
+  }
+  @keyframes spLogo{ from{ opacity:0; transform:translateY(10px) scale(.96); } to{ opacity:1; transform:none; } }
+  @keyframes spLine{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:none; } }
+  @keyframes spBar{ from{ transform:translateX(-100%); } to{ transform:translateX(350%); } }
+  /* nothing behind it should scroll while it is up */
+  html.splash-on, html.splash-on body{ overflow:hidden; }
+  @media (prefers-reduced-motion: reduce){
+    #splash .sp-logo,#splash .sp-bar,#splash .sp-line > *{ animation:none; opacity:1; }
+    #splash .sp-bar i{ animation:none; width:100%; }
+    #splash{ transition:opacity .3s ease, visibility .3s ease; }
+  }
+</style>
 </head>
 <body>
+
+<!-- Intro splash. Shown once per browser session, and it removes itself on
+     load with a hard timeout behind it so it can never strand anyone. -->
+<div id="splash" role="status" aria-label="Loading">
+  <img class="sp-logo" src="/images/logo.png" alt="">
+  <p class="sp-line">
+    <span>Whose</span>
+    <span>World</span>
+    <em>Is This?</em>
+  </p>
+  <span class="sp-bar" aria-hidden="true"><i></i></span>
+</div>
+<script>
+(function(){
+  var el = document.getElementById('splash');
+  if(!el) return;
+  // returning within the same session goes straight in
+  var seen; try { seen = sessionStorage.getItem('wr-splash'); } catch(e){}
+  if(seen){ el.parentNode.removeChild(el); return; }
+  document.documentElement.classList.add('splash-on');
+
+  var done = false;
+  function drop(){
+    if(done) return; done = true;
+    try { sessionStorage.setItem('wr-splash','1'); } catch(e){}
+    el.classList.add('gone');
+    document.documentElement.classList.remove('splash-on');
+    setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 800);
+  }
+  // hold it long enough to read, then go as soon as the page is ready
+  var MIN = 2100, start = Date.now();
+  function ready(){ setTimeout(drop, Math.max(0, MIN - (Date.now() - start))); }
+  if(document.readyState === 'complete') ready();
+  else window.addEventListener('load', ready);
+  // belt and braces: never let a slow asset trap someone behind it
+  setTimeout(drop, 4500);
+  el.addEventListener('click', drop);
+})();
+</script>
 
 <!-- =========================================================
   EDIT ME — quick links & dates
