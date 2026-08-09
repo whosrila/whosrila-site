@@ -38,7 +38,24 @@
 .playlist-title{font-size:16px;font-weight:600;}
 
       /* Bio photo crossfade */
-      .bio-photo-wrap{position:relative;width:100%;aspect-ratio:3/4;display:block;border:1px solid var(--line);overflow:hidden;filter:grayscale(1) contrast(1.05)}
+      .bio-photo-wrap{position:relative;width:100%;aspect-ratio:3/4;display:block;border:1px solid var(--line);overflow:hidden;filter:grayscale(1) contrast(1.05);cursor:pointer;transition:filter .45s,border-color .3s}
+      .bio-photo-wrap:hover{filter:grayscale(0) contrast(1.02);border-color:var(--cyan)}
+      /* a slow drift on whichever portrait is showing, so the panel is never
+         completely static between crossfades */
+      .bio-slide.active{animation:bioDrift 14s ease-in-out infinite alternate}
+      @keyframes bioDrift{from{transform:scale(1.02) translate3d(0,0,0)}to{transform:scale(1.09) translate3d(0,-2%,0)}}
+      .bio-photo-cta{
+        position:absolute;left:0;right:0;bottom:0;z-index:2;
+        display:flex;align-items:center;justify-content:center;gap:7px;
+        padding:13px 10px;
+        font-family:var(--f-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+        color:var(--paper);background:linear-gradient(transparent,rgba(10,10,10,.86));
+        opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;
+      }
+      .bio-photo-wrap:hover .bio-photo-cta,
+      .bio-photo-wrap:focus-visible .bio-photo-cta{opacity:1;transform:none}
+      @media (hover:none){.bio-photo-cta{opacity:1;transform:none}}
+      @media (prefers-reduced-motion: reduce){.bio-slide.active{animation:none}}
       .bio-slide{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0;transition:opacity 1.1s ease-in-out;will-change:opacity}
       .bio-slide.active{opacity:1}
     
@@ -319,7 +336,30 @@
   }
   /* inside a card the badge sits on its own line, so no left margin */
   .track-row .exptag{ margin-left:0; align-self:center; }
-  .listen-cta-row{ display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; justify-content:center; }
+  .listen-cta-row{ display:flex; gap:14px; margin-top:36px; flex-wrap:wrap; justify-content:center; }
+  /* the stream button carries the preview colour, not the buy red — it
+     sends people to listen, which is what the teal means everywhere else */
+  .listen-cta-row .btn{
+    min-width:320px; padding:16px 34px; font-size:12px; letter-spacing:.14em;
+    background:var(--cyan); color:#07110F; border-color:var(--cyan);
+    position:relative;
+  }
+  .listen-cta-row .btn:hover{
+    background:#4FE6D5; border-color:#4FE6D5; color:#07110F;
+    box-shadow:0 10px 28px rgba(53,214,196,.32);
+  }
+  .listen-cta-row .btn::after{
+    content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+    box-shadow:0 0 0 0 rgba(53,214,196,.55);
+    animation:streamPulse 2.6s cubic-bezier(.4,0,.6,1) 1.2s infinite;
+  }
+  @keyframes streamPulse{
+    0%   { box-shadow:0 0 0 0 rgba(53,214,196,.5); }
+    70%  { box-shadow:0 0 0 16px rgba(53,214,196,0); }
+    100% { box-shadow:0 0 0 0 rgba(53,214,196,0); }
+  }
+  .listen-cta-row .btn:hover::after{ animation:none; }
+  @media (max-width:560px){ .listen-cta-row .btn{ min-width:0; width:100%; padding:15px 20px; } }
   /* ---------- Featured CTA ---------- */
   .featured-cta{ display:flex; gap:9px; align-items:stretch; justify-content:center; flex-wrap:wrap; }
   .featured-buy{ padding:12px 16px; font-size:11px; animation:buyGlow 4.2s ease-in-out 2.6s infinite; }
@@ -328,8 +368,17 @@
     94%        { border-color:rgba(244,244,242,0.62); }
   }
   .featured-buy:hover{ animation:none; }
-  .featured-panel{ width:100%; max-width:340px; margin:10px auto 0; text-align:left;
-    border:1px solid rgba(244,244,242,0.16); border-radius:5px; background:rgba(20,20,20,.75); }
+  .featured-panel{
+    width:100%; max-width:340px; margin:0 auto; text-align:left;
+    border:1px solid transparent; border-radius:5px; background:transparent;
+    transition:border-color .3s, background .3s, margin .3s;
+  }
+  /* only draw the frame once it is actually open — collapsed, the border
+     was showing through as a thin bar under the buttons */
+  .featured-panel.open{
+    margin-top:10px;
+    border-color:rgba(244,244,242,0.16); background:rgba(20,20,20,.75);
+  }
   .featured-panel .buy-opt:first-child{ border-top:none; }
 
   /* a slow breath on the primary action — enough to catch the eye,
@@ -356,7 +405,7 @@
   @media (max-width:860px){ .bio-grid{ text-align:center; } }
 
   @media (prefers-reduced-motion: reduce){
-    .pulse::after,.featured-buy{ animation:none; }
+    .pulse::after,.featured-buy,.listen-cta-row .btn::after{ animation:none; }
     .featured-cover{ animation:none; }
   }
 
@@ -1062,11 +1111,15 @@
 <section id="bio" style="background: linear-gradient(rgba(20,20,20,0.72), rgba(20,20,20,0.72)), url('/images/bg-bio-new.jpg') center/cover no-repeat;">
   <div class="wrap bio-grid">
     <div class="reveal in">
-      <div class="bio-photo-wrap">
+      <a href="/press" class="bio-photo-wrap" aria-label="WHOSRILA press kit">
         <img class="bio-slide active" src="/images/portrait-1.jpg" alt="WHOSRILA portrait" fetchpriority="high">
         <img class="bio-slide" src="/images/portrait-2.jpg" alt="WHOSRILA portrait" loading="lazy">
         <img class="bio-slide" src="/images/portrait-3.jpg" alt="WHOSRILA portrait" loading="lazy">
-      </div>
+        <span class="bio-photo-cta" aria-hidden="true">
+          <span>Press Kit</span>
+          <svg width="11" height="11" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
     </div>
     <div class="reveal">
       <span class="stamp" style="color:var(--paper);border-color:var(--paper);">THE SIGNAL</span>
