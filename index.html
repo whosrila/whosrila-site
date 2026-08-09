@@ -1059,7 +1059,10 @@
      Its own draw-in is the loading indicator, so there is no bar. */
   #splash .sp-globe{
     position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-    width:min(112vw,780px); height:min(112vw,780px);
+    /* the whole sphere has to fit, not just fill — at 112vw the limb was
+       cropped either side on a phone. Constrained on both axes so it reads
+       the same at any size. */
+    width:min(92vw,92vh,780px); height:min(92vw,92vh,780px);
     z-index:0; pointer-events:none;
     opacity:0; animation:spGlobe 1.6s ease-out .05s forwards;
     filter:drop-shadow(0 0 34px rgba(53,214,196,.16));
@@ -1069,14 +1072,14 @@
 
   #splash .sp-logo{
     position:relative; z-index:2;
-    width:112px; height:auto; opacity:0;
+    width:clamp(84px,24vw,112px); height:auto; opacity:0;
     animation:spLogo .9s cubic-bezier(.22,.61,.36,1) .5s forwards;
   }
   #splash .sp-line{
     position:relative; z-index:2;
     margin:0; color:#F4F4F2; font-weight:800; line-height:1.02;
     font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
-    font-size:clamp(30px,8vw,64px); letter-spacing:0.01em; text-transform:uppercase;
+    font-size:clamp(26px,7.2vw,64px); letter-spacing:0.01em; text-transform:uppercase;
     display:flex; flex-direction:column; align-items:center; gap:2px;
     /* the globe runs behind the words, so they need their own backing to
        stay legible where a bright line crosses them */
