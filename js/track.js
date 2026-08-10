@@ -42,9 +42,11 @@
     if (event === 'PlatformClick' || event === 'PreSaveClick') {
       try { if (window.fbq) window.fbq('track', 'Lead', data); } catch (e) {}
     }
-    // a click on the iTunes buy link is purchase intent, not just a stream —
-    // worth its own standard event so campaigns can optimise for sales
-    if (event === 'PlatformClick' && data.platform === 'iTunes') {
+    // Buying is purchase intent, not just a stream — worth its own standard
+    // event so campaigns optimise for sales rather than plays. 'Direct' is a
+    // Stripe checkout, which is the strongest signal of the two: it earns
+    // roughly $2.60 against about $0.70 from an iTunes sale.
+    if (event === 'PlatformClick' && (data.platform === 'Direct' || data.platform === 'iTunes')) {
       try { if (window.fbq) window.fbq('track', 'InitiateCheckout', data); } catch (e) {}
       try { if (window.ttq) window.ttq.track('InitiateCheckout', data); } catch (e) {}
     }
@@ -75,6 +77,10 @@
 
   // Work out which service a URL points at.
   var HOSTS = [
+    // A click into Stripe checkout is the most valuable signal on the site —
+    // it is someone buying directly rather than streaming. Listed first so it
+    // can never be shadowed by a later pattern.
+    [/buy\.stripe\.com|checkout\.stripe\.com/, 'Direct'],
     [/open\.spotify\.com/,        'Spotify'],
     // iTunes Store and Apple Music share music.apple.com — the app= param
     // is what separates them, so this has to be tested first.

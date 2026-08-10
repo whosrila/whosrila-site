@@ -657,6 +657,42 @@
   .buy-opt-s{ font-family:var(--f-mono); font-size:9.5px; letter-spacing:.05em; color:var(--paper-dim); }
   .buy-opt[aria-disabled="true"]{ opacity:.42; pointer-events:none; }
 
+  /* Bundle offer. Sits above the track list on purpose — someone who came to
+     buy should meet the cheaper option before the one-at-a-time one. Cyan
+     rather than red, matching the preview and buy language used elsewhere;
+     red is the navigational accent and shouldn't double as a sales one. */
+  .bundle-cta{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:24px; flex-wrap:wrap; margin:0 0 34px; padding:22px 26px;
+    border:1px solid rgba(53,214,196,0.34); border-radius:5px;
+    background:linear-gradient(135deg, rgba(53,214,196,0.10), rgba(10,10,10,0.55));
+  }
+  .bundle-tag{
+    font-family:var(--f-mono); font-size:10px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--cyan);
+  }
+  .bundle-cta h3{
+    font-family:var(--f-display); font-weight:400; line-height:1.05;
+    font-size:clamp(19px,2.6vw,26px); text-transform:uppercase;
+    margin:8px 0 6px; color:var(--paper);
+  }
+  .bundle-cta p{
+    margin:0; font-size:14px; line-height:1.6;
+    color:rgba(244,244,242,.72); max-width:48ch;
+  }
+  .bundle-btn{
+    flex:0 0 auto; font-family:var(--f-mono); font-size:12px;
+    letter-spacing:.12em; text-transform:uppercase; padding:14px 24px;
+    border-radius:3px; background:var(--cyan); color:#07110F;
+    border:1px solid var(--cyan); transition:background .2s, transform .15s;
+  }
+  .bundle-btn:hover{ background:#4FE6D5; transform:translateY(-2px); }
+  @media (max-width:620px){
+    .bundle-cta{ padding:20px; }
+    .bundle-btn{ width:100%; text-align:center; }
+  }
+  @media (prefers-reduced-motion: reduce){ .bundle-btn{ transition:none; } }
+
   @media (prefers-reduced-motion: reduce){
     .track-item,.bb-chev,.buy-panel{ transition:none; }
     /* keep a cue on the arrow, just not a moving one */
@@ -1492,6 +1528,18 @@
       <p class="lede" style="margin-top:14px;">Three upcoming previews up top, nine songs out now below.</p>
     </div>
 
+    <!-- Removed outright by the script if WR_BUNDLE_LINK is ever cleared, so
+         taking the offer down never leaves a dead button behind. -->
+    <div class="bundle-cta reveal" id="bundleCta">
+      <div>
+        <span class="bundle-tag">The whole thing</span>
+        <h3>Every song, one download</h3>
+        <p>Seven singles as 320&thinsp;kbps MP3s with artwork, yours to keep.
+           $14.99 &mdash; about six dollars less than buying them one by one,
+           and far more of it reaches the people who actually made them.</p>
+      </div>
+      <a class="bundle-btn" id="bundleBtn" href="#" target="_blank" rel="noopener">Buy the collection</a>
+    </div>
 
     <div class="tl-group">
       <span class="tl-group-label">Upcoming &middot; pre-save &amp; pre-order</span>
@@ -2284,25 +2332,48 @@
        itunes    the purchase link once the song is actually out. Swap
                  preorder for this on release day.
 
-     WR_DIRECT_STORE is shared by every card — one checkout URL turns
-     "Buy direct" on everywhere at once. */
+       direct    Stripe payment link for buying the MP3 straight from
+                 WHOSRILA. $2.99, nets about $2.60 against roughly $0.70 from
+                 iTunes. Paying redirects to /download/, where a Cloudflare
+                 Worker checks the payment with Stripe before releasing the
+                 file — see worker/README.md.
+
+     A song only gets `direct` once it is released AND its split is agreed,
+     because a sale has to be divisible. That is why Outta' Line is absent
+     despite being out, and why Wine and Bubble never gets one — it is Jon
+     Dela's record, not ours to sell. */
   var WR_RELEASE_LINKS = {
-    madeyou:       { preorder: '', itunes: '' },
-    energy:        { preorder: '', itunes: '' },
-    angelsonsofa:  { preorder: '', itunes: '' },
-    gratitude:     { preorder: '', itunes: 'https://music.apple.com/us/album/gratitude/1896081645?i=6765803659&app=itunes' },
-    topform:       { preorder: '', itunes: 'https://music.apple.com/us/album/top-form/1896081568?i=6765803334&app=itunes' },
-    wineandbubble: { preorder: '', itunes: 'https://music.apple.com/us/album/wine-and-bubble-feat-cres-kxng-izem-whosrila/6778977735?i=6778977749&app=itunes' },
-    outtaline:     { preorder: '', itunes: 'https://music.apple.com/us/album/outta-line/6764900796?i=6764900797&app=itunes' },
-    fullymeech:    { preorder: '', itunes: 'https://music.apple.com/us/album/fully-meech-acoustic/1896129316?i=6765927069&app=itunes' },
-    kingston:      { preorder: '', itunes: 'https://music.apple.com/us/album/kingston/1895390939?i=6763591791&app=itunes' },
-    protection:    { preorder: '', itunes: 'https://music.apple.com/us/album/protection/1895478930?i=6763765299&app=itunes' },
-    bluenotes:     { preorder: '', itunes: 'https://music.apple.com/us/album/blue-notes/1895341536?i=6763494871&app=itunes' },
-    forme:         { preorder: '', itunes: 'https://music.apple.com/us/album/for-me/1895471320?i=6763745598&app=itunes' },
-    manifesting:   { preorder: '', itunes: '' },
-    bombsaway:     { preorder: '', itunes: '' }
+    madeyou:       { preorder: '', itunes: '', direct: '' },
+    energy:        { preorder: '', itunes: '', direct: '' },
+    angelsonsofa:  { preorder: '', itunes: '', direct: '' },
+    gratitude:     { preorder: '', itunes: 'https://music.apple.com/us/album/gratitude/1896081645?i=6765803659&app=itunes', direct: 'https://buy.stripe.com/cNi4gA0H4g0Oa4I5GC6Zy06' },
+    topform:       { preorder: '', itunes: 'https://music.apple.com/us/album/top-form/1896081568?i=6765803334&app=itunes', direct: 'https://buy.stripe.com/9B63cwgG23e2dgU2uq6Zy07' },
+    wineandbubble: { preorder: '', itunes: 'https://music.apple.com/us/album/wine-and-bubble-feat-cres-kxng-izem-whosrila/6778977735?i=6778977749&app=itunes', direct: '' },
+    outtaline:     { preorder: '', itunes: 'https://music.apple.com/us/album/outta-line/6764900796?i=6764900797&app=itunes', direct: '' },
+    fullymeech:    { preorder: '', itunes: 'https://music.apple.com/us/album/fully-meech-acoustic/1896129316?i=6765927069&app=itunes', direct: 'https://buy.stripe.com/7sY8wQ0H415U5Os1qm6Zy02' },
+    kingston:      { preorder: '', itunes: 'https://music.apple.com/us/album/kingston/1895390939?i=6763591791&app=itunes', direct: 'https://buy.stripe.com/eVqbJ23Tg5magt62uq6Zy03' },
+    protection:    { preorder: '', itunes: 'https://music.apple.com/us/album/protection/1895478930?i=6763765299&app=itunes', direct: 'https://buy.stripe.com/00weVe3Tg8ym4Ko7OK6Zy05' },
+    bluenotes:     { preorder: '', itunes: 'https://music.apple.com/us/album/blue-notes/1895341536?i=6763494871&app=itunes', direct: 'https://buy.stripe.com/28EaEY9dAaGua4I6KG6Zy04' },
+    forme:         { preorder: '', itunes: 'https://music.apple.com/us/album/for-me/1895471320?i=6763745598&app=itunes', direct: 'https://buy.stripe.com/6oU8wQ9dAdSGccQ0mi6Zy01' },
+    manifesting:   { preorder: '', itunes: '', direct: '' },
+    bombsaway:     { preorder: '', itunes: '', direct: '' }
   };
-  var WR_DIRECT_STORE = '';
+
+  /* The whole catalogue in one checkout — seven songs for $14.99 rather than
+     $20.93 bought singly. Not tied to a card; it powers the collection CTA. */
+  var WR_BUNDLE_LINK = 'https://buy.stripe.com/3cIaEY2Pc7uigt6b0W6Zy00';
+
+  (function(){
+    var cta = document.getElementById('bundleCta');
+    if(!cta) return;
+    var btn = document.getElementById('bundleBtn');
+    // No link means no offer — pull the whole block rather than leave a
+    // button that goes nowhere.
+    if(!WR_BUNDLE_LINK || !btn){ cta.remove(); return; }
+    btn.href = WR_BUNDLE_LINK;
+    // No click handler here on purpose: track.js already catches every
+    // outbound buy.stripe.com link, so adding one would count twice.
+  })();
 
   (function(){
     var cards = [].slice.call(document.querySelectorAll('.track-item[data-release], .featured-panel[data-release]'));
@@ -2330,8 +2401,16 @@
         slot.querySelector('.buy-opt-s').textContent =
           card.querySelector('.tc-presave') ? 'Not open yet' : 'Link coming';
       }
-      activate(card.querySelector('.buy-direct'), WR_DIRECT_STORE,
-               'Buy direct from WHOSRILA', 'Straight from me');
+      var direct = card.querySelector('.buy-direct');
+      if(cfg.direct){
+        activate(direct, cfg.direct,
+                 'Buy direct from WHOSRILA', '320kbps MP3 &mdash; $2.99');
+      } else if(direct){
+        // Released but unsellable reads differently from simply unreleased,
+        // and "Coming soon" on a song that is already out looks like a fault.
+        direct.querySelector('.buy-opt-s').textContent =
+          cfg.itunes ? 'iTunes only for now' : 'Coming soon';
+      }
 
       // the hero's panel sits next to its button rather than inside it
       var isPanel = card.classList.contains('buy-panel');
@@ -2414,7 +2493,7 @@
 </footer>
 
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3fc16cf549f44cb4bbde3934b15904d3"}'></script><!-- End Cloudflare Web Analytics -->
-<script defer src="/js/track.js?v=51022b32"></script>
+<script defer src="/js/track.js?v=b1c57aab"></script>
 <script defer src="/js/lightbox.js?v=9ca9d7dc"></script>
 <script defer src="/js/consent.js?v=5c0fd4c1"></script>
 <script defer src="/js/mailinglist.js?v=b7031979"></script>

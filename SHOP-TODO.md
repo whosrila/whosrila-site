@@ -34,9 +34,23 @@ link's `/edit` URL loads the form **already scrolled down**, so the
 then saves with no changes and logs no update event. Scroll to top first, and
 check the detail page afterwards rather than trusting that the click worked.
 
-**These links are deliberately not on the site.** `WR_DIRECT_STORE` in
-`index.html` is still empty. Nothing should point at them until the two
-blockers below are cleared, or a buyer pays and receives nothing.
+**The links are live on the site as of 10 Aug.** Each song carries its own
+checkout via a `direct` field in `WR_RELEASE_LINKS`, rather than the single
+shared URL the old `WR_DIRECT_STORE` held. The bundle sits in its own CTA
+above the track list, driven by `WR_BUNDLE_LINK` — clearing that constant
+removes the whole block rather than leaving a dead button.
+
+A song only gets a `direct` link once it is released *and* its split is
+agreed, so the card copy has three states: a real link, "iTunes only for now"
+(released but unsellable — Outta' Line, Wine and Bubble), and "Coming soon"
+(unreleased). Verified in the browser: all seven links resolve to the right
+song, and the two unsellable released songs correctly refuse one.
+
+`track.js` now recognises `buy.stripe.com` as the platform *Direct* and fires
+`InitiateCheckout` on Meta and TikTok alongside the usual `PlatformClick` and
+`Lead`. Confirmed by simulating clicks: a Stripe link fires the checkout
+event, a Spotify link does not. That is the distinction ad campaigns need to
+optimise for sales rather than plays.
 
 Product names are chosen so `tools/splits.py` matches them — "Complete" trips
 `BUNDLE_KEYS`, and each single contains its own key. Renaming a product in
