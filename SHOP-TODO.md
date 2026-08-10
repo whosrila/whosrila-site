@@ -24,6 +24,16 @@ Card, Apple Pay, Klarna, Link, Cash App Pay and Amazon Pay are all on.
 "Collect tax automatically" is on but no tax registrations exist, so nothing is
 charged yet — it will start collecting by itself once a registration is added.
 
+All eight now redirect after payment to
+`https://whosrila.com/download/?session_id={CHECKOUT_SESSION_ID}` — verified
+one by one on the link detail pages, not assumed from the click.
+
+Worth knowing if these ever need editing again: navigating straight to a
+link's `/edit` URL loads the form **already scrolled down**, so the
+"After payment" tab sits off-screen and blind clicks land on nothing. Stripe
+then saves with no changes and logs no update event. Scroll to top first, and
+check the detail page afterwards rather than trusting that the click worked.
+
 **These links are deliberately not on the site.** `WR_DIRECT_STORE` in
 `index.html` is still empty. Nothing should point at them until the two
 blockers below are cleared, or a buyer pays and receives nothing.
