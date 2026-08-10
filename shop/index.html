@@ -253,9 +253,12 @@ var WR_SHOP = [
   { kind:'music', name:'Blue Notes',             sub:'2:11 · 2021', price:2.99, img:'/images/art-bluenotes.jpg',  link:'https://buy.stripe.com/28EaEY9dAaGua4I6KG6Zy04' },
   { kind:'music', name:'For Me',                 sub:'2:30 · 2020', price:2.99, img:'/images/art-forme.jpg',      link:'https://buy.stripe.com/6oU8wQ9dAdSGccQ0mi6Zy01' }
 
-  // Merch goes here when there is any. For example:
-  // { kind:'apparel', name:'Kingston Tee', sub:'Heavyweight cotton', price:34,
-  //   img:'/images/merch-tee.jpg', link:'' }   // no link yet = "Coming soon"
+  /* No `link` yet, so this renders greyed as "Coming soon". It needs three
+     decisions before it can sell: the price, how sizes are handled, and who
+     ships it. The photography is Printful's, which is worth remembering —
+     a bare Stripe link would mean placing each order with them by hand. */
+  { kind:'apparel', name:'WHOSRILA Tee — Black', sub:'Premium heavyweight cotton',
+    img:'/images/merch-tee-black.jpg', link:'' }
 ];
 
 /* Section order and headings. A section with nothing in it is skipped
@@ -324,7 +327,10 @@ var WR_SECTIONS = [
         '<div class="card-art"><img src="' + esc(item.img) + '" alt="' + esc(item.name) +
           '" loading="lazy"></div>' +
         '<div class="card-meta"><span class="card-name">' + esc(item.name) + '</span>' +
-          '<span class="card-price">' + money(item.price) + '</span></div>' +
+          /* No price until one is decided. Inventing a number on a
+             "Coming soon" item would be a promise nobody made. */
+          (item.price != null ? '<span class="card-price">' + money(item.price) + '</span>' : '') +
+        '</div>' +
         (item.sub ? '<div class="card-sub">' + esc(item.sub) + '</div>' : '') +
         (soon
           ? '<span class="card-btn soon">Coming soon</span>'
