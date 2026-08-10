@@ -82,6 +82,35 @@
   footer.mini{ background:var(--ink-2); padding:24px 28px; font-family:var(--f-mono);
     font-size:11px; color:var(--paper-dim); }
   footer.mini .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; padding:0; }
+
+  /* ---------- Mobile menu — matches the rest of the site ---------- */
+  .burger{ display:none; background:none; border:0; color:inherit; font-size:22px;
+    cursor:pointer; padding:0; line-height:1;
+    transition:transform .35s cubic-bezier(.22,.61,.36,1); }
+  .burger[aria-expanded="true"]{ transform:rotate(90deg); }
+  @media (max-width:760px){ nav.links{ display:none; } .burger{ display:block; } }
+  .mobilenav{
+    display:flex; flex-direction:column; gap:0;
+    max-height:0; overflow:hidden; opacity:0;
+    border-top:0 solid var(--line);
+    transition:max-height .42s cubic-bezier(.4,0,.2,1), opacity .3s ease, border-top-width .3s ease;
+  }
+  .mobilenav.open{ opacity:1; border-top-width:1px; }
+  .mobilenav a{ padding:16px 28px; font-family:var(--f-mono); font-size:13px;
+    letter-spacing:.08em; text-transform:uppercase; border-bottom:1px solid var(--line);
+    transform:translateY(-10px); opacity:0;
+    transition:transform .38s cubic-bezier(.22,.61,.36,1), opacity .34s ease; }
+  .mobilenav.open a{ transform:none; opacity:1; }
+  /* closing reverses: links fade first, then the panel folds */
+  .mobilenav:not(.open) a{ transition-duration:.18s; transition-delay:0s; }
+  .mobilenav.open a:nth-child(1){ transition-delay:.05s; }
+  .mobilenav.open a:nth-child(2){ transition-delay:.11s; }
+  .mobilenav.open a:nth-child(3){ transition-delay:.17s; }
+  .mobilenav.open a:nth-child(4){ transition-delay:.23s; }
+  @media (prefers-reduced-motion: reduce){
+    .mobilenav, .mobilenav a, .burger{ transition:none; }
+    .mobilenav a{ transform:none; }
+  }
 </style>
 </head>
 <body>
@@ -90,6 +119,13 @@
   <div class="navrow">
     <a href="/" class="wordmark"><img src="/images/logo.png" alt="WHOSRILA"></a>
     <nav class="links"><a href="/shop">Shop</a><a href="/listen">Listen</a><a href="/watch">Watch</a><a href="/press">Press</a></nav>
+    <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+  </div>
+  <div class="mobilenav" id="mobileNav">
+    <a href="/shop">Shop</a>
+    <a href="/listen">Listen</a>
+    <a href="/watch">Watch</a>
+    <a href="/press">Press</a>
   </div>
 </header>
 
@@ -180,5 +216,38 @@
 <script defer src="/js/track.js?v=b1c57aab"></script>
 <script defer src="/js/consent.js?v=5c0fd4c1"></script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3fc16cf549f44cb4bbde3934b15904d3"}'></script><!-- End Cloudflare Web Analytics -->
+
+<script>
+(function(){
+  var b = document.getElementById('burgerBtn'), n = document.getElementById('mobileNav');
+  if(!b || !n) return;
+  // animate to the menu's real height. A fixed max-height has to exceed the
+  // content, so the visible travel ends long before the transition does and
+  // it reads as a snap rather than a slide.
+  function measure(){
+    var prev = n.style.maxHeight;
+    n.style.transition = 'none';
+    n.style.maxHeight = 'none';
+    var px = n.scrollHeight;
+    n.style.maxHeight = prev || '0px';
+    void n.offsetHeight;
+    n.style.transition = '';
+    return px;
+  }
+  function setOpen(open){
+    var px = open ? measure() : 0;
+    // measure() suppresses the transition; restoring it and setting the new
+    // height in the same frame lets the browser coalesce them and skip to
+    // the end, so force a reflow between.
+    void n.offsetHeight;
+    n.classList.toggle('open', open);
+    n.style.maxHeight = px + 'px';
+    b.setAttribute('aria-expanded', String(open));
+  }
+  b.addEventListener('click', function(e){ e.preventDefault(); setOpen(!n.classList.contains('open')); });
+  n.addEventListener('click', function(e){ if(e.target.closest('a')) setOpen(false); });
+  window.addEventListener('resize', function(){ if(n.classList.contains('open')) n.style.maxHeight = measure() + 'px'; });
+})();
+</script>
 </body>
 </html>
