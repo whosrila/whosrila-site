@@ -26,16 +26,31 @@ Verified along the way, not assumed:
 That third one is the useful one — it proves the whole chain runs and that the
 key is the only thing missing.
 
-**Left to do, both WHOSRILA's:**
+Files uploaded (all ten objects — Made You and Outta' Line went up too, which
+is harmless: neither appears in `CATALOG`, so no order can ever resolve to
+them, and the bucket is private). `STRIPE_SECRET_KEY` is set and working.
 
-1. **Upload the eight files** to the bucket (step 3). Must be done by hand —
-   the upload tooling available here caps at 10 MB per file and the bundle zip
-   is 43.8 MB.
-2. **Add `STRIPE_SECRET_KEY`** (step 6). A credential; it goes from Stripe's
-   dashboard into Cloudflare's encrypted field directly.
+**The delivery chain is live.** Verified on the real site:
 
-Once both are in, the shop works. Then test with a real purchase, especially
-the key-swap case at the bottom of this file.
+| Request | Response |
+|---|---|
+| `whosrila.com/download/` with no session | *"This page only works straight after a purchase."* |
+| `…?session_id=cs_live_anotherfake777` on the Worker | *"We could not find that order."* |
+| the same through `whosrila.com/download/` | same message, rendered in WHOSRILA branding |
+
+That last one is the one that matters — it proves the live page reaches the
+Worker cross-origin, that CORS is right, that the Worker authenticates against
+Stripe, and that Stripe's verdict is what decides the outcome. No console
+errors beyond the browser noting the non-2xx status, which is expected.
+
+Note the secret takes 30–60 seconds to reach every edge location. Immediately
+after saving it, requests still returned *"We could not reach Stripe just
+now"* and the logs read `Invalid API Key provided: undefined`. That is
+propagation, not a bad key — wait a minute before concluding anything.
+
+**Still to do:** one real purchase, including the key-swap attempt described
+at the bottom of this file. Until that passes, the payment links stay off the
+site (`WR_DIRECT_STORE` in `index.html` is still empty).
 
 ---
 

@@ -128,12 +128,14 @@ the rest of the swap.
 
 ## Outstanding
 
-1. **`STRIPE_SECRET_KEY`.** The last thing between here and an open shop.
-   Everything else in the delivery chain is built, deployed and verified —
-   Worker, private R2 bucket, both bindings, all eight redirects, and the
-   files uploaded. The Worker reaches Stripe and fails only for want of the
-   key. It goes from Stripe's API keys page into Cloudflare's encrypted secret
-   field directly; Claude does not handle it.
+1. **One real purchase, to prove it end to end.** Everything is built and the
+   chain is verified as far as it can be without money moving: the live page
+   reaches the Worker cross-origin, the Worker authenticates with Stripe, and
+   Stripe decides the outcome. What is untested is a genuinely paid session.
+   Buy the cheapest single, confirm the file downloads and plays, then try the
+   key-swap: edit `key=` in the download URL to the bundle zip. It must be
+   refused. **If it ever returns the zip, take the links off the site.**
+   Until that passes, `WR_DIRECT_STORE` stays empty.
 2. **Outta' Line split** — the only thing keeping a released song off the shop.
 3. **Three names.** The split percentages are enough to *sell*; the names are
    needed to *pay*. Currently recorded as shares only:
