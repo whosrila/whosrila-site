@@ -657,41 +657,65 @@
   .buy-opt-s{ font-family:var(--f-mono); font-size:9.5px; letter-spacing:.05em; color:var(--paper-dim); }
   .buy-opt[aria-disabled="true"]{ opacity:.42; pointer-events:none; }
 
-  /* Bundle offer. Sits above the track list on purpose — someone who came to
-     buy should meet the cheaper option before the one-at-a-time one. Cyan
-     rather than red, matching the preview and buy language used elsewhere;
-     red is the navigational accent and shouldn't double as a sales one. */
+  /* Bundle offer. The one commercial ask on a page otherwise about listening,
+     so it is allowed to interrupt: a lit red field, and the only block set in
+     plain sentence-case Helvetica rather than the tracked uppercase used for
+     track titles and section stamps. That difference is what makes it read as
+     a shop rather than another row in the discography. */
   .bundle-cta{
     display:flex; align-items:center; justify-content:space-between;
-    gap:24px; flex-wrap:wrap; margin:0 0 34px; padding:22px 26px;
-    border:1px solid rgba(53,214,196,0.34); border-radius:5px;
-    background:linear-gradient(135deg, rgba(53,214,196,0.10), rgba(10,10,10,0.55));
+    gap:26px; flex-wrap:wrap; margin:38px 0 0; padding:26px 28px;
+    font-family:var(--f-body);
+    border:1px solid rgba(215,38,61,0.45); border-radius:6px;
+    background:linear-gradient(135deg, rgba(215,38,61,0.17), rgba(10,10,10,0.72));
+    animation:bundleGlow 3.6s ease-in-out infinite;
+  }
+  /* Breathes rather than blinks — box-shadow and border only, no transform,
+     so it never fights the .reveal slide-in this block also carries. */
+  @keyframes bundleGlow{
+    0%,100%{ box-shadow:0 0 0 rgba(215,38,61,0);       border-color:rgba(215,38,61,0.40); }
+    50%    { box-shadow:0 0 38px rgba(215,38,61,0.28); border-color:rgba(215,38,61,0.85); }
   }
   .bundle-tag{
-    font-family:var(--f-mono); font-size:10px; letter-spacing:.18em;
-    text-transform:uppercase; color:var(--cyan);
+    font-family:var(--f-body); font-size:12.5px; font-weight:700;
+    letter-spacing:0; text-transform:none; color:var(--red);
   }
   .bundle-cta h3{
-    font-family:var(--f-display); font-weight:400; line-height:1.05;
-    font-size:clamp(19px,2.6vw,26px); text-transform:uppercase;
-    margin:8px 0 6px; color:var(--paper);
+    font-family:var(--f-body); font-weight:700; letter-spacing:-.015em;
+    font-size:clamp(21px,2.9vw,29px); text-transform:none;
+    margin:7px 0 9px; color:var(--paper); line-height:1.14;
   }
   .bundle-cta p{
-    margin:0; font-size:14px; line-height:1.6;
-    color:rgba(244,244,242,.72); max-width:48ch;
+    font-family:var(--f-body); margin:0; font-size:14.5px; line-height:1.62;
+    color:rgba(244,244,242,.78); max-width:48ch;
   }
   .bundle-btn{
-    flex:0 0 auto; font-family:var(--f-mono); font-size:12px;
-    letter-spacing:.12em; text-transform:uppercase; padding:14px 24px;
-    border-radius:3px; background:var(--cyan); color:#07110F;
-    border:1px solid var(--cyan); transition:background .2s, transform .15s;
+    flex:0 0 auto; font-family:var(--f-body); font-size:14.5px; font-weight:700;
+    letter-spacing:0; text-transform:none; white-space:nowrap;
+    padding:16px 30px; border-radius:4px;
+    background:var(--red); color:var(--paper); border:1px solid var(--red);
+    animation:bundlePulse 3.6s ease-in-out infinite;
   }
-  .bundle-btn:hover{ background:#4FE6D5; transform:translateY(-2px); }
+  @keyframes bundlePulse{
+    0%,100%{ transform:scale(1);    box-shadow:0 0 0 rgba(215,38,61,0); }
+    50%    { transform:scale(1.04); box-shadow:0 0 26px rgba(215,38,61,0.55); }
+  }
+  /* animation:none rather than a hover transform — a running animation wins
+     over a plain declaration, so the scale would otherwise never apply */
+  .bundle-btn:hover{
+    animation:none; background:#E8394F; border-color:#E8394F;
+    transform:scale(1.06); box-shadow:0 0 30px rgba(215,38,61,0.6);
+  }
   @media (max-width:620px){
-    .bundle-cta{ padding:20px; }
+    .bundle-cta{ padding:22px; }
     .bundle-btn{ width:100%; text-align:center; }
   }
-  @media (prefers-reduced-motion: reduce){ .bundle-btn{ transition:none; } }
+  @media (prefers-reduced-motion: reduce){
+    /* keep the emphasis, drop the movement */
+    .bundle-cta, .bundle-btn{ animation:none; }
+    .bundle-cta{ border-color:rgba(215,38,61,0.75); box-shadow:0 0 24px rgba(215,38,61,0.18); }
+    .bundle-btn:hover{ transform:none; }
+  }
 
   @media (prefers-reduced-motion: reduce){
     .track-item,.bb-chev,.buy-panel{ transition:none; }
@@ -1528,19 +1552,6 @@
       <p class="lede" style="margin-top:14px;">Three upcoming previews up top, nine songs out now below.</p>
     </div>
 
-    <!-- Removed outright by the script if WR_BUNDLE_LINK is ever cleared, so
-         taking the offer down never leaves a dead button behind. -->
-    <div class="bundle-cta reveal" id="bundleCta">
-      <div>
-        <span class="bundle-tag">The whole thing</span>
-        <h3>Every song, one download</h3>
-        <p>Seven singles as 320&thinsp;kbps MP3s with artwork, yours to keep.
-           $14.99 &mdash; about six dollars less than buying them one by one,
-           and far more of it reaches the people who actually made them.</p>
-      </div>
-      <a class="bundle-btn" id="bundleBtn" href="#" target="_blank" rel="noopener">Buy the collection</a>
-    </div>
-
     <div class="tl-group">
       <span class="tl-group-label">Upcoming &middot; pre-save &amp; pre-order</span>
       <div class="tracklist tracklist-up">
@@ -1986,6 +1997,22 @@
         </div>
       </div>
     </div>
+    <!-- Sits after the last track and before "Stream WHOSRILA" on purpose:
+         you have just finished reading the catalogue, so the offer to own all
+         of it lands before the invitation to go and stream it instead.
+         Removed outright by the script if WR_BUNDLE_LINK is ever cleared, so
+         taking the offer down never leaves a dead button behind. -->
+    <div class="bundle-cta reveal" id="bundleCta">
+      <div>
+        <span class="bundle-tag">The whole thing</span>
+        <h3>Every song, one download</h3>
+        <p>Seven singles as 320&thinsp;kbps MP3s with artwork, yours to keep.
+           $14.99 &mdash; about six dollars less than buying them one by one,
+           and far more of it reaches the people who actually made them.</p>
+      </div>
+      <a class="bundle-btn" id="bundleBtn" href="#" target="_blank" rel="noopener">Buy the collection</a>
+    </div>
+
     <div class="listen-cta-row reveal">
       <a href="/listen" class="btn btn-primary">Stream WHOSRILA</a>
     </div>

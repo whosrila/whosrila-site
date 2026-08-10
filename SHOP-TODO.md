@@ -37,7 +37,7 @@ check the detail page afterwards rather than trusting that the click worked.
 **The links are live on the site as of 10 Aug.** Each song carries its own
 checkout via a `direct` field in `WR_RELEASE_LINKS`, rather than the single
 shared URL the old `WR_DIRECT_STORE` held. The bundle sits in its own CTA
-above the track list, driven by `WR_BUNDLE_LINK` — clearing that constant
+after the last track and before the Stream button, driven by `WR_BUNDLE_LINK` — clearing that constant
 removes the whole block rather than leaving a dead button.
 
 A song only gets a `direct` link once it is released *and* its split is
