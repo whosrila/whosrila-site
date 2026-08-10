@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — WHOSRILA</title>
+<meta name="description" content="Buy WHOSRILA's music direct: 320kbps MP3 downloads with artwork, instant delivery. Singles $2.99, the complete collection $14.99.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="WHOSRILA">
+<meta property="og:title" content="Shop — WHOSRILA">
+<meta property="og:description" content="Buy the music direct. 320kbps MP3s with artwork, instant download.">
+<meta property="og:image" content="https://whosrila.com/images/art-madeyou.jpg">
+<meta property="og:url" content="https://whosrila.com/shop">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Shop — WHOSRILA">
+<meta name="twitter:description" content="Buy the music direct. 320kbps MP3s with artwork, instant download.">
+<meta name="twitter:image" content="https://whosrila.com/images/art-madeyou.jpg">
+<style>
+  :root{
+    --ink:#0A0A0A; --ink-2:#161616; --paper:#F4F4F2; --paper-dim:#8C8C8C;
+    --red:#D7263D; --cyan:#35D6C4; --line:rgba(244,244,242,0.14); --maxw:1140px;
+    --f-display:'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --f-body:'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --f-mono:'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--ink); color:var(--paper);
+    font-family:var(--f-body); font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  a{ color:inherit; text-decoration:none; }
+  img{ display:block; max-width:100%; }
+  ::selection{ background:var(--red); color:var(--ink); }
+  :focus-visible{ outline:2px solid var(--red); outline-offset:3px; }
+  .wrap{ width:100%; max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+
+  header.site{ position:sticky; top:0; z-index:50; background:rgba(10,10,10,0.86);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+  .navrow{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; }
+  .wordmark img{ height:24px; width:auto; }
+  nav.links{ display:flex; gap:28px; font-family:var(--f-mono); font-size:13px;
+    letter-spacing:.06em; text-transform:uppercase; }
+  nav.links a{ opacity:.78; transition:opacity .2s; border-bottom:1px solid transparent; padding-bottom:3px; }
+  nav.links a:hover{ opacity:1; border-color:var(--red); }
+  nav.links a[aria-current="page"]{ opacity:1; border-color:var(--red); }
+
+  main{ padding:64px 0 96px; }
+  .stamp{ font-family:var(--f-mono); font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--red); display:inline-flex; align-items:center; gap:10px; }
+  .stamp::before{ content:"\25B8"; opacity:.6; font-size:10px; }
+  .stamp::after{ content:"\25C2"; opacity:.6; font-size:10px; }
+  h1{ font-family:var(--f-display); font-weight:400; margin:14px 0 0;
+    font-size:clamp(30px,5vw,50px); line-height:1; text-transform:uppercase; }
+  .lede{ font-size:clamp(15px,2vw,18px); color:var(--paper-dim); max-width:620px; margin:16px 0 0; }
+
+  /* Reveal on scroll, with the same safety net the rest of the site uses:
+     anything already on screen is shown immediately, and a timeout catches
+     the rest. A shop that fades to nothing sells nothing. */
+  .reveal{ opacity:0; transform:translateY(16px); transition:opacity .55s ease, transform .55s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ---------- Featured ---------- */
+  .feat{
+    display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+    gap:0; margin:44px 0 0; overflow:hidden; border-radius:7px;
+    border:1px solid rgba(215,38,61,0.45);
+    background:linear-gradient(135deg, rgba(215,38,61,0.15), rgba(10,10,10,0.75));
+  }
+  .feat-img{ position:relative; min-height:260px; }
+  .feat-img img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .feat-body{ padding:34px 34px 32px; display:flex; flex-direction:column; justify-content:center; }
+  .feat-tag{ font-size:12.5px; font-weight:700; color:var(--red); }
+  .feat h2{ font-family:var(--f-body); font-weight:700; letter-spacing:-.015em;
+    font-size:clamp(23px,3vw,31px); line-height:1.12; margin:8px 0 10px; }
+  .feat p{ margin:0 0 20px; font-size:15px; line-height:1.62; color:rgba(244,244,242,.78); }
+  .feat-price{ font-size:26px; font-weight:700; margin-bottom:16px; }
+  .feat-price s{ font-size:16px; font-weight:400; color:var(--paper-dim); margin-left:9px; }
+  @media (max-width:800px){
+    .feat{ grid-template-columns:1fr; }
+    .feat-img{ min-height:200px; aspect-ratio:16/9; }
+    .feat-body{ padding:26px 22px 24px; }
+  }
+
+  /* ---------- Sections + grid ---------- */
+  .shop-sec{ margin:64px 0 0; }
+  .sec-head{ display:flex; align-items:baseline; justify-content:space-between;
+    gap:16px; flex-wrap:wrap; padding-bottom:14px; border-bottom:1px solid var(--line); }
+  .sec-head h2{ font-family:var(--f-body); font-weight:700; font-size:20px;
+    letter-spacing:-.01em; margin:0; }
+  .sec-note{ font-family:var(--f-mono); font-size:11.5px; letter-spacing:.06em;
+    color:var(--paper-dim); text-transform:uppercase; }
+
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(212px,1fr)); gap:22px; margin-top:26px; }
+  .card{ display:flex; flex-direction:column; }
+  .card-art{
+    position:relative; aspect-ratio:1/1; overflow:hidden; border-radius:5px;
+    border:1px solid var(--line); background:var(--ink-2);
+  }
+  .card-art img{ width:100%; height:100%; object-fit:cover; transition:transform .45s ease; }
+  .card:hover .card-art img{ transform:scale(1.045); }
+  .card-meta{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin:13px 0 0; }
+  .card-name{ font-size:15.5px; font-weight:700; line-height:1.25; }
+  .card-price{ font-size:15px; font-weight:700; flex:0 0 auto; }
+  .card-sub{ font-family:var(--f-mono); font-size:11px; letter-spacing:.05em;
+    color:var(--paper-dim); margin-top:4px; }
+  .card-btn{
+    margin-top:13px; display:block; text-align:center; font-size:13.5px; font-weight:700;
+    padding:12px 14px; border-radius:4px; background:var(--red); color:var(--paper);
+    border:1px solid var(--red); transition:background .2s, transform .15s;
+  }
+  .card-btn:hover{ background:#E8394F; transform:translateY(-2px); }
+  /* Items with no link yet — lets merch be announced before it can be bought */
+  .card-btn.soon{
+    background:transparent; color:var(--paper-dim); border-color:var(--line);
+    pointer-events:none;
+  }
+  .card.is-soon .card-art img{ filter:grayscale(1) opacity(.55); }
+
+  /* ---------- Reassurance strip ---------- */
+  .facts{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:18px; margin:64px 0 0; padding-top:34px; border-top:1px solid var(--line); }
+  .fact h3{ font-family:var(--f-mono); font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--cyan); margin:0 0 7px; font-weight:400; }
+  .fact p{ margin:0; font-size:14px; line-height:1.6; color:rgba(244,244,242,.74); }
+  .fact a{ color:var(--paper); border-bottom:1px solid var(--red); }
+
+  .empty{ margin:40px 0 0; padding:26px; border:1px dashed var(--line);
+    border-radius:6px; color:var(--paper-dim); font-size:15px; }
+
+  footer.mini{ background:var(--ink-2); padding:24px 28px; font-family:var(--f-mono);
+    font-size:11px; color:var(--paper-dim); }
+  footer.mini .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; padding:0; }
+  footer.mini a:hover{ color:var(--paper); }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ transition:none; }
+    .card-art img, .card-btn{ transition:none; }
+    .card:hover .card-art img{ transform:none; }
+    .card-btn:hover{ transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="navrow">
+    <a href="/" class="wordmark"><img src="/images/logo.png" alt="WHOSRILA"></a>
+    <nav class="links">
+      <a href="/shop" aria-current="page">Shop</a>
+      <a href="/listen">Listen</a>
+      <a href="/watch">Watch</a>
+      <a href="/press">Press</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="reveal">
+      <span class="stamp">Shop</span>
+      <h1>Own the music</h1>
+      <p class="lede">Buy direct and almost all of it reaches me and the people who
+      made the record &mdash; which is not true of streaming, and only partly true of
+      the stores. Files are 320&thinsp;kbps MP3 with artwork, delivered the second
+      you pay.</p>
+    </div>
+
+    <div id="shopRoot"></div>
+
+    <div class="facts reveal">
+      <div class="fact">
+        <h3>Instant</h3>
+        <p>Pay and the download page opens straight away. Nothing to wait for,
+        no account to make.</p>
+      </div>
+      <div class="fact">
+        <h3>Yours to keep</h3>
+        <p>Real files, no subscription, no expiry. What you can and cannot do
+        with them is set out in the <a href="/license">licence</a>.</p>
+      </div>
+      <div class="fact">
+        <h3>Something wrong?</h3>
+        <p>Broken file, wrong track, double charge &mdash; email
+        <a href="mailto:press@whosrila.com">press@whosrila.com</a> and it gets
+        fixed or refunded.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="mini">
+  <div class="wrap">
+    <span>&copy; 2026 WHOSRILA LLC</span>
+    <a href="/license">Licence</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/">whosrila.com</a>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   THE SHOP — everything for sale lives in WR_SHOP below.
+
+   Adding something new is one entry. Nothing else on this page
+   needs touching; sections appear on their own once they have
+   something in them, and disappear when they do not.
+
+     kind      which section it lands in. Add a new one to
+               WR_SECTIONS and it renders in that order.
+     name      shown on the card
+     sub       small grey line — length and year for songs, could
+               be "100% cotton" or "ships from Kingston" for merch
+     price     number, not a string. Formatted below.
+     was       optional. Shows a struck-through comparison price.
+     img       square art. Anything roughly 1:1 works.
+     link      the Stripe payment link. Leave it out and the item
+               renders greyed with "Coming soon", which is how to
+               announce merch before it is ready to sell.
+     featured  pulls it out into the big panel at the top. One only.
+
+   ON ADDING CLOTHING: sizes are the one wrinkle. A Stripe payment
+   link points at a single product, so either make one product per
+   size and give each its own card, or add a custom field to the
+   payment link in Stripe and let the buyer type the size. The
+   second keeps this page tidy, the first is harder to get wrong.
+   Physical items also need addresses collected — that is the
+   "Collect customer addresses" checkbox on the payment link, and
+   it is off by default.
+   ============================================================ */
+
+var WR_SHOP = [
+  {
+    kind: 'music', featured: true,
+    name: 'The Complete Digital Collection',
+    sub: 'Seven singles',
+    price: 14.99, was: 20.93,
+    img: '/images/artist-landscape-1.jpg',
+    blurb: 'Every song to date in one download — For Me, Fully Meech (Acoustic), ' +
+           'Kingston, Blue Notes, Protection, Gratitude and Top Form. ' +
+           '320kbps MP3s with artwork, plus the licence.',
+    link: 'https://buy.stripe.com/3cIaEY2Pc7uigt6b0W6Zy00'
+  },
+
+  { kind:'music', name:'Top Form',               sub:'2:47 · 2025', price:2.99, img:'/images/art-topform.jpg',    link:'https://buy.stripe.com/9B63cwgG23e2dgU2uq6Zy07' },
+  { kind:'music', name:'Fully Meech (Acoustic)', sub:'3:01 · 2024', price:2.99, img:'/images/art-fullymeech.jpg', link:'https://buy.stripe.com/7sY8wQ0H415U5Os1qm6Zy02' },
+  { kind:'music', name:'Gratitude',              sub:'3:12 · 2023', price:2.99, img:'/images/art-gratitude.jpg',  link:'https://buy.stripe.com/cNi4gA0H4g0Oa4I5GC6Zy06' },
+  { kind:'music', name:'Protection',             sub:'3:18 · 2023', price:2.99, img:'/images/art-protection.jpg', link:'https://buy.stripe.com/00weVe3Tg8ym4Ko7OK6Zy05' },
+  { kind:'music', name:'Kingston',               sub:'1:26 · 2023', price:2.99, img:'/images/art-kng.jpg',        link:'https://buy.stripe.com/eVqbJ23Tg5magt62uq6Zy03' },
+  { kind:'music', name:'Blue Notes',             sub:'2:11 · 2021', price:2.99, img:'/images/art-bluenotes.jpg',  link:'https://buy.stripe.com/28EaEY9dAaGua4I6KG6Zy04' },
+  { kind:'music', name:'For Me',                 sub:'2:30 · 2020', price:2.99, img:'/images/art-forme.jpg',      link:'https://buy.stripe.com/6oU8wQ9dAdSGccQ0mi6Zy01' }
+
+  // Merch goes here when there is any. For example:
+  // { kind:'apparel', name:'Kingston Tee', sub:'Heavyweight cotton', price:34,
+  //   img:'/images/merch-tee.jpg', link:'' }   // no link yet = "Coming soon"
+];
+
+/* Section order and headings. A section with nothing in it is skipped
+   entirely, so these can be declared before the stock exists. */
+var WR_SECTIONS = [
+  { kind:'music',   label:'Music',   note:'Instant download · 320kbps MP3' },
+  { kind:'apparel', label:'Apparel', note:'Ships from Kingston' },
+  { kind:'other',   label:'Other',   note:'' }
+];
+
+(function(){
+  var root = document.getElementById('shopRoot');
+  if(!root) return;
+
+  function money(n){
+    // whole numbers read better without the .00 on a merch price
+    return '$' + (n % 1 === 0 ? n.toFixed(0) : n.toFixed(2));
+  }
+
+  function esc(s){
+    return String(s).replace(/[&<>"]/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c];
+    });
+  }
+
+  var featured = WR_SHOP.filter(function(i){ return i.featured; })[0];
+  var rest = WR_SHOP.filter(function(i){ return !i.featured; });
+
+  if(featured){
+    var f = document.createElement('div');
+    f.className = 'feat reveal';
+    f.innerHTML =
+      '<div class="feat-img"><img src="' + esc(featured.img) + '" alt="' + esc(featured.name) + '"></div>' +
+      '<div class="feat-body">' +
+        '<span class="feat-tag">' + esc(featured.sub || 'Best value') + '</span>' +
+        '<h2>' + esc(featured.name) + '</h2>' +
+        '<p>' + esc(featured.blurb || '') + '</p>' +
+        '<div class="feat-price">' + money(featured.price) +
+          (featured.was ? '<s>' + money(featured.was) + '</s>' : '') +
+        '</div>' +
+        (featured.link
+          ? '<a class="card-btn" style="align-self:flex-start;padding:15px 30px;" href="' +
+            esc(featured.link) + '" target="_blank" rel="noopener">Buy the collection</a>'
+          : '<span class="card-btn soon" style="align-self:flex-start;">Coming soon</span>') +
+      '</div>';
+    root.appendChild(f);
+  }
+
+  WR_SECTIONS.forEach(function(sec){
+    var items = rest.filter(function(i){ return i.kind === sec.kind; });
+    if(!items.length) return;              // nothing here yet — show nothing
+
+    var wrapEl = document.createElement('section');
+    wrapEl.className = 'shop-sec reveal';
+    var head = '<div class="sec-head"><h2>' + esc(sec.label) + '</h2>' +
+               (sec.note ? '<span class="sec-note">' + esc(sec.note) + '</span>' : '') +
+               '</div><div class="grid"></div>';
+    wrapEl.innerHTML = head;
+    var grid = wrapEl.querySelector('.grid');
+
+    items.forEach(function(item){
+      var soon = !item.link;
+      var card = document.createElement('div');
+      card.className = 'card' + (soon ? ' is-soon' : '');
+      card.innerHTML =
+        '<div class="card-art"><img src="' + esc(item.img) + '" alt="' + esc(item.name) +
+          '" loading="lazy"></div>' +
+        '<div class="card-meta"><span class="card-name">' + esc(item.name) + '</span>' +
+          '<span class="card-price">' + money(item.price) + '</span></div>' +
+        (item.sub ? '<div class="card-sub">' + esc(item.sub) + '</div>' : '') +
+        (soon
+          ? '<span class="card-btn soon">Coming soon</span>'
+          : '<a class="card-btn" href="' + esc(item.link) +
+            '" target="_blank" rel="noopener">Buy &mdash; ' + money(item.price) + '</a>');
+      grid.appendChild(card);
+    });
+
+    root.appendChild(wrapEl);
+  });
+
+  if(!root.children.length){
+    root.innerHTML = '<div class="empty">Nothing in the shop right now. ' +
+      '<a href="/listen" style="border-bottom:1px solid var(--red)">Go and listen</a> instead.</div>';
+  }
+
+  /* Reveal. Same belt-and-braces as the rest of the site: show whatever is
+     already on screen, observe the rest, and force everything visible after a
+     few seconds in case the observer never fires. */
+  var all = [].slice.call(document.querySelectorAll('.reveal'));
+  function showAll(list){ list.forEach(function(el){ el.classList.add('in'); }); }
+
+  all.forEach(function(el){
+    var r = el.getBoundingClientRect();
+    if(r.top < innerHeight && r.bottom > 0) el.classList.add('in');
+  });
+
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin:'0px 0px -8% 0px' });
+    all.forEach(function(el){ if(!el.classList.contains('in')) io.observe(el); });
+  } else {
+    showAll(all);
+  }
+
+  setTimeout(function(){
+    showAll([].slice.call(document.querySelectorAll('.reveal:not(.in)')));
+  }, 2500);
+})();
+</script>
+
+<script defer src="/js/track.js?v=b1c57aab"></script>
+<script defer src="/js/consent.js?v=5c0fd4c1"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3fc16cf549f44cb4bbde3934b15904d3"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

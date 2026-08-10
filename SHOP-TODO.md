@@ -52,6 +52,24 @@ song, and the two unsellable released songs correctly refuse one.
 event, a Spotify link does not. That is the distinction ad campaigns need to
 optimise for sales rather than plays.
 
+## The shop page — /shop
+
+Everything for sale is declared in `WR_SHOP` at the bottom of
+`shop/index.html`. Adding something is one entry; nothing else needs editing.
+Sections come from `WR_SECTIONS` and render only when they contain something,
+so `apparel` and `other` are already declared and simply invisible until there
+is stock. An item with no `link` renders greyed as "Coming soon", which is how
+to announce merch before it can be bought.
+
+Two things to know before selling anything physical: a Stripe payment link
+points at one product, so sizes mean either a product per size or a custom
+field on the link; and physical goods need "Collect customer addresses"
+switched on, which is off by default.
+
+"Shop" was added to the desktop and mobile nav on every page — scoped to the
+nav blocks, because `/listen` also appears as the Stream call-to-action and a
+blanket replace would have broken it.
+
 Product names are chosen so `tools/splits.py` matches them — "Complete" trips
 `BUNDLE_KEYS`, and each single contains its own key. Renaming a product in
 Stripe breaks the split report unless `SPLITS` is updated to match.
