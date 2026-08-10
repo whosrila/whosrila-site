@@ -128,8 +128,12 @@ the rest of the swap.
 
 ## Outstanding
 
-1. **Delivery method.** The one thing left before the shop can open. See
-   blocker 1 — the files now exist, but nothing yet hands them to a buyer.
+1. **`STRIPE_SECRET_KEY`.** The last thing between here and an open shop.
+   Everything else in the delivery chain is built, deployed and verified —
+   Worker, private R2 bucket, both bindings, all eight redirects, and the
+   files uploaded. The Worker reaches Stripe and fails only for want of the
+   key. It goes from Stripe's API keys page into Cloudflare's encrypted secret
+   field directly; Claude does not handle it.
 2. **Outta' Line split** — the only thing keeping a released song off the shop.
 3. **Three names.** The split percentages are enough to *sell*; the names are
    needed to *pay*. Currently recorded as shares only:
@@ -137,8 +141,11 @@ the rest of the swap.
    - Gratitude and Top Form — the 50% collaborator
    - Energy — the third 25%
 4. **Product images.** The eight products have no artwork at checkout. The
-   files are ready in `images/art-*.jpg`; the upload tool was failing this
-   session, so they go in by hand or on a later pass.
+   files are ready in `images/art-*.jpg` and all sit under Stripe's 2 MB
+   limit. Confirmed unautomatable from here: the browser `file_upload` tool
+   drops its `paths` argument on every call, tried four times across three
+   different pages. Drag them in by hand, or leave it — it is cosmetic, and
+   checkout works without.
 
 ## Notes
 
