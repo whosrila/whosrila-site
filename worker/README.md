@@ -1,5 +1,30 @@
 # Download delivery — setup
 
+## Status, 10 Aug 2026
+
+Done already, in the dashboard:
+
+- Cloudflare account `whosrila@gmail.com`, account id `77dc6521eaed9a947b699aaa59b94005`
+- Worker **whosrila-downloads** created, real code deployed (version `ea043308`)
+- Live at <https://whosrila-downloads.whosrila.workers.dev> and verified
+  returning `{"error":"That download link is not valid."}` for a request with
+  no session — which is the correct refusal
+- The workers.dev subdomain is `whosrila.workers.dev`, so the URL already
+  matches the `WORKER` constant in `/download/index.html`. No edit needed.
+- KV namespace `DOWNLOADS` created and bound, so the 12-download cap is on
+- All eight Stripe links redirect to `/download/?session_id=...`
+
+Left to do — **steps 2, 3 and 6 below**, because each needs either a billing
+decision or the Stripe secret key:
+
+1. Add the R2 subscription (one button, $0.00 — step 2)
+2. Create the bucket and upload the eight files (step 3)
+3. Add `STRIPE_SECRET_KEY` (step 6)
+4. Bind the bucket as `FILES` (step 5) — the R2 option does not even appear in
+   the bindings list until the subscription is added
+
+---
+
 Stripe takes the money but will not hand over a file. This Worker does that
 part: it asks Stripe whether a given checkout session actually paid, and only
 then streams the audio out of a private R2 bucket.
