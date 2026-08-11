@@ -3,13 +3,26 @@
 Work out who is owed what from a Stripe payout export.
 
     python3 tools/splits.py stripe_export.csv
+    python3 tools/splits.py stripe_export.csv --statements=payouts-aug
 
 Stripe's export has gross, fee and net per transaction. Splits are applied to
 NET — the money that actually landed — not to the sticker price, so nobody is
 paid a share of a fee that was never received.
 
-Export it from: Stripe Dashboard -> Payments -> Export, or
+With --statements it also writes one plain-text statement per counterparty,
+showing only the songs that person is on, ready to send with the payment.
+
+Export the CSV from: Stripe Dashboard -> Payments -> Export, or
 Balance -> Payouts -> the payout -> Download.
+
+WHY THIS IS A MANUAL STEP. Stripe can split a payment automatically, but only
+through Connect: the charge has to be created server-side as a Checkout
+Session, a webhook has to fire on completion, and a Transfer has to be created
+per recipient — and every collaborator needs their own connected account with
+identity and bank details verified. Payment Links cannot do it at all. That is
+a real backend and real onboarding friction for each person. At this
+catalogue's size, exporting a CSV and paying a handful of people directly is
+both cheaper and less to go wrong.
 """
 import csv, sys, re
 from collections import defaultdict
@@ -59,11 +72,73 @@ def money(v):
     except ValueError:
         return 0.0
 
-def main(path):
+def blank_line():
+    return {"units": 0, "net": 0.0, "b_units": 0, "b_net": 0.0, "pct": 0.0, "owed": 0.0}
+
+def write_statements(detail, outdir, period, net_total):
+    """One plain-text statement per counterparty, ready to send as-is.
+
+    A collaborator should be able to check the arithmetic themselves without
+    seeing the whole catalogue's takings, so each statement shows only the
+    songs that person is on.
+    """
+    import os
+    os.makedirs(outdir, exist_ok=True)
+    written = []
+    for who, songs in sorted(detail.items()):
+        total = sum(s["owed"] for s in songs.values())
+        if total < 0.005:
+            continue
+        safe = re.sub(r"[^A-Za-z0-9]+", "-", who).strip("-").lower()
+        path = os.path.join(outdir, f"statement-{safe}.txt")
+        L = []
+        L.append("WHOSRILA — DIRECT SALES STATEMENT")
+        L.append("=" * 42)
+        L.append("")
+        L.append(f"For:    {who}")
+        if period:
+            L.append(f"Period: {period}")
+        L.append("")
+        L.append("These are sales made directly from whosrila.com, not")
+        L.append("streaming or distributor royalties, which are paid separately.")
+        L.append("")
+        L.append("Shares apply to NET — what actually landed after Stripe's")
+        L.append("fee (2.9% + $0.30 per sale) — so nobody is paid a share of")
+        L.append("a fee that was never received.")
+        L.append("")
+        L.append("-" * 42)
+        for song, s in sorted(songs.items(), key=lambda x: -x[1]["owed"]):
+            if s["owed"] < 0.005:
+                continue
+            L.append("")
+            L.append(f"  {song.title()}")
+            # pad the labels to a common width so the money column lines up
+            if s["units"]:
+                L.append(f"    {str(s['units']) + ' sold direct':<24}net  ${s['net']:>8,.2f}")
+            if s["b_units"]:
+                L.append(f"    {str(s['b_units']) + ' via the bundle':<24}net  ${s['b_net']:>8,.2f}")
+            share_label = f"your share {s['pct']:g}%"
+            L.append(f"    {share_label:<24}owed  ${s['owed']:>8,.2f}")
+        L.append("")
+        L.append("-" * 42)
+        L.append(f"  TOTAL DUE{'':<20}${total:>9,.2f}")
+        L.append("")
+        L.append("Questions or a disagreement on any line — reply and we")
+        L.append("will go through it. press@whosrila.com")
+        L.append("")
+        with open(path, "w") as f:
+            f.write("\n".join(L) + "\n")
+        written.append((who, total, path))
+    return written
+
+def main(path, outdir=None):
     owed = defaultdict(float)
+    # who -> song -> line, so each person can be sent only their own songs
+    detail = defaultdict(lambda: defaultdict(blank_line))
     per_song = defaultdict(lambda: {"count": 0, "net": 0.0})
     unmatched, unallocated = [], {"count": 0, "net": 0.0}
     gross_total = fee_total = net_total = 0.0
+    dates = []
 
     with open(path, newline="", encoding="utf-8-sig") as f:
         rows = list(csv.DictReader(f))
@@ -81,6 +156,7 @@ def main(path):
     c_fee   = col("fee", "converted fee")
     c_net   = col("net", "converted net")
     c_stat  = col("status")
+    c_date  = col("created", "created (utc)", "created date (utc)", "date")
 
     if not c_desc or not c_net:
         sys.exit("Could not find a description and a net column in that CSV. "
@@ -91,6 +167,8 @@ def main(path):
             continue
         gross, fee, net = money(r.get(c_gross)), money(r.get(c_fee)), money(r.get(c_net))
         gross_total += gross; fee_total += fee; net_total += net
+        if c_date and r.get(c_date):
+            dates.append(str(r[c_date])[:10])
 
         song = match(r.get(c_desc, ""))
         if song is None:
@@ -103,13 +181,21 @@ def main(path):
             per_song["bundle"]["net"] += net
             for s in BUNDLE_CONTENTS:
                 for who, pct in SPLITS[s].items():
-                    owed[who] += share * pct / 100
+                    cut = share * pct / 100
+                    owed[who] += cut
+                    d = detail[who][s]
+                    d["b_units"] += 1; d["b_net"] += share
+                    d["pct"] = pct; d["owed"] += cut
             continue
 
         per_song[song]["count"] += 1
         per_song[song]["net"] += net
         for who, pct in SPLITS[song].items():
-            owed[who] += net * pct / 100
+            cut = net * pct / 100
+            owed[who] += cut
+            d = detail[who][song]
+            d["units"] += 1; d["net"] += net
+            d["pct"] = pct; d["owed"] += cut
 
     print(f"\n  {len(rows)} rows read")
     print(f"  gross ${gross_total:,.2f}   fees ${fee_total:,.2f}   net ${net_total:,.2f}")
@@ -138,9 +224,26 @@ def main(path):
     print(f"  net received                                    ${net_total:,.2f}")
     if abs(check - net_total) > 0.01 and not unmatched:
         print("  ** these should match — check the split percentages sum to 100 **")
+
+    if outdir:
+        period = ""
+        if dates:
+            lo, hi = min(dates), max(dates)
+            period = lo if lo == hi else f"{lo} to {hi}"
+        written = write_statements(detail, outdir, period, net_total)
+        print(f"\n  STATEMENTS — {len(written)} written to {outdir}/")
+        for who, total, p in written:
+            flag = "   <- NAME NEEDED, do not send" if "needed" in who.lower() else ""
+            print(f"    {who:<28} ${total:>9,.2f}  {p.split('/')[-1]}{flag}")
     print()
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    args = [a for a in sys.argv[1:] if not a.startswith("-")]
+    flags = [a for a in sys.argv[1:] if a.startswith("-")]
+    if len(args) < 1:
         sys.exit(__doc__)
-    main(sys.argv[1])
+    out = None
+    for f in flags:
+        if f.startswith("--statements"):
+            out = f.split("=", 1)[1] if "=" in f else "statements"
+    main(args[0], out)
