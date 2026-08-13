@@ -706,9 +706,25 @@
     animation:none; background:#E8394F; border-color:#E8394F;
     transform:scale(1.06); box-shadow:0 0 30px rgba(215,38,61,0.6);
   }
+  /* Holds the button and its quieter alternative in one flex item, so the
+     CTA stays a two-column row rather than becoming a three-item scramble. */
+  .bundle-actions{
+    flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:10px;
+  }
+  /* No white-space:nowrap — the button above it already sets the column's
+     width, and on a narrow phone this line would rather wrap than push out
+     past the panel edge. */
+  .bundle-alt{
+    font-family:var(--f-mono); font-size:10.5px; letter-spacing:.06em;
+    color:var(--paper-dim); text-align:center; transition:color .2s;
+  }
+  .bundle-alt:hover{ color:var(--paper); }
+  .bundle-alt u{ text-decoration:none; border-bottom:1px solid rgba(244,244,242,.3); }
+  .bundle-alt:hover u{ border-bottom-color:var(--red); }
   @media (max-width:620px){
     .bundle-cta{ padding:22px; }
     .bundle-btn{ width:100%; text-align:center; }
+    .bundle-actions{ width:100%; }
   }
   @media (prefers-reduced-motion: reduce){
     /* keep the emphasis, drop the movement */
@@ -2402,31 +2418,41 @@
                  iTunes. Paying redirects to /download/, where a Cloudflare
                  Worker checks the payment with Stripe before releasing the
                  file — see worker/README.md.
+       pwyw      a second link on the same product, priced "customer
+                 chooses" with the minimum set to $2.99, so a buyer can pay
+                 above the fixed price but never below it. It resolves to the
+                 same files: the Worker matches on the Stripe product name,
+                 not the price, so both links release the same download.
+                 Optional — without it the song just shows the one way to buy.
 
      A song only gets `direct` once it is released AND its split is agreed,
      because a sale has to be divisible. That is why Outta' Line is absent
      despite being out, and why Wine and Bubble never gets one — it is Jon
      Dela's record, not ours to sell. */
   var WR_RELEASE_LINKS = {
-    madeyou:       { preorder: '', itunes: 'https://music.apple.com/us/album/made-you/6780529398?i=6780529401&app=itunes', direct: 'https://buy.stripe.com/cNi9AUfBYeWK7WA0mi6Zy08' },
-    energy:        { preorder: '', itunes: '', direct: '' },
-    angelsonsofa:  { preorder: '', itunes: '', direct: '' },
-    gratitude:     { preorder: '', itunes: 'https://music.apple.com/us/album/gratitude/1896081645?i=6765803659&app=itunes', direct: 'https://buy.stripe.com/cNi4gA0H4g0Oa4I5GC6Zy06' },
-    topform:       { preorder: '', itunes: 'https://music.apple.com/us/album/top-form/1896081568?i=6765803334&app=itunes', direct: 'https://buy.stripe.com/9B63cwgG23e2dgU2uq6Zy07' },
-    wineandbubble: { preorder: '', itunes: 'https://music.apple.com/us/album/wine-and-bubble-feat-cres-kxng-izem-whosrila/6778977735?i=6778977749&app=itunes', direct: '' },
-    outtaline:     { preorder: '', itunes: 'https://music.apple.com/us/album/outta-line/6764900796?i=6764900797&app=itunes', direct: '' },
-    fullymeech:    { preorder: '', itunes: 'https://music.apple.com/us/album/fully-meech-acoustic/1896129316?i=6765927069&app=itunes', direct: 'https://buy.stripe.com/7sY8wQ0H415U5Os1qm6Zy02' },
-    kingston:      { preorder: '', itunes: 'https://music.apple.com/us/album/kingston/1895390939?i=6763591791&app=itunes', direct: 'https://buy.stripe.com/eVqbJ23Tg5magt62uq6Zy03' },
-    protection:    { preorder: '', itunes: 'https://music.apple.com/us/album/protection/1895478930?i=6763765299&app=itunes', direct: 'https://buy.stripe.com/00weVe3Tg8ym4Ko7OK6Zy05' },
-    bluenotes:     { preorder: '', itunes: 'https://music.apple.com/us/album/blue-notes/1895341536?i=6763494871&app=itunes', direct: 'https://buy.stripe.com/28EaEY9dAaGua4I6KG6Zy04' },
-    forme:         { preorder: '', itunes: 'https://music.apple.com/us/album/for-me/1895471320?i=6763745598&app=itunes', direct: 'https://buy.stripe.com/6oU8wQ9dAdSGccQ0mi6Zy01' },
-    manifesting:   { preorder: '', itunes: '', direct: '' },
-    bombsaway:     { preorder: '', itunes: '', direct: '' }
+    madeyou:       { preorder: '', itunes: 'https://music.apple.com/us/album/made-you/6780529398?i=6780529401&app=itunes', direct: 'https://buy.stripe.com/cNi9AUfBYeWK7WA0mi6Zy08', pwyw: 'https://buy.stripe.com/cNi28s89w15U4Ko3yu6Zy09' },
+    energy:        { preorder: '', itunes: '', direct: '', pwyw: '' },
+    angelsonsofa:  { preorder: '', itunes: '', direct: '', pwyw: '' },
+    gratitude:     { preorder: '', itunes: 'https://music.apple.com/us/album/gratitude/1896081645?i=6765803659&app=itunes', direct: 'https://buy.stripe.com/cNi4gA0H4g0Oa4I5GC6Zy06', pwyw: 'https://buy.stripe.com/9B67sM61o15Ufp25GC6Zy0b' },
+    topform:       { preorder: '', itunes: 'https://music.apple.com/us/album/top-form/1896081568?i=6765803334&app=itunes', direct: 'https://buy.stripe.com/9B63cwgG23e2dgU2uq6Zy07', pwyw: 'https://buy.stripe.com/00w14ofBY4i6ccQ1qm6Zy0a' },
+    wineandbubble: { preorder: '', itunes: 'https://music.apple.com/us/album/wine-and-bubble-feat-cres-kxng-izem-whosrila/6778977735?i=6778977749&app=itunes', direct: '', pwyw: '' },
+    outtaline:     { preorder: '', itunes: 'https://music.apple.com/us/album/outta-line/6764900796?i=6764900797&app=itunes', direct: '', pwyw: '' },
+    fullymeech:    { preorder: '', itunes: 'https://music.apple.com/us/album/fully-meech-acoustic/1896129316?i=6765927069&app=itunes', direct: 'https://buy.stripe.com/7sY8wQ0H415U5Os1qm6Zy02', pwyw: 'https://buy.stripe.com/cNicN69dA3e2dgU8SO6Zy0f' },
+    kingston:      { preorder: '', itunes: 'https://music.apple.com/us/album/kingston/1895390939?i=6763591791&app=itunes', direct: 'https://buy.stripe.com/eVqbJ23Tg5magt62uq6Zy03', pwyw: 'https://buy.stripe.com/14AdRacpMaGu0u8b0W6Zy0e' },
+    protection:    { preorder: '', itunes: 'https://music.apple.com/us/album/protection/1895478930?i=6763765299&app=itunes', direct: 'https://buy.stripe.com/00weVe3Tg8ym4Ko7OK6Zy05', pwyw: 'https://buy.stripe.com/eVqbJ2fBY3e2a4Ic506Zy0c' },
+    bluenotes:     { preorder: '', itunes: 'https://music.apple.com/us/album/blue-notes/1895341536?i=6763494871&app=itunes', direct: 'https://buy.stripe.com/28EaEY9dAaGua4I6KG6Zy04', pwyw: 'https://buy.stripe.com/cNifZi2Pc9Cq90E8SO6Zy0d' },
+    forme:         { preorder: '', itunes: 'https://music.apple.com/us/album/for-me/1895471320?i=6763745598&app=itunes', direct: 'https://buy.stripe.com/6oU8wQ9dAdSGccQ0mi6Zy01', pwyw: 'https://buy.stripe.com/eVq28s1L801Q6Swglg6Zy0g' },
+    manifesting:   { preorder: '', itunes: '', direct: '', pwyw: '' },
+    bombsaway:     { preorder: '', itunes: '', direct: '', pwyw: '' }
   };
 
   /* The whole catalogue in one checkout — seven songs for $14.99 rather than
      $20.93 bought singly. Not tied to a card; it powers the collection CTA. */
   var WR_BUNDLE_LINK = 'https://buy.stripe.com/3cIaEY2Pc7uigt6b0W6Zy00';
+
+  /* Same collection, "customer chooses" price with a $14.99 floor. Suggests
+     $25 at checkout. Empty string hides the second option entirely. */
+  var WR_BUNDLE_PWYW_LINK = 'https://buy.stripe.com/4gMbJ2exUeWK2Cged86Zy0h';
 
   (function(){
     var cta = document.getElementById('bundleCta');
@@ -2438,6 +2464,21 @@
     btn.href = WR_BUNDLE_LINK;
     // No click handler here on purpose: track.js already catches every
     // outbound buy.stripe.com link, so adding one would count twice.
+
+    // The pay-more option is built here rather than sitting in the markup so
+    // that clearing WR_BUNDLE_PWYW_LINK removes it completely — no orphaned
+    // element to hide, and the CTA falls back to exactly its old shape.
+    if(!WR_BUNDLE_PWYW_LINK) return;
+    var actions = document.createElement('div');
+    actions.className = 'bundle-actions';
+    btn.parentNode.insertBefore(actions, btn);
+    actions.appendChild(btn);
+    var alt = document.createElement('a');
+    alt.className = 'bundle-alt';
+    alt.href = WR_BUNDLE_PWYW_LINK;
+    alt.target = '_blank'; alt.rel = 'noopener';
+    alt.innerHTML = 'or <u>pay what you think it&rsquo;s worth</u>';
+    actions.appendChild(alt);
   })();
 
   (function(){
@@ -2475,6 +2516,24 @@
         // and "Coming soon" on a song that is already out looks like a fault.
         direct.querySelector('.buy-opt-s').textContent =
           cfg.itunes ? 'iTunes only for now' : 'Coming soon';
+      }
+
+      /* The pay-more row is added rather than pre-declared, because unlike the
+         other two it has no "not available yet" state worth showing: a song
+         with no pwyw link should show two options, not a dead third. It only
+         ever follows a live `direct` row — offering to pay more than a price
+         that isn't on sale makes no sense. Note activate() swaps the span for
+         a fresh anchor, so re-query rather than reuse the stale reference. */
+      if(cfg.direct && cfg.pwyw){
+        var directEl = card.querySelector('.buy-direct');
+        if(directEl){
+          var alt = document.createElement('a');
+          alt.className = 'buy-opt buy-pwyw';
+          alt.href = cfg.pwyw; alt.target = '_blank'; alt.rel = 'noopener';
+          alt.innerHTML = '<span class="buy-opt-t">Pay what you think it&rsquo;s worth</span>' +
+                          '<span class="buy-opt-s">Same file &mdash; $2.99 minimum</span>';
+          directEl.parentNode.insertBefore(alt, directEl.nextSibling);
+        }
       }
 
       // the hero's panel sits next to its button rather than inside it
