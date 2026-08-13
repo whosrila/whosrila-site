@@ -140,7 +140,7 @@
 @media (prefers-reduced-motion: reduce){ .more-card{ transition:none; } .more-card:hover{ transform:none; } }
 
 /* Music video — 16:9. Click to load, so YouTube sets nothing until asked. */
-.mv{ margin:34px 0 0; }
+.mv{ margin:0 0 18px; }
 .mv h2{
   font-family:var(--f-mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
   color:var(--paper-dim); margin:0 0 14px; font-weight:400; text-align:center;
@@ -276,8 +276,20 @@
     <h1 class="title">Made You</h1>
     <p class="hook">The lead single &mdash; out now. Watch the video, or own it below.</p>
 
-    <div class="song-media song-media--art">
-      <img src="/images/art-madeyou.jpg" alt="Made You cover art" width="800" height="800">
+
+
+    <!-- Countdown removed on release, 13 Aug 2026.
+         SPOTIFY AND DEEZER STILL TO ADD — neither had propagated on release
+         day (Odesli returned Apple, Tidal and Pandora only; Deezer returned
+         nothing). Add two more .lrow blocks when they appear. -->
+
+    <div class="mv">
+      <h2>Music video</h2>
+      <button class="mv-embed" data-yt="8wExZPatf78" aria-label="Play the Made You music video">
+        <img src="https://i.ytimg.com/vi/8wExZPatf78/maxresdefault.jpg"
+             alt="Made You — music video" loading="lazy" width="1280" height="720">
+        <span class="sp"><svg width="20" height="20" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg></span>
+      </button>
     </div>
 
     <div class="preview-player">
@@ -288,19 +300,6 @@
       <div class="preview-meta">
         <span class="preview-tag">Preview</span>
       </div>
-    </div>
-
-    <!-- Countdown removed on release, 13 Aug 2026.
-         SPOTIFY AND DEEZER STILL TO ADD — neither had propagated on release
-         day (Odesli returned Apple, Tidal and Pandora only; Deezer returned
-         nothing). Add two more .lrow blocks when they appear. -->
-    <div class="mv">
-      <h2>Music video</h2>
-      <button class="mv-embed" data-yt="8wExZPatf78" aria-label="Play the Made You music video">
-        <img src="https://i.ytimg.com/vi/8wExZPatf78/maxresdefault.jpg"
-             alt="Made You — music video" loading="lazy" width="1280" height="720">
-        <span class="sp"><svg width="20" height="20" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg></span>
-      </button>
     </div>
 
     <p class="listen-note">Listen or buy</p>
@@ -344,6 +343,10 @@
       </a>
     </div>
 
+
+    <div class="song-media song-media--art">
+      <img src="/images/art-madeyou.jpg" alt="Made You cover art" width="800" height="800">
+    </div>
 
     <div class="lyrics">
       <h2>Lyrics</h2>
