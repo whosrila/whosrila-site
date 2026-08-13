@@ -117,17 +117,37 @@
     background:transparent; color:var(--paper-dim); border-color:var(--line);
     pointer-events:none;
   }
-  /* The second way to buy. Deliberately quiet: the fixed price is the offer,
-     paying more is the option. A second red button would make the card read
-     as two competing products rather than one with a choice. */
-  .card-alt{
-    margin-top:8px; display:block; text-align:center;
-    font-family:var(--f-mono); font-size:10.5px; letter-spacing:.06em;
-    color:var(--paper-dim); transition:color .2s;
+  /* Buy control for anything sold two ways. One button, and the ways to pay
+     live behind it — showing both up front made the card read as two
+     competing products rather than one with a choice.
+
+     Matches the homepage panel's easing and proportions so the two pages feel
+     like the same shop, but NOT its mechanism: the homepage animates
+     grid-template-rows 0fr→1fr, and that trick collapses to nothing here
+     because .card is a column flexbox, which leaves the grid no free space
+     for the fr to claim. So this measures the content and animates max-height
+     instead — the same approach as the mobile nav further down this file. */
+  .card-buy{
+    margin-top:13px; width:100%; display:flex; align-items:center;
+    justify-content:center; gap:7px;
+    font-family:inherit; font-size:13.5px; font-weight:700;
+    padding:12px 14px; border-radius:4px; background:var(--red); color:var(--paper);
+    border:1px solid var(--red); cursor:pointer; transition:background .2s;
   }
-  .card-alt:hover{ color:var(--paper); }
-  .card-alt u{ text-decoration:none; border-bottom:1px solid var(--line); }
-  .card-alt:hover u{ border-bottom-color:var(--red); }
+  .card-buy:hover{ background:#E8394F; }
+  .card-chev{ transition:transform .3s cubic-bezier(.4,0,.2,1); }
+  .card-buy[aria-expanded="true"] .card-chev{ transform:rotate(180deg); }
+
+  .buy-drop{ overflow:hidden; max-height:0;
+    transition:max-height .38s cubic-bezier(.4,0,.2,1); }
+  .buy-row{
+    display:flex; flex-direction:column; gap:1px; padding:10px 12px;
+    border-top:1px solid var(--line); transition:background .16s;
+  }
+  .buy-row:hover{ background:rgba(244,244,242,0.06); }
+  .buy-row-t{ font-size:12.5px; font-weight:600; color:var(--paper); line-height:1.25; }
+  .buy-row-s{ font-family:var(--f-mono); font-size:9.5px; letter-spacing:.05em;
+    color:var(--paper-dim); }
   .card.is-soon .card-art img{ filter:grayscale(1) opacity(.55); }
 
   /* ---------- Reassurance strip ---------- */
@@ -152,6 +172,9 @@
     .card-art img, .card-btn{ transition:none; }
     .card:hover .card-art img{ transform:none; }
     .card-btn:hover{ transform:none; }
+    /* The panel still opens, it just stops sliding — a collapse with no
+       transition is fine, a collapse that never opens is a broken shop. */
+    .buy-drop, .card-chev{ transition:none; }
   }
 
   /* ---------- Mobile menu — matches the rest of the site ---------- */
@@ -271,8 +294,10 @@
                "customer chooses price" price, so a buyer can pay
                more than `price` if they want to. Its minimum is set
                in Stripe to equal `price`, so it can never undercut
-               the headline. Omit it and the card simply doesn't
-               offer the choice — nothing else changes.
+               the headline. Present, and the Buy button becomes a
+               collapsing control listing both ways to pay; absent,
+               and it stays a plain "Buy — $x.xx" link. Merch will
+               normally want the second, simpler form.
      featured  pulls it out into the big panel at the top. One only.
 
    ON ADDING CLOTHING: sizes are the one wrinkle. A Stripe payment
@@ -339,6 +364,29 @@ var WR_SECTIONS = [
     });
   }
 
+  /* One button, two ways to pay behind it. Only used when an item has both
+     links — with a single way to buy, a control that has to be opened to
+     reveal one option is just an extra click. */
+  function buyControl(item, label){
+    return '<button class="card-buy" type="button" aria-expanded="false">' +
+        esc(label) +
+        '<svg class="card-chev" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">' +
+          '<path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.7" ' +
+          'stroke-linecap="round" stroke-linejoin="round"/>' +
+        '</svg>' +
+      '</button>' +
+      '<div class="buy-drop">' +
+        '<a class="buy-row" href="' + esc(item.link) + '" target="_blank" rel="noopener">' +
+          '<span class="buy-row-t">' + money(item.price) + '</span>' +
+          '<span class="buy-row-s">Instant download</span>' +
+        '</a>' +
+        '<a class="buy-row" href="' + esc(item.pwyw) + '" target="_blank" rel="noopener">' +
+          '<span class="buy-row-t">Pay what you think it&rsquo;s worth</span>' +
+          '<span class="buy-row-s">' + money(item.price) + ' minimum</span>' +
+        '</a>' +
+      '</div>';
+  }
+
   var featured = WR_SHOP.filter(function(i){ return i.featured; })[0];
   var rest = WR_SHOP.filter(function(i){ return !i.featured; });
 
@@ -354,14 +402,16 @@ var WR_SECTIONS = [
         '<div class="feat-price">' + money(featured.price) +
           (featured.was ? '<s>' + money(featured.was) + '</s>' : '') +
         '</div>' +
-        (featured.link
-          ? '<a class="card-btn" style="align-self:flex-start;padding:15px 30px;" href="' +
-            esc(featured.link) + '" target="_blank" rel="noopener">Buy the collection</a>'
-          : '<span class="card-btn soon" style="align-self:flex-start;">Coming soon</span>') +
-        (featured.link && featured.pwyw
-          ? '<a class="card-alt" style="align-self:flex-start;text-align:left;" href="' +
-            esc(featured.pwyw) + '" target="_blank" rel="noopener">or <u>pay what you think it\'s worth</u></a>'
-          : '') +
+        (!featured.link
+          ? '<span class="card-btn soon" style="align-self:flex-start;">Coming soon</span>'
+          : featured.pwyw
+            /* The panel is a wide flex column, so the control is boxed to a
+               sensible width rather than stretching the full panel. */
+            ? '<div style="align-self:flex-start;width:260px;max-width:100%;">' +
+                buyControl(featured, 'Buy the collection') +
+              '</div>'
+            : '<a class="card-btn" style="align-self:flex-start;padding:15px 30px;" href="' +
+              esc(featured.link) + '" target="_blank" rel="noopener">Buy the collection</a>') +
       '</div>';
     root.appendChild(f);
   }
@@ -393,16 +443,12 @@ var WR_SECTIONS = [
         (item.sub ? '<div class="card-sub">' + esc(item.sub) + '</div>' : '') +
         (soon
           ? '<span class="card-btn soon">Coming soon</span>'
-          : '<a class="card-btn" href="' + esc(item.link) +
-            '" target="_blank" rel="noopener">Buy &mdash; ' + money(item.price) + '</a>') +
-        /* Second option only where one exists. The wording says "more"
-           rather than "name your price" because Stripe enforces the
-           floor anyway, and promising a free choice it won't honour
-           would just bounce people back. */
-        (!soon && item.pwyw
-          ? '<a class="card-alt" href="' + esc(item.pwyw) +
-            '" target="_blank" rel="noopener">or <u>pay more if you like</u></a>'
-          : '');
+          : item.pwyw
+            ? buyControl(item, 'Buy')
+            /* One way to pay — merch, most likely — so keep the price on the
+               button and skip the collapse entirely. */
+            : '<a class="card-btn" href="' + esc(item.link) +
+              '" target="_blank" rel="noopener">Buy &mdash; ' + money(item.price) + '</a>');
       grid.appendChild(card);
     });
 
@@ -413,6 +459,46 @@ var WR_SECTIONS = [
     root.innerHTML = '<div class="empty">Nothing in the shop right now. ' +
       '<a href="/listen" style="border-bottom:1px solid var(--red)">Go and listen</a> instead.</div>';
   }
+
+  /* Buy panels. Delegated from the root because the cards are built above in
+     the same pass — binding per button would mean re-binding every time the
+     catalogue changes. One open at a time, same as the homepage: several open
+     panels push the grid around and the page starts jumping under the cursor. */
+  function setOpen(drop, open){
+    drop.classList.toggle('open', open);
+    // Re-measured on every open rather than cached: the rows rewrap at
+    // narrow widths, and a stale height would either clip a row or leave
+    // a gap under it.
+    drop.style.maxHeight = open ? drop.scrollHeight + 'px' : '0px';
+    var btn = drop.previousElementSibling;
+    if(btn) btn.setAttribute('aria-expanded', String(open));
+  }
+
+  function closeAll(except){
+    [].slice.call(root.querySelectorAll('.buy-drop.open')).forEach(function(d){
+      if(d !== except) setOpen(d, false);
+    });
+  }
+
+  root.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.card-buy');
+    if(!btn || !root.contains(btn)) return;
+    var drop = btn.nextElementSibling;
+    if(!drop || !drop.classList.contains('buy-drop')) return;
+    var open = drop.classList.contains('open');
+    closeAll(drop);
+    setOpen(drop, !open);
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeAll(null);
+  });
+
+  window.addEventListener('resize', function(){
+    [].slice.call(root.querySelectorAll('.buy-drop.open')).forEach(function(d){
+      d.style.maxHeight = d.scrollHeight + 'px';
+    });
+  });
 
   /* Reveal. Same belt-and-braces as the rest of the site: show whatever is
      already on screen, observe the rest, and force everything visible after a
