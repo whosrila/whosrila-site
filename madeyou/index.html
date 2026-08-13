@@ -101,11 +101,13 @@
    light song pages. This page is dark, so that turns the title invisible.
    `html` in front because that rule and this one are equal specificity. */
 html h1, html h2, html h3, html .title, html .h2{ filter:none; }
-/* Only the top block is centred — scoped to .wrap-top so the lyrics,
-   credits and everything below stay left-aligned and readable. */
-.wrap-top{ text-align:center; }
-.wrap-top .hook{ margin-left:auto; margin-right:auto; }
-.wrap-top .stamp{ display:inline-flex; }
+/* Only the top block is centred. This wrap holds the whole page — lyrics,
+   credits, listen list and all — so the rule is pinned to the three
+   elements above the video and nothing else. */
+.wrap-top > .stamp{ display:flex; width:-moz-fit-content; width:fit-content;
+  margin-left:auto; margin-right:auto; }
+.wrap-top > h1.title, .wrap-top > .hook{ text-align:center; }
+.wrap-top > .hook{ margin-left:auto; margin-right:auto; }
 h1.title{ color:var(--red); }
 .stamp{ color:var(--red); }
 .hook{ color:var(--paper-dim); }
