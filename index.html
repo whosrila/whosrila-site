@@ -884,6 +884,29 @@
     .featured-hero-inner{ gap:22px; }
     .featured-cover{ max-width:300px; }
   }
+  /* ---------- Featured release video ----------
+     Leads the discography section. Uses .vid-card/.vid-thumb so
+     js/lightbox.js picks it up and pops it out exactly like the watch
+     grid — no separate player here. 4:3 because the video itself is 4:3;
+     forcing it into the 16:9 grid shape would crop the frame. */
+  .rel-feature{
+    display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:30px; align-items:center; margin-bottom:52px; padding-bottom:40px;
+    border-bottom:1px solid var(--line);
+  }
+  .rel-feature .vid-card{ margin:0; }
+  .rel-feature .vid-thumb{ aspect-ratio:4/3; width:100%; }
+  /* sized just under the section's own h2 so the feature does not outrank it */
+  .rel-feature-copy .h3{ font-size:clamp(20px,2.7vw,28px); line-height:1.04; margin:12px 0 0;
+    text-transform:uppercase; }
+  .rel-feature-copy .lede{ margin-top:12px; }
+  .rel-feature-actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+  @media (max-width:860px){
+    .rel-feature{ grid-template-columns:1fr; gap:20px; margin-bottom:40px; padding-bottom:30px; }
+    .rel-feature-copy{ text-align:center; }
+    .rel-feature-actions{ justify-content:center; }
+  }
+
   /* ---------- Upcoming Releases ---------- */
   .upcoming{ margin-bottom:52px; padding-bottom:40px; border-bottom:1px solid var(--line); }
   .upcoming .stamp{ margin-bottom:22px; }
@@ -1554,6 +1577,29 @@
       <span class="stamp">DISCOGRAPHY</span>
       <h2 class="h2" style="margin-top:14px;">On Record</h2>
       <p class="lede" style="margin-top:14px;">Two upcoming previews up top, ten songs out now below.</p>
+    </div>
+
+    <!-- Featured video. data-yt + .vid-thumb is all js/lightbox.js needs;
+         it flies the player out of the card the same way the watch grid does. -->
+    <div class="rel-feature reveal">
+      <div class="vid-card" data-yt="8wExZPatf78">
+        <button class="vid-thumb" aria-label="Play the Made You music video">
+          <img src="https://i.ytimg.com/vi/8wExZPatf78/maxresdefault.jpg" alt="" loading="lazy">
+          <span class="vid-play" aria-hidden="true">
+            <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
+          </span>
+        </button>
+        <span class="vid-title">Made You</span>
+      </div>
+      <div class="rel-feature-copy">
+        <span class="stamp">Latest release &middot; music video</span>
+        <h3 class="h3">Made You</h3>
+        <p class="lede">The new single, out now. Watch the video, then stream it or own the file outright.</p>
+        <div class="rel-feature-actions">
+          <a class="btn btn-primary" href="/madeyou">Listen or Buy</a>
+          <a class="btn btn-ghost" href="/watch">All Videos</a>
+        </div>
+      </div>
     </div>
 
     <div class="tl-group">
