@@ -575,8 +575,12 @@ Are you the one Jah send, for me</p>
 
     // stop the page scrolling behind the overlay
     document.documentElement.style.overflow = 'hidden';
-    // next frame, so the opacity transition actually runs
-    requestAnimationFrame(function(){ lb.classList.add('open'); });
+    // Force a reflow, then add the class, so the opacity transition has a
+    // start value to animate from. Deliberately NOT requestAnimationFrame:
+    // rAF is throttled to zero in a background tab, which would leave the
+    // overlay invisible while the page behind it is scroll-locked.
+    void lb.offsetWidth;
+    lb.classList.add('open');
     x.focus();
 
     // click the backdrop, not the video, to dismiss
