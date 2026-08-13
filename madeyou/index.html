@@ -105,7 +105,7 @@ h1.title{ color:var(--red); }
 .stamp{ color:var(--red); }
 .hook{ color:var(--paper-dim); }
 header.site{ background:rgba(18,12,5,.92); border-bottom:1px solid var(--line); }
-header.site .wordmark img{ filter:invert(1) sepia(1) saturate(3) hue-rotate(5deg); }
+header.site .wordmark img, header.site .logo-link img{ filter:brightness(0) invert(1); }
 header.site nav.links a{ color:var(--gold); }
 .burger{ color:var(--gold); }
 footer.mini{ background:#0B0703; color:var(--paper-dim); }
@@ -303,7 +303,7 @@ footer.mini{ background:#0B0703; color:var(--paper-dim); }
 
 
     <!-- Countdown removed on release, 13 Aug 2026.
-         DEEZER STILL TO ADD — it had not propagated as of 13 Aug.
+         DEEZER STILL TO ADD (not on Deezer as of 13 Aug) — it had not propagated as of 13 Aug.
          Add one more .lrow block when it appears. -->
 
     <div class="mv">
@@ -375,6 +375,20 @@ footer.mini{ background:#0B0703; color:var(--paper-dim); }
         <span class="ldot ldot-boomplay"></span>
         <span class="ltext">
           <span class="lname">Boomplay</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://soundcloud.com/whosrila/made-you" target="_blank" rel="noopener">
+        <span class="ldot ldot-soundcloud"></span>
+        <span class="ltext">
+          <span class="lname">SoundCloud</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://audiomack.com/whosrila/song/made-you" target="_blank" rel="noopener">
+        <span class="ldot ldot-audiomack"></span>
+        <span class="ltext">
+          <span class="lname">Audiomack</span>
         </span>
         <span class="lgo">Play</span>
       </a>
