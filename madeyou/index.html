@@ -32,12 +32,18 @@
   font-display: swap;
 }
 :root{
-  --ink:        #0A0A0A;
-  --ink-2:      #161616;
-  --paper:      #F4F4F2;
-  --paper-dim:  #8C8C8C;
-  --red:        #D7263D;
-  --line:       rgba(10,10,10,0.12);
+  /* Palette pulled from the Made You cover itself, so this page reads as the
+     record rather than as the site. Sampled tones were #453114 and #784C1F
+     (the hat and the gold script), #711009 and #3D100D (the red mesh), and
+     #C5AE9B (skin in warm light). Those are all dark; what follows is that
+     hue family opened up enough to sit on a light page. */
+  --ink:        #140D06;   /* warm near-black, not neutral */
+  --ink-2:      #241708;
+  --paper:      #F6F1E9;   /* faintly warm paper, matched to the cream */
+  --paper-dim:  #8A7965;
+  --red:        #A8180E;   /* the mesh red, hue 4deg, deepened for contrast */
+  --gold:       #B07A2C;   /* the script and the hat */
+  --line:       rgba(20,13,6,0.14);
 
   --f-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --f-body:    'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -66,7 +72,7 @@
   color:var(--ink); transition:background .2s, border-color .2s, color .2s;
 }
 .preview-btn:hover,.preview-btn.playing{
-  background:var(--red); border-color:var(--red); color:#fff;
+  background:var(--gold); border-color:var(--gold); color:#fff;
 }
 .preview-meta{ display:flex; flex-direction:column; gap:2px; }
 .preview-tag{
@@ -117,11 +123,11 @@
 .lrow:hover .lgo{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
 .lrow-buy{ border-color:var(--ink); }
 .lrow-buy .lgo{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
-.lrow-buy:hover .lgo{ background:var(--red); border-color:var(--red); }
+.lrow-buy:hover .lgo{ background:var(--gold); border-color:var(--gold); }
 .ldot-spotify{background:#1DB954}.ldot-apple{background:#FA243C}.ldot-itunes{background:#A855F7}
 .ldot-deezer{background:#A238FF}.ldot-tidal{background:#00D8D8}.ldot-soundcloud{background:#FF5500}
 .ldot-audiomack{background:#FFA200}.ldot-pandora{background:#3668FF}
-.ldot-direct{background:#D7263D}
+.ldot-direct{background:var(--red)}
 @media (prefers-reduced-motion: reduce){ .lrow{ transition:none; } .lrow:hover{ transform:none; } }
 
 /* Related songs — same block every other song page carries */
@@ -160,7 +166,7 @@
   background:rgba(10,10,10,.62); border:1px solid rgba(244,244,242,.5); color:#fff;
   transition:background .2s, transform .2s;
 }
-.mv-embed:hover .sp{ background:var(--red); border-color:var(--red); transform:translate(-50%,-50%) scale(1.08); }
+.mv-embed:hover .sp{ background:var(--gold); border-color:var(--gold); transform:translate(-50%,-50%) scale(1.08); }
 @media (prefers-reduced-motion: reduce){
   .buy-now, .mv-embed .sp{ transition:none; }
   .buy-now:hover{ transform:none; }
