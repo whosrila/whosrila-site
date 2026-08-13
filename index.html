@@ -895,6 +895,10 @@
     border-bottom:1px solid var(--line);
   }
   .rel-feature .vid-card{ margin:0; }
+  /* The heading beside the video already says the title. Kept in the DOM
+     because lightbox.js reads .vid-title for the pop-out caption. */
+  .rel-feature .vid-title{ position:absolute; width:1px; height:1px; padding:0;
+    margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
   .rel-feature .vid-thumb{ aspect-ratio:4/3; width:100%; }
   /* sized just under the section's own h2 so the feature does not outrank it */
   .rel-feature-copy .h3{ font-size:clamp(20px,2.7vw,28px); line-height:1.04; margin:12px 0 0;
@@ -2569,7 +2573,7 @@
 
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3fc16cf549f44cb4bbde3934b15904d3"}'></script><!-- End Cloudflare Web Analytics -->
 <script defer src="/js/track.js?v=b1c57aab"></script>
-<script defer src="/js/lightbox.js?v=9ca9d7dc"></script>
+<script defer src="/js/lightbox.js?v=442df001"></script>
 <script defer src="/js/consent.js?v=5c0fd4c1"></script>
 <script defer src="/js/mailinglist.js?v=b7031979"></script>
 

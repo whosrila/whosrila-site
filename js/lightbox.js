@@ -3,6 +3,41 @@
  * song pages. Requires the .lb styles in css/site.css. */
 // ---- Video lightbox: play front-and-centre instead of inline ----
 (function(){
+  /* Captions off. The IFrame API is the only thing that can do this; it is
+     fetched once, on the first play, so nothing loads for visitors who never
+     press play. Any existing onYouTubeIframeAPIReady is chained rather than
+     overwritten, in case a page defines its own. */
+  var apiReady = false, apiAsked = false, waiting = [];
+  function loadApi(){
+    if(apiAsked) return;
+    apiAsked = true;
+    var prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function(){
+      if(typeof prev === 'function'){ try{ prev(); }catch(e){} }
+      apiReady = true;
+      waiting.splice(0).forEach(function(fn){ fn(); });
+    };
+    var t = document.createElement('script');
+    t.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(t);
+  }
+  function killCaptions(p){
+    ['captions','cc'].forEach(function(m){ try{ p.unloadModule(m); }catch(e){} });
+  }
+  function suppressCaptions(iframe){
+    function attach(){
+      if(!iframe.isConnected || typeof YT === 'undefined' || !YT.Player) return;
+      try{
+        new YT.Player(iframe, { events:{
+          onReady: function(e){ killCaptions(e.target); },
+          // the caption track can attach just after ready, so clear it again
+          onStateChange: function(e){ if(e.data === YT.PlayerState.PLAYING) killCaptions(e.target); }
+        }});
+      }catch(e){}
+    }
+    apiReady ? attach() : (waiting.push(attach), loadApi());
+  }
+
   var lb, panel, lastTrigger, scrollLock = 0;
 
   function sizeFor(vertical){
@@ -49,11 +84,18 @@
     panel.style.height = size.h + 'px';
 
     var f = document.createElement('iframe');
-    f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1';
+    // enablejsapi so the captions module can be unloaded once the player is
+    // ready. No URL parameter can force captions off — cc_load_policy=0 is a
+    // no-op, and viewers with captions enabled on their account get them on
+    // every embed unless the module is actually unloaded.
+    f.src = 'https://www.youtube-nocookie.com/embed/' + id +
+      '?autoplay=1&rel=0&playsinline=1&enablejsapi=1&origin=' +
+      encodeURIComponent(location.origin);
     f.title = label || 'WHOSRILA video';
     f.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
     f.allowFullscreen = true;
     panel.appendChild(f);
+    suppressCaptions(f);
 
     var btn = document.createElement('button');
     btn.className = 'lb-close';
