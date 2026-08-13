@@ -8,17 +8,17 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Made You — WHOSRILA</title>
-<meta name="description" content="New single out August 13, 2026. Pre-save now.">
+<meta name="description" content="The lead single from WHOSRILA — out now. Watch the video, stream it, or own the download.">
 <!-- Open Graph tags help this page look right when shared/linked in ad platforms -->
 <meta property="og:title" content="Made You — WHOSRILA">
-<meta property="og:description" content="New single out August 13, 2026. Pre-save now.">
+<meta property="og:description" content="The lead single from WHOSRILA — out now. Watch the video, stream it, or own the download.">
 <meta property="og:type" content="music.song">
 <meta property="og:image" content="https://whosrila.com/images/art-madeyou.jpg">
 <meta property="og:url" content="https://whosrila.com/madeyou">
 <meta property="og:site_name" content="WHOSRILA">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Made You — WHOSRILA">
-<meta name="twitter:description" content="New single out August 13, 2026. Pre-save now.">
+<meta name="twitter:description" content="The lead single from WHOSRILA — out now. Watch the video, stream it, or own the download.">
 <meta name="twitter:image" content="https://whosrila.com/images/art-madeyou.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -86,6 +86,48 @@
 }
 .fallback a{ border-bottom:1px solid var(--red); color:var(--paper); padding-bottom:1px; }
 .fallback a:hover{ color:var(--red); }
+
+/* Buy row. On release day iTunes is the only store that has propagated, so
+   this carries the purchase on its own and the embed below still handles
+   streaming. It is a real anchor on our domain, which means track.js can see
+   the click — the whole point of moving off the embed eventually. */
+.buy-now{
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  padding:16px 22px; margin:0 0 14px; border-radius:5px;
+  background:var(--ink); color:var(--paper);
+  font-family:var(--f-mono); font-size:13px; letter-spacing:.1em; text-transform:uppercase;
+  transition:background .2s, transform .15s;
+}
+.buy-now:hover{ background:var(--red); transform:translateY(-2px); }
+.buy-now .bn-sub{ font-size:11px; letter-spacing:.04em; text-transform:none; opacity:.72; }
+
+/* Music video — 16:9. Click to load, so YouTube sets nothing until asked. */
+.mv{ margin:34px 0 0; }
+.mv h2{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--paper-dim); margin:0 0 14px; font-weight:400; text-align:center;
+}
+.mv-embed{
+  position:relative; width:100%; aspect-ratio:16/9; display:block; padding:0;
+  border:1px solid var(--line); border-radius:6px; overflow:hidden;
+  background:var(--ink-2); cursor:pointer;
+}
+.mv-embed img,.mv-embed iframe{
+  position:absolute; inset:0; width:100%; height:100%; border:0; object-fit:cover;
+}
+.mv-embed .sp{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:60px; height:60px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(10,10,10,.62); border:1px solid rgba(244,244,242,.5); color:#fff;
+  transition:background .2s, transform .2s;
+}
+.mv-embed:hover .sp{ background:var(--red); border-color:var(--red); transform:translate(-50%,-50%) scale(1.08); }
+@media (prefers-reduced-motion: reduce){
+  .buy-now, .mv-embed .sp{ transition:none; }
+  .buy-now:hover{ transform:none; }
+  .mv-embed:hover .sp{ transform:translate(-50%,-50%); }
+}
 
 /* ---------- Cookie consent ---------- */
 .cc{
@@ -192,9 +234,9 @@
 
 <main>
   <div class="wrap">
-    <span class="stamp">LEAD SINGLE &middot; WRL-001</span>
+    <span class="stamp">SINGLE &middot; OUT NOW</span>
     <h1 class="title">Made You</h1>
-    <p class="hook">The lead single. Pre-save it now &mdash; out August 13, 2026.</p>
+    <p class="hook">The lead single &mdash; out now. Watch the video, or own it below.</p>
 
     <div class="song-media song-media--art">
       <img src="/images/art-madeyou.jpg" alt="Made You cover art" width="800" height="800">
@@ -210,13 +252,16 @@
       </div>
     </div>
 
-    <!-- Countdown: delete this whole <div class="countdown">...</div> block for
-         already-released songs. Only useful for pre-save / upcoming releases. -->
-    <div class="countdown" id="countdown">
-      <div class="cell"><div class="num" id="cd-days">--</div><div class="lab">Days</div></div>
-      <div class="cell"><div class="num" id="cd-hours">--</div><div class="lab">Hrs</div></div>
-      <div class="cell"><div class="num" id="cd-mins">--</div><div class="lab">Min</div></div>
-    </div>
+    <!-- Countdown removed on release, 13 Aug 2026. -->
+
+    <!-- Only iTunes had propagated on release day, so it gets its own row
+         here. The embed below still carries Spotify and the rest as they
+         appear, which is why it has not been replaced with a .listen-list
+         yet — doing that today would have left the page Apple-only. -->
+    <a class="buy-now" href="https://music.apple.com/us/album/made-you/6780529398?i=6780529401&amp;app=itunes"
+       target="_blank" rel="noopener">
+      Own it on iTunes <span class="bn-sub">Download &mdash; yours to keep</span>
+    </a>
 
     <!-- =========================================================
       EDIT ME — paste your Feature.fm embed code here.
@@ -236,6 +281,16 @@
     <p class="fallback">
       Trouble loading? <a href="https://too.fm/whosrila-madeyou" target="_blank" rel="noopener">Open directly</a>
     </p>
+
+    <div class="mv">
+      <h2>Music video</h2>
+      <button class="mv-embed" data-yt="8wExZPatf78" aria-label="Play the Made You music video">
+        <img src="https://i.ytimg.com/vi/8wExZPatf78/maxresdefault.jpg"
+             alt="Made You — music video" loading="lazy" width="1280" height="720">
+        <span class="sp"><svg width="20" height="20" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg></span>
+      </button>
+    </div>
+
     <div class="lyrics">
       <h2>Lyrics</h2>
       <div class="lyrics-body">
@@ -289,42 +344,26 @@ Are you the one Jah send, for me</p>
 </footer>
 
 <script>
-  // EDIT ME — set this song's release date for the countdown.
-  // If the song is already out, delete the countdown <div> above
-  // and this whole script block.
-  const RELEASE_DATE_ISO = '2026-08-13T00:00:00';
-
-  const cdEl = document.getElementById('countdown');
-
-  function tick(){
-    const target = new Date(RELEASE_DATE_ISO).getTime();
-    const diff = target - Date.now();
-
-    // Release day. Stop counting and say so — a clock frozen at 0/00/00
-    // reads as broken, and this page may sit here a while before it's
-    // rebuilt as a released-song page.
-    if(diff <= 0){
-      if(cdEl){
-        cdEl.classList.add('done');
-        cdEl.innerHTML = '<span class="cd-live">Out now</span>';
-      }
-      clearInterval(timer);
-      return;
-    }
-
-    const days = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const mins = Math.floor((diff % 3600000) / 60000);
-    const d = document.getElementById('cd-days');
-    const h = document.getElementById('cd-hours');
-    const m = document.getElementById('cd-mins');
-    if(d) d.textContent = days;
-    if(h) h.textContent = String(hours).padStart(2,'0');
-    if(m) m.textContent = String(mins).padStart(2,'0');
-  }
-  // assigned before the first tick so tick() can always clear it
-  const timer = setInterval(tick, 30000);
-  tick();
+/* Music video. Loads the iframe only when clicked, so arriving on the page
+   sets no YouTube cookies — same pattern as the story videos elsewhere.
+   youtube-nocookie for the same reason. */
+(function(){
+  document.querySelectorAll('.mv-embed').forEach(function(b){
+    b.addEventListener('click', function(){
+      var id = b.getAttribute('data-yt');
+      if(!id) return;
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id +
+              '?autoplay=1&playsinline=1&rel=0&modestbranding=1';
+      f.setAttribute('allow','autoplay; encrypted-media; picture-in-picture');
+      f.setAttribute('allowfullscreen','');
+      f.title = b.getAttribute('aria-label') || 'Video';
+      b.innerHTML = '';
+      b.appendChild(f);
+      try { if(window.wrTrack) window.wrTrack('VideoPlay', { title: f.title, song: 'Made You' }); } catch(e){}
+    }, { once:true });
+  });
+})();
 </script>
 
 <script>
