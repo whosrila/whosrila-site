@@ -40,6 +40,7 @@ const CATALOG = {
   "WHOSRILA - Complete Digital Collection": [
     "WHOSRILA - Complete Digital Collection.zip",
   ],
+  "WHOSRILA - Made You":               ["WHOSRILA - Made You.mp3"],
   "WHOSRILA - For Me":                 ["WHOSRILA - For Me.mp3"],
   "WHOSRILA - Fully Meech (Acoustic)": ["WHOSRILA - Fully Meech (Acoustic).mp3"],
   "WHOSRILA - Kingston":               ["WHOSRILA - Kingston.mp3"],

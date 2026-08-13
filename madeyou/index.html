@@ -87,19 +87,42 @@
 .fallback a{ border-bottom:1px solid var(--red); color:var(--paper); padding-bottom:1px; }
 .fallback a:hover{ color:var(--red); }
 
-/* Buy row. On release day iTunes is the only store that has propagated, so
-   this carries the purchase on its own and the embed below still handles
-   streaming. It is a real anchor on our domain, which means track.js can see
-   the click — the whole point of moving off the embed eventually. */
-.buy-now{
-  display:flex; align-items:center; justify-content:center; gap:12px;
-  padding:16px 22px; margin:0 0 14px; border-radius:5px;
-  background:var(--ink); color:var(--paper);
-  font-family:var(--f-mono); font-size:13px; letter-spacing:.1em; text-transform:uppercase;
-  transition:background .2s, transform .15s;
+/* Listen list — identical to every other released song page. Real anchors on
+   our own domain, so track.js sees each click with the platform attached,
+   which the Feature.fm iframe never allowed. */
+.listen-note{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--paper-dim); margin:0 0 9px;
 }
-.buy-now:hover{ background:var(--red); transform:translateY(-2px); }
-.buy-now .bn-sub{ font-size:11px; letter-spacing:.04em; text-transform:none; opacity:.72; }
+.listen-list{ display:flex; flex-direction:column; gap:8px; margin:0 0 8px; }
+.lrow{
+  display:flex; align-items:center; gap:13px; width:100%;
+  padding:14px 18px; border:1px solid var(--line); border-radius:4px;
+  background:var(--paper); color:var(--ink);
+  transition:border-color .16s, transform .14s;
+}
+.lrow:hover{ border-color:var(--ink); transform:translateY(-1px); }
+.ldot{ width:9px; height:9px; border-radius:50%; flex:0 0 9px; }
+.ltext{ display:flex; flex-direction:column; gap:1px; flex:1 1 auto; min-width:0; }
+.lname{ font-weight:600; font-size:15px; line-height:1.25; }
+.lsub{
+  font-family:var(--f-mono); font-size:10px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--paper-dim);
+}
+.lgo{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--paper-dim); border:1px solid var(--line); border-radius:2px;
+  padding:6px 13px; flex:0 0 auto; transition:background .16s, color .16s, border-color .16s;
+}
+.lrow:hover .lgo{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+.lrow-buy{ border-color:var(--ink); }
+.lrow-buy .lgo{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+.lrow-buy:hover .lgo{ background:var(--red); border-color:var(--red); }
+.ldot-spotify{background:#1DB954}.ldot-apple{background:#FA243C}.ldot-itunes{background:#A855F7}
+.ldot-deezer{background:#A238FF}.ldot-tidal{background:#00D8D8}.ldot-soundcloud{background:#FF5500}
+.ldot-audiomack{background:#FFA200}.ldot-pandora{background:#3668FF}
+.ldot-direct{background:#D7263D}
+@media (prefers-reduced-motion: reduce){ .lrow{ transition:none; } .lrow:hover{ transform:none; } }
 
 /* Music video — 16:9. Click to load, so YouTube sets nothing until asked. */
 .mv{ margin:34px 0 0; }
@@ -252,35 +275,50 @@
       </div>
     </div>
 
-    <!-- Countdown removed on release, 13 Aug 2026. -->
-
-    <!-- Only iTunes had propagated on release day, so it gets its own row
-         here. The embed below still carries Spotify and the rest as they
-         appear, which is why it has not been replaced with a .listen-list
-         yet — doing that today would have left the page Apple-only. -->
-    <a class="buy-now" href="https://music.apple.com/us/album/made-you/6780529398?i=6780529401&amp;app=itunes"
-       target="_blank" rel="noopener">
-      Own it on iTunes <span class="bn-sub">Download &mdash; yours to keep</span>
-    </a>
-
-    <!-- =========================================================
-      EDIT ME — paste your Feature.fm embed code here.
-      In Feature.fm: open your campaign → Share/Embed → copy the
-      iframe code → replace the src below with that URL.
-      The height (900) can be adjusted to match what Feature.fm
-      recommends for your specific campaign layout.
-    ========================================================== -->
-    <div class="embed-frame">
-      <iframe
-        src="https://too.fm/whosrila-madeyou?autoplay=1"
-        width="100%" height="1300" frameborder="0" allowtransparency="true" scrolling="no"
-        title="Made You — pre-save and listen">
-      </iframe>
+    <!-- Countdown removed on release, 13 Aug 2026.
+         SPOTIFY AND DEEZER STILL TO ADD — neither had propagated on release
+         day (Odesli returned Apple, Tidal and Pandora only; Deezer returned
+         nothing). Add two more .lrow blocks when they appear. -->
+    <p class="listen-note">Listen or buy</p>
+    <div class="listen-list">
+      <a class="lrow lrow-buy" href="https://buy.stripe.com/cNi9AUfBYeWK7WA0mi6Zy08" target="_blank" rel="noopener">
+        <span class="ldot ldot-direct"></span>
+        <span class="ltext">
+          <span class="lname">Buy direct from WHOSRILA</span>
+          <span class="lsub">320kbps MP3 &mdash; $2.99</span>
+        </span>
+        <span class="lgo">Buy</span>
+      </a>
+      <a class="lrow lrow-buy" href="https://music.apple.com/us/album/made-you/6780529398?i=6780529401&amp;app=itunes" target="_blank" rel="noopener">
+        <span class="ldot ldot-itunes"></span>
+        <span class="ltext">
+          <span class="lname">iTunes</span>
+          <span class="lsub">Own the song</span>
+        </span>
+        <span class="lgo">Buy</span>
+      </a>
+      <a class="lrow" href="https://geo.music.apple.com/us/album/_/6780529398?i=6780529401&amp;mt=1&amp;app=music&amp;ls=1" target="_blank" rel="noopener">
+        <span class="ldot ldot-apple"></span>
+        <span class="ltext">
+          <span class="lname">Apple Music</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://listen.tidal.com/track/533038036" target="_blank" rel="noopener">
+        <span class="ldot ldot-tidal"></span>
+        <span class="ltext">
+          <span class="lname">Tidal</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://www.pandora.com/TR:207443874" target="_blank" rel="noopener">
+        <span class="ldot ldot-pandora"></span>
+        <span class="ltext">
+          <span class="lname">Pandora</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
     </div>
-
-    <p class="fallback">
-      Trouble loading? <a href="https://too.fm/whosrila-madeyou" target="_blank" rel="noopener">Open directly</a>
-    </p>
 
     <div class="mv">
       <h2>Music video</h2>
