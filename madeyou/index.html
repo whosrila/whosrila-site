@@ -37,13 +37,17 @@
      (the hat and the gold script), #711009 and #3D100D (the red mesh), and
      #C5AE9B (skin in warm light). Those are all dark; what follows is that
      hue family opened up enough to sit on a light page. */
-  --ink:        #140D06;   /* warm near-black, not neutral */
-  --ink-2:      #241708;
-  --paper:      #F6F1E9;   /* faintly warm paper, matched to the cream */
-  --paper-dim:  #8A7965;
-  --red:        #A8180E;   /* the mesh red, hue 4deg, deepened for contrast */
-  --gold:       #B07A2C;   /* the script and the hat */
-  --line:       rgba(20,13,6,0.14);
+  /* The cover is a dark record — the page now sits in the same place rather
+     than inverting it. site.css paints body with --paper and types in --ink,
+     so those two swap roles here: --paper carries the near-black ground and
+     --ink carries the gold the script is set in. */
+  --ink:        #E8C079;   /* the gold, opened up to read as body type */
+  --ink-2:      #C79A4C;
+  --paper:      #120C05;   /* the cover's warm black, not neutral */
+  --paper-dim:  #9A8258;
+  --red:        #C4231A;   /* the mesh red, lifted to hold on a dark ground */
+  --gold:       #E8C079;
+  --line:       rgba(232,192,121,0.20);
 
   --f-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --f-body:    'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -56,14 +60,14 @@
 
 .song-media{ width:100%; margin:0 0 18px; }
 .song-media--art{
-  border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--ink-2);
+  border:1px solid var(--line); border-radius:6px; overflow:hidden; background:#0B0703;
 }
 .song-media--art img{ display:block; width:100%; height:auto; }
 
 .preview-player{
   display:flex; align-items:center; gap:16px;
   padding:16px 20px; margin-bottom:16px;
-  border:1px solid var(--line); border-radius:6px; background:var(--paper);
+  border:1px solid var(--line); border-radius:6px; background:rgba(232,192,121,0.055);
 }
 .preview-btn{
   width:44px; height:44px; border-radius:50%; flex-shrink:0;
@@ -93,6 +97,19 @@
 .fallback a{ border-bottom:1px solid var(--red); color:var(--paper); padding-bottom:1px; }
 .fallback a:hover{ color:var(--red); }
 
+/* site.css sets h1,h2,h3{filter:brightness(0)} so headings read black on the
+   light song pages. This page is dark, so that turns the title invisible.
+   `html` in front because that rule and this one are equal specificity. */
+html h1, html h2, html h3, html .title, html .h2{ filter:none; }
+h1.title{ color:var(--gold); }
+.stamp{ color:var(--red); }
+.hook{ color:var(--paper-dim); }
+header.site{ background:rgba(18,12,5,.92); border-bottom:1px solid var(--line); }
+header.site .wordmark img{ filter:invert(1) sepia(1) saturate(3) hue-rotate(5deg); }
+header.site nav.links a{ color:var(--gold); }
+.burger{ color:var(--gold); }
+footer.mini{ background:#0B0703; color:var(--paper-dim); }
+
 /* Listen list — identical to every other released song page. Real anchors on
    our own domain, so track.js sees each click with the platform attached,
    which the Feature.fm iframe never allowed. */
@@ -104,10 +121,10 @@
 .lrow{
   display:flex; align-items:center; gap:13px; width:100%;
   padding:14px 18px; border:1px solid var(--line); border-radius:4px;
-  background:var(--paper); color:var(--ink);
-  transition:border-color .16s, transform .14s;
+  background:rgba(232,192,121,0.055); color:var(--ink);
+  transition:border-color .16s, transform .14s, background .16s;
 }
-.lrow:hover{ border-color:var(--ink); transform:translateY(-1px); }
+.lrow:hover{ border-color:var(--gold); background:rgba(232,192,121,0.10); transform:translateY(-1px); }
 .ldot{ width:9px; height:9px; border-radius:50%; flex:0 0 9px; }
 .ltext{ display:flex; flex-direction:column; gap:1px; flex:1 1 auto; min-width:0; }
 .lname{ font-weight:600; font-size:15px; line-height:1.25; }
@@ -117,12 +134,12 @@
 }
 .lgo{
   font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
-  color:var(--paper-dim); border:1px solid var(--line); border-radius:2px;
+  color:var(--paper-dim); border:1px solid var(--line); border-radius:2px; background:transparent;
   padding:6px 13px; flex:0 0 auto; transition:background .16s, color .16s, border-color .16s;
 }
-.lrow:hover .lgo{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
-.lrow-buy{ border-color:var(--ink); }
-.lrow-buy .lgo{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+.lrow:hover .lgo{ background:var(--gold); color:#120C05; border-color:var(--gold); }
+.lrow-buy{ border-color:var(--gold); }
+.lrow-buy .lgo{ background:var(--gold); color:#120C05; border-color:var(--gold); }
 .lrow-buy:hover .lgo{ background:var(--gold); border-color:var(--gold); }
 .ldot-spotify{background:#1DB954}.ldot-apple{background:#FA243C}.ldot-itunes{background:#A855F7}
 .ldot-deezer{background:#A238FF}.ldot-tidal{background:#00D8D8}.ldot-soundcloud{background:#FF5500}
@@ -140,10 +157,10 @@
 .more-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
 @media (max-width:560px){ .more-grid{ gap:8px; } }
 .more-card{ display:block; border:1px solid var(--line); border-radius:5px; overflow:hidden;
-  background:var(--paper); transition:transform .2s cubic-bezier(.22,.61,.36,1), border-color .2s; }
-.more-card:hover{ transform:translateY(-3px); border-color:var(--ink); }
+  background:rgba(232,192,121,0.055); transition:transform .2s cubic-bezier(.22,.61,.36,1), border-color .2s; }
+.more-card:hover{ transform:translateY(-3px); border-color:var(--gold); }
 .more-card img{ display:block; width:100%; aspect-ratio:1/1; object-fit:cover; }
-.more-card span{ display:block; padding:8px 9px 10px; font-size:12px; line-height:1.25; font-weight:600; color:var(--ink); }
+.more-card span{ display:block; padding:8px 9px 10px; font-size:12px; line-height:1.25; font-weight:600; color:var(--gold); }
 @media (prefers-reduced-motion: reduce){ .more-card{ transition:none; } .more-card:hover{ transform:none; } }
 
 /* Music video — 16:9. Click to load, so YouTube sets nothing until asked. */
@@ -153,12 +170,12 @@
   color:var(--paper-dim); margin:0 0 14px; font-weight:400; text-align:center;
 }
 .mv-embed{
-  position:relative; width:100%; aspect-ratio:16/9; display:block; padding:0;
+  position:relative; width:100%; aspect-ratio:4/3; display:block; padding:0;
   border:1px solid var(--line); border-radius:6px; overflow:hidden;
-  background:var(--ink-2); cursor:pointer;
+  background:#0B0703; cursor:pointer;
 }
 .mv-embed img,.mv-embed iframe{
-  position:absolute; inset:0; width:100%; height:100%; border:0; object-fit:cover;
+  position:absolute; inset:0; width:100%; height:100%; border:0; object-fit:contain;
 }
 .mv-embed .sp{
   position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
@@ -207,7 +224,7 @@
 }
 .lyrics-body::after{
   content:""; position:absolute; left:0; right:0; bottom:0; height:90px;
-  background:linear-gradient(transparent, var(--paper)); pointer-events:none;
+  background:linear-gradient(transparent, #120C05); pointer-events:none;
   transition:opacity .3s;
 }
 .lyrics.open .lyrics-body::after{ opacity:0; }
@@ -314,7 +331,7 @@
         <span class="ldot ldot-direct"></span>
         <span class="ltext">
           <span class="lname">Buy direct from WHOSRILA</span>
-          <span class="lsub">320kbps MP3 &mdash; $2.99</span>
+          <span class="lsub">$2.99 &mdash; almost all of it reaches me</span>
         </span>
         <span class="lgo">Buy</span>
       </a>
