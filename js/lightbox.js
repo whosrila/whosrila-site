@@ -40,16 +40,28 @@
 
   var lb, panel, lastTrigger, scrollLock = 0;
 
-  function sizeFor(vertical){
+  /* ratio is width/height. The panel matches the video's own shape so the
+     frame is filled edge to edge — a 4:3 video in a 16:9 panel sits between
+     black bars. Cards declare it with data-ratio="4:3"; anything without one
+     is 16:9, and vertical cards stay 9:16. */
+  function parseRatio(str){
+    if(!str) return 0;
+    var m = String(str).split(':');
+    if(m.length !== 2) return 0;
+    var w = parseFloat(m[0]), h = parseFloat(m[1]);
+    return (w > 0 && h > 0) ? w / h : 0;
+  }
+
+  function sizeFor(ratio){
     var vw = window.innerWidth, vh = window.innerHeight;
     var padW = vw < 700 ? 24 : 96, padH = vw < 700 ? 120 : 130;
     var maxW = vw - padW, maxH = vh - padH, w, h;
-    if(vertical){                       // 9:16
-      h = Math.min(maxH, 860); w = h * 9/16;
-      if(w > maxW){ w = maxW; h = w * 16/9; }
-    } else {                            // 16:9
-      w = Math.min(maxW, 1180); h = w * 9/16;
-      if(h > maxH){ h = maxH; w = h * 16/9; }
+    if(ratio < 1){                      // portrait, e.g. 9:16
+      h = Math.min(maxH, 860); w = h * ratio;
+      if(w > maxW){ w = maxW; h = w / ratio; }
+    } else {
+      w = Math.min(maxW, 1180); h = w / ratio;
+      if(h > maxH){ h = maxH; w = h * ratio; }
     }
     return { w: Math.round(w), h: Math.round(h) };
   }
@@ -67,7 +79,7 @@
 
   function onKey(e){ if(e.key === 'Escape') close(); }
 
-  function open(id, vertical, label, fromRect){
+  function open(id, ratio, label, fromRect){
     lastTrigger = document.activeElement;
 
     var node = document.createElement('div');
@@ -77,7 +89,7 @@
     lb.setAttribute('aria-modal','true');
     lb.setAttribute('aria-label', label || 'Video');
 
-    var size = sizeFor(vertical);
+    var size = sizeFor(ratio);
     panel = document.createElement('div');
     panel.className = 'lb-panel';
     panel.style.width = size.w + 'px';
@@ -143,8 +155,9 @@
       var id = card.dataset.yt;
       if(!id) return;
       var vertical = !!card.closest('.video-grid--vertical') || card.classList.contains('vid-card--v');
+      var ratio = vertical ? 9/16 : (parseRatio(card.dataset.ratio) || 16/9);
       var titleEl = card.querySelector('.vid-title');
-      open(id, vertical, titleEl ? titleEl.textContent.trim() : '', btn.getBoundingClientRect());
+      open(id, ratio, titleEl ? titleEl.textContent.trim() : '', btn.getBoundingClientRect());
     });
   });
 })();
