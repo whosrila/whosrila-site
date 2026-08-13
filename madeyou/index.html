@@ -124,6 +124,21 @@
 .ldot-direct{background:#D7263D}
 @media (prefers-reduced-motion: reduce){ .lrow{ transition:none; } .lrow:hover{ transform:none; } }
 
+/* Related songs — same block every other song page carries */
+.song-extra{ margin-top:44px; text-align:center; }
+.song-extra h2{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--paper-dim); margin:0 0 14px; font-weight:400;
+}
+.more-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+@media (max-width:560px){ .more-grid{ gap:8px; } }
+.more-card{ display:block; border:1px solid var(--line); border-radius:5px; overflow:hidden;
+  background:var(--paper); transition:transform .2s cubic-bezier(.22,.61,.36,1), border-color .2s; }
+.more-card:hover{ transform:translateY(-3px); border-color:var(--ink); }
+.more-card img{ display:block; width:100%; aspect-ratio:1/1; object-fit:cover; }
+.more-card span{ display:block; padding:8px 9px 10px; font-size:12px; line-height:1.25; font-weight:600; color:var(--ink); }
+@media (prefers-reduced-motion: reduce){ .more-card{ transition:none; } .more-card:hover{ transform:none; } }
+
 /* Music video — 16:9. Click to load, so YouTube sets nothing until asked. */
 .mv{ margin:34px 0 0; }
 .mv h2{
@@ -279,6 +294,15 @@
          SPOTIFY AND DEEZER STILL TO ADD — neither had propagated on release
          day (Odesli returned Apple, Tidal and Pandora only; Deezer returned
          nothing). Add two more .lrow blocks when they appear. -->
+    <div class="mv">
+      <h2>Music video</h2>
+      <button class="mv-embed" data-yt="8wExZPatf78" aria-label="Play the Made You music video">
+        <img src="https://i.ytimg.com/vi/8wExZPatf78/maxresdefault.jpg"
+             alt="Made You — music video" loading="lazy" width="1280" height="720">
+        <span class="sp"><svg width="20" height="20" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg></span>
+      </button>
+    </div>
+
     <p class="listen-note">Listen or buy</p>
     <div class="listen-list">
       <a class="lrow lrow-buy" href="https://buy.stripe.com/cNi9AUfBYeWK7WA0mi6Zy08" target="_blank" rel="noopener">
@@ -320,14 +344,6 @@
       </a>
     </div>
 
-    <div class="mv">
-      <h2>Music video</h2>
-      <button class="mv-embed" data-yt="8wExZPatf78" aria-label="Play the Made You music video">
-        <img src="https://i.ytimg.com/vi/8wExZPatf78/maxresdefault.jpg"
-             alt="Made You — music video" loading="lazy" width="1280" height="720">
-        <span class="sp"><svg width="20" height="20" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg></span>
-      </button>
-    </div>
 
     <div class="lyrics">
       <h2>Lyrics</h2>
@@ -369,6 +385,15 @@ Saw you in my dreams
 Are you the one Jah send, for me</p>
       </div>
       <button class="lyrics-more" type="button">Read full lyrics</button>
+    </div>
+
+    <div class="song-extra">
+      <h2>More like this</h2>
+      <div class="more-grid">
+        <a class="more-card" href="/topform"><img src="/images/cover-topform.jpg" alt="" loading="lazy"><span>Top Form</span></a>
+        <a class="more-card" href="/gratitude"><img src="/images/cover-gratitude.jpg" alt="" loading="lazy"><span>Gratitude</span></a>
+        <a class="more-card" href="/protection"><img src="/images/cover-protection.jpg" alt="" loading="lazy"><span>Protection</span></a>
+      </div>
     </div>
   </div>
 </main>
