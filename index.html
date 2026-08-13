@@ -892,8 +892,11 @@
   /* the big title already says it; kept for the pop-out caption */
   .featured-video .vid-title{ position:absolute; width:1px; height:1px; padding:0;
     margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  /* Stays side by side on phones. Stacking pushed the hero to ~830px and put
+     Listen and Own it below the fold; keeping the row holds the whole
+     release — art, video and both buttons — on one screen. */
   @media (max-width:760px){
-    .featured-media{ grid-template-columns:1fr; gap:16px; max-width:340px; }
+    .featured-media{ gap:12px; max-width:100%; }
   }
   .featured-copy{ display:flex; flex-direction:column; align-items:center; }
   .featured-copy .featured-title{ font-family:var(--f-display); color:var(--paper); font-weight:800; font-size:clamp(36px,5.4vw,64px); line-height:1.02; margin:14px 0 6px; }
