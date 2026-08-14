@@ -150,6 +150,38 @@ footer.mini{ background:#0B0703; color:var(--paper-dim); }
 .lrow-buy:hover{ box-shadow:0 0 26px rgba(196,35,26,0.40), 0 0 5px rgba(232,192,121,0.45); }
 .lrow-buy .lgo{ background:var(--gold); color:#120C05; border-color:var(--gold); }
 .lrow-buy:hover .lgo{ background:var(--gold); border-color:var(--gold); }
+/* The buy rows carry the same caps as the buy buttons everywhere else on the
+   site; the streaming rows below keep this page's sentence case. */
+.lrow-buy .lname{ text-transform:uppercase; letter-spacing:.04em; }
+
+/* The one control this page most wants pressed, so it steps outside the gold
+   palette entirely: white, with a standing glow rather than one that only
+   appears on hover — on a warm-black page a gold-on-gold button was just
+   another row. */
+.lrow-primary{
+  background:#F4F4F2; border-color:#F4F4F2;
+  box-shadow:0 0 26px rgba(244,244,242,0.26);
+  cursor:pointer; text-align:left; font-family:inherit;
+}
+.lrow-primary .lname{ color:#120C05; }
+.lrow-primary .lsub{ color:rgba(18,12,5,0.66); }
+.lrow-primary .lgo{ background:#120C05; color:#F4F4F2; border-color:#120C05;
+  display:inline-flex; align-items:center; gap:6px; }
+.lrow-primary:hover,
+.lrow-primary[aria-expanded="true"]{
+  background:#FFFFFF; border-color:#FFFFFF;
+  box-shadow:0 0 38px rgba(244,244,242,0.46), 0 0 8px rgba(232,192,121,0.5);
+}
+.lrow-primary:hover .lgo,
+.lrow-primary[aria-expanded="true"] .lgo{ background:#120C05; border-color:#120C05; color:#F4F4F2; }
+.lchev{ transition:transform .3s cubic-bezier(.4,0,.2,1); }
+.lrow-primary[aria-expanded="true"] .lchev{ transform:rotate(180deg); }
+
+/* Measured max-height, same as the shop and the homepage cards. */
+.lbuy-drop{ overflow:hidden; max-height:0;
+  transition:max-height .34s cubic-bezier(.4,0,.2,1); }
+.lbuy-drop .lrow{ margin-top:8px; }
+
 .ldot-spotify{background:#1DB954}.ldot-apple{background:#FA243C}.ldot-itunes{background:#A855F7}
 .ldot-deezer{background:#A238FF}.ldot-tidal{background:#00D8D8}.ldot-soundcloud{background:#FF5500}
 .ldot-audiomack{background:#FFA200}.ldot-pandora{background:#3668FF}
@@ -363,31 +395,44 @@ footer.mini{ background:#0B0703; color:var(--paper-dim); }
 
     <p class="listen-note">Listen or buy</p>
     <div class="listen-list">
-      <a class="lrow lrow-buy" href="https://buy.stripe.com/cNi9AUfBYeWK7WA0mi6Zy08" target="_blank" rel="noopener">
+      <!-- Both ways to buy direct sit behind this one control. The two rows
+           below are the same Stripe product: one at the fixed price, one
+           priced "customer chooses" with a $2.99 minimum, so it can only ever
+           be the more generous option. The download Worker matches on product
+           name, not price, so both release the same file. -->
+      <button class="lrow lrow-buy lrow-primary" type="button" id="buyToggle" aria-expanded="false" aria-controls="buyDrop">
         <span class="ldot ldot-direct"></span>
         <span class="ltext">
-          <span class="lname">Buy direct from WHOSRILA</span>
-          <span class="lsub">$2.99 &mdash; almost all of it reaches me</span>
+          <span class="lname">Buy direct</span>
+          <span class="lsub">$2.99, or pay what you want</span>
         </span>
-        <span class="lgo">Buy</span>
-      </a>
-      <!-- Same product in Stripe, priced "customer chooses" with a $2.99
-           minimum, so this can only ever be the more generous option. The
-           download Worker matches on product name, so it releases the same
-           file as the row above. -->
-      <a class="lrow lrow-buy" href="https://buy.stripe.com/cNi28s89w15U4Ko3yu6Zy09" target="_blank" rel="noopener">
-        <span class="ldot ldot-direct"></span>
-        <span class="ltext">
-          <span class="lname">Pay what you think it&rsquo;s worth</span>
-          <span class="lsub">Same file &mdash; $2.99 minimum</span>
+        <span class="lgo">Buy
+          <svg class="lchev" width="9" height="6" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </span>
-        <span class="lgo">Choose</span>
-      </a>
+      </button>
+      <div class="lbuy-drop" id="buyDrop">
+        <a class="lrow lrow-buy" href="https://buy.stripe.com/cNi9AUfBYeWK7WA0mi6Zy08" target="_blank" rel="noopener">
+          <span class="ldot ldot-direct"></span>
+          <span class="ltext">
+            <span class="lname">$2.99</span>
+            <span class="lsub">Instant download &mdash; almost all of it reaches me</span>
+          </span>
+          <span class="lgo">Buy</span>
+        </a>
+        <a class="lrow lrow-buy" href="https://buy.stripe.com/cNi28s89w15U4Ko3yu6Zy09" target="_blank" rel="noopener">
+          <span class="ldot ldot-direct"></span>
+          <span class="ltext">
+            <span class="lname">Pay what you want</span>
+            <span class="lsub">Same file &mdash; $2.99 minimum</span>
+          </span>
+          <span class="lgo">Choose</span>
+        </a>
+      </div>
       <a class="lrow lrow-buy" href="https://music.apple.com/us/album/made-you/6780529398?i=6780529401&amp;app=itunes" target="_blank" rel="noopener">
         <span class="ldot ldot-itunes"></span>
         <span class="ltext">
-          <span class="lname">iTunes</span>
-          <span class="lsub">Own the song</span>
+          <span class="lname">Purchase on iTunes</span>
+          <span class="lsub">Yours to keep</span>
         </span>
         <span class="lgo">Buy</span>
       </a>
@@ -727,6 +772,33 @@ Are you the one Jah send, for me</p>
   window.addEventListener('scroll', check, { passive:true });
   b.addEventListener('click', function(){
     window.scrollTo({ top:0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+})();
+</script>
+
+<script>
+/* The two ways to buy direct, behind one control. Measured max-height rather
+   than a height transition, so the drawer animates to whatever the rows
+   actually need — and is re-measured on resize, where the longer subtitle
+   rewraps and changes that height. */
+(function(){
+  var btn  = document.getElementById('buyToggle');
+  var drop = document.getElementById('buyDrop');
+  if(!btn || !drop) return;
+
+  function setOpen(open){
+    drop.style.maxHeight = open ? drop.scrollHeight + 'px' : '0px';
+    btn.setAttribute('aria-expanded', String(open));
+  }
+
+  btn.addEventListener('click', function(){
+    setOpen(btn.getAttribute('aria-expanded') !== 'true');
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') setOpen(false);
+  });
+  window.addEventListener('resize', function(){
+    if(btn.getAttribute('aria-expanded') === 'true') drop.style.maxHeight = drop.scrollHeight + 'px';
   });
 })();
 </script>

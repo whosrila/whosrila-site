@@ -415,9 +415,9 @@ var WR_SECTIONS = [
           /* Side by side here rather than stacked — the panel is a wide flex
              column, so two full-width buttons would look like a form. */
           : '<div style="align-self:flex-start;display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;">' +
-              '<a class="card-btn" style="margin-top:0;padding:15px 30px;" href="' +
+              '<a class="card-btn" style="margin-top:0;padding:15px 30px;min-width:220px;" href="' +
                 esc(featured.link) + '" target="_blank" rel="noopener">Buy the collection</a>' +
-              pwywButton(featured, 'margin-top:0;padding:15px 30px;') +
+              pwywButton(featured, 'margin-top:0;padding:15px 30px;min-width:220px;') +
             '</div>') +
       '</div>';
     root.appendChild(f);
