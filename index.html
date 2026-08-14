@@ -628,6 +628,54 @@
      next to the preview control */
   .tc-buy-row{ padding:0 12px 10px; }
   .tc-buy-row .btn-buy{ width:100%; justify-content:center; margin-left:0; padding:8px 10px; }
+
+  /* Buy buttons on a track card. Same pair as the shop, sized down for these
+     cards: nothing hidden behind a control, both prices visible at a glance.
+     flex:1 1 0 with min-width:0 so the longer label can't claim more width
+     than the other and leave the two mismatched. */
+  .tc-actions{ display:flex; gap:8px; align-items:stretch; }
+  .tc-btn, .tc-btn2{
+    flex:1 1 0; min-width:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; border-radius:4px; padding:10px 8px;
+    font-family:var(--f-body); font-size:12.5px; font-weight:700; line-height:1.2;
+    letter-spacing:0; text-transform:none;
+    transition:background .2s, border-color .2s, color .2s, transform .15s;
+  }
+  .tc-btn{ background:var(--red); color:var(--paper); border:1px solid var(--red); }
+  .tc-btn:hover{ background:#E8394F; border-color:#E8394F; transform:translateY(-2px); }
+  .tc-btn:active{ background:#A81729; border-color:#A81729; transform:translateY(0); }
+  .tc-btn2{ background:transparent; color:var(--paper); border:1px solid rgba(244,244,242,0.28); }
+  .tc-btn2:hover{ background:var(--red); border-color:var(--red); transform:translateY(-2px); }
+  .tc-btn2:active{ background:#A81729; border-color:#A81729; transform:translateY(0); }
+  .tc-btn small, .tc-btn2 small{
+    display:block; margin-top:2px; font-family:var(--f-mono); font-size:9px;
+    font-weight:400; letter-spacing:.05em; transition:color .2s;
+  }
+  .tc-btn small{ color:rgba(244,244,242,0.82); }
+  .tc-btn2 small{ color:var(--paper-dim); }
+  .tc-btn2:hover small, .tc-btn2:active small{ color:rgba(244,244,242,0.82); }
+
+  /* iTunes demoted to a line under the buttons. It stays on show even with
+     nothing to link to — a row that simply vanishes reads as a fault. */
+  .tc-itunes{
+    display:block; margin-top:7px; text-align:center;
+    font-family:var(--f-mono); font-size:9.5px; letter-spacing:.06em;
+    color:var(--paper-dim); transition:color .2s;
+  }
+  .tc-itunes:hover{ color:var(--paper); }
+  .tc-itunes[aria-disabled="true"]{ opacity:.5; pointer-events:none; }
+
+  /* The hero's panel stops being a collapsing thing and just carries its
+     iTunes line; its buttons move up into .featured-cta beside Listen. */
+  .buy-panel.tc-plain{
+    display:block; max-width:none; margin-top:12px;
+    border:none; background:none; text-align:center;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .tc-btn, .tc-btn2{ transition:none; }
+    .tc-btn:hover, .tc-btn2:hover{ transform:none; }
+  }
   .track-actions .play-btn{ width:30px; height:30px; flex:0 0 30px; }
   .preview-label{ font-family:var(--f-mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; }
 
@@ -706,25 +754,48 @@
     animation:none; background:#E8394F; border-color:#E8394F;
     transform:scale(1.06); box-shadow:0 0 30px rgba(215,38,61,0.6);
   }
-  /* Holds the button and its quieter alternative in one flex item, so the
-     CTA stays a two-column row rather than becoming a three-item scramble. */
+  /* Pressed sits darker than resting and drops the scale, so a click reads as
+     the button going down rather than just staying lit. */
+  .bundle-btn:active{
+    animation:none; background:#A81729; border-color:#A81729;
+    transform:scale(1); box-shadow:none;
+  }
+  /* Holds both buy buttons in one flex item, so the CTA stays a two-column
+     row rather than becoming a three-item scramble. */
   .bundle-actions{
-    flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:10px;
+    flex:0 0 auto; display:flex; flex-wrap:wrap; gap:10px; align-items:stretch;
   }
-  /* No white-space:nowrap — the button above it already sets the column's
-     width, and on a narrow phone this line would rather wrap than push out
-     past the panel edge. */
-  .bundle-alt{
-    font-family:var(--f-mono); font-size:10.5px; letter-spacing:.06em;
-    color:var(--paper-dim); text-align:center; transition:color .2s;
+  /* The second way to pay, matching the shop: outlined at rest, filling solid
+     red on hover so it reads as live rather than merely tinted. */
+  .bundle-btn2{
+    flex:0 0 auto; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center;
+    font-family:var(--f-body); font-size:14.5px; font-weight:700;
+    letter-spacing:0; text-transform:none;
+    padding:16px 30px; border-radius:4px;
+    background:transparent; color:var(--paper);
+    border:1px solid rgba(244,244,242,0.28);
+    transition:background .2s, border-color .2s, transform .15s;
   }
-  .bundle-alt:hover{ color:var(--paper); }
-  .bundle-alt u{ text-decoration:none; border-bottom:1px solid rgba(244,244,242,.3); }
-  .bundle-alt:hover u{ border-bottom-color:var(--red); }
+  .bundle-btn2:hover{
+    background:var(--red); border-color:var(--red); transform:scale(1.04);
+  }
+  .bundle-btn2:active{
+    background:#A81729; border-color:#A81729; transform:scale(1);
+  }
+  .bundle-btn2 small{
+    display:block; margin-top:2px; font-family:var(--f-mono); font-size:9.5px;
+    font-weight:400; letter-spacing:.05em; color:var(--paper-dim);
+    transition:color .2s;
+  }
+  .bundle-btn2:hover small, .bundle-btn2:active small{ color:rgba(244,244,242,0.82); }
   @media (max-width:620px){
     .bundle-cta{ padding:22px; }
     .bundle-btn{ width:100%; text-align:center; }
     .bundle-actions{ width:100%; }
+    /* Side by side would leave two cramped columns on a phone, so let them
+       take the full width and stack. */
+    .bundle-actions > *{ flex:1 1 100%; }
   }
   @media (prefers-reduced-motion: reduce){
     /* keep the emphasis, drop the movement */
@@ -2465,19 +2536,19 @@
     // No click handler here on purpose: track.js already catches every
     // outbound buy.stripe.com link, so adding one would count twice.
 
-    // The pay-more option is built here rather than sitting in the markup so
-    // that clearing WR_BUNDLE_PWYW_LINK removes it completely — no orphaned
-    // element to hide, and the CTA falls back to exactly its old shape.
+    // The pay-what-you-want button is built here rather than sitting in the
+    // markup so that clearing WR_BUNDLE_PWYW_LINK removes it completely — no
+    // orphaned element to hide, and the CTA falls back to exactly its old shape.
     if(!WR_BUNDLE_PWYW_LINK) return;
     var actions = document.createElement('div');
     actions.className = 'bundle-actions';
     btn.parentNode.insertBefore(actions, btn);
     actions.appendChild(btn);
     var alt = document.createElement('a');
-    alt.className = 'bundle-alt';
+    alt.className = 'bundle-btn2';
     alt.href = WR_BUNDLE_PWYW_LINK;
     alt.target = '_blank'; alt.rel = 'noopener';
-    alt.innerHTML = 'or <u>pay what you think it&rsquo;s worth</u>';
+    alt.innerHTML = 'Pay what you want<small>$14.99 minimum</small>';
     actions.appendChild(alt);
   })();
 
@@ -2485,83 +2556,84 @@
     var cards = [].slice.call(document.querySelectorAll('.track-item[data-release], .featured-panel[data-release]'));
     if(!cards.length) return;
 
-    function activate(el, href, title, sub){
-      if(!el || !href) return;
+    /* Every single is the same price, and the fixed link's price is also the
+       pay-what-you-want minimum, so one constant covers both labels. */
+    var TRACK_PRICE = '$2.99';
+
+    function buyBtn(cls, href, label, sub, style){
       var a = document.createElement('a');
-      a.className = el.className;
+      a.className = cls;
       a.href = href; a.target = '_blank'; a.rel = 'noopener';
-      a.innerHTML = '<span class="buy-opt-t">' + title + '</span>' +
-                    '<span class="buy-opt-s">' + sub + '</span>';
-      el.parentNode.replaceChild(a, el);
+      a.innerHTML = label + '<small>' + sub + '</small>';
+      if(style) a.setAttribute('style', style);
+      return a;
+    }
+
+    /* iTunes stays on show even with nothing to link to: "not open yet" and
+       "we forgot to add it" look identical if the line just disappears. */
+    function itunesLine(cfg, presave){
+      var a = document.createElement('a');
+      a.className = 'tc-itunes';
+      if(cfg.itunes || cfg.preorder){
+        a.href = cfg.itunes || cfg.preorder;
+        a.target = '_blank'; a.rel = 'noopener';
+        a.textContent = cfg.itunes ? 'Own it on iTunes' : 'Pre-order on iTunes';
+      } else {
+        a.setAttribute('aria-disabled', 'true');
+        a.textContent = presave ? 'iTunes link not open yet' : 'iTunes link coming';
+      }
+      return a;
     }
 
     cards.forEach(function(card){
-      var cfg  = WR_RELEASE_LINKS[card.getAttribute('data-release')] || {};
-      var slot = card.querySelector('.buy-preorder');
-      if(cfg.itunes){
-        activate(slot, cfg.itunes, 'Own it on iTunes', 'Download &mdash; yours to keep');
-      } else if(cfg.preorder){
-        activate(slot, cfg.preorder, 'Pre-order on iTunes', 'Yours the moment it drops');
-      } else if(slot){
-        // nothing configured — say which, rather than leaving a vague dash
-        slot.querySelector('.buy-opt-s').textContent =
-          card.querySelector('.tc-presave') ? 'Not open yet' : 'Link coming';
-      }
-      var direct = card.querySelector('.buy-direct');
-      if(cfg.direct){
-        activate(direct, cfg.direct,
-                 'Buy direct from WHOSRILA', '320kbps MP3 &mdash; $2.99');
-      } else if(direct){
-        // Released but unsellable reads differently from simply unreleased,
-        // and "Coming soon" on a song that is already out looks like a fault.
-        direct.querySelector('.buy-opt-s').textContent =
-          cfg.itunes ? 'iTunes only for now' : 'Coming soon';
-      }
+      var cfg    = WR_RELEASE_LINKS[card.getAttribute('data-release')] || {};
+      var isHero = card.classList.contains('featured-panel');
 
-      /* The pay-more row is added rather than pre-declared, because unlike the
-         other two it has no "not available yet" state worth showing: a song
-         with no pwyw link should show two options, not a dead third. It only
-         ever follows a live `direct` row — offering to pay more than a price
-         that isn't on sale makes no sense. Note activate() swaps the span for
-         a fresh anchor, so re-query rather than reuse the stale reference. */
-      if(cfg.direct && cfg.pwyw){
-        var directEl = card.querySelector('.buy-direct');
-        if(directEl){
-          var alt = document.createElement('a');
-          alt.className = 'buy-opt buy-pwyw';
-          alt.href = cfg.pwyw; alt.target = '_blank'; alt.rel = 'noopener';
-          alt.innerHTML = '<span class="buy-opt-t">Pay what you think it&rsquo;s worth</span>' +
-                          '<span class="buy-opt-s">Same file &mdash; $2.99 minimum</span>';
-          directEl.parentNode.insertBefore(alt, directEl.nextSibling);
+      /* Both buttons or neither. A pay-what-you-want offer on a song that has
+         no fixed price to beat is meaningless, so it only ever accompanies a
+         live `direct` link. */
+      var buys = [];
+      if(cfg.direct){
+        /* In the hero these sit in a centred row beside Listen rather than
+           splitting a card, so they size to their content — with a floor, or
+           the two-character "Buy" ends up a stub next to its neighbours. */
+        var wide = isHero ? 'flex:0 0 auto;padding:12px 20px;min-width:104px;' : '';
+        buys.push(buyBtn('tc-btn', cfg.direct, 'Buy', TRACK_PRICE, wide));
+        if(cfg.pwyw){
+          buys.push(buyBtn('tc-btn2', cfg.pwyw, 'Pay what you want',
+                           TRACK_PRICE + ' minimum', wide));
         }
       }
 
-      // the hero's panel sits next to its button rather than inside it
-      var isPanel = card.classList.contains('buy-panel');
-      var btn = isPanel ? document.querySelector('.featured-buy') : card.querySelector('.btn-buy');
-      var pan = isPanel ? card : card.querySelector('.buy-panel');
-      if(!btn || !pan) return;
-      btn.addEventListener('click', function(e){
-        e.preventDefault(); e.stopPropagation();
-        var open = pan.classList.contains('open');
-        // one open at a time keeps the grid from jumping around
-        cards.forEach(function(c){
-          var p = c.classList.contains('buy-panel') ? c : c.querySelector('.buy-panel');
-          var b = c.classList.contains('buy-panel') ? document.querySelector('.featured-buy') : c.querySelector('.btn-buy');
-          if(p && p !== pan){ p.classList.remove('open'); if(b) b.setAttribute('aria-expanded','false'); }
-        });
-        pan.classList.toggle('open', !open);
-        btn.setAttribute('aria-expanded', String(!open));
-      });
-    });
+      if(isHero){
+        // The hero's buttons join Listen in the CTA row rather than sitting in
+        // a block of their own; the panel below keeps only the iTunes line.
+        var heroBtn = document.querySelector('.featured-buy');
+        if(heroBtn) heroBtn.parentNode.removeChild(heroBtn);
+        var cta = document.querySelector('.featured-cta');
+        if(cta) buys.forEach(function(b){ cta.appendChild(b); });
+        card.className = 'buy-panel featured-panel tc-plain';
+        card.innerHTML = '';
+        card.appendChild(itunesLine(cfg, false));
+        return;
+      }
 
-    document.addEventListener('keydown', function(e){
-      if(e.key !== 'Escape') return;
-      cards.forEach(function(c){
-        var p = c.classList.contains('buy-panel') ? c : c.querySelector('.buy-panel');
-        var b = c.classList.contains('buy-panel') ? document.querySelector('.featured-buy') : c.querySelector('.btn-buy');
-        if(p){ p.classList.remove('open'); if(b) b.setAttribute('aria-expanded','false'); }
-      });
+      // .tc-buy-row already sits above the preview strip, so reusing it as the
+      // container keeps the buttons where the Buy control used to be.
+      var row   = card.querySelector('.tc-buy-row');
+      var panel = card.querySelector('.buy-panel');
+      if(panel) panel.parentNode.removeChild(panel);
+      if(!row) return;
+
+      var presave = !!card.querySelector('.tc-presave');
+      row.innerHTML = '';
+      if(buys.length){
+        var wrap = document.createElement('div');
+        wrap.className = 'tc-actions';
+        buys.forEach(function(b){ wrap.appendChild(b); });
+        row.appendChild(wrap);
+      }
+      row.appendChild(itunesLine(cfg, presave));
     });
   })();
 
