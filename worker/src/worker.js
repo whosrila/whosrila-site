@@ -48,6 +48,10 @@ const CATALOG = {
   "WHOSRILA - Protection":             ["WHOSRILA - Protection.mp3"],
   "WHOSRILA - Gratitude":              ["WHOSRILA - Gratitude.mp3"],
   "WHOSRILA - Top Form":               ["WHOSRILA - Top Form.mp3"],
+  // Key copied from the bucket listing rather than typed: the apostrophe is a
+  // straight ' and the Stripe product name has to match this string exactly,
+  // because that is what the lookup on line ~107 keys off.
+  "WHOSRILA - Outta' Line":            ["WHOSRILA - Outta' Line.mp3"],
 };
 
 const json = (body, status = 200) =>
