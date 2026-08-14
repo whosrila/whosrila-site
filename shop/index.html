@@ -107,7 +107,9 @@
   .card-sub{ font-family:var(--f-mono); font-size:11px; letter-spacing:.05em;
     color:var(--paper-dim); margin-top:4px; }
   .card-btn{
-    margin-top:13px; display:block; text-align:center; font-size:13.5px; font-weight:700;
+    margin-top:13px; display:block; text-align:center; font-size:13px; font-weight:700;
+    /* Caps with a little tracking — set solid, uppercase closes up at this size */
+    text-transform:uppercase; letter-spacing:.04em;
     padding:12px 14px; border-radius:4px; background:var(--red); color:var(--paper);
     border:1px solid var(--red); transition:background .2s, transform .15s;
   }
@@ -126,7 +128,8 @@
      a choice, and the fixed price stays the obvious default. */
   .card-btn2{
     margin-top:8px; display:block; text-align:center;
-    font-size:13.5px; font-weight:700; padding:12px 14px; border-radius:4px;
+    font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.04em;
+    padding:12px 14px; border-radius:4px;
     background:transparent; color:var(--paper);
     border:1px solid rgba(244,244,242,0.28);
     transition:border-color .2s, background .2s, transform .15s;
@@ -160,7 +163,12 @@
   .card-actions > .card-btn2{
     flex:1 1 0; min-width:0; margin-top:0;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    font-size:12.5px; padding:11px 8px; line-height:1.2;
+    font-size:11.5px; padding:11px 6px; line-height:1.2;
+  }
+  /* Cards narrow sharply on phones; side by side would leave each button a
+     stub with its label broken over three lines. */
+  @media (max-width:720px){
+    .card-actions{ flex-direction:column; }
   }
   .card.is-soon .card-art img{ filter:grayscale(1) opacity(.55); }
 
@@ -447,7 +455,7 @@ var WR_SECTIONS = [
           : item.pwyw
             ? '<div class="card-actions">' +
                 '<a class="card-btn" href="' + esc(item.link) +
-                  '" target="_blank" rel="noopener">Buy<small>' + money(item.price) + '</small></a>' +
+                  '" target="_blank" rel="noopener">Buy direct<small>' + money(item.price) + '</small></a>' +
                 pwywButton(item, '') +
               '</div>'
             : '<a class="card-btn" href="' + esc(item.link) +
