@@ -47,15 +47,18 @@
 }
 .song-media--art img{ display:block; width:100%; height:auto; }
 
-.soon-frame{
-  border:1px solid var(--line); border-radius:6px; padding:28px 24px;
-  margin-bottom:16px; text-align:center;
+.embed-frame{
+  border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--paper);
+  margin-bottom:16px;
 }
-.soon-frame .soon-label{
-  font-family:var(--f-mono); font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
-  color:var(--paper-dim); margin:0 0 6px;
+.embed-frame iframe{ display:block; width:100%; border:0; }
+
+.fallback{
+  font-family:var(--f-mono); font-size:12px; letter-spacing:0.04em; color:var(--paper-dim);
+  text-align:center; margin-bottom:8px;
 }
-.soon-frame .soon-sub{ font-size:15px; color:var(--ink-2); margin:0; }
+.fallback a{ border-bottom:1px solid var(--red); color:var(--paper); padding-bottom:1px; }
+.fallback a:hover{ color:var(--red); }
 
 .preview-player{
   display:flex; align-items:center; gap:16px;
@@ -194,15 +197,17 @@
       <div class="cell"><div class="num" id="cd-mins">--</div><div class="lab">Min</div></div>
     </div>
 
-    <!-- =========================================================
-      EDIT ME — once the Feature.fm / too.fm pre-save link is live,
-      replace this .soon-frame block with an .embed-frame iframe
-      the same way /madeyou does it.
-    ========================================================== -->
-    <div class="soon-frame">
-      <p class="soon-label">Pre-Save Coming Soon</p>
-      <p class="soon-sub">The pre-save link isn&rsquo;t live yet &mdash; check back closer to release.</p>
+    <div class="embed-frame">
+      <iframe
+        src="https://too.fm/ko8aq1x?autoplay=1"
+        width="100%" height="1300" frameborder="0" allowtransparency="true" scrolling="no"
+        title="Angels On Sofa — pre-save and listen">
+      </iframe>
     </div>
+
+    <p class="fallback">
+      Trouble loading? <a href="https://too.fm/ko8aq1x" target="_blank" rel="noopener">Open directly</a>
+    </p>
   </div>
 </main>
 
