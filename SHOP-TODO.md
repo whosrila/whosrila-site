@@ -155,7 +155,7 @@ the rest of the swap.
 |---|---|
 | **Outta' Line** | No split agreed. Sales would be unallocated, so it is not for sale yet. |
 | **Wine and Bubble** | Jon Dela's record — WHOSRILA is a feature, not the owner. Never ours to sell. |
-| Angels On Sofa | Unreleased. Split known: three ways with Pascal Pressure and Justice Case. |
+| Angels On A Sofa | Unreleased. Split known: three ways with Pascal Pressure and Justice Case. |
 | Energy | Unreleased. Split known: 50 WHOSRILA / 25 Kum3ra / 25 third party. |
 
 ## Outstanding

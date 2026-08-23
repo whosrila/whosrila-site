@@ -97,7 +97,7 @@ Three places still say the song is coming:
 - Move the card out of `.upcoming-grid` and into the tracklist in date
   order, with its real duration
 - Its `.btn-primary` says **Pre-Save** — that becomes a normal link
-- Check `js/mailinglist.js` and the `#notify` copy: it names Angels On
+- Check `js/mailinglist.js` and the `#notify` copy: it names Angels On A
   Sofa and Bombs Away as the songs without pre-save links, so that
   sentence needs revisiting as each one lands
 
