@@ -1,7 +1,8 @@
 # Release day checklist
 
 What to change when an upcoming song actually comes out. Same steps every
-time. Next up: **Made You — 13 August 2026**.
+time. Next up: **Energy — 11 September 2026**, then **Angels On A
+Sofa — 17 September 2026**.
 
 Nothing here is urgent on the day itself — the page does not break at
 midnight. The countdown switches itself to "Out now" and the Feature.fm
@@ -111,6 +112,77 @@ Open the page and confirm: artwork and preview and links all measure the
 same width, iTunes is the first row and opens the store (not Apple
 Music), and the console is clean apart from the Cloudflare beacon, which
 always fails on localhost.
+
+---
+
+## Staged: Angels On A Sofa — 17 September 2026
+
+The music video is **already uploaded and currently unlisted**:
+`Ph_Zpl4MoZ4` — https://www.youtube.com/watch?v=Ph_Zpl4MoZ4 (4:28).
+
+Nothing below is on the site yet, and it must not go up early. Unlisted
+only keeps a video out of search — anyone holding the link can play it,
+and an embed hands the link to every visitor. Putting this on `/watch`
+before the 17th publishes the video without the pre-save attached.
+
+**Do these two in YouTube Studio first, on the day:**
+
+1. Set the video to **Public**
+2. Retitle it. It currently reads `WHOSRILA, Pascal Pressure, Justice
+   Case - Angels On Sofa` — missing the "A". The registered title is
+   **ANGELS ON A SOFA** (BMI work #81782531), which is what the site and
+   the too.fm slug now use
+
+Then paste the two blocks below.
+
+### `/watch` — card in the Music Videos grid
+
+That grid is ordered by view count and a new upload has none, so it does
+not have a natural slot. Put it first as the newest release and let the
+order settle later, or drop it at the end — either is defensible, but
+pick one and note it here.
+
+```html
+<div class="vid-card reveal" data-yt="Ph_Zpl4MoZ4">
+  <button class="vid-thumb" aria-label="Play: Angels On A Sofa">
+    <img src="https://i.ytimg.com/vi/Ph_Zpl4MoZ4/hqdefault.jpg" alt="" loading="lazy">
+    <span class="vid-play" aria-hidden="true">
+      <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
+    </span>
+    <span class="vid-dur">4:28</span>
+  </button>
+  <span class="vid-title">Angels On A Sofa</span>
+</div>
+```
+
+### `/watch` — matching JSON-LD entry
+
+Add as a `ListItem` and renumber the `position` values after it.
+
+```json
+{
+  "@type": "ListItem",
+  "position": 1,
+  "item": {
+    "@type": "VideoObject",
+    "name": "Angels On A Sofa",
+    "description": "Angels On A Sofa by WHOSRILA, with Pascal Pressure and Justice Case.",
+    "thumbnailUrl": "https://i.ytimg.com/vi/Ph_Zpl4MoZ4/hqdefault.jpg",
+    "uploadDate": "2026-09-17",
+    "duration": "PT4M28S",
+    "embedUrl": "https://www.youtube.com/embed/Ph_Zpl4MoZ4",
+    "url": "https://www.youtube.com/watch?v=Ph_Zpl4MoZ4"
+  }
+}
+```
+
+### Credits, for the description and any press copy
+
+Performed by WHOSRILA, Pascal Pressure & Justice Case. Written by Matthew
+Jordan Naftalie McDermott, Pascal Lindsay & Justice Addison Case. Produced
+by Matthew Jordan Naftalie McDermott & Pascal Lindsay. Mixed and mastered
+by Keron "Kalex" Alexander. Shot by Usheen Ewbanks. Artwork by Nichalos
+Anglin. Published by WHO FA SOUND PUBLISHING (BMI).
 
 ---
 
