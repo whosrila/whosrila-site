@@ -126,7 +126,16 @@ async function resolveOrder(sessionId, env) {
     };
   }
 
-  return { files, email: session.customer_details?.email ?? null };
+  // amount_total (in cents) and currency ride along so the download page can
+  // report real revenue to the ad platforms. Without them a Purchase event
+  // still fires, but valueless — and a campaign cannot tell a $2.99 floor
+  // sale from a $25 bundle, which is the whole point of pay-what-you-want.
+  return {
+    files,
+    email: session.customer_details?.email ?? null,
+    amount_total: session.amount_total ?? null,
+    currency: session.currency ? session.currency.toUpperCase() : null,
+  };
 }
 
 /** What did I buy? Called by the download page to render the list. */
@@ -136,6 +145,8 @@ async function handleOrder(url, env) {
 
   return json({
     email: order.email,
+    amount_total: order.amount_total,
+    currency: order.currency,
     files: order.files.map((key) => ({
       name: key,
       url:

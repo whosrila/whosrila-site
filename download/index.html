@@ -213,6 +213,27 @@
         files.appendChild(row);
       });
       note.hidden = false;
+
+      /* A confirmed, paid order — the one moment on the whole site where a
+         sale is known to have completed. Until now the ad platforms only
+         ever saw InitiateCheckout (a click into Stripe), which cannot tell
+         a campaign the difference between someone who paid and someone who
+         opened the page and left.
+
+         amount_total arrives in cents and is optional: the Worker only
+         returns it once redeployed, and wrPurchase fires with no value
+         until then. Deduping on session_id lives in track.js, because this
+         URL is refreshable. */
+      try {
+        if (window.wrPurchase) window.wrPurchase({
+          id: session,
+          value: typeof res.body.amount_total === 'number'
+            ? res.body.amount_total / 100
+            : undefined,
+          currency: res.body.currency || 'USD',
+          name: (list[0] && list[0].name) || ''
+        });
+      } catch (e) {}
     })
     .catch(function(){
       head.textContent = 'Hm.';
@@ -254,5 +275,10 @@
   window.addEventListener('resize', function(){ if(n.classList.contains('open')) n.style.maxHeight = measure() + 'px'; });
 })();
 </script>
+<!-- This page had no tracking at all, which meant the completed sale — the
+     single most valuable event on the site — was never recorded anywhere.
+     Same pair, same order, as every other page. -->
+<script defer src="/js/track.js?v=b0d8395a"></script>
+<script defer src="/js/consent.js?v=5c0fd4c1"></script>
 </body>
 </html>

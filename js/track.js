@@ -13,6 +13,7 @@
  *   PreSaveClick   — clicked through to a pre-save link
  *   VideoPlay      — opened a video
  *   PreviewPlay    — played an audio preview
+ *   Purchase       — a sale completed (fired from /download/, via wrPurchase)
  * PlatformClick and PreSaveClick also fire Meta's standard `Lead` event,
  * which is the one worth optimising ad delivery against. On Google the
  * same events land in GA4, where they can be marked as key events and
@@ -59,6 +60,61 @@
     if (window.__TRACK_DEBUG) console.log('[track]', event, data);
   }
   window.wrTrack = send;
+
+  /* A completed sale.
+   *
+   * Everything above this records intent — a click into Stripe. This is the
+   * first signal that says money actually changed hands, which is the event
+   * ad platforms optimise hardest against: it teaches a campaign to find
+   * buyers rather than browsers. Fired from /download/, the only page that
+   * knows the payment went through.
+   *
+   * Deduped on the Stripe session id. That page is an ordinary URL the buyer
+   * can refresh, bookmark or reopen, and a refresh must never count a second
+   * sale. If localStorage is unavailable the event still fires — a possible
+   * double-count is a smaller problem than silence.
+   */
+  function purchase(o) {
+    o = o || {};
+    var id = o.id || '';
+    if (id) {
+      try {
+        var seen = 'wr_purchase_' + id;
+        if (localStorage.getItem(seen)) return;
+        localStorage.setItem(seen, '1');
+      } catch (e) {}
+    }
+
+    var currency = (o.currency || 'USD').toUpperCase();
+    var value    = typeof o.value === 'number' ? o.value : undefined;
+    var name     = o.name || '';
+
+    // value is deliberately optional: the Worker only returns the amount
+    // once it has been redeployed. An event with no value is still worth
+    // far more than no event at all.
+    var payload = { content_name: name, content_type: 'product', currency: currency };
+    if (value !== undefined) payload.value = value;
+
+    try { if (window.fbq) window.fbq('track', 'Purchase', payload); } catch (e) {}
+    try { if (window.ttq) window.ttq.track('CompletePayment', payload); } catch (e) {}
+    try {
+      if (window.gtag) window.gtag('event', 'purchase', {
+        transaction_id: id,
+        value: value,
+        currency: currency,
+        items: name ? [{ item_name: name }] : undefined
+      });
+    } catch (e) {}
+    try {
+      var conv = googleConversion('Purchase');
+      if (window.gtag && conv) window.gtag('event', 'conversion', {
+        send_to: conv, value: value, currency: currency, transaction_id: id
+      });
+    } catch (e) {}
+
+    if (window.__TRACK_DEBUG) console.log('[track] Purchase', payload);
+  }
+  window.wrPurchase = purchase;
 
   // .title-line contains a badge span (E / UPCOMING); take only the text nodes
   function cleanTitle(el) {
