@@ -16,3 +16,8 @@
 #
 # Drag this whole site folder onto the dropzone at the bottom of your
 # site's Deploys page in Netlify. It picks up _redirects automatically.
+
+# Bio-link aliases for the two artist-facing pages. Both have real pages,
+# so these exist only so a shorter word can be typed into an IG bio.
+/playlist   /whofasound   302
+/work       /visuals      302

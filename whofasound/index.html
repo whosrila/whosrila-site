@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Reggae 2026 &bull; WHO FA SOUND &mdash; WHOSRILA</title>
+<meta name="description" content="New Reggae 2026 — WHO FA SOUND. A curated Spotify playlist of new reggae, curated by WHOSRILA. Follow, listen, and submit your track.">
+<!-- Open Graph / Twitter share tags -->
+<meta property="og:type" content="music.playlist">
+<meta property="og:site_name" content="WHOSRILA">
+<meta property="og:title" content="New Reggae 2026 &bull; WHO FA SOUND">
+<meta property="og:description" content="A curated Spotify playlist of new reggae. Curated by WHOSRILA.">
+<meta property="og:image" content="https://whosrila.com/images/portrait-1.jpg">
+<meta property="og:url" content="https://whosrila.com/whofasound">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="New Reggae 2026 &bull; WHO FA SOUND">
+<meta name="twitter:description" content="A curated Spotify playlist of new reggae. Curated by WHOSRILA.">
+<meta name="twitter:image" content="https://whosrila.com/images/portrait-1.jpg">
+<style>
+:root{
+  --ink:#0A0A0A;--paper:#F4F4F2;--red:#D7263D;
+  --cyan:       #35D6C4;
+  --paper-dim:#8C8C8C;--line:rgba(10,10,10,.12);
+  --f-sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --f-mono:'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-sans);font-size:16px;line-height:1.6;min-height:100vh;}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.site{position:sticky;top:0;z-index:100;background:var(--paper);border-bottom:1px solid var(--line)}
+.navrow{display:flex;align-items:center;justify-content:space-between;padding:16px 28px}
+.logo-nav{height:22px;width:auto;display:block;filter:invert(1)}
+.links{display:flex;gap:28px}
+.links a{font-family:var(--f-mono);font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink);transition:opacity .15s}
+.links a:hover{opacity:.6}
+.links a.active{border-bottom:1px solid var(--ink)}
+.burger{display:none;background:none;border:none;cursor:pointer;font-size:22px;color:var(--ink)}
+.mobilenav{display:none;flex-direction:column;padding:16px 28px;border-top:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.mobilenav a{font-family:var(--f-mono);font-size:13px;text-transform:uppercase;letter-spacing:.08em;padding:10px 0;border-bottom:1px solid var(--line);color:var(--ink)}
+.mobilenav.open{display:flex}
+@media(max-width:640px){.links{display:none}.burger{display:block}}
+
+/* ---------- Hero ---------- */
+.hero{padding:56px 28px 36px;max-width:680px;margin:0 auto}
+.stamp{font-family:var(--f-mono);font-size:10px;text-transform:uppercase;letter-spacing:.15em;border:1px solid var(--ink);display:inline-block;padding:3px 8px;margin-bottom:16px}
+.hero h1{font-family:var(--f-sans);font-size:clamp(28px,5vw,48px);line-height:1;text-transform:uppercase;letter-spacing:-.02em;font-weight:700}
+.hero .sub{font-family:var(--f-mono);font-size:clamp(13px,2.4vw,17px);text-transform:uppercase;letter-spacing:.14em;font-weight:600;margin-top:12px;color:var(--ink)}
+.hero .sub .dot{color:var(--red);padding:0 4px}
+.hero p.tag{font-size:13px;color:var(--paper-dim);margin-top:10px;font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.08em}
+.wrap{max-width:680px;margin:0 auto;padding:0 28px 80px}
+.sec-label{font-family:var(--f-mono);font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:var(--paper-dim);margin-bottom:10px;padding-top:8px;border-top:1px solid var(--line)}
+
+/* ---------- Spotify embed ---------- */
+.embed-wrap{margin-bottom:32px;border:1px solid var(--line);background:rgba(244,244,242,.5);padding:0;line-height:0}
+.embed-wrap iframe{display:block;width:100%;border:0}
+.embed-missing{padding:28px 24px;font-family:var(--f-mono);font-size:12px;line-height:1.7;letter-spacing:.04em;color:var(--paper-dim);text-transform:uppercase}
+
+/* ---------- Link rows (shared with /listen) ---------- */
+.platforms{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:32px}
+.platform-link{display:flex;align-items:center;gap:16px;padding:20px;border:1px solid var(--line);color:var(--ink);background:rgba(244,244,242,0.5);transition:background .2s,border-color .2s,color .2s}
+.platform-link:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.platform-link:hover .platform-sub{color:rgba(244,244,242,.55)}
+.platform-link:hover .arrow{opacity:1}
+.picon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
+.picon img{width:40px;height:40px;object-fit:contain}
+.platform-name{font-size:15px;font-weight:600}
+.platform-sub{font-size:11px;color:var(--paper-dim);font-family:var(--f-mono);letter-spacing:.06em;text-transform:uppercase;margin-top:2px;transition:color .2s}
+.arrow{font-size:16px;opacity:0.3;transition:opacity .2s;margin-left:auto;flex-shrink:0}
+.platform-link:hover .picon img{filter:brightness(0) invert(1)}
+
+/* ---------- Prose + submission ---------- */
+.prose{font-size:15px;line-height:1.75;margin-bottom:28px}
+.prose p{margin-bottom:14px}
+.prose p:last-child{margin-bottom:0}
+.rules{list-style:none;margin:0 0 28px;padding:0;border-top:1px solid var(--line)}
+.rules li{display:flex;gap:14px;align-items:flex-start;padding:14px 2px;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.6}
+.rules li .n{font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;color:var(--red);flex-shrink:0;padding-top:5px;min-width:20px}
+.cta{display:block;text-align:center;background:var(--ink);color:var(--paper);font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.14em;padding:20px 24px;border:1px solid var(--ink);transition:background .2s,color .2s}
+.cta:hover{background:var(--red);border-color:var(--red);color:var(--paper)}
+.note{font-family:var(--f-mono);font-size:11px;line-height:1.7;letter-spacing:.05em;color:var(--paper-dim);margin-top:14px;text-transform:uppercase}
+
+footer.mini{background:var(--ink);color:var(--paper);padding:18px 28px;font-family:var(--f-mono);font-size:11px}
+footer.mini .fw{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;max-width:1080px;margin:0 auto}
+footer.mini a{color:var(--paper);opacity:.7}
+footer.mini a:hover{opacity:1}
+
+/* ---------- Mobile menu, animated ---------- */
+.mobilenav{
+  display:flex !important; flex-direction:column; gap:0;
+  max-height:0; overflow:hidden; opacity:0;
+  border-top:0 solid var(--line);
+  transition:max-height .42s cubic-bezier(.4,0,.2,1), opacity .3s ease, border-top-width .3s ease;
+}
+.mobilenav.open{ opacity:1; border-top-width:1px; }
+.mobilenav a{ transform:translateY(-10px); opacity:0;
+  transition:transform .38s cubic-bezier(.22,.61,.36,1), opacity .34s ease; }
+.mobilenav.open a{ transform:none; opacity:1; }
+.mobilenav:not(.open) a{ transition-duration:.18s; transition-delay:0s; }
+.mobilenav.open a:nth-child(1){ transition-delay:.05s; }
+.mobilenav.open a:nth-child(2){ transition-delay:.11s; }
+.mobilenav.open a:nth-child(3){ transition-delay:.17s; }
+.mobilenav.open a:nth-child(4){ transition-delay:.23s; }
+.burger{ transition:transform .35s cubic-bezier(.22,.61,.36,1); }
+.burger[aria-expanded="true"]{ transform:rotate(90deg); }
+@media (prefers-reduced-motion: reduce){
+  .mobilenav a{ transform:none; }
+  .burger{ transition:none; }
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal{
+  opacity:0; transform:translateY(34px);
+  transition:opacity .62s cubic-bezier(.22,.61,.36,1), transform .62s cubic-bezier(.22,.61,.36,1);
+  transition-delay:var(--rd,0s);
+}
+.reveal.in{ opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce){
+  .reveal{ transform:none; transition:opacity .45s ease; }
+  .reveal:not(.in){ opacity:0; } }
+
+/* ---------- Back to top ---------- */
+.to-top{
+  position:fixed; right:20px; bottom:20px; z-index:120;
+  width:46px; height:46px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(10,10,10,.72); color:var(--paper);
+  border:1px solid rgba(244,244,242,.26);
+  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  cursor:pointer; opacity:0; transform:translateY(14px) scale(.9); pointer-events:none;
+  transition:opacity .3s ease, transform .35s cubic-bezier(.22,.61,.36,1), background .2s, border-color .2s;
+}
+.to-top.show{ opacity:1; transform:none; pointer-events:auto; }
+.to-top:hover{ background:var(--red); border-color:var(--red); }
+.to-top svg{ display:block; }
+@media (max-width:560px){ .to-top{ right:14px; bottom:14px; width:42px; height:42px; } }
+@media (prefers-reduced-motion: reduce){ .to-top{ transition:opacity .2s ease; transform:none; } }
+
+/* ---------- Link rows: settle in, then invite a tap ---------- */
+.platform-link{
+  opacity:0; transform:translateY(22px);
+  transition:opacity .55s cubic-bezier(.22,.61,.36,1), transform .55s cubic-bezier(.22,.61,.36,1),
+             border-color .2s, background .2s;
+  transition-delay:var(--pd, 0s);
+}
+.platform-link.in{ opacity:1; transform:none; }
+.platform-link.in.nudge{ animation:linkNudge .62s cubic-bezier(.36,.07,.19,.97) var(--nd,0s) 1; }
+@keyframes linkNudge{
+  0%,100%{ transform:none; }
+  22%    { transform:translateX(6px); }
+  55%    { transform:translateX(-3px); }
+  78%    { transform:translateX(2px); }
+}
+.platform-link:hover{ transform:translateX(4px); }
+@media (prefers-reduced-motion: reduce){
+  .platform-link{ transform:none; transition:opacity .4s ease; }
+  .platform-link:not(.in){ opacity:0; }
+  .platform-link.in.nudge{ animation:none; }
+}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="navrow">
+    <a href="/"><img src="/images/logo.png" alt="WHOSRILA" class="logo-nav"></a>
+    <nav class="links">
+      <a href="/shop">Shop</a>
+      <a href="/listen">Listen</a>
+      <a href="/watch">Watch</a>
+      <a href="/press">Press</a>
+    </nav>
+    <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+  </div>
+  <div class="mobilenav" id="mobileNav">
+    <a href="/shop">Shop</a>
+    <a href="/listen">Listen</a>
+    <a href="/watch">Watch</a>
+    <a href="/press">Press</a>
+  </div>
+</header>
+
+<div class="hero">
+  <span class="stamp">Curated Playlist</span>
+  <h1 class="page-title">New Reggae 2026</h1>
+  <div class="sub">WHO FA SOUND</div>
+  <p class="tag">Curated by WHOSRILA &mdash; updated as the year runs</p>
+</div>
+
+<div class="wrap">
+
+  <!-- ---------- The playlist ---------- -->
+  <div class="reveal" id="playlistSection">
+    <p class="sec-label">The Playlist</p>
+    <div class="embed-wrap" id="embedWrap">
+      <div class="embed-missing" id="embedMissing">
+        Playlist embed not configured yet &mdash; add the Spotify playlist ID
+        to CONFIG at the bottom of this file.
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------- Follow ---------- -->
+  <div class="reveal" id="followSection">
+    <p class="sec-label">Follow</p>
+    <div class="platforms">
+      <a class="platform-link" id="linkSpotify" href="#" target="_blank" rel="noopener">
+        <div class="picon" style="background:transparent">
+          <img src="/images/icons/icon-spotify.png" alt="Spotify" loading="lazy">
+        </div>
+        <div>
+          <div class="platform-name">Follow on Spotify</div>
+          <div class="platform-sub">Save it &mdash; new tracks land all year</div>
+        </div>
+        <span class="arrow">&#8594;</span>
+      </a>
+      <a class="platform-link" id="linkInstagram" href="#" target="_blank" rel="noopener">
+        <div class="picon" style="background:transparent">
+          <svg viewBox="0 0 24 24" width="34" height="34" role="img" aria-label="Instagram"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg>
+        </div>
+        <div>
+          <div class="platform-name">Follow on Instagram</div>
+          <div class="platform-sub" id="igHandleSub">The playlist page</div>
+        </div>
+        <span class="arrow">&#8594;</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ---------- About ---------- -->
+  <div class="reveal">
+    <p class="sec-label">What This Is</p>
+    <div class="prose">
+      <p>A running list of new reggae released in 2026 &mdash; roots, dancehall-leaning,
+      crossover, acoustic. Independent records sit next to established ones. If the
+      record moves, it goes in.</p>
+      <p>Curated by WHOSRILA under WHO FA SOUND. No pay-for-placement, no
+      submission fee, no playlist-farm nonsense &mdash; tracks get added because
+      they earned it.</p>
+    </div>
+  </div>
+
+  <!-- ---------- Submit ---------- -->
+  <div class="reveal" id="submitSection">
+    <p class="sec-label">Submit A Track</p>
+    <ul class="rules">
+      <li><span class="n">01</span><span>Reggae or reggae-adjacent, released in 2026 (or with a date already set).</span></li>
+      <li><span class="n">02</span><span>Send the Spotify link &mdash; not a private stream, not an attachment.</span></li>
+      <li><span class="n">03</span><span>One track per artist at a time. Pick your strongest.</span></li>
+      <li><span class="n">04</span><span>Every submission gets listened to. Not every one gets added, and no reply means it was not a fit this round.</span></li>
+    </ul>
+    <a class="cta" id="submitCta" href="#">Send Your Track &#8594;</a>
+    <p class="note">Free to submit. Placement is never sold.</p>
+  </div>
+
+</div>
+
+<footer class="mini">
+  <div class="fw">
+    <span>&copy; 2026 WHOSRILA LLC</span>
+    <a href="/visuals">Visuals</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/">whosrila.com</a>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" type="button" aria-label="Back to top">
+  <svg width="15" height="9" viewBox="0 0 16 10" aria-hidden="true"><path d="M1 8.5 L8 2 L15 8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script>
+  // ===========================================================
+  // EDIT ME — the only block on this page that needs real values.
+  //
+  // Anything left as a PLACEHOLDER below is REMOVED from the page at
+  // load rather than shipped as a dead link, so a half-filled config
+  // degrades quietly instead of publishing something broken.
+  // ===========================================================
+  const CONFIG = {
+    // The Spotify playlist ID only — the part after /playlist/ and before any '?'.
+    // e.g. from https://open.spotify.com/playlist/0azXBFWMtLzJnyhkh8OQWC?si=...
+    //      the ID is                              0azXBFWMtLzJnyhkh8OQWC
+    playlistId:   'PLACEHOLDER',
+
+    // The Instagram page for the playlist. Full URL.
+    instagram:    'PLACEHOLDER',
+
+    // Where submissions go. Leave as PLACEHOLDER to hide the whole
+    // "Submit A Track" section until you're ready to take them.
+    submitEmail:  'PLACEHOLDER'
+  };
+
+  const isSet = v => typeof v === 'string' && v && v !== 'PLACEHOLDER';
+
+  // ---- Spotify embed ----
+  (function(){
+    var wrap = document.getElementById('embedWrap');
+    if(!wrap) return;
+    if(!isSet(CONFIG.playlistId)){
+      // keep the in-page reminder while unconfigured, but never for visitors
+      // on the live domain — there the whole block collapses out of the way,
+      // heading included, so no empty "The Playlist" label is left behind
+      if(location.hostname === 'whosrila.com'){
+        var sec = document.getElementById('playlistSection');
+        (sec || wrap).remove();
+      }
+      return;
+    }
+    var f = document.createElement('iframe');
+    f.setAttribute('title','Spotify: New Reggae 2026 • WHO FA SOUND');
+    f.setAttribute('loading','lazy');
+    f.setAttribute('frameborder','0');
+    f.setAttribute('allow','autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
+    f.setAttribute('allowfullscreen','');
+    f.height = 420;
+    f.src = 'https://open.spotify.com/embed/playlist/' + CONFIG.playlistId + '?utm_source=whosrila.com';
+    wrap.innerHTML = '';
+    wrap.appendChild(f);
+  })();
+
+  // ---- Follow links ----
+  (function(){
+    var sp = document.getElementById('linkSpotify');
+    if(sp){
+      if(isSet(CONFIG.playlistId)){
+        sp.href = 'https://open.spotify.com/playlist/' + CONFIG.playlistId;
+      } else { sp.remove(); }
+    }
+    var ig = document.getElementById('linkInstagram');
+    if(ig){
+      if(isSet(CONFIG.instagram)){
+        ig.href = CONFIG.instagram;
+        var m = CONFIG.instagram.match(/instagram\.com\/([^\/?#]+)/i);
+        var sub = document.getElementById('igHandleSub');
+        if(m && sub) sub.textContent = '@' + m[1];
+      } else { ig.remove(); }
+    }
+    // if nothing survived the config check, take the heading with it —
+    // a "Follow" label above empty space reads as a broken page
+    var sec = document.getElementById('followSection');
+    if(sec && !sec.querySelectorAll('.platform-link').length) sec.remove();
+  })();
+
+  // ---- Submission CTA ----
+  (function(){
+    var sec = document.getElementById('submitSection');
+    var cta = document.getElementById('submitCta');
+    if(!sec || !cta) return;
+    if(!isSet(CONFIG.submitEmail)){ sec.remove(); return; }
+    cta.href = 'mailto:' + CONFIG.submitEmail +
+      '?subject=' + encodeURIComponent('Playlist submission — New Reggae 2026 / WHO FA SOUND') +
+      '&body='    + encodeURIComponent(
+        'Artist:\nTrack:\nSpotify link:\nRelease date:\n\nAnything else worth knowing:\n');
+  })();
+</script>
+
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3fc16cf549f44cb4bbde3934b15904d3"}'></script><!-- End Cloudflare Web Analytics -->
+<script defer src="/js/track.js?v=b0d8395a"></script>
+<script defer src="/js/consent.js?v=0e636252"></script>
+
+<script>
+(function(){
+  var b = document.getElementById('burgerBtn'), n = document.getElementById('mobileNav');
+  if(!b || !n) return;
+  function measure(){
+    var prev = n.style.maxHeight;
+    n.style.transition = 'none';
+    n.style.maxHeight = 'none';
+    var px = n.scrollHeight;
+    n.style.maxHeight = prev || '0px';
+    void n.offsetHeight;
+    n.style.transition = '';
+    return px;
+  }
+  function setOpen(open){
+    var px = open ? measure() : 0;
+    void n.offsetHeight;
+    n.classList.toggle('open', open);
+    n.style.maxHeight = px + 'px';
+    b.setAttribute('aria-expanded', String(open));
+  }
+  b.addEventListener('click', function(e){ e.preventDefault(); setOpen(!n.classList.contains('open')); });
+  n.addEventListener('click', function(e){ if(e.target.closest('a')) setOpen(false); });
+  window.addEventListener('resize', function(){ if(n.classList.contains('open')) n.style.maxHeight = measure() + 'px'; });
+})();
+</script>
+
+<script>
+  // Safety net: .reveal starts at opacity 0 and only the observer brings it
+  // back. If that never fires the page would sit blank.
+  function wrRevealAll(list){ [].forEach.call(list, function(el){ el.classList.add('in'); }); }
+  (function(){
+    var all = document.querySelectorAll('.reveal');
+    if(!all.length) return;
+    [].forEach.call(all, function(el){
+      var r = el.getBoundingClientRect();
+      if(r.top < innerHeight && r.bottom > 0) el.classList.add('in');
+    });
+    setTimeout(function(){
+      var stuck = document.querySelectorAll('.reveal:not(.in)');
+      if(stuck.length) wrRevealAll(stuck);
+    }, 2500);
+  })();
+
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if(!els.length) return;
+  if(!('IntersectionObserver' in window)){
+    els.forEach(function(e){ e.classList.add('in'); }); return;
+  }
+  var obs = new IntersectionObserver(function(entries){
+    entries.filter(function(e){ return e.isIntersecting; }).forEach(function(e,i){
+      e.target.style.setProperty('--rd', Math.min(i,6)*0.06 + 's');
+      e.target.classList.add('in');
+    });
+    entries.forEach(function(e){ if(e.isIntersecting) obs.unobserve(e.target); });
+  }, { threshold:0.12, rootMargin:'-4% 0px -4% 0px' });
+  els.forEach(function(e){ obs.observe(e); });
+})();
+</script>
+
+<script>
+(function(){
+  var b = document.getElementById('toTop');
+  if(!b) return;
+  var reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  function check(){
+    var worthIt = document.documentElement.scrollHeight > innerHeight * 1.35;
+    b.classList.toggle('show', worthIt && window.scrollY > innerHeight * 0.55);
+  }
+  check();
+  window.addEventListener('scroll', check, { passive:true });
+  b.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var links = [].slice.call(document.querySelectorAll('.platform-link'));
+  if(!links.length) return;
+  if(!('IntersectionObserver' in window)){
+    links.forEach(function(l){ l.classList.add('in'); }); return;
+  }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var i = links.indexOf(e.target);
+      if(e.isIntersecting){
+        e.target.style.setProperty('--pd', (i % 8) * 0.05 + 's');
+        e.target.classList.add('in');
+        if(!e.target.dataset.nudged){
+          e.target.dataset.nudged = '1';
+          e.target.style.setProperty('--nd', (0.5 + (i % 8) * 0.09) + 's');
+          e.target.classList.add('nudge');
+        }
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold:0.2, rootMargin:'-2% 0px -6% 0px' });
+  links.forEach(function(l){ obs.observe(l); });
+})();
+</script>
+</body>
+</html>
