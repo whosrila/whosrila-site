@@ -7,19 +7,21 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Visuals &mdash; Content For Artists | WHOSRILA</title>
+<title>WHOS PROJECTS &mdash; Visual Content For Artists | WHOSRILA</title>
 <meta name="description" content="Reels, photography and music video by WHOSRILA. Visual content built for independent artists who need something to promote their music with.">
 <!-- Open Graph / Twitter share tags -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="WHOSRILA">
-<meta property="og:title" content="Visuals &mdash; Content For Artists">
+<meta property="og:title" content="WHOS PROJECTS &mdash; Visual Content For Artists">
 <meta property="og:description" content="Reels, photography and music video for independent artists. Directed by WHOSRILA.">
-<meta property="og:image" content="https://whosrila.com/images/portrait-1.jpg">
-<meta property="og:url" content="https://whosrila.com/visuals">
+<meta property="og:image" content="https://whosrila.com/images/og-whosprojects.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://whosrila.com/whosprojects">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Visuals &mdash; Content For Artists">
+<meta name="twitter:title" content="WHOS PROJECTS &mdash; Visual Content For Artists">
 <meta name="twitter:description" content="Reels, photography and music video for independent artists. Directed by WHOSRILA.">
-<meta name="twitter:image" content="https://whosrila.com/images/portrait-1.jpg">
+<meta name="twitter:image" content="https://whosrila.com/images/og-whosprojects.jpg">
 <style>
 :root{
   --ink:#0A0A0A;--paper:#F4F4F2;--red:#D7263D;
@@ -189,7 +191,7 @@ footer.mini a:hover{opacity:1}
 
 <div class="hero">
   <span class="stamp">Visual Content For Artists</span>
-  <h1 class="page-title">Visuals</h1>
+  <h1 class="page-title">Whos Projects</h1>
   <p class="tag">Directed by WHOSRILA</p>
   <p class="lede">You put months into the record. Then it drops and there is
   nothing to post. I shoot the reels, the photos and the video that give a
@@ -301,10 +303,10 @@ footer.mini a:hover{opacity:1}
   // ===========================================================
   const CONFIG = {
     // The Instagram page for the visual work. Full URL.
-    instagram:   'PLACEHOLDER',
+    instagram:   'https://www.instagram.com/whosprojects/',
 
     // Where booking enquiries go.
-    bookEmail:   'PLACEHOLDER',
+    bookEmail:   'press@whosrila.com',
 
     // Selected work. Drop files in /images/work/ and list them here:
     //   { src:'/images/work/artist-name-01.jpg', cap:'Artist — Track', href:'https://...' }
@@ -336,7 +338,7 @@ footer.mini a:hover{opacity:1}
       return;
     }
     cta.href = 'mailto:' + CONFIG.bookEmail +
-      '?subject=' + encodeURIComponent('Booking — visuals') +
+      '?subject=' + encodeURIComponent('Booking — WHOS PROJECTS') +
       '&body='    + encodeURIComponent(
         'Artist:\nRelease date:\nWhat you need (reels / photos / video):\nLocation:\nBudget range:\n\nAnything else:\n');
   })();
