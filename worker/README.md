@@ -209,3 +209,18 @@ something plain. Most failures are one of:
 3. Redeploy the Worker.
 
 The scheduled task for that morning already covers the Stripe side.
+
+## Deployment: now continuous, via Cloudflare Workers Builds (25 Aug 2026)
+
+This Worker is **no longer deployed by hand through the dashboard editor.** It is
+connected to `whosrila/whosrila-site` on GitHub:
+
+- Root directory `/worker`, production branch `main`
+- Deploy command `npx wrangler deploy` (non-production branches: `versions upload`)
+- API token created and held by Cloudflare; nothing to manage locally
+
+**Push to `main` and this deploys itself.** Edit `src/worker.js`, commit, done.
+
+Why this was set up: the dashboard's VS Code editor is a cross-origin iframe that
+would not accept clicks or keystrokes, so the Worker could not be edited there at
+all. Wiring the repo to Cloudflare removes that editor from the loop entirely.

@@ -32,10 +32,16 @@
           string into WR_ADS_CONVERSIONS below
   --------------------------------------------------------------- */
   var GA4 = 'G-B6C4N1Z49C';
-  // No Ads ID yet: both Google Ads accounts on this login are cancelled,
-  // so there is nothing live to send conversions to. GA4 still records
-  // every event, and those can be imported as conversions once an
-  // account is active again.
+  // CORRECTED 25 Aug 2026: the earlier note here said both Google Ads accounts
+  // were cancelled. That is WRONG and was repeated back as fact more than once —
+  // the account is live (322-553-9700 "WHOSRILA 2024", card on file). Do not
+  // trust a stale comment as evidence of account state.
+  //
+  // ADS is still empty only because conversions are imported from GA4 rather
+  // than tagged directly: the Ads conversion `whosrila - GA4 (web) PlatformClick`
+  // reads the GA4 event, so no AW- tag is needed on the site for that path.
+  // Fill this in only to send conversions straight from here via
+  // WR_ADS_CONVERSIONS below.
   var ADS = '';
 
   // event name -> Google Ads 'AW-XXXXXXXXXX/AbCdEfGhIj' conversion string
