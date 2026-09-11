@@ -68,6 +68,7 @@
 .ldot-spotify{background:#1DB954}.ldot-apple{background:#FA243C}.ldot-itunes{background:#A855F7}
 .ldot-deezer{background:#A238FF}.ldot-tidal{background:#00D8D8}.ldot-soundcloud{background:#FF5500}
 .ldot-audiomack{background:#FFA200}.ldot-pandora{background:#3668FF}
+.ldot-ytm{background:#FF0000}
 .ldot-smart{background:var(--red)}
 @media (prefers-reduced-motion: reduce){ .lrow{ transition:none; } .lrow:hover{ transform:none; } }
 .embed-frame{
@@ -224,6 +225,13 @@
         </span>
         <span class="lgo">Buy</span>
       </a>
+      <a class="lrow" href="https://open.spotify.com/track/0Es28ZRcKpiixIEVtCo1YG" target="_blank" rel="noopener">
+        <span class="ldot ldot-spotify"></span>
+        <span class="ltext">
+          <span class="lname">Spotify</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
       <a class="lrow" href="https://geo.music.apple.com/us/album/energy/6795595429?i=6795595434" target="_blank" rel="noopener">
         <span class="ldot ldot-apple"></span>
         <span class="ltext">
@@ -231,8 +239,22 @@
         </span>
         <span class="lgo">Play</span>
       </a>
-      <!-- Spotify, Deezer, Tidal, Amazon, Boomplay, Audiomack and Pandora were
-           not yet propagated on release day. Add an .lrow each as they appear;
+      <a class="lrow" href="https://music.youtube.com/playlist?list=OLAK5uy_kpaayYZAGYXWvyL3WnTYhAbAm4EShVEDA" target="_blank" rel="noopener">
+        <span class="ldot ldot-ytm"></span>
+        <span class="ltext">
+          <span class="lname">YouTube Music</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
+      <a class="lrow" href="https://www.pandora.com/artist/kum3ra-and-whosrila/energy/ALk63Pl932jl7f9" target="_blank" rel="noopener">
+        <span class="ldot ldot-pandora"></span>
+        <span class="ltext">
+          <span class="lname">Pandora</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
+      <!-- Deezer, Tidal, Amazon Music, Boomplay, Audiomack and SoundCloud had
+           not propagated on release day. Add an .lrow each as they appear;
            until then the smart link below covers them. -->
       <a class="lrow" href="https://too.fm/rrj4373" target="_blank" rel="noopener">
         <span class="ldot ldot-smart"></span>
