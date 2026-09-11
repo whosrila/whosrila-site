@@ -8,17 +8,17 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Energy — WHOSRILA</title>
-<meta name="description" content="Kum3ra ft. WHOSRILA — out September 11, 2026. Pre-save now.">
+<meta name="description" content="KUM3RA &amp; WHOSRILA — out now. Stream it or own it on iTunes.">
 <!-- Open Graph tags help this page look right when shared/linked in ad platforms -->
 <meta property="og:title" content="Energy — WHOSRILA">
-<meta property="og:description" content="Kum3ra ft. WHOSRILA — out September 11, 2026. Pre-save now.">
+<meta property="og:description" content="KUM3RA &amp; WHOSRILA — out now. Stream it or own it on iTunes.">
 <meta property="og:type" content="music.song">
 <meta property="og:image" content="https://whosrila.com/images/art-energy.jpg?v=0ddbff95">
 <meta property="og:url" content="https://whosrila.com/energy">
 <meta property="og:site_name" content="WHOSRILA">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Energy — WHOSRILA">
-<meta name="twitter:description" content="Kum3ra ft. WHOSRILA — out September 11, 2026. Pre-save now.">
+<meta name="twitter:description" content="KUM3RA &amp; WHOSRILA — out now. Stream it or own it on iTunes.">
 <meta name="twitter:image" content="https://whosrila.com/images/art-energy.jpg?v=0ddbff95">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,6 +41,35 @@
   .burger{ display:block; }
 }
 
+.listen-list{ display:flex; flex-direction:column; gap:8px; margin:0 0 8px; }
+.lrow{
+  display:flex; align-items:center; gap:13px; width:100%;
+  padding:14px 18px; border:1px solid var(--line); border-radius:4px;
+  background:var(--paper); color:var(--ink);
+  transition:border-color .16s, transform .14s;
+}
+.lrow:hover{ border-color:var(--ink); transform:translateY(-1px); }
+.ldot{ width:9px; height:9px; border-radius:50%; flex:0 0 9px; }
+.ltext{ display:flex; flex-direction:column; gap:1px; flex:1 1 auto; min-width:0; }
+.lname{ font-weight:600; font-size:15px; line-height:1.25; }
+.lsub{
+  font-family:var(--f-mono); font-size:10px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--paper-dim);
+}
+.lgo{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--paper-dim); border:1px solid var(--line); border-radius:2px;
+  padding:6px 13px; flex:0 0 auto; transition:background .16s, color .16s, border-color .16s;
+}
+.lrow:hover .lgo{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+.lrow-buy{ border-color:var(--ink); }
+.lrow-buy .lgo{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+.lrow-buy:hover .lgo{ background:var(--red); border-color:var(--red); }
+.ldot-spotify{background:#1DB954}.ldot-apple{background:#FA243C}.ldot-itunes{background:#A855F7}
+.ldot-deezer{background:#A238FF}.ldot-tidal{background:#00D8D8}.ldot-soundcloud{background:#FF5500}
+.ldot-audiomack{background:#FFA200}.ldot-pandora{background:#3668FF}
+.ldot-smart{background:var(--red)}
+@media (prefers-reduced-motion: reduce){ .lrow{ transition:none; } .lrow:hover{ transform:none; } }
 .embed-frame{
   border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--paper);
   margin-bottom:16px;
@@ -131,7 +160,7 @@
   "byArtist": [
     {
       "@type": "MusicGroup",
-      "name": "Kum3ra"
+      "name": "KUM3RA"
     },
     {
       "@id": "https://whosrila.com/#artist"
@@ -168,9 +197,9 @@
 
 <main>
   <div class="wrap">
-    <span class="stamp">Upcoming Single &middot; Kum3ra ft. WHOSRILA</span>
+    <span class="stamp">Single &middot; Out Now</span>
     <h1 class="title">Energy</h1>
-    <p class="hook">Kum3ra ft. WHOSRILA &mdash; pre-save it now, out September 11, 2026.</p>
+    <p class="hook">KUM3RA &amp; WHOSRILA &mdash; out now.</p>
 
     <div class="song-media song-media--art">
       <img src="/images/art-energy.jpg?v=0ddbff95" alt="Energy cover art" width="800" height="800">
@@ -186,32 +215,34 @@
       </div>
     </div>
 
-    <!-- Countdown: delete this whole <div class="countdown">...</div> block for
-         already-released songs. Only useful for pre-save / upcoming releases. -->
-    <div class="countdown" id="countdown">
-      <div class="cell"><div class="num" id="cd-days">--</div><div class="lab">Days</div></div>
-      <div class="cell"><div class="num" id="cd-hours">--</div><div class="lab">Hrs</div></div>
-      <div class="cell"><div class="num" id="cd-mins">--</div><div class="lab">Min</div></div>
+    <div class="listen-list">
+      <a class="lrow lrow-buy" href="https://music.apple.com/us/album/energy/6795595429?i=6795595434&app=itunes" target="_blank" rel="noopener">
+        <span class="ldot ldot-itunes"></span>
+        <span class="ltext">
+          <span class="lname">iTunes</span>
+          <span class="lsub">Own the song</span>
+        </span>
+        <span class="lgo">Buy</span>
+      </a>
+      <a class="lrow" href="https://geo.music.apple.com/us/album/energy/6795595429?i=6795595434" target="_blank" rel="noopener">
+        <span class="ldot ldot-apple"></span>
+        <span class="ltext">
+          <span class="lname">Apple Music</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
+      <!-- Spotify, Deezer, Tidal, Amazon, Boomplay, Audiomack and Pandora were
+           not yet propagated on release day. Add an .lrow each as they appear;
+           until then the smart link below covers them. -->
+      <a class="lrow" href="https://too.fm/rrj4373" target="_blank" rel="noopener">
+        <span class="ldot ldot-smart"></span>
+        <span class="ltext">
+          <span class="lname">Everywhere else</span>
+          <span class="lsub">Pick your platform</span>
+        </span>
+        <span class="lgo">Open</span>
+      </a>
     </div>
-
-    <!-- =========================================================
-      EDIT ME — paste your Feature.fm embed code here.
-      In Feature.fm: open your campaign → Share/Embed → copy the
-      iframe code → replace the src below with that URL.
-      The height (900) can be adjusted to match what Feature.fm
-      recommends for your specific campaign layout.
-    ========================================================== -->
-    <div class="embed-frame">
-      <iframe
-        src="https://too.fm/rrj4373?autoplay=1"
-        width="100%" height="1300" frameborder="0" allowtransparency="true" scrolling="no"
-        title="Energy — pre-save and listen">
-      </iframe>
-    </div>
-
-    <p class="fallback">
-      Trouble loading? <a href="https://too.fm/rrj4373" target="_blank" rel="noopener">Open directly</a>
-    </p>
   </div>
 </main>
 
@@ -223,44 +254,6 @@
   </div>
 </footer>
 
-<script>
-  // EDIT ME — set this song's release date for the countdown.
-  // If the song is already out, delete the countdown <div> above
-  // and this whole script block.
-  const RELEASE_DATE_ISO = '2026-09-11T00:00:00';
-
-  const cdEl = document.getElementById('countdown');
-
-  function tick(){
-    const target = new Date(RELEASE_DATE_ISO).getTime();
-    const diff = target - Date.now();
-
-    // Release day. Stop counting and say so — a clock frozen at 0/00/00
-    // reads as broken, and this page may sit here a while before it's
-    // rebuilt as a released-song page.
-    if(diff <= 0){
-      if(cdEl){
-        cdEl.classList.add('done');
-        cdEl.innerHTML = '<span class="cd-live">Out now</span>';
-      }
-      clearInterval(timer);
-      return;
-    }
-
-    const days = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const mins = Math.floor((diff % 3600000) / 60000);
-    const d = document.getElementById('cd-days');
-    const h = document.getElementById('cd-hours');
-    const m = document.getElementById('cd-mins');
-    if(d) d.textContent = days;
-    if(h) h.textContent = String(hours).padStart(2,'0');
-    if(m) m.textContent = String(mins).padStart(2,'0');
-  }
-  // assigned before the first tick so tick() can always clear it
-  const timer = setInterval(tick, 30000);
-  tick();
-</script>
 
 <script>
 </script>
