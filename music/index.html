@@ -21,18 +21,22 @@
 <meta name="twitter:description" content="Two singles out now — Made You, and Energy with KUM3RA. Stream them, watch the video, or own the download.">
 <meta name="twitter:image" content="https://whosrila.com/images/og-music.jpg">
 <link rel="stylesheet" href="/css/site.css?v=726f54e1">
+<!-- Menus only collapse once JS is running; without it every link stays open and reachable. -->
+<script>document.documentElement.classList.add('js');</script>
 <style>
 /* ============================================================
-   /music — both current singles on one page, laid out like a
-   link-in-bio (profile, then a featured card per release, then a
-   stack of rounded buttons) but carrying each record's own palette.
+   /music — both current singles on one page.
 
-   The page ground runs Made You -> Energy top to bottom: the warm
-   black and mesh red of the Made You cover up top, falling to the
-   #010101 and gold heart of the Energy cover below. Each release
-   section re-declares a handful of variables, so every card, button
-   and glow inside it takes that record's colours without any rule
-   being written twice.
+   A portrait feathered into the top of the page, then the two
+   releases side by side, each with a collapsible Listen & buy menu.
+   On a phone the columns are ~165px, too narrow for readable buttons,
+   so an opened menu drops full width beneath both covers; from 720px
+   up each menu opens under its own cover.
+
+   Each release keeps its own record's palette: Made You's warm black,
+   mesh red and gold on the left, Energy's #010101 and gold heart on
+   the right. The section re-declares a handful of variables and every
+   card, button and glow inside it follows.
    ============================================================ */
 :root{
   --ink:        #F2EFE6;
@@ -51,46 +55,48 @@
 
 body{
   background:
-    radial-gradient(900px 520px at 50% 0%,  rgba(196,35,26,0.22),  transparent 62%),
-    radial-gradient(760px 620px at 50% 16%, rgba(232,192,121,0.11), transparent 64%),
-    radial-gradient(820px 700px at 50% 76%, rgba(232,212,94,0.12),  transparent 62%),
-    radial-gradient(900px 700px at 50% 97%, rgba(126,130,126,0.10), transparent 60%),
-    linear-gradient(180deg, #170A05 0%, #100905 36%, #060504 58%, #010101 100%);
+    radial-gradient(700px 620px at 22% 46%, rgba(196,35,26,0.20),  transparent 64%),
+    radial-gradient(700px 620px at 78% 46%, rgba(232,212,94,0.13), transparent 64%),
+    radial-gradient(900px 500px at 50% 0%,  rgba(232,192,121,0.08), transparent 62%),
+    linear-gradient(180deg, #120A06 0%, #0B0806 45%, #040303 100%);
   background-repeat:no-repeat;
 }
+/* site.css lays main out as a row; this page stacks a full-bleed image above the column */
+main{ flex-direction:column; align-items:stretch; padding-top:0; }
 
-/* ---------- Release palettes ---------- */
-.rel--madeyou{
-  /* --ttl and --dim sit a step lighter than the Made You page's own #C4231A /
-     #9A8258: this ground carries the red glow behind them, and at the cover's
-     exact values the title measured 2.45:1 and the small caps 4.45:1. */
-  --tx:#E8C079; --dim:#AE9468; --gold:#E8C079; --ttl:#E0463A;
-  --card:rgba(232,192,121,0.055); --edge:rgba(232,192,121,0.30); --glow:rgba(232,192,121,0.32);
-  --on-gold:#120C05;
-}
-.rel--energy{
-  --tx:#F2EFE6; --dim:#8F938F; --gold:#E8D45E; --ttl:#E8D45E;
-  --card:rgba(242,239,230,0.045); --edge:rgba(242,239,230,0.22); --glow:rgba(232,212,94,0.40);
-  --on-gold:#010101;
-}
+.sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 
-/* ---------- Profile ---------- */
-.lt{ padding-top:10px; }
-.lt-profile{ position:relative; text-align:center; margin:8px 0 34px; }
-.lt-avatar{
-  display:block; width:104px; height:104px; margin:0 auto 14px; border-radius:50%; object-fit:cover;
-  border:1px solid rgba(232,192,121,0.45);
-  box-shadow:0 0 0 5px rgba(232,192,121,0.07), 0 0 44px rgba(196,35,26,0.38);
+/* ---------- Portrait: embedded, not framed ----------
+   A radial mask feathers every edge into the ground, so the photo's grey
+   studio wall reads as a soft light around the head instead of a box. */
+.lt-hero{ position:relative; width:100%; max-width:1100px; margin:0 auto; height:clamp(300px, 92vw, 460px); }
+@media (min-width:720px){ .lt-hero{ height:clamp(420px, 48vw, 600px); } }
+.lt-hero img{
+  display:block; width:100%; height:100%; object-fit:cover; object-position:50% 32%;
+  filter:contrast(1.06) brightness(0.9);
+  -webkit-mask-image:radial-gradient(ellipse 62% 78% at 50% 38%, #000 52%, transparent 100%);
+          mask-image:radial-gradient(ellipse 62% 78% at 50% 38%, #000 52%, transparent 100%);
 }
-.lt-name{ font-size:26px; letter-spacing:.08em; line-height:1.1; margin:0 0 6px; }
-.lt-bio{ color:var(--paper-dim); font-size:15px; line-height:1.45; max-width:340px; margin:0 auto 18px; }
+@media (max-width:719px){
+  .lt-hero img{
+    -webkit-mask-image:radial-gradient(ellipse 88% 76% at 50% 38%, #000 50%, transparent 100%);
+            mask-image:radial-gradient(ellipse 88% 76% at 50% 38%, #000 50%, transparent 100%);
+  }
+}
 .lt-share{
-  position:absolute; top:0; right:0; width:42px; height:42px; border-radius:50%;
+  position:absolute; top:14px; right:16px; width:42px; height:42px; border-radius:50%;
   display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0;
-  background:rgba(242,239,230,0.07); border:1px solid rgba(242,239,230,0.18); color:var(--ink);
+  background:rgba(10,8,6,0.55); border:1px solid rgba(242,239,230,0.24); color:var(--ink);
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
   transition:background .18s, border-color .18s;
 }
-.lt-share:hover{ background:rgba(242,239,230,0.14); border-color:rgba(242,239,230,0.4); }
+.lt-share:hover{ background:rgba(10,8,6,0.8); border-color:rgba(242,239,230,0.5); }
+
+.lt{ max-width:920px; padding:0 16px; }
+@media (min-width:720px){ .lt{ padding:0 24px; } }
+.lt-intro{ position:relative; text-align:center; margin:-34px 0 22px; }
+.lt-bio{ color:var(--paper-dim); font-size:15px; line-height:1.45; max-width:340px; margin:0 auto 16px; text-wrap:balance; }
 .lt-share-note{ min-height:18px; margin:10px 0 0; font-size:12px; letter-spacing:.06em; color:var(--paper-dim); }
 .lt-jump{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
 .lt-chip{
@@ -103,65 +109,127 @@ body{
 .lt-chip--madeyou:hover{ border-color:#E8C079; color:#E8C079; box-shadow:0 0 18px -6px rgba(232,192,121,.6); }
 .lt-chip--energy:hover{ border-color:#E8D45E; color:#E8D45E; box-shadow:0 0 18px -6px rgba(232,212,94,.7); }
 
-/* ---------- A release ---------- */
-.rel{ margin:0 0 48px; scroll-margin-top:76px; color:var(--tx); }
-.rel-card{
-  border:1px solid var(--edge); border-radius:28px; padding:16px 16px 18px;
-  background:var(--card); text-align:center;
-  box-shadow:0 0 70px -34px var(--glow);
+/* ---------- Release palettes ---------- */
+.rel--madeyou{
+  /* lighter than the Made You page's own #C4231A / #9A8258: at the cover's
+     exact values the title measured 2.45:1 and the small caps 4.45:1 here.
+     --dim went one step further (#AE9468 -> #B89E72) once captions sat on two
+     translucent layers, the open menu panel plus the button, and read 4.39:1. */
+  --tx:#E8C079; --dim:#B89E72; --gold:#E8C079; --ttl:#E0463A;
+  --card:rgba(232,192,121,0.055); --edge:rgba(232,192,121,0.30); --glow:rgba(232,192,121,0.32);
+  --on-gold:#120C05;
 }
-.rel-cover{ position:relative; border-radius:16px; overflow:hidden; aspect-ratio:1/1; background:#000; }
+.rel--energy{
+  --tx:#F2EFE6; --dim:#8F938F; --gold:#E8D45E; --ttl:#E8D45E;
+  --card:rgba(242,239,230,0.045); --edge:rgba(242,239,230,0.22); --glow:rgba(232,212,94,0.40);
+  --on-gold:#010101;
+}
+
+/* ---------- Side by side ----------
+   The sections are display:contents so their card and menu become items of
+   one shared grid. They still exist in the DOM, so data-song still scopes
+   click tracking and the palette variables still inherit. */
+.rels{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); column-gap:12px; row-gap:0; margin:0 0 44px; }
+.rel{ display:contents; color:var(--tx); }
+.rel--madeyou .rel-card{ grid-column:1; grid-row:1; }
+.rel--energy  .rel-card{ grid-column:2; grid-row:1; }
+/* phone: an opened menu spans both columns beneath the covers */
+.rel--madeyou .rel-menu{ grid-column:1 / -1; grid-row:2; }
+.rel--energy  .rel-menu{ grid-column:1 / -1; grid-row:3; }
+@media (min-width:720px){
+  .rels{ column-gap:24px; }
+  .rel--madeyou .rel-menu{ grid-column:1; grid-row:2; }
+  .rel--energy  .rel-menu{ grid-column:2; grid-row:2; }
+}
+
+/* ---------- Cover card ---------- */
+.rel-card{
+  display:flex; flex-direction:column; align-self:stretch; scroll-margin-top:72px;
+  border:1px solid var(--edge); border-radius:20px; padding:8px 8px 10px;
+  background:var(--card); text-align:center; box-shadow:0 0 60px -34px var(--glow);
+  transition:border-color .2s, box-shadow .25s;
+}
+@media (min-width:720px){ .rel-card{ border-radius:28px; padding:14px 14px 16px; } }
+.rel-card.is-open{ border-color:var(--gold); box-shadow:0 0 44px -16px var(--glow); }
+.rel-cover{ position:relative; border-radius:12px; overflow:hidden; aspect-ratio:1/1; background:#000; }
+@media (min-width:720px){ .rel-cover{ border-radius:16px; } }
 .rel-cover img{ display:block; width:100%; height:100%; object-fit:cover; }
 .rel-play{
-  position:absolute; right:12px; bottom:12px; width:54px; height:54px; border-radius:50%;
+  position:absolute; right:8px; bottom:8px; width:42px; height:42px; border-radius:50%;
   display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; border:0;
   background:var(--gold); color:var(--on-gold);
-  box-shadow:0 8px 26px rgba(0,0,0,.55), 0 0 24px -4px var(--glow);
+  box-shadow:0 6px 20px rgba(0,0,0,.55), 0 0 22px -4px var(--glow);
   transition:transform .18s, box-shadow .2s;
 }
+@media (min-width:720px){ .rel-play{ right:12px; bottom:12px; width:54px; height:54px; } }
 .rel-play:hover{ transform:scale(1.07); }
-.rel-play.playing{ box-shadow:0 8px 26px rgba(0,0,0,.55), 0 0 0 6px rgba(255,255,255,.12), 0 0 30px var(--glow); }
-.rel-title{ font-size:clamp(28px,7.4vw,34px); font-weight:700; letter-spacing:.01em; line-height:1.05;
-  text-transform:uppercase; margin:16px 0 4px; color:var(--ttl); }
-.rel-sub{ font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); margin:0; }
-.rel-state{ font-size:12px; letter-spacing:.06em; color:var(--dim); margin:8px 0 0; min-height:18px; }
+.rel-play.playing{ box-shadow:0 6px 20px rgba(0,0,0,.55), 0 0 0 5px rgba(255,255,255,.12), 0 0 28px var(--glow); }
+/* bold and at least 19px, so it counts as large text for contrast even on a phone */
+.rel-title{ font-size:clamp(19px, 5.4vw, 30px); font-weight:700; letter-spacing:.01em; line-height:1.05;
+  text-transform:uppercase; margin:12px 0 4px; color:var(--ttl); }
+.rel-sub{ font-size:10px; letter-spacing:.12em; line-height:1.4; text-transform:uppercase; color:var(--dim); margin:0; text-wrap:balance; }
+@media (min-width:720px){ .rel-sub{ font-size:12px; letter-spacing:.14em; } }
+.rel-state{ font-size:11px; letter-spacing:.04em; color:var(--dim); margin:6px 0 12px; min-height:16px; }
+
+.rel-toggle{
+  margin-top:auto; display:flex; align-items:center; justify-content:center; gap:8px;
+  width:100%; min-height:44px; padding:8px 12px; border-radius:999px; cursor:pointer;
+  border:1px solid var(--gold); background:transparent; color:var(--tx);
+  font:inherit; font-size:13px; font-weight:600; letter-spacing:.03em;
+  transition:background .18s, color .18s, box-shadow .2s;
+}
+@media (min-width:720px){ .rel-toggle{ font-size:14px; min-height:48px; } }
+.rel-toggle:hover{ box-shadow:0 0 22px -6px var(--glow); }
+.rel-toggle svg{ transition:transform .3s cubic-bezier(.22,.61,.36,1); flex:0 0 auto; }
+.rel-toggle[aria-expanded="true"]{ background:var(--gold); color:var(--on-gold); }
+.rel-toggle[aria-expanded="true"] svg{ transform:rotate(180deg); }
+
+/* ---------- Collapsible menu ----------
+   Height is measured and animated in JS (the grid 0fr->1fr trick does not
+   work for items that must also span columns), then released to `none` once
+   open so a phone rotating to landscape cannot clip it. */
+.rel-menu{ align-self:start; transition:max-height .42s cubic-bezier(.4,0,.2,1), opacity .3s ease, margin-top .3s ease; }
+.js .rel-menu{ max-height:0; overflow:hidden; opacity:0; }
+.js .rel-menu.open{ opacity:1; margin-top:12px; }
+.rel-menu-inner{
+  position:relative; border:1px solid var(--edge); border-radius:24px; padding:14px 12px 18px;
+  background:var(--card); box-shadow:0 0 60px -30px var(--glow);
+}
+/* phone only: a small head so a full-width menu clearly belongs to one song */
+.rel-menu-head{ display:flex; align-items:center; justify-content:center; gap:10px; margin:0 0 4px;
+  font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--tx); font-weight:700; }
+/* --tx not --ttl: the title red only passes contrast as large text, and this is 12px */
+.rel-menu-head img{ width:26px; height:26px; border-radius:50%; object-fit:cover; }
+@media (min-width:720px){ .rel-menu-head{ display:none; } .rel-menu-inner{ border-radius:28px; padding:16px 14px 20px; } }
 
 /* ---------- Buttons ---------- */
-.pills-label{ font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--dim);
-  text-align:center; margin:22px 0 10px; }
-.pills{ display:flex; flex-direction:column; gap:10px; margin-top:14px; }
+.pills-label{ font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--dim); text-align:center; margin:20px 0 10px; }
+.pills{ display:flex; flex-direction:column; gap:10px; margin-top:12px; }
 .pill{
   position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  width:100%; min-height:58px; padding:9px 62px; border-radius:999px; cursor:pointer;
+  width:100%; min-height:56px; padding:9px 56px; border-radius:999px; cursor:pointer;
   border:1px solid var(--edge); background:var(--card); color:var(--tx);
   font:inherit; text-align:center;
   transition:border-color .18s, background .18s, box-shadow .22s, transform .16s;
 }
-.pill:hover{ border-color:var(--gold); background:rgba(242,239,230,0.075);
-  box-shadow:0 0 28px -8px var(--glow); transform:translateY(-1px); }
-.pill-label{ display:block; font-weight:600; font-size:15.5px; line-height:1.25; text-wrap:balance; }
-.pill-sub{ display:block; margin-top:2px; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim);
-  /* balance, or on a 375px phone "almost all of it reaches me" strands "me" on a third line */
-  text-wrap:balance; }
+.pill:hover{ border-color:var(--gold); background:rgba(242,239,230,0.075); box-shadow:0 0 28px -8px var(--glow); transform:translateY(-1px); }
+.pill-label{ display:block; font-weight:600; font-size:15px; line-height:1.25; text-wrap:balance; }
+.pill-sub{ display:block; margin-top:2px; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); text-wrap:balance; }
 .pill-ico{
-  position:absolute; left:8px; top:50%; transform:translateY(-50%);
-  width:42px; height:42px; border-radius:50%; overflow:hidden;
+  position:absolute; left:7px; top:50%; transform:translateY(-50%);
+  width:40px; height:40px; border-radius:50%; overflow:hidden;
   display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.38);
 }
 .pill-ico img{ display:block; width:100%; height:100%; object-fit:cover; }
-.pill-go{ position:absolute; right:22px; top:50%; transform:translateY(-50%); display:flex; color:var(--dim); }
-.pill-dot{ width:11px; height:11px; border-radius:50%; background:currentColor;
-  box-shadow:0 0 12px -1px currentColor, 0 0 4px currentColor; }
+.pill-go{ position:absolute; right:20px; top:50%; transform:translateY(-50%); display:flex; color:var(--dim); }
+.pill-dot{ width:11px; height:11px; border-radius:50%; background:currentColor; box-shadow:0 0 12px -1px currentColor, 0 0 4px currentColor; }
 
-/* The one thing Made You most wants pressed: white, with a standing glow. */
 .pill--primary{ background:#F4F4F2; border-color:#F4F4F2; color:#120C05; box-shadow:0 0 30px rgba(244,244,242,0.22); }
 .pill--primary .pill-sub{ color:rgba(18,12,5,0.70); }
 .pill--primary .pill-go{ color:#120C05; }
 .pill--primary .pill-ico{ background:#120C05; }
-.pill--primary:hover{ background:#FFFFFF; border-color:#FFFFFF;
-  box-shadow:0 0 44px rgba(244,244,242,0.42), 0 0 8px rgba(232,192,121,0.5); }
+.pill--primary:hover{ background:#FFFFFF; border-color:#FFFFFF; box-shadow:0 0 44px rgba(244,244,242,0.42), 0 0 8px rgba(232,192,121,0.5); }
 .pill--buy{ border-color:var(--gold); }
-/* Energy's only way to own it is iTunes, so that button carries the gold. */
 .rel--energy .pill--buy{ background:var(--gold); color:var(--on-gold); }
 .rel--energy .pill--buy .pill-sub{ color:rgba(1,1,1,0.72); }
 .rel--energy .pill--buy .pill-go{ color:var(--on-gold); }
@@ -176,10 +244,6 @@ body{
   font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim);
   border-bottom:1px solid var(--edge); transition:color .18s, border-color .18s; }
 .rel-more:hover{ color:var(--gold); border-color:var(--gold); }
-
-.rel + .rel{ position:relative; padding-top:6px; }
-.rel + .rel::before{ content:""; position:absolute; left:18%; right:18%; top:-24px; height:1px;
-  background:linear-gradient(90deg, transparent, rgba(242,239,230,0.22), transparent); }
 
 /* ---------- Video pop-out (same behaviour as /madeyou) ---------- */
 .mv-lb{
@@ -242,7 +306,7 @@ body{
 @media (max-width:560px){ .to-top{ right:14px; bottom:14px; width:42px; height:42px; } }
 
 @media (prefers-reduced-motion: reduce){
-  .pill, .rel-play, .lt-chip, .mv-lb, .mv-lb-close, .cc{ transition:none; }
+  .pill, .rel-play, .lt-chip, .rel-card, .rel-toggle, .rel-toggle svg, .rel-menu, .mv-lb, .mv-lb-close, .cc{ transition:none; }
   .pill:hover, .rel-play:hover{ transform:none; }
   .to-top{ transition:opacity .2s ease; transform:none; }
 }
@@ -252,7 +316,6 @@ body{
    same-on-same once the ground is dark, and each has to come after
    everything above or an earlier equal-specificity rule wins. */
 html h1, html h2, html h3, html .h1, html .h2, html .h3, html .title{ filter:none; }
-html h1.title{ color:var(--ink); text-transform:uppercase; }
 html .rel-title{ color:var(--ttl); }
 .logo-link img{ filter:none; }                       /* logo.png is white */
 header.site{ background:rgba(10,8,6,0.72); border-bottom:1px solid rgba(242,239,230,0.10);
@@ -318,21 +381,27 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 </header>
 
 <main>
-  <div class="wrap lt">
+  <!-- Name removed from view on request — kept for screen readers and search. -->
+  <h1 class="title sr-only">WHOSRILA — Made You &amp; Energy</h1>
 
-    <section class="lt-profile">
-      <button class="lt-share" id="ltShare" type="button" aria-label="Share this page">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
-      </button>
-      <img class="lt-avatar" src="/images/avatar-whosrila.jpg" alt="WHOSRILA" width="104" height="104">
-      <h1 class="title lt-name">WHOSRILA</h1>
+  <div class="lt-hero">
+    <img src="/images/portrait-1.jpg" alt="WHOSRILA" width="877" height="900" fetchpriority="high">
+    <button class="lt-share" id="ltShare" type="button" aria-label="Share this page">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
+    </button>
+  </div>
+
+  <div class="wrap lt">
+    <div class="lt-intro">
       <p class="lt-bio">Two singles out now. Stream them, watch the video, or own them outright.</p>
-      <nav class="lt-jump" aria-label="Jump to a release">
+      <nav class="lt-jump" aria-label="Open a release">
         <a class="lt-chip lt-chip--madeyou" href="#madeyou"><img src="/images/art-madeyou.jpg" alt="" width="28" height="28">Made You</a>
         <a class="lt-chip lt-chip--energy" href="#energy"><img src="/images/art-energy.jpg?v=0ddbff95" alt="" width="28" height="28">Energy</a>
       </nav>
       <p class="lt-share-note" id="ltShareNote" aria-live="polite"></p>
-    </section>
+    </div>
+
+    <div class="rels">
 
     <!-- ======================= MADE YOU ======================= -->
     <!-- data-song scopes tracking: js/track.js credits every click inside
@@ -349,62 +418,72 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
         <h2 class="rel-title">Made You</h2>
         <p class="rel-sub">Single &middot; WHOSRILA</p>
         <p class="rel-state" aria-live="polite">Tap play for a preview</p>
-      </div>
-
-      <div class="pills">
-        <!-- Same Stripe product both ways: fixed $2.99, or "customer chooses"
-             with a $2.99 minimum. The download Worker matches on product name,
-             so both release the same file. -->
-        <a class="pill pill--primary" href="https://buy.stripe.com/cNi9AUfBYeWK7WA0mi6Zy08" target="_blank" rel="noopener">
-          <span class="pill-ico"><span class="pill-dot dot-direct"></span></span>
-          <span class="pill-label">Buy direct &mdash; $2.99</span>
-          <span class="pill-sub">Instant download &middot; almost all of it reaches me</span>
-          <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </a>
-        <a class="pill pill--buy" href="https://buy.stripe.com/cNi28s89w15U4Ko3yu6Zy09" target="_blank" rel="noopener">
-          <span class="pill-ico"><span class="pill-dot dot-direct"></span></span>
-          <span class="pill-label">Pay what you want</span>
-          <span class="pill-sub">Same file &middot; $2.99 minimum</span>
-          <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </a>
-        <a class="pill pill--buy" href="https://music.apple.com/us/album/made-you/6780529398?i=6780529401&amp;app=itunes" target="_blank" rel="noopener">
-          <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
-          <span class="pill-label">Purchase on iTunes</span>
-          <span class="pill-sub">Yours to keep</span>
-          <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </a>
-      </div>
-
-      <p class="pills-label">Watch</p>
-      <div class="pills">
-        <button class="pill lt-video" type="button" data-yt="8wExZPatf78" data-ratio="4:3" data-title="Made You — music video">
-          <span class="pill-ico"><img src="https://i.ytimg.com/vi/8wExZPatf78/hqdefault.jpg" alt="" loading="lazy"></span>
-          <span class="pill-label">Watch the music video</span>
-          <span class="pill-sub">Official video</span>
-          <span class="pill-go" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg></span>
-        </button>
-        <button class="pill lt-video" type="button" data-yt="Ozd5XmB-QVQ" data-ratio="9:16" data-title="Behind Made You">
-          <span class="pill-ico"><img src="https://i.ytimg.com/vi/Ozd5XmB-QVQ/oardefault.jpg" alt="" loading="lazy"></span>
-          <span class="pill-label">Behind the scenes</span>
-          <span class="pill-sub">No script &middot; just us in the room</span>
-          <span class="pill-go" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg></span>
+        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-madeyou">
+          <span class="rel-toggle-text">Listen &amp; buy</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
 
-      <p class="pills-label">Stream it</p>
-      <div class="pills">
-        <a class="pill" href="https://open.spotify.com/album/1P5PPqGOfOs2ZSbwkQZQAs" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
-        <a class="pill" href="https://geo.music.apple.com/us/album/_/6780529398?i=6780529401&amp;mt=1&amp;app=music&amp;ls=1" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
-        <a class="pill" href="https://music.youtube.com/playlist?list=OLAK5uy_kDQwjaX2GbzXWG7Dw5qg0_TL0GmXL59MU" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-ytm"></span></span><span class="pill-label">YouTube Music</span></a>
-        <a class="pill" href="https://listen.tidal.com/track/533038036" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
-        <a class="pill" href="https://music.amazon.com/albums/B0H51PK61N" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-amazon"></span></span><span class="pill-label">Amazon Music</span></a>
-        <a class="pill" href="https://www.boomplay.com/albums/EQUsVdC2gJN1mBjWnxm4xdyb" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-boomplay"></span></span><span class="pill-label">Boomplay</span></a>
-        <a class="pill" href="https://soundcloud.com/whosrila/made-you" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
-        <a class="pill" href="https://audiomack.com/whosrila/song/made-you" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-audiomack"></span></span><span class="pill-label">Audiomack</span></a>
-        <a class="pill" href="https://www.pandora.com/TR:207443874" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
-      </div>
+      <div class="rel-menu" id="menu-madeyou">
+        <div class="rel-menu-inner">
+          <p class="rel-menu-head"><img src="/images/art-madeyou.jpg" alt="" width="26" height="26">Made You</p>
 
-      <a class="rel-more" href="/madeyou">Lyrics, clips &amp; the full page</a>
+          <div class="pills">
+            <!-- Same Stripe product both ways: fixed $2.99, or "customer chooses"
+                 with a $2.99 minimum. The download Worker matches on product name,
+                 so both release the same file. -->
+            <a class="pill pill--primary" href="https://buy.stripe.com/cNi9AUfBYeWK7WA0mi6Zy08" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-direct"></span></span>
+              <span class="pill-label">Buy direct &mdash; $2.99</span>
+              <span class="pill-sub">Instant download &middot; almost all of it reaches me</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+            <a class="pill pill--buy" href="https://buy.stripe.com/cNi28s89w15U4Ko3yu6Zy09" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-direct"></span></span>
+              <span class="pill-label">Pay what you want</span>
+              <span class="pill-sub">Same file &middot; $2.99 minimum</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+            <a class="pill pill--buy" href="https://music.apple.com/us/album/made-you/6780529398?i=6780529401&amp;app=itunes" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
+              <span class="pill-label">Purchase on iTunes</span>
+              <span class="pill-sub">Yours to keep</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+          </div>
+
+          <p class="pills-label">Watch</p>
+          <div class="pills">
+            <button class="pill lt-video" type="button" data-yt="8wExZPatf78" data-ratio="4:3" data-title="Made You — music video">
+              <span class="pill-ico"><img src="https://i.ytimg.com/vi/8wExZPatf78/hqdefault.jpg" alt="" loading="lazy"></span>
+              <span class="pill-label">Watch the music video</span>
+              <span class="pill-sub">Official video</span>
+              <span class="pill-go" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg></span>
+            </button>
+            <button class="pill lt-video" type="button" data-yt="Ozd5XmB-QVQ" data-ratio="9:16" data-title="Behind Made You">
+              <span class="pill-ico"><img src="https://i.ytimg.com/vi/Ozd5XmB-QVQ/oardefault.jpg" alt="" loading="lazy"></span>
+              <span class="pill-label">Behind the scenes</span>
+              <span class="pill-sub">No script &middot; just us in the room</span>
+              <span class="pill-go" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg></span>
+            </button>
+          </div>
+
+          <p class="pills-label">Stream it</p>
+          <div class="pills">
+            <a class="pill" href="https://open.spotify.com/album/1P5PPqGOfOs2ZSbwkQZQAs" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
+            <a class="pill" href="https://geo.music.apple.com/us/album/_/6780529398?i=6780529401&amp;mt=1&amp;app=music&amp;ls=1" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+            <a class="pill" href="https://music.youtube.com/playlist?list=OLAK5uy_kDQwjaX2GbzXWG7Dw5qg0_TL0GmXL59MU" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-ytm"></span></span><span class="pill-label">YouTube Music</span></a>
+            <a class="pill" href="https://listen.tidal.com/track/533038036" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
+            <a class="pill" href="https://music.amazon.com/albums/B0H51PK61N" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-amazon"></span></span><span class="pill-label">Amazon Music</span></a>
+            <a class="pill" href="https://www.boomplay.com/albums/EQUsVdC2gJN1mBjWnxm4xdyb" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-boomplay"></span></span><span class="pill-label">Boomplay</span></a>
+            <a class="pill" href="https://soundcloud.com/whosrila/made-you" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
+            <a class="pill" href="https://audiomack.com/whosrila/song/made-you" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-audiomack"></span></span><span class="pill-label">Audiomack</span></a>
+            <a class="pill" href="https://www.pandora.com/TR:207443874" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
+          </div>
+
+          <a class="rel-more" href="/madeyou">Lyrics, clips &amp; the full page</a>
+        </div>
+      </div>
     </section>
 
     <!-- ======================= ENERGY ======================= -->
@@ -422,33 +501,44 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
         <h2 class="rel-title">Energy</h2>
         <p class="rel-sub">Single &middot; KUM3RA &amp; WHOSRILA</p>
         <p class="rel-state" aria-live="polite">Tap play for a preview</p>
+        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-energy">
+          <span class="rel-toggle-text">Listen &amp; buy</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
 
-      <div class="pills">
-        <a class="pill pill--buy" href="https://music.apple.com/us/album/energy/6795595429?i=6795595434&amp;app=itunes" target="_blank" rel="noopener">
-          <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
-          <span class="pill-label">Purchase on iTunes</span>
-          <span class="pill-sub">Own the song</span>
-          <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </a>
-      </div>
+      <div class="rel-menu" id="menu-energy">
+        <div class="rel-menu-inner">
+          <p class="rel-menu-head"><img src="/images/art-energy.jpg?v=0ddbff95" alt="" width="26" height="26">Energy</p>
 
-      <p class="pills-label">Stream it</p>
-      <div class="pills">
-        <a class="pill" href="https://open.spotify.com/track/0Es28ZRcKpiixIEVtCo1YG" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
-        <a class="pill" href="https://geo.music.apple.com/us/album/energy/6795595429?i=6795595434" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
-        <a class="pill" href="https://music.youtube.com/playlist?list=OLAK5uy_kpaayYZAGYXWvyL3WnTYhAbAm4EShVEDA" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-ytm"></span></span><span class="pill-label">YouTube Music</span></a>
-        <a class="pill" href="https://listen.tidal.com/album/547190360" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
-        <a class="pill" href="https://music.amazon.com/albums/B0HBYM8NSF" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-amazon"></span></span><span class="pill-label">Amazon Music</span></a>
-        <a class="pill" href="https://www.boomplay.com/albums/136760072" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-boomplay"></span></span><span class="pill-label">Boomplay</span></a>
-        <a class="pill" href="https://soundcloud.com/kum3ra/energy" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
-        <!-- ENERGY-STREAMS-END: still to come — Deezer, Audiomack. Pandora stays last. -->
-        <a class="pill" href="https://www.pandora.com/artist/kum3ra-and-whosrila/energy/ALk63Pl932jl7f9" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
-      </div>
+          <div class="pills">
+            <a class="pill pill--buy" href="https://music.apple.com/us/album/energy/6795595429?i=6795595434&amp;app=itunes" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
+              <span class="pill-label">Purchase on iTunes</span>
+              <span class="pill-sub">Own the song</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+          </div>
 
-      <a class="rel-more" href="/energy">The full Energy page</a>
+          <p class="pills-label">Stream it</p>
+          <div class="pills">
+            <a class="pill" href="https://open.spotify.com/track/0Es28ZRcKpiixIEVtCo1YG" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
+            <a class="pill" href="https://geo.music.apple.com/us/album/energy/6795595429?i=6795595434" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+            <a class="pill" href="https://music.youtube.com/playlist?list=OLAK5uy_kpaayYZAGYXWvyL3WnTYhAbAm4EShVEDA" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-ytm"></span></span><span class="pill-label">YouTube Music</span></a>
+            <a class="pill" href="https://listen.tidal.com/album/547190360" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
+            <a class="pill" href="https://music.amazon.com/albums/B0HBYM8NSF" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-amazon"></span></span><span class="pill-label">Amazon Music</span></a>
+            <a class="pill" href="https://www.boomplay.com/albums/136760072" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-boomplay"></span></span><span class="pill-label">Boomplay</span></a>
+            <a class="pill" href="https://soundcloud.com/kum3ra/energy" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
+            <!-- ENERGY-STREAMS-END: still to come — Deezer, Audiomack. Pandora stays last. -->
+            <a class="pill" href="https://www.pandora.com/artist/kum3ra-and-whosrila/energy/ALk63Pl932jl7f9" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
+          </div>
+
+          <a class="rel-more" href="/energy">The full Energy page</a>
+        </div>
+      </div>
     </section>
 
+    </div>
   </div>
 </main>
 
@@ -463,6 +553,80 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 <button class="to-top" id="toTop" type="button" aria-label="Back to top">
   <svg width="15" height="9" viewBox="0 0 16 10" aria-hidden="true"><path d="M1 8.5 L8 2 L15 8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
 </button>
+
+<script>
+/* Listen & buy menus.
+   Each opens and closes on its own. The chips at the top open a song's menu
+   and bring its cover into view, and /music#energy arrives with Energy open.
+   Closed menus are inert, so their links are skipped by keyboard and screen
+   readers until opened. */
+(function(){
+  var rels = [].slice.call(document.querySelectorAll('.rel'));
+  if(!rels.length) return;
+  var reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+
+  function parts(rel){
+    return { btn: rel.querySelector('.rel-toggle'), menu: rel.querySelector('.rel-menu'),
+             card: rel.querySelector('.rel-card'), text: rel.querySelector('.rel-toggle-text') };
+  }
+  function setOpen(rel, open){
+    var p = parts(rel);
+    if(!p.btn || !p.menu || open === p.menu.classList.contains('open')) return;
+    if(open){
+      p.menu.removeAttribute('inert');
+      p.menu.classList.add('open');
+      p.menu.style.maxHeight = reduce ? 'none' : p.menu.scrollHeight + 'px';
+      // transitionend never fires in a hidden or backgrounded tab, which would
+      // leave the menu pinned to a pixel height and clip it on rotation
+      clearTimeout(p.menu._release);
+      p.menu._release = setTimeout(function(){ if(p.menu.classList.contains('open')) p.menu.style.maxHeight = 'none'; }, 480);
+    } else {
+      clearTimeout(p.menu._release);
+      // from `none` back to a number first, or there is nothing to animate from
+      p.menu.style.maxHeight = p.menu.scrollHeight + 'px';
+      void p.menu.offsetHeight;
+      p.menu.classList.remove('open');
+      p.menu.style.maxHeight = '0px';
+      p.menu.setAttribute('inert', '');
+    }
+    p.card.classList.toggle('is-open', open);
+    p.btn.setAttribute('aria-expanded', String(open));
+    if(p.text) p.text.textContent = open ? 'Close' : 'Listen & buy';
+  }
+
+  rels.forEach(function(rel){
+    var p = parts(rel);
+    if(!p.btn || !p.menu) return;
+    p.menu.setAttribute('inert', '');
+    p.menu.addEventListener('transitionend', function(e){
+      if(e.target === p.menu && e.propertyName === 'max-height' && p.menu.classList.contains('open')) p.menu.style.maxHeight = 'none';
+    });
+    p.btn.addEventListener('click', function(){ setOpen(rel, !p.menu.classList.contains('open')); });
+  });
+
+  function openById(hash, scroll){
+    var id = String(hash || '').replace(/^#/, '');
+    var rel = id && document.getElementById(id);
+    if(!rel || !rel.classList.contains('rel')) return false;
+    setOpen(rel, true);
+    if(scroll){
+      var c = rel.querySelector('.rel-card');
+      if(c) c.scrollIntoView({ block:'start', behavior: reduce ? 'auto' : 'smooth' });
+    }
+    return true;
+  }
+  document.querySelectorAll('.lt-chip').forEach(function(a){
+    a.addEventListener('click', function(e){
+      if(openById(a.getAttribute('href'), true)){
+        e.preventDefault();
+        try { history.replaceState(null, '', a.getAttribute('href')); } catch(_){}
+      }
+    });
+  });
+  openById(location.hash, false);
+})();
+</script>
 
 <script>
 /* Previews — one per release. Starting one stops the other, so the two
@@ -573,7 +737,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
       var scope = box.closest('[data-song]');
       opener = box;
       open(id, title, box.getAttribute('data-ratio'));
-      try { if(window.wrTrack) window.wrTrack('VideoPlay', { title:title, song: scope ? scope.getAttribute('data-song') : 'links' }); } catch(e){}
+      try { if(window.wrTrack) window.wrTrack('VideoPlay', { title:title, song: scope ? scope.getAttribute('data-song') : 'music' }); } catch(e){}
     });
   });
 })();
