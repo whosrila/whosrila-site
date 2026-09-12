@@ -101,16 +101,6 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 .lt-intro{ position:relative; text-align:center; margin:-34px 0 22px; }
 .lt-bio{ color:var(--paper-dim); font-size:15px; line-height:1.45; max-width:340px; margin:0 auto 16px; text-wrap:balance; }
 .lt-share-note{ min-height:18px; margin:10px 0 0; font-size:12px; letter-spacing:.06em; color:var(--paper-dim); }
-.lt-jump{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
-.lt-chip{
-  display:inline-flex; align-items:center; gap:9px; padding:5px 16px 5px 5px; border-radius:999px;
-  border:1px solid var(--line); background:rgba(242,239,230,0.04);
-  font-size:13px; font-weight:600; letter-spacing:.02em; color:var(--ink);
-  transition:border-color .18s, color .18s, box-shadow .2s;
-}
-.lt-chip img{ width:28px; height:28px; border-radius:50%; object-fit:cover; display:block; }
-.lt-chip--madeyou:hover{ border-color:#E8C079; color:#E8C079; box-shadow:0 0 18px -6px rgba(232,192,121,.6); }
-.lt-chip--energy:hover{ border-color:#E8D45E; color:#E8D45E; box-shadow:0 0 18px -6px rgba(232,212,94,.7); }
 
 /* ---------- Release palettes ---------- */
 .rel--madeyou{
@@ -309,7 +299,7 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 @media (max-width:560px){ .to-top{ right:14px; bottom:14px; width:42px; height:42px; } }
 
 @media (prefers-reduced-motion: reduce){
-  .pill, .rel-play, .lt-chip, .rel-card, .rel-toggle, .rel-toggle svg, .rel-menu, .mv-lb, .mv-lb-close, .cc{ transition:none; }
+  .pill, .rel-play, .rel-card, .rel-toggle, .rel-toggle svg, .rel-menu, .mv-lb, .mv-lb-close, .cc{ transition:none; }
   .pill:hover, .rel-play:hover{ transform:none; }
   .to-top{ transition:opacity .2s ease; transform:none; }
 }
@@ -397,10 +387,6 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
   <div class="wrap lt">
     <div class="lt-intro">
       <p class="lt-bio">Two singles out now. Stream them, watch the video, or own them outright.</p>
-      <nav class="lt-jump" aria-label="Open a release">
-        <a class="lt-chip lt-chip--madeyou" href="#madeyou"><img src="/images/art-madeyou.jpg" alt="" width="28" height="28">Made You</a>
-        <a class="lt-chip lt-chip--energy" href="#energy"><img src="/images/art-energy.jpg?v=0ddbff95" alt="" width="28" height="28">Energy</a>
-      </nav>
       <p class="lt-share-note" id="ltShareNote" aria-live="polite"></p>
     </div>
 
@@ -559,8 +545,8 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 
 <script>
 /* Listen & buy menus.
-   Each opens and closes on its own. The chips at the top open a song's menu
-   and bring its cover into view, and /music#energy arrives with Energy open.
+   Only one is open at a time — opening a song closes the other. /music#energy
+   (or #madeyou) arrives with that song already open, which suits an ad link.
    Closed menus are inert, so their links are skipped by keyboard and screen
    readers until opened. */
 (function(){
@@ -577,6 +563,8 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
     var p = parts(rel);
     if(!p.btn || !p.menu || open === p.menu.classList.contains('open')) return;
     if(open){
+      // one at a time: opening a song closes the other
+      rels.forEach(function(other){ if(other !== rel) setOpen(other, false); });
       p.menu.removeAttribute('inert');
       p.menu.classList.add('open');
       p.menu.style.maxHeight = reduce ? 'none' : p.menu.scrollHeight + 'px';
@@ -619,14 +607,6 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
     }
     return true;
   }
-  document.querySelectorAll('.lt-chip').forEach(function(a){
-    a.addEventListener('click', function(e){
-      if(openById(a.getAttribute('href'), true)){
-        e.preventDefault();
-        try { history.replaceState(null, '', a.getAttribute('href')); } catch(_){}
-      }
-    });
-  });
   openById(location.hash, false);
 })();
 </script>
