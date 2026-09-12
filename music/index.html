@@ -28,10 +28,9 @@
    /music — both current singles on one page.
 
    A portrait feathered into the top of the page, then the two
-   releases side by side, each with a collapsible Listen & buy menu.
-   On a phone the columns are ~165px, too narrow for readable buttons,
-   so an opened menu drops full width beneath both covers; from 720px
-   up each menu opens under its own cover.
+   releases side by side, each with a Listen & buy toggle. Opening one
+   hides the other single and gives the open song the page — its card,
+   then its menu, in one centred column. Closing brings both back.
 
    Each release keeps its own record's palette: Made You's warm black,
    mesh red and gold on the left, Energy's #010101 and gold heart on
@@ -126,14 +125,23 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 .rel{ display:contents; color:var(--tx); }
 .rel--madeyou .rel-card{ grid-column:1; grid-row:1; }
 .rel--energy  .rel-card{ grid-column:2; grid-row:1; }
-/* phone: an opened menu spans both columns beneath the covers */
-.rel--madeyou .rel-menu{ grid-column:1 / -1; grid-row:2; }
-.rel--energy  .rel-menu{ grid-column:1 / -1; grid-row:3; }
-@media (min-width:720px){
-  .rels{ column-gap:24px; }
-  .rel--madeyou .rel-menu{ grid-column:1; grid-row:2; }
-  .rel--energy  .rel-menu{ grid-column:2; grid-row:2; }
-}
+@media (min-width:720px){ .rels{ column-gap:24px; } }
+
+/* ---------- One song at a time ----------
+   Opening a song hides the other single; the grid drops to one centred
+   column holding the open card and its menu. Closing restores both side by
+   side. The view-transition names let supporting browsers morph between
+   the two layouts; elsewhere it switches instantly. */
+.rels.has-open{ grid-template-columns:minmax(0,1fr); max-width:460px; margin-left:auto; margin-right:auto; }
+.rels.has-open .rel-card{ grid-column:1; grid-row:1; }
+.rels.has-open .rel-menu{ grid-column:1; grid-row:2; }
+.rel.is-hidden > *{ display:none; }
+.rel--madeyou .rel-card{ view-transition-name:card-madeyou; }
+.rel--energy  .rel-card{ view-transition-name:card-energy; }
+.rel--madeyou .rel-menu{ view-transition-name:menu-madeyou; }
+.rel--energy  .rel-menu{ view-transition-name:menu-energy; }
+::view-transition-group(*){ animation-duration:.4s; animation-timing-function:cubic-bezier(.22,.61,.36,1); }
+::view-transition-old(*), ::view-transition-new(*){ animation-duration:.4s; }
 
 /* ---------- Cover card ---------- */
 .rel-card{
@@ -188,12 +196,18 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
   position:relative; border:1px solid var(--edge); border-radius:24px; padding:14px 12px 18px;
   background:var(--card); box-shadow:0 0 60px -30px var(--glow);
 }
-/* phone only: a small head so a full-width menu clearly belongs to one song */
-.rel-menu-head{ display:flex; align-items:center; justify-content:center; gap:10px; margin:0 0 4px;
-  font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--tx); font-weight:700; }
-/* --tx not --ttl: the title red only passes contrast as large text, and this is 12px */
-.rel-menu-head img{ width:26px; height:26px; border-radius:50%; object-fit:cover; }
-@media (min-width:720px){ .rel-menu-head{ display:none; } .rel-menu-inner{ border-radius:28px; padding:16px 14px 20px; } }
+@media (min-width:720px){ .rel-menu-inner{ border-radius:28px; padding:16px 14px 20px; } }
+
+/* bottom of an open menu — Made You's runs long on a phone, so the way back
+   to both singles shouldn't mean scrolling up to Close */
+.rel-back{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  width:100%; min-height:44px; margin-top:18px; padding:8px 14px; border-radius:999px; cursor:pointer;
+  background:transparent; color:var(--tx); border:1px solid var(--edge);
+  font:inherit; font-size:13px; font-weight:600; letter-spacing:.03em;
+  transition:border-color .18s, box-shadow .2s;
+}
+.rel-back:hover{ border-color:var(--gold); box-shadow:0 0 22px -6px var(--glow); }
 
 /* ---------- Buttons ---------- */
 .pills-label{ font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--dim); text-align:center; margin:20px 0 10px; }
@@ -299,7 +313,7 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 @media (max-width:560px){ .to-top{ right:14px; bottom:14px; width:42px; height:42px; } }
 
 @media (prefers-reduced-motion: reduce){
-  .pill, .rel-play, .rel-card, .rel-toggle, .rel-toggle svg, .rel-menu, .mv-lb, .mv-lb-close, .cc{ transition:none; }
+  .pill, .rel-play, .rel-card, .rel-toggle, .rel-back, .rel-toggle svg, .rel-menu, .mv-lb, .mv-lb-close, .cc{ transition:none; }
   .pill:hover, .rel-play:hover{ transform:none; }
   .to-top{ transition:opacity .2s ease; transform:none; }
 }
@@ -415,8 +429,6 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 
       <div class="rel-menu" id="menu-madeyou">
         <div class="rel-menu-inner">
-          <p class="rel-menu-head"><img src="/images/art-madeyou.jpg" alt="" width="26" height="26">Made You</p>
-
           <div class="pills">
             <!-- Same Stripe product both ways: fixed $2.99, or "customer chooses"
                  with a $2.99 minimum. The download Worker matches on product name,
@@ -471,6 +483,10 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
           </div>
 
           <a class="rel-more" href="/madeyou">Lyrics, clips &amp; the full page</a>
+          <button class="rel-back" type="button">
+            <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Back to both singles</span>
+          </button>
         </div>
       </div>
     </section>
@@ -498,8 +514,6 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 
       <div class="rel-menu" id="menu-energy">
         <div class="rel-menu-inner">
-          <p class="rel-menu-head"><img src="/images/art-energy.jpg?v=0ddbff95" alt="" width="26" height="26">Energy</p>
-
           <div class="pills">
             <a class="pill pill--buy" href="https://music.apple.com/us/album/energy/6795595429?i=6795595434&amp;app=itunes" target="_blank" rel="noopener">
               <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
@@ -523,6 +537,10 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
           </div>
 
           <a class="rel-more" href="/energy">The full Energy page</a>
+          <button class="rel-back" type="button">
+            <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Back to both singles</span>
+          </button>
         </div>
       </div>
     </section>
@@ -544,46 +562,95 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 </button>
 
 <script>
-/* Listen & buy menus.
-   Only one is open at a time — opening a song closes the other. /music#energy
-   (or #madeyou) arrives with that song already open, which suits an ad link.
-   Closed menus are inert, so their links are skipped by keyboard and screen
-   readers until opened. */
+/* Listen & buy menus — one song at a time.
+   Opening a song hides the other single and gives the open one the page: the
+   grid drops to one centred column, the card, then its menu. Closing (the
+   toggle, or Back to both singles) brings both back side by side.
+   /music#energy (or #madeyou) arrives with that song already open.
+
+   Where view transitions are supported the layout change morphs; elsewhere
+   the menu height animates and the layout switches instantly. Closed menus
+   are inert and the hidden single is display:none, so neither can be tabbed
+   into. */
 (function(){
+  var grid = document.querySelector('.rels');
   var rels = [].slice.call(document.querySelectorAll('.rel'));
-  if(!rels.length) return;
+  if(!grid || !rels.length) return;
   var reduce = false;
   try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  var canMorph = !reduce && typeof document.startViewTransition === 'function';
 
   function parts(rel){
     return { btn: rel.querySelector('.rel-toggle'), menu: rel.querySelector('.rel-menu'),
              card: rel.querySelector('.rel-card'), text: rel.querySelector('.rel-toggle-text') };
   }
-  function setOpen(rel, open){
-    var p = parts(rel);
-    if(!p.btn || !p.menu || open === p.menu.classList.contains('open')) return;
-    if(open){
-      // one at a time: opening a song closes the other
-      rels.forEach(function(other){ if(other !== rel) setOpen(other, false); });
-      p.menu.removeAttribute('inert');
-      p.menu.classList.add('open');
-      p.menu.style.maxHeight = reduce ? 'none' : p.menu.scrollHeight + 'px';
-      // transitionend never fires in a hidden or backgrounded tab, which would
-      // leave the menu pinned to a pixel height and clip it on rotation
-      clearTimeout(p.menu._release);
-      p.menu._release = setTimeout(function(){ if(p.menu.classList.contains('open')) p.menu.style.maxHeight = 'none'; }, 480);
-    } else {
-      clearTimeout(p.menu._release);
-      // from `none` back to a number first, or there is nothing to animate from
-      p.menu.style.maxHeight = p.menu.scrollHeight + 'px';
-      void p.menu.offsetHeight;
-      p.menu.classList.remove('open');
-      p.menu.style.maxHeight = '0px';
-      p.menu.setAttribute('inert', '');
+  function current(){
+    for(var i = 0; i < rels.length; i++) if(parts(rels[i]).menu.classList.contains('open')) return rels[i];
+    return null;
+  }
+
+  // Every song's state for "openRel is open" — or both singles showing when null.
+  function apply(openRel){
+    rels.forEach(function(rel){
+      var p = parts(rel), isOpen = rel === openRel, hidden = !!openRel && !isOpen;
+      if(hidden){
+        var playing = rel.querySelector('.rel-play.playing');
+        if(playing) playing.click();          // never leave a hidden single playing
+      }
+      rel.classList.toggle('is-hidden', hidden);
+      p.menu.classList.toggle('open', isOpen);
+      if(isOpen) p.menu.removeAttribute('inert'); else p.menu.setAttribute('inert', '');
+      p.card.classList.toggle('is-open', isOpen);
+      p.btn.setAttribute('aria-expanded', String(isOpen));
+      if(p.text) p.text.textContent = isOpen ? 'Close' : 'Listen & buy';
+    });
+    grid.classList.toggle('has-open', !!openRel);
+  }
+
+  function scrollAfter(openRel){
+    var target = openRel ? parts(openRel).card : grid;
+    // opening: bring the song to the top; closing: only if the singles are above the fold
+    if(openRel || target.getBoundingClientRect().top < 72){
+      target.scrollIntoView({ block:'start', behavior: reduce ? 'auto' : 'smooth' });
     }
-    p.card.classList.toggle('is-open', open);
-    p.btn.setAttribute('aria-expanded', String(open));
-    if(p.text) p.text.textContent = open ? 'Close' : 'Listen & buy';
+  }
+
+  function setOpen(rel, open, opts){
+    opts = opts || {};
+    var was = current(), next = open ? rel : null;
+    if(was === next) return;
+    var wasMenu = was && parts(was).menu, nextMenu = next && parts(next).menu;
+    var animate = !reduce && !opts.instant;
+
+    if(canMorph && !opts.instant){
+      var vt = document.startViewTransition(function(){
+        if(wasMenu){ clearTimeout(wasMenu._release); wasMenu.style.maxHeight = '0px'; }
+        apply(next);
+        if(nextMenu) nextMenu.style.maxHeight = 'none';
+      });
+      if(opts.scroll !== false) vt.updateCallbackDone.then(function(){ scrollAfter(next); });
+      return;
+    }
+
+    if(wasMenu){
+      clearTimeout(wasMenu._release);
+      // from `none` back to a number first, or there is nothing to animate from
+      wasMenu.style.maxHeight = animate ? wasMenu.scrollHeight + 'px' : '0px';
+      if(animate) void wasMenu.offsetHeight;
+    }
+    apply(next);
+    if(wasMenu) wasMenu.style.maxHeight = '0px';
+    if(nextMenu){
+      if(!animate){ nextMenu.style.maxHeight = 'none'; }
+      else {
+        nextMenu.style.maxHeight = nextMenu.scrollHeight + 'px';
+        // transitionend never fires in a hidden or backgrounded tab, which would
+        // leave the menu pinned to a pixel height and clip it on rotation
+        clearTimeout(nextMenu._release);
+        nextMenu._release = setTimeout(function(){ if(nextMenu.classList.contains('open')) nextMenu.style.maxHeight = 'none'; }, 480);
+      }
+    }
+    if(opts.scroll !== false) scrollAfter(next);
   }
 
   rels.forEach(function(rel){
@@ -594,20 +661,16 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
       if(e.target === p.menu && e.propertyName === 'max-height' && p.menu.classList.contains('open')) p.menu.style.maxHeight = 'none';
     });
     p.btn.addEventListener('click', function(){ setOpen(rel, !p.menu.classList.contains('open')); });
+    var back = rel.querySelector('.rel-back');
+    if(back) back.addEventListener('click', function(){
+      setOpen(rel, false);
+      try { p.btn.focus({ preventScroll:true }); } catch(e){}   // the back button itself just went inert
+    });
   });
 
-  function openById(hash, scroll){
-    var id = String(hash || '').replace(/^#/, '');
-    var rel = id && document.getElementById(id);
-    if(!rel || !rel.classList.contains('rel')) return false;
-    setOpen(rel, true);
-    if(scroll){
-      var c = rel.querySelector('.rel-card');
-      if(c) c.scrollIntoView({ block:'start', behavior: reduce ? 'auto' : 'smooth' });
-    }
-    return true;
-  }
-  openById(location.hash, false);
+  var id = String(location.hash || '').replace(/^#/, '');
+  var start = id && document.getElementById(id);
+  if(start && start.classList.contains('rel')) setOpen(start, true, { instant:true, scroll:false });
 })();
 </script>
 
