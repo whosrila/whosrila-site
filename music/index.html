@@ -27,6 +27,9 @@
 /* ============================================================
    /music — both current singles on one page.
 
+   No site header: this is a link-in-bio landing page, built so both singles
+   are on screen the moment it opens. The footer links back to whosrila.com.
+
    A portrait feathered into the top of the page, then the two
    releases side by side, each with a Listen & buy toggle. Opening one
    hides the other single and gives the open song the page — its card,
@@ -46,10 +49,6 @@
   --f-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --f-body:    'Helvetica Neue', Helvetica, Arial, sans-serif;
   --f-mono:    'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-@media (max-width:760px){
-  nav.links{ display:none; }
-  .burger{ display:block; }
 }
 
 body{
@@ -107,9 +106,11 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 
 .lt{ max-width:920px; padding:0 16px; }
 @media (min-width:720px){ .lt{ padding:0 24px; } }
-.lt-intro{ position:relative; text-align:center; margin:-34px 0 22px; }
-.lt-bio{ color:var(--paper-dim); font-size:15px; line-height:1.45; max-width:340px; margin:0 auto 16px; text-wrap:balance; }
-.lt-share-note{ min-height:18px; margin:10px 0 0; font-size:12px; letter-spacing:.06em; color:var(--paper-dim); }
+.lt-intro{ position:relative; text-align:center; margin:-38px 0 14px; }
+.lt-bio{ color:var(--paper-dim); font-size:15px; line-height:1.45; max-width:340px; margin:0 auto; text-wrap:balance; }
+/* "Link copied" floats in the gap instead of reserving a line of height it rarely uses */
+.lt-share-note{ position:absolute; left:0; right:0; top:100%; margin:0; font-size:12px; letter-spacing:.06em;
+  color:var(--paper-dim); pointer-events:none; }
 
 /* ---------- Release palettes ---------- */
 .rel--madeyou{
@@ -155,7 +156,7 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 
 /* ---------- Cover card ---------- */
 .rel-card{
-  display:flex; flex-direction:column; align-self:stretch; scroll-margin-top:72px;
+  display:flex; flex-direction:column; align-self:stretch; scroll-margin-top:12px;
   border:1px solid var(--edge); border-radius:20px; padding:8px 8px 10px;
   background:var(--card); text-align:center; box-shadow:0 0 60px -34px var(--glow);
   transition:border-color .2s, box-shadow .25s;
@@ -335,13 +336,6 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
    everything above or an earlier equal-specificity rule wins. */
 html h1, html h2, html h3, html .h1, html .h2, html .h3, html .title{ filter:none; }
 html .rel-title{ color:var(--ttl); }
-.logo-link img{ filter:none; }                       /* logo.png is white */
-header.site{ background:rgba(10,8,6,0.72); border-bottom:1px solid rgba(242,239,230,0.10);
-  -webkit-backdrop-filter:saturate(140%) blur(14px); backdrop-filter:saturate(140%) blur(14px); }
-nav.links a{ color:var(--ink); }
-nav.links a:hover{ border-color:#E8C079; }
-.burger{ color:var(--ink); }
-.mobilenav a{ color:var(--ink); border-bottom-color:rgba(242,239,230,0.10); }
 footer.mini{ color:var(--paper-dim); border-top-color:rgba(242,239,230,0.10); }
 footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 ::selection{ background:#E8C079; color:#120C05; }
@@ -378,25 +372,6 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 </script>
 </head>
 <body>
-
-<header class="site">
-  <div class="navrow" id="navrow">
-    <a href="/" class="logo-link"><img src="/images/logo.png" alt="WHOSRILA"></a>
-    <nav class="links">
-      <a href="/shop">Shop</a>
-      <a href="/listen">Listen</a>
-      <a href="/watch">Watch</a>
-      <a href="/press">Press</a>
-    </nav>
-    <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
-  </div>
-  <div class="mobilenav" id="mobileNav">
-    <a href="/shop">Shop</a>
-    <a href="/listen">Listen</a>
-    <a href="/watch">Watch</a>
-    <a href="/press">Press</a>
-  </div>
-</header>
 
 <main>
   <!-- Name removed from view on request — kept for screen readers and search. -->
@@ -621,7 +596,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
   function scrollAfter(openRel){
     var target = openRel ? parts(openRel).card : grid;
     // opening: bring the song to the top; closing: only if the singles are above the fold
-    if(openRel || target.getBoundingClientRect().top < 72){
+    if(openRel || target.getBoundingClientRect().top < 12){
       target.scrollIntoView({ block:'start', behavior: reduce ? 'auto' : 'smooth' });
     }
   }
@@ -823,30 +798,6 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3fc16cf549f44cb4bbde3934b15904d3"}'></script><!-- End Cloudflare Web Analytics -->
 <script defer src="/js/track.js?v=72ef4859"></script>
 <script defer src="/js/consent.js?v=0e636252"></script>
-
-<script>
-(function(){
-  var b = document.getElementById('burgerBtn'), n = document.getElementById('mobileNav');
-  if(!b || !n) return;
-  function measure(){
-    var prev = n.style.maxHeight;
-    n.style.transition = 'none'; n.style.maxHeight = 'none';
-    var px = n.scrollHeight;
-    n.style.maxHeight = prev || '0px'; void n.offsetHeight; n.style.transition = '';
-    return px;
-  }
-  function setOpen(open){
-    var px = open ? measure() : 0;
-    void n.offsetHeight;
-    n.classList.toggle('open', open);
-    n.style.maxHeight = px + 'px';
-    b.setAttribute('aria-expanded', String(open));
-  }
-  b.addEventListener('click', function(e){ e.preventDefault(); setOpen(!n.classList.contains('open')); });
-  n.addEventListener('click', function(e){ if(e.target.closest('a')) setOpen(false); });
-  window.addEventListener('resize', function(){ if(n.classList.contains('open')) n.style.maxHeight = measure() + 'px'; });
-})();
-</script>
 
 <script>
 (function(){
