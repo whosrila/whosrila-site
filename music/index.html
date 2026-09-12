@@ -69,21 +69,31 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 /* ---------- Portrait: embedded, not framed ----------
    A radial mask feathers every edge into the ground, so the photo's grey
    studio wall reads as a soft light around the head instead of a box. */
-.lt-hero{ position:relative; width:100%; max-width:1100px; margin:0 auto; height:clamp(300px, 92vw, 460px); }
-@media (min-width:720px){ .lt-hero{ height:clamp(420px, 48vw, 600px); } }
+/* Height follows width (3:2), so the face framing holds at any screen size. The
+   photo scales with the box's width, which is why desktop narrows the frame to
+   the song column rather than just cutting the height — a 1100px-wide box could
+   not be made shorter without losing the chin. */
+.lt-hero{ position:relative; width:100%; max-width:1100px; margin:0 auto; aspect-ratio:3 / 2; }
+@media (min-width:720px){ .lt-hero{ max-width:560px; } }
 .lt-hero img{
-  display:block; width:100%; height:100%; object-fit:cover; object-position:50% 42%;
+  /* 69% down the portrait puts the forehead near the top of the frame and the
+     chin about four-fifths down, so the whole face is inside the box */
+  /* absolute, so the photo's own 877x900 shape can't push the 3:2 frame open —
+     as a normal in-flow element it overrode aspect-ratio and made the phone
+     frame 385px tall instead of 250px */
+  position:absolute; inset:0;
+  display:block; width:100%; height:100%; object-fit:cover; object-position:50% 69%;
   filter:contrast(1.06) brightness(0.9);
   /* radii sized so the fade is fully transparent exactly at the box's bottom
-     (40% + 60%) and sides (50% +/- 50%); anything larger leaves a hard line
-     where the image box ends */
-  -webkit-mask-image:radial-gradient(ellipse 50% 60% at 50% 40%, #000 55%, transparent 100%);
-          mask-image:radial-gradient(ellipse 50% 60% at 50% 40%, #000 55%, transparent 100%);
+     (38% + 62%) and sides (50% +/- 50%), leaving no hard line where the image
+     ends; the 72% solid stop keeps the chin out of the fade */
+  -webkit-mask-image:radial-gradient(ellipse 50% 62% at 50% 38%, #000 72%, transparent 100%);
+          mask-image:radial-gradient(ellipse 50% 62% at 50% 38%, #000 72%, transparent 100%);
 }
 @media (max-width:719px){
   .lt-hero img{
-    -webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 40%, #000 55%, transparent 100%);
-            mask-image:radial-gradient(ellipse 90% 60% at 50% 40%, #000 55%, transparent 100%);
+    -webkit-mask-image:radial-gradient(ellipse 90% 62% at 50% 38%, #000 72%, transparent 100%);
+            mask-image:radial-gradient(ellipse 90% 62% at 50% 38%, #000 72%, transparent 100%);
   }
 }
 .lt-share{
@@ -156,13 +166,14 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 @media (min-width:720px){ .rel-cover{ border-radius:16px; } }
 .rel-cover img{ display:block; width:100%; height:100%; object-fit:cover; }
 .rel-play{
-  position:absolute; right:8px; bottom:8px; width:42px; height:42px; border-radius:50%;
+  position:absolute; right:7px; bottom:7px; width:32px; height:32px; border-radius:50%;
   display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; border:0;
   background:var(--gold); color:var(--on-gold);
   box-shadow:0 6px 20px rgba(0,0,0,.55), 0 0 22px -4px var(--glow);
   transition:transform .18s, box-shadow .2s;
 }
-@media (min-width:720px){ .rel-play{ right:12px; bottom:12px; width:54px; height:54px; } }
+.rel-play svg{ width:11px; height:11px; }   /* the play/pause markup is swapped in JS; CSS sizes both */
+@media (min-width:720px){ .rel-play{ right:10px; bottom:10px; width:40px; height:40px; } .rel-play svg{ width:14px; height:14px; } }
 .rel-play:hover{ transform:scale(1.07); }
 .rel-play.playing{ box-shadow:0 6px 20px rgba(0,0,0,.55), 0 0 0 5px rgba(255,255,255,.12), 0 0 28px var(--glow); }
 /* bold and at least 19px, so it counts as large text for contrast even on a phone */
