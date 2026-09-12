@@ -124,7 +124,14 @@
   }
 
   // Which song/page is this? Falls back to the path.
-  function pageId() {
+  //
+  // A page carrying more than one release marks each section with
+  // data-song="…"; the clicked element's nearest one wins. Without that, a
+  // page holding two songs would credit every click — Stripe checkouts
+  // included — to whichever title happens to be the page's first h1.
+  function pageId(el) {
+    var scope = el && el.closest && el.closest('[data-song]');
+    if (scope && scope.getAttribute('data-song')) return scope.getAttribute('data-song');
     var h1 = document.querySelector('h1.title, h1.page-title');
     if (h1 && h1.textContent.trim()) return h1.textContent.trim();
     var p = location.pathname.replace(/\/+$/, '').split('/').pop();
@@ -170,7 +177,7 @@
 
     var svc = serviceFor(href);
     if (!svc) return;
-    var payload = { platform: svc, song: pageId(), url: href };
+    var payload = { platform: svc, song: pageId(a), url: href };
     send(svc === 'Pre-Save' ? 'PreSaveClick' : 'PlatformClick', payload);
   }, true);   // capture phase: fires before the browser starts navigating
 
@@ -181,13 +188,13 @@
     if (t.classList.contains('vid-thumb')) {
       var card = t.closest('.vid-card');
       var title = card && card.querySelector('.vid-title');
-      send('VideoPlay', { title: title ? title.textContent.trim() : '', song: pageId() });
+      send('VideoPlay', { title: title ? title.textContent.trim() : '', song: pageId(t) });
     } else {
       // audio preview — only count the start, not the pause
       if (t.classList.contains('playing')) return;
       var item = t.closest('.track-item');
       var name = item && item.querySelector('.title-line');
-      send('PreviewPlay', { track: name ? cleanTitle(name) : pageId(), song: pageId() });
+      send('PreviewPlay', { track: name ? cleanTitle(name) : pageId(t), song: pageId(t) });
     }
   }, true);
 })();

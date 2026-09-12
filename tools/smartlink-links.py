@@ -18,6 +18,10 @@ TRACKING = {
     'at', 'ct', 'src', 'lid', 'cid', 'uo', 'app_id', 'ls',
     'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
     'si', 'nd', 'sh', 'share-user-id', 'tag', 'ref', 'referrer',
+    # Feature.fm's own click IDs, plus the partner tags it appends per store
+    # (Boomplay srModel, iHeart sc=feature_fm). Missed in the first version,
+    # which let ffm=FFM_... through on Boomplay, iHeart and Audiomack.
+    'ffm', 'sc', 'srmodel',
 }
 
 def clean(url: str) -> str:

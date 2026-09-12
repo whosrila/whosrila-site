@@ -1,25 +1,647 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0; url=/">
-  <link rel="canonical" href="/">
-  <title>WHOSRILA</title>
-<!-- Open Graph / Twitter share tags -->
+<meta charset="UTF-8">
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0A0806">
+<title>WHOSRILA — Made You &amp; Energy</title>
+<meta name="description" content="Two singles out now — Made You, and Energy with KUM3RA. Stream them, watch the video, or own the download.">
+<meta property="og:title" content="WHOSRILA — Made You &amp; Energy">
+<meta property="og:description" content="Two singles out now — Made You, and Energy with KUM3RA. Stream them, watch the video, or own the download.">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="WHOSRILA">
-<meta property="og:title" content="WHOSRILA">
-<meta property="og:description" content="WHOSRILA — Kingston, Jamaica. Hip-hop and reggae cut from the same riddim.">
-<meta property="og:image" content="https://whosrila.com/images/art-madeyou.jpg">
+<meta property="og:image" content="https://whosrila.com/images/og-music.jpg">
 <meta property="og:url" content="https://whosrila.com/music">
+<meta property="og:site_name" content="WHOSRILA">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="WHOSRILA">
-<meta name="twitter:description" content="WHOSRILA — Kingston, Jamaica. Hip-hop and reggae cut from the same riddim.">
-<meta name="twitter:image" content="https://whosrila.com/images/art-madeyou.jpg">
+<meta name="twitter:title" content="WHOSRILA — Made You &amp; Energy">
+<meta name="twitter:description" content="Two singles out now — Made You, and Energy with KUM3RA. Stream them, watch the video, or own the download.">
+<meta name="twitter:image" content="https://whosrila.com/images/og-music.jpg">
+<link rel="stylesheet" href="/css/site.css?v=726f54e1">
+<style>
+/* ============================================================
+   /music — both current singles on one page, laid out like a
+   link-in-bio (profile, then a featured card per release, then a
+   stack of rounded buttons) but carrying each record's own palette.
+
+   The page ground runs Made You -> Energy top to bottom: the warm
+   black and mesh red of the Made You cover up top, falling to the
+   #010101 and gold heart of the Energy cover below. Each release
+   section re-declares a handful of variables, so every card, button
+   and glow inside it takes that record's colours without any rule
+   being written twice.
+   ============================================================ */
+:root{
+  --ink:        #F2EFE6;
+  --paper:      #0A0806;
+  --paper-dim:  #9A8F7A;
+  --red:        #C4231A;
+  --line:       rgba(242,239,230,0.14);
+  --f-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --f-body:    'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --f-mono:    'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+@media (max-width:760px){
+  nav.links{ display:none; }
+  .burger{ display:block; }
+}
+
+body{
+  background:
+    radial-gradient(900px 520px at 50% 0%,  rgba(196,35,26,0.22),  transparent 62%),
+    radial-gradient(760px 620px at 50% 16%, rgba(232,192,121,0.11), transparent 64%),
+    radial-gradient(820px 700px at 50% 76%, rgba(232,212,94,0.12),  transparent 62%),
+    radial-gradient(900px 700px at 50% 97%, rgba(126,130,126,0.10), transparent 60%),
+    linear-gradient(180deg, #170A05 0%, #100905 36%, #060504 58%, #010101 100%);
+  background-repeat:no-repeat;
+}
+
+/* ---------- Release palettes ---------- */
+.rel--madeyou{
+  /* --ttl and --dim sit a step lighter than the Made You page's own #C4231A /
+     #9A8258: this ground carries the red glow behind them, and at the cover's
+     exact values the title measured 2.45:1 and the small caps 4.45:1. */
+  --tx:#E8C079; --dim:#AE9468; --gold:#E8C079; --ttl:#E0463A;
+  --card:rgba(232,192,121,0.055); --edge:rgba(232,192,121,0.30); --glow:rgba(232,192,121,0.32);
+  --on-gold:#120C05;
+}
+.rel--energy{
+  --tx:#F2EFE6; --dim:#8F938F; --gold:#E8D45E; --ttl:#E8D45E;
+  --card:rgba(242,239,230,0.045); --edge:rgba(242,239,230,0.22); --glow:rgba(232,212,94,0.40);
+  --on-gold:#010101;
+}
+
+/* ---------- Profile ---------- */
+.lt{ padding-top:10px; }
+.lt-profile{ position:relative; text-align:center; margin:8px 0 34px; }
+.lt-avatar{
+  display:block; width:104px; height:104px; margin:0 auto 14px; border-radius:50%; object-fit:cover;
+  border:1px solid rgba(232,192,121,0.45);
+  box-shadow:0 0 0 5px rgba(232,192,121,0.07), 0 0 44px rgba(196,35,26,0.38);
+}
+.lt-name{ font-size:26px; letter-spacing:.08em; line-height:1.1; margin:0 0 6px; }
+.lt-bio{ color:var(--paper-dim); font-size:15px; line-height:1.45; max-width:340px; margin:0 auto 18px; }
+.lt-share{
+  position:absolute; top:0; right:0; width:42px; height:42px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0;
+  background:rgba(242,239,230,0.07); border:1px solid rgba(242,239,230,0.18); color:var(--ink);
+  transition:background .18s, border-color .18s;
+}
+.lt-share:hover{ background:rgba(242,239,230,0.14); border-color:rgba(242,239,230,0.4); }
+.lt-share-note{ min-height:18px; margin:10px 0 0; font-size:12px; letter-spacing:.06em; color:var(--paper-dim); }
+.lt-jump{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.lt-chip{
+  display:inline-flex; align-items:center; gap:9px; padding:5px 16px 5px 5px; border-radius:999px;
+  border:1px solid var(--line); background:rgba(242,239,230,0.04);
+  font-size:13px; font-weight:600; letter-spacing:.02em; color:var(--ink);
+  transition:border-color .18s, color .18s, box-shadow .2s;
+}
+.lt-chip img{ width:28px; height:28px; border-radius:50%; object-fit:cover; display:block; }
+.lt-chip--madeyou:hover{ border-color:#E8C079; color:#E8C079; box-shadow:0 0 18px -6px rgba(232,192,121,.6); }
+.lt-chip--energy:hover{ border-color:#E8D45E; color:#E8D45E; box-shadow:0 0 18px -6px rgba(232,212,94,.7); }
+
+/* ---------- A release ---------- */
+.rel{ margin:0 0 48px; scroll-margin-top:76px; color:var(--tx); }
+.rel-card{
+  border:1px solid var(--edge); border-radius:28px; padding:16px 16px 18px;
+  background:var(--card); text-align:center;
+  box-shadow:0 0 70px -34px var(--glow);
+}
+.rel-cover{ position:relative; border-radius:16px; overflow:hidden; aspect-ratio:1/1; background:#000; }
+.rel-cover img{ display:block; width:100%; height:100%; object-fit:cover; }
+.rel-play{
+  position:absolute; right:12px; bottom:12px; width:54px; height:54px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; border:0;
+  background:var(--gold); color:var(--on-gold);
+  box-shadow:0 8px 26px rgba(0,0,0,.55), 0 0 24px -4px var(--glow);
+  transition:transform .18s, box-shadow .2s;
+}
+.rel-play:hover{ transform:scale(1.07); }
+.rel-play.playing{ box-shadow:0 8px 26px rgba(0,0,0,.55), 0 0 0 6px rgba(255,255,255,.12), 0 0 30px var(--glow); }
+.rel-title{ font-size:clamp(28px,7.4vw,34px); font-weight:700; letter-spacing:.01em; line-height:1.05;
+  text-transform:uppercase; margin:16px 0 4px; color:var(--ttl); }
+.rel-sub{ font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); margin:0; }
+.rel-state{ font-size:12px; letter-spacing:.06em; color:var(--dim); margin:8px 0 0; min-height:18px; }
+
+/* ---------- Buttons ---------- */
+.pills-label{ font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--dim);
+  text-align:center; margin:22px 0 10px; }
+.pills{ display:flex; flex-direction:column; gap:10px; margin-top:14px; }
+.pill{
+  position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  width:100%; min-height:58px; padding:9px 62px; border-radius:999px; cursor:pointer;
+  border:1px solid var(--edge); background:var(--card); color:var(--tx);
+  font:inherit; text-align:center;
+  transition:border-color .18s, background .18s, box-shadow .22s, transform .16s;
+}
+.pill:hover{ border-color:var(--gold); background:rgba(242,239,230,0.075);
+  box-shadow:0 0 28px -8px var(--glow); transform:translateY(-1px); }
+.pill-label{ display:block; font-weight:600; font-size:15.5px; line-height:1.25; text-wrap:balance; }
+.pill-sub{ display:block; margin-top:2px; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim);
+  /* balance, or on a 375px phone "almost all of it reaches me" strands "me" on a third line */
+  text-wrap:balance; }
+.pill-ico{
+  position:absolute; left:8px; top:50%; transform:translateY(-50%);
+  width:42px; height:42px; border-radius:50%; overflow:hidden;
+  display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.38);
+}
+.pill-ico img{ display:block; width:100%; height:100%; object-fit:cover; }
+.pill-go{ position:absolute; right:22px; top:50%; transform:translateY(-50%); display:flex; color:var(--dim); }
+.pill-dot{ width:11px; height:11px; border-radius:50%; background:currentColor;
+  box-shadow:0 0 12px -1px currentColor, 0 0 4px currentColor; }
+
+/* The one thing Made You most wants pressed: white, with a standing glow. */
+.pill--primary{ background:#F4F4F2; border-color:#F4F4F2; color:#120C05; box-shadow:0 0 30px rgba(244,244,242,0.22); }
+.pill--primary .pill-sub{ color:rgba(18,12,5,0.70); }
+.pill--primary .pill-go{ color:#120C05; }
+.pill--primary .pill-ico{ background:#120C05; }
+.pill--primary:hover{ background:#FFFFFF; border-color:#FFFFFF;
+  box-shadow:0 0 44px rgba(244,244,242,0.42), 0 0 8px rgba(232,192,121,0.5); }
+.pill--buy{ border-color:var(--gold); }
+/* Energy's only way to own it is iTunes, so that button carries the gold. */
+.rel--energy .pill--buy{ background:var(--gold); color:var(--on-gold); }
+.rel--energy .pill--buy .pill-sub{ color:rgba(1,1,1,0.72); }
+.rel--energy .pill--buy .pill-go{ color:var(--on-gold); }
+.rel--energy .pill--buy .pill-ico{ background:rgba(1,1,1,0.85); }
+.rel--energy .pill--buy:hover{ background:#F3E389; border-color:#F3E389; }
+
+.dot-direct{color:#E0463A}.dot-spotify{color:#1DB954}.dot-apple{color:#FA243C}.dot-itunes{color:#A855F7}
+.dot-ytm{color:#FF0000}.dot-tidal{color:#00D8D8}.dot-amazon{color:#25D1DA}.dot-boomplay{color:#E8112D}
+.dot-deezer{color:#A238FF}.dot-soundcloud{color:#FF5500}.dot-audiomack{color:#FFA200}.dot-pandora{color:#3668FF}
+
+.rel-more{ display:block; width:-moz-fit-content; width:fit-content; margin:18px auto 0; padding-bottom:2px;
+  font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim);
+  border-bottom:1px solid var(--edge); transition:color .18s, border-color .18s; }
+.rel-more:hover{ color:var(--gold); border-color:var(--gold); }
+
+.rel + .rel{ position:relative; padding-top:6px; }
+.rel + .rel::before{ content:""; position:absolute; left:18%; right:18%; top:-24px; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(242,239,230,0.22), transparent); }
+
+/* ---------- Video pop-out (same behaviour as /madeyou) ---------- */
+.mv-lb{
+  position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center;
+  background:rgba(6,4,2,.94); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  opacity:0; transition:opacity .3s ease; padding:24px;
+}
+.mv-lb.open{ opacity:1; }
+.mv-lb-panel{
+  position:relative; width:min(96vw, 1200px); aspect-ratio:4/3; max-height:88vh;
+  background:#000; border:1px solid rgba(232,192,121,.28); border-radius:5px; overflow:hidden;
+  box-shadow:0 0 70px rgba(232,192,121,.18);
+}
+.mv-lb-panel iframe, .mv-lb-panel > div{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.mv-lb-close{
+  position:fixed; top:18px; right:22px; width:44px; height:44px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2;
+  background:rgba(18,12,5,.85); color:#E8C079; border:1px solid rgba(232,192,121,.4);
+  font-size:20px; line-height:1; transition:background .2s, transform .2s;
+}
+.mv-lb-close:hover{ background:#C4231A; border-color:#C4231A; color:#fff; transform:rotate(90deg); }
+
+/* ---------- Cookie consent ---------- */
+.cc{
+  position:fixed; left:16px; right:16px; bottom:16px; z-index:300;
+  display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  max-width:760px; margin:0 auto; padding:16px 20px;
+  background:#141414; color:#F4F4F2; border:1px solid rgba(244,244,242,.18);
+  border-radius:6px; box-shadow:0 16px 48px rgba(0,0,0,.5);
+  opacity:0; transform:translateY(14px); transition:opacity .26s ease, transform .26s ease;
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+.cc-open{ opacity:1; transform:none; }
+.cc-text{ margin:0; font-size:13.5px; line-height:1.5; flex:1 1 300px; color:rgba(244,244,242,.86); }
+.cc-text a{ color:#F2EFE6; border-bottom:1px solid #E8C079; }
+.cc-actions{ display:flex; gap:10px; flex:0 0 auto; }
+.cc-btn{
+  font-family:inherit; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+  padding:10px 20px; border-radius:3px; cursor:pointer; border:1px solid rgba(244,244,242,.35);
+  background:transparent; color:#F4F4F2; transition:background .16s, color .16s, border-color .16s;
+}
+.cc-btn:hover{ border-color:#F4F4F2; }
+.cc-yes{ background:#F4F4F2; color:#0A0A0A; border-color:#F4F4F2; }
+.cc-yes:hover{ background:#E8C079; border-color:#E8C079; color:#120C05; }
+
+/* ---------- Back to top ---------- */
+.to-top{
+  position:fixed; right:20px; bottom:20px; z-index:120;
+  width:46px; height:46px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(12,10,8,.80); color:#F2EFE6;
+  border:1px solid rgba(242,239,230,.26);
+  -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+  cursor:pointer; opacity:0; transform:translateY(14px) scale(.9); pointer-events:none;
+  transition:opacity .3s ease, transform .35s cubic-bezier(.22,.61,.36,1), background .2s, border-color .2s;
+}
+.to-top.show{ opacity:1; transform:none; pointer-events:auto; }
+.to-top:hover{ background:#E8C079; border-color:#E8C079; color:#120C05; }
+.to-top svg{ display:block; }
+@media (max-width:560px){ .to-top{ right:14px; bottom:14px; width:42px; height:42px; } }
+
+@media (prefers-reduced-motion: reduce){
+  .pill, .rel-play, .lt-chip, .mv-lb, .mv-lb-close, .cc{ transition:none; }
+  .pill:hover, .rel-play:hover{ transform:none; }
+  .to-top{ transition:opacity .2s ease; transform:none; }
+}
+
+/* ---------- Dark-page corrections — keep this block LAST ----------
+   site.css is written for the light pages. Each rule below renders
+   same-on-same once the ground is dark, and each has to come after
+   everything above or an earlier equal-specificity rule wins. */
+html h1, html h2, html h3, html .h1, html .h2, html .h3, html .title{ filter:none; }
+html h1.title{ color:var(--ink); text-transform:uppercase; }
+html .rel-title{ color:var(--ttl); }
+.logo-link img{ filter:none; }                       /* logo.png is white */
+header.site{ background:rgba(10,8,6,0.72); border-bottom:1px solid rgba(242,239,230,0.10);
+  -webkit-backdrop-filter:saturate(140%) blur(14px); backdrop-filter:saturate(140%) blur(14px); }
+nav.links a{ color:var(--ink); }
+nav.links a:hover{ border-color:#E8C079; }
+.burger{ color:var(--ink); }
+.mobilenav a{ color:var(--ink); border-bottom-color:rgba(242,239,230,0.10); }
+footer.mini{ color:var(--paper-dim); border-top-color:rgba(242,239,230,0.10); }
+footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
+::selection{ background:#E8C079; color:#120C05; }
+:focus-visible{ outline-color:#E8C079; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "WHOSRILA — Made You & Energy",
+  "url": "https://whosrila.com/music",
+  "hasPart": [
+    {
+      "@type": "MusicRecording",
+      "name": "Made You",
+      "url": "https://whosrila.com/madeyou",
+      "image": "https://whosrila.com/images/art-madeyou.jpg",
+      "byArtist": { "@id": "https://whosrila.com/#artist" },
+      "datePublished": "2026-08-13"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Energy",
+      "url": "https://whosrila.com/energy",
+      "image": "https://whosrila.com/images/art-energy.jpg?v=0ddbff95",
+      "byArtist": [
+        { "@type": "MusicGroup", "name": "KUM3RA" },
+        { "@id": "https://whosrila.com/#artist" }
+      ],
+      "datePublished": "2026-09-11"
+    }
+  ]
+}
+</script>
 </head>
 <body>
-  <p><a href="/">Go to WHOSRILA</a></p>
+
+<header class="site">
+  <div class="navrow" id="navrow">
+    <a href="/" class="logo-link"><img src="/images/logo.png" alt="WHOSRILA"></a>
+    <nav class="links">
+      <a href="/shop">Shop</a>
+      <a href="/listen">Listen</a>
+      <a href="/watch">Watch</a>
+      <a href="/press">Press</a>
+    </nav>
+    <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+  </div>
+  <div class="mobilenav" id="mobileNav">
+    <a href="/shop">Shop</a>
+    <a href="/listen">Listen</a>
+    <a href="/watch">Watch</a>
+    <a href="/press">Press</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap lt">
+
+    <section class="lt-profile">
+      <button class="lt-share" id="ltShare" type="button" aria-label="Share this page">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
+      </button>
+      <img class="lt-avatar" src="/images/avatar-whosrila.jpg" alt="WHOSRILA" width="104" height="104">
+      <h1 class="title lt-name">WHOSRILA</h1>
+      <p class="lt-bio">Two singles out now. Stream them, watch the video, or own them outright.</p>
+      <nav class="lt-jump" aria-label="Jump to a release">
+        <a class="lt-chip lt-chip--madeyou" href="#madeyou"><img src="/images/art-madeyou.jpg" alt="" width="28" height="28">Made You</a>
+        <a class="lt-chip lt-chip--energy" href="#energy"><img src="/images/art-energy.jpg?v=0ddbff95" alt="" width="28" height="28">Energy</a>
+      </nav>
+      <p class="lt-share-note" id="ltShareNote" aria-live="polite"></p>
+    </section>
+
+    <!-- ======================= MADE YOU ======================= -->
+    <!-- data-song scopes tracking: js/track.js credits every click inside
+         this section to Made You, not to the page's h1. -->
+    <section class="rel rel--madeyou" id="madeyou" data-song="Made You">
+      <div class="rel-card">
+        <div class="rel-cover">
+          <img src="/images/art-madeyou.jpg" alt="Made You cover art" width="800" height="800">
+          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of Made You">
+            <svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <audio src="/audio/madeyou.m4a" preload="none"></audio>
+        </div>
+        <h2 class="rel-title">Made You</h2>
+        <p class="rel-sub">Single &middot; WHOSRILA</p>
+        <p class="rel-state" aria-live="polite">Tap play for a preview</p>
+      </div>
+
+      <div class="pills">
+        <!-- Same Stripe product both ways: fixed $2.99, or "customer chooses"
+             with a $2.99 minimum. The download Worker matches on product name,
+             so both release the same file. -->
+        <a class="pill pill--primary" href="https://buy.stripe.com/cNi9AUfBYeWK7WA0mi6Zy08" target="_blank" rel="noopener">
+          <span class="pill-ico"><span class="pill-dot dot-direct"></span></span>
+          <span class="pill-label">Buy direct &mdash; $2.99</span>
+          <span class="pill-sub">Instant download &middot; almost all of it reaches me</span>
+          <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+        <a class="pill pill--buy" href="https://buy.stripe.com/cNi28s89w15U4Ko3yu6Zy09" target="_blank" rel="noopener">
+          <span class="pill-ico"><span class="pill-dot dot-direct"></span></span>
+          <span class="pill-label">Pay what you want</span>
+          <span class="pill-sub">Same file &middot; $2.99 minimum</span>
+          <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+        <a class="pill pill--buy" href="https://music.apple.com/us/album/made-you/6780529398?i=6780529401&amp;app=itunes" target="_blank" rel="noopener">
+          <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
+          <span class="pill-label">Purchase on iTunes</span>
+          <span class="pill-sub">Yours to keep</span>
+          <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </div>
+
+      <p class="pills-label">Watch</p>
+      <div class="pills">
+        <button class="pill lt-video" type="button" data-yt="8wExZPatf78" data-ratio="4:3" data-title="Made You — music video">
+          <span class="pill-ico"><img src="https://i.ytimg.com/vi/8wExZPatf78/hqdefault.jpg" alt="" loading="lazy"></span>
+          <span class="pill-label">Watch the music video</span>
+          <span class="pill-sub">Official video</span>
+          <span class="pill-go" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg></span>
+        </button>
+        <button class="pill lt-video" type="button" data-yt="Ozd5XmB-QVQ" data-ratio="9:16" data-title="Behind Made You">
+          <span class="pill-ico"><img src="https://i.ytimg.com/vi/Ozd5XmB-QVQ/oardefault.jpg" alt="" loading="lazy"></span>
+          <span class="pill-label">Behind the scenes</span>
+          <span class="pill-sub">No script &middot; just us in the room</span>
+          <span class="pill-go" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 14 14"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg></span>
+        </button>
+      </div>
+
+      <p class="pills-label">Stream it</p>
+      <div class="pills">
+        <a class="pill" href="https://open.spotify.com/album/1P5PPqGOfOs2ZSbwkQZQAs" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
+        <a class="pill" href="https://geo.music.apple.com/us/album/_/6780529398?i=6780529401&amp;mt=1&amp;app=music&amp;ls=1" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+        <a class="pill" href="https://music.youtube.com/playlist?list=OLAK5uy_kDQwjaX2GbzXWG7Dw5qg0_TL0GmXL59MU" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-ytm"></span></span><span class="pill-label">YouTube Music</span></a>
+        <a class="pill" href="https://listen.tidal.com/track/533038036" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
+        <a class="pill" href="https://music.amazon.com/albums/B0H51PK61N" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-amazon"></span></span><span class="pill-label">Amazon Music</span></a>
+        <a class="pill" href="https://www.boomplay.com/albums/EQUsVdC2gJN1mBjWnxm4xdyb" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-boomplay"></span></span><span class="pill-label">Boomplay</span></a>
+        <a class="pill" href="https://soundcloud.com/whosrila/made-you" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
+        <a class="pill" href="https://audiomack.com/whosrila/song/made-you" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-audiomack"></span></span><span class="pill-label">Audiomack</span></a>
+        <a class="pill" href="https://www.pandora.com/TR:207443874" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
+      </div>
+
+      <a class="rel-more" href="/madeyou">Lyrics, clips &amp; the full page</a>
+    </section>
+
+    <!-- ======================= ENERGY ======================= -->
+    <!-- KUM3RA's record with WHOSRILA on it, so no direct sale — the same
+         rule as Wine and Bubble. iTunes is the only way to own it here. -->
+    <section class="rel rel--energy" id="energy" data-song="Energy">
+      <div class="rel-card">
+        <div class="rel-cover">
+          <img src="/images/art-energy.jpg?v=0ddbff95" alt="Energy cover art" width="800" height="800">
+          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of Energy">
+            <svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <audio src="/audio/energy.m4a" preload="none"></audio>
+        </div>
+        <h2 class="rel-title">Energy</h2>
+        <p class="rel-sub">Single &middot; KUM3RA &amp; WHOSRILA</p>
+        <p class="rel-state" aria-live="polite">Tap play for a preview</p>
+      </div>
+
+      <div class="pills">
+        <a class="pill pill--buy" href="https://music.apple.com/us/album/energy/6795595429?i=6795595434&amp;app=itunes" target="_blank" rel="noopener">
+          <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
+          <span class="pill-label">Purchase on iTunes</span>
+          <span class="pill-sub">Own the song</span>
+          <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </div>
+
+      <p class="pills-label">Stream it</p>
+      <div class="pills">
+        <a class="pill" href="https://open.spotify.com/track/0Es28ZRcKpiixIEVtCo1YG" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
+        <a class="pill" href="https://geo.music.apple.com/us/album/energy/6795595429?i=6795595434" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+        <a class="pill" href="https://music.youtube.com/playlist?list=OLAK5uy_kpaayYZAGYXWvyL3WnTYhAbAm4EShVEDA" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-ytm"></span></span><span class="pill-label">YouTube Music</span></a>
+        <a class="pill" href="https://listen.tidal.com/album/547190360" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
+        <a class="pill" href="https://music.amazon.com/albums/B0HBYM8NSF" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-amazon"></span></span><span class="pill-label">Amazon Music</span></a>
+        <a class="pill" href="https://www.boomplay.com/albums/136760072" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-boomplay"></span></span><span class="pill-label">Boomplay</span></a>
+        <a class="pill" href="https://soundcloud.com/kum3ra/energy" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
+        <!-- ENERGY-STREAMS-END: still to come — Deezer, Audiomack. Pandora stays last. -->
+        <a class="pill" href="https://www.pandora.com/artist/kum3ra-and-whosrila/energy/ALk63Pl932jl7f9" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
+      </div>
+
+      <a class="rel-more" href="/energy">The full Energy page</a>
+    </section>
+
+  </div>
+</main>
+
+<footer class="mini">
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%;">
+    <span>&copy; 2026 WHOSRILA LLC</span>
+    <a href="/privacy">Privacy</a>
+    <a href="/">whosrila.com</a>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" type="button" aria-label="Back to top">
+  <svg width="15" height="9" viewBox="0 0 16 10" aria-hidden="true"><path d="M1 8.5 L8 2 L15 8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script>
+/* Previews — one per release. Starting one stops the other, so the two
+   records never play over each other. The button carries .preview-btn so
+   track.js logs PreviewPlay, scoped to the section's data-song. */
+(function(){
+  var btns = [].slice.call(document.querySelectorAll('.rel-play'));
+  if(!btns.length) return;
+  var PLAY  = '<svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>';
+  var PAUSE = '<svg width="13" height="15" viewBox="0 0 12 14" aria-hidden="true"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="8" y="0" width="4" height="14" fill="currentColor"/></svg>';
+
+  function stop(b){
+    var a = b._audio; if(!a) return;
+    a.pause(); try { a.currentTime = 0; } catch(e){}
+    b.classList.remove('playing'); b.innerHTML = PLAY;
+    b.setAttribute('aria-label', b._label);
+    if(b._state) b._state.textContent = 'Tap play for a preview';
+  }
+
+  btns.forEach(function(b){
+    var rel = b.closest('.rel');
+    b._audio = rel && rel.querySelector('audio');
+    b._state = rel && rel.querySelector('.rel-state');
+    b._label = b.getAttribute('aria-label');
+    b.addEventListener('click', function(){
+      var a = b._audio; if(!a) return;
+      if(!a.paused){ stop(b); return; }
+      btns.forEach(function(o){ if(o !== b) stop(o); });
+      var p = a.play(); if(p && p.catch) p.catch(function(){ stop(b); });
+      b.classList.add('playing'); b.innerHTML = PAUSE;
+      b.setAttribute('aria-label', 'Stop preview');
+      if(b._state) b._state.textContent = 'Playing preview…';
+      a.onended = function(){ stop(b); };
+    });
+  });
+})();
+</script>
+
+<script>
+/* Video pop-out, lifted from /madeyou.
+   Captions: cc_load_policy=0 does NOT turn captions off, so the IFrame API
+   unloads the captions module on ready and again on first play.
+   Unlike /madeyou, the API script is only fetched on the first press, so
+   YouTube is not contacted at all for visitors who never watch. */
+(function(){
+  var boxes = [].slice.call(document.querySelectorAll('.lt-video'));
+  if(!boxes.length) return;
+
+  var apiReady = false, apiAsked = false, queue = [];
+  function loadApi(){
+    if(apiAsked) return; apiAsked = true;
+    var prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function(){
+      if(typeof prev === 'function'){ try { prev(); } catch(e){} }
+      apiReady = true; queue.splice(0).forEach(function(fn){ fn(); });
+    };
+    var t = document.createElement('script'); t.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(t);
+  }
+  function killCaptions(p){ ['captions','cc'].forEach(function(m){ try { p.unloadModule(m); } catch(e){} }); }
+  function parseRatio(str){ var m = String(str||'').split(':'); return (m.length===2 && +m[0]>0 && +m[1]>0) ? +m[0]/+m[1] : 0; }
+
+  var lb, panel, player, opener;
+  function close(){
+    if(!lb) return;
+    lb.classList.remove('open');
+    try { if(player && player.stopVideo) player.stopVideo(); } catch(e){}
+    var gone = lb;
+    setTimeout(function(){ if(gone.parentNode) gone.parentNode.removeChild(gone); }, 300);
+    lb = panel = player = null;
+    document.documentElement.style.overflow = '';
+    if(opener){ try { opener.focus(); } catch(e){} }
+  }
+  function open(id, title, ratio){
+    lb = document.createElement('div'); lb.className = 'mv-lb';
+    lb.setAttribute('role','dialog'); lb.setAttribute('aria-modal','true'); lb.setAttribute('aria-label', title);
+    panel = document.createElement('div'); panel.className = 'mv-lb-panel';
+    if(ratio){
+      panel.style.aspectRatio = ratio.replace(':', ' / ');
+      if(parseRatio(ratio) < 1){ panel.style.width = 'auto'; panel.style.height = '88vh'; }
+    }
+    var x = document.createElement('button'); x.className = 'mv-lb-close'; x.type = 'button';
+    x.setAttribute('aria-label','Close video'); x.innerHTML = '&times;'; x.addEventListener('click', close);
+    var mount = document.createElement('div');
+    panel.appendChild(mount); lb.appendChild(panel); lb.appendChild(x); document.body.appendChild(lb);
+    document.documentElement.style.overflow = 'hidden';
+    void lb.offsetWidth; lb.classList.add('open');   // reflow, not rAF: rAF stalls in background tabs
+    x.focus();
+    lb.addEventListener('click', function(e){ if(e.target === lb) close(); });
+    function build(){
+      if(!panel) return;   // closed before the API arrived
+      player = new YT.Player(mount, {
+        videoId: id, host: 'https://www.youtube-nocookie.com',
+        playerVars: { autoplay:1, playsinline:1, rel:0, modestbranding:1, iv_load_policy:3 },
+        events: {
+          onReady: function(e){ killCaptions(e.target); e.target.playVideo(); },
+          onStateChange: function(e){ if(e.data === YT.PlayerState.PLAYING) killCaptions(e.target); }
+        }
+      });
+    }
+    apiReady ? build() : (queue.push(build), loadApi());
+  }
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+  boxes.forEach(function(box){
+    box.addEventListener('click', function(){
+      var id = box.getAttribute('data-yt'); if(!id || lb) return;
+      var title = box.getAttribute('data-title') || 'Video';
+      var scope = box.closest('[data-song]');
+      opener = box;
+      open(id, title, box.getAttribute('data-ratio'));
+      try { if(window.wrTrack) window.wrTrack('VideoPlay', { title:title, song: scope ? scope.getAttribute('data-song') : 'links' }); } catch(e){}
+    });
+  });
+})();
+</script>
+
+<script>
+/* Share — the phone's own share sheet where there is one, otherwise the link
+   goes on the clipboard. */
+(function(){
+  var b = document.getElementById('ltShare'), note = document.getElementById('ltShareNote');
+  if(!b) return;
+  var url = 'https://whosrila.com/music';
+  function say(msg){ if(!note) return; note.textContent = msg; setTimeout(function(){ note.textContent = ''; }, 2400); }
+  b.addEventListener('click', function(){
+    if(navigator.share){
+      navigator.share({ title:'WHOSRILA — Made You & Energy', text:'Made You and Energy — out now.', url:url }).catch(function(){});
+      return;
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(function(){ say('Link copied'); }, function(){ say(url); });
+    } else { say(url); }
+  });
+})();
+</script>
+
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3fc16cf549f44cb4bbde3934b15904d3"}'></script><!-- End Cloudflare Web Analytics -->
+<script defer src="/js/track.js?v=72ef4859"></script>
 <script defer src="/js/consent.js?v=0e636252"></script>
+
+<script>
+(function(){
+  var b = document.getElementById('burgerBtn'), n = document.getElementById('mobileNav');
+  if(!b || !n) return;
+  function measure(){
+    var prev = n.style.maxHeight;
+    n.style.transition = 'none'; n.style.maxHeight = 'none';
+    var px = n.scrollHeight;
+    n.style.maxHeight = prev || '0px'; void n.offsetHeight; n.style.transition = '';
+    return px;
+  }
+  function setOpen(open){
+    var px = open ? measure() : 0;
+    void n.offsetHeight;
+    n.classList.toggle('open', open);
+    n.style.maxHeight = px + 'px';
+    b.setAttribute('aria-expanded', String(open));
+  }
+  b.addEventListener('click', function(e){ e.preventDefault(); setOpen(!n.classList.contains('open')); });
+  n.addEventListener('click', function(e){ if(e.target.closest('a')) setOpen(false); });
+  window.addEventListener('resize', function(){ if(n.classList.contains('open')) n.style.maxHeight = measure() + 'px'; });
+})();
+</script>
+
+<script>
+(function(){
+  var b = document.getElementById('toTop');
+  if(!b) return;
+  var reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  function check(){
+    var worthIt = document.documentElement.scrollHeight > innerHeight * 1.35;
+    b.classList.toggle('show', worthIt && window.scrollY > innerHeight * 0.55);
+  }
+  check();
+  window.addEventListener('scroll', check, { passive:true });
+  b.addEventListener('click', function(){ window.scrollTo({ top:0, behavior: reduce ? 'auto' : 'smooth' }); });
+})();
+</script>
+
 </body>
 </html>
