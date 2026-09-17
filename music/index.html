@@ -139,12 +139,13 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
    The sections are display:contents so their card and menu become items of
    one shared grid. They still exist in the DOM, so data-song still scopes
    click tracking and the palette variables still inherit. */
-.rels{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); column-gap:8px; row-gap:0; margin:0 0 44px; }
+.rels{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); column-gap:12px; row-gap:12px; margin:0 0 44px; }
 .rel{ display:contents; color:var(--tx); }
 .rel--madeyou .rel-card{ grid-column:1; grid-row:1; }
 .rel--energy  .rel-card{ grid-column:2; grid-row:1; }
-.rel--angels  .rel-card{ grid-column:3; grid-row:1; }
-@media (min-width:720px){ .rels{ column-gap:24px; } }
+.rel--angels  .rel-card{ grid-column:1 / -1; grid-row:2; justify-self:center; width:calc(50% - 6px); }
+@media (min-width:720px){ .rel--angels .rel-card{ width:calc(50% - 12px); } }
+@media (min-width:720px){ .rels{ column-gap:24px; row-gap:24px; } }
 
 /* ---------- One song at a time ----------
    Opening a song hides the other single; the grid drops to one centred
@@ -152,7 +153,8 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
    side. The view-transition names let supporting browsers morph between
    the two layouts; elsewhere it switches instantly. */
 .rels.has-open{ grid-template-columns:minmax(0,1fr); max-width:460px; margin-left:auto; margin-right:auto; }
-.rels.has-open .rel-card{ grid-column:1; grid-row:1; }
+.rels.has-open{ row-gap:0; }
+.rels.has-open .rel-card{ grid-column:1; grid-row:1; width:auto; justify-self:stretch; }
 .rels.has-open .rel-menu{ grid-column:1; grid-row:2; }
 .rel.is-hidden > *{ display:none; }
 .rel--madeyou .rel-card{ view-transition-name:card-madeyou; }
@@ -206,26 +208,6 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 .rel-toggle svg{ transition:transform .3s cubic-bezier(.22,.61,.36,1); flex:0 0 auto; }
 .rel-toggle[aria-expanded="true"]{ background:var(--gold); color:var(--on-gold); }
 .rel-toggle[aria-expanded="true"] svg{ transform:rotate(180deg); }
-
-.rel-sub-short{ display:none; }
-@media (max-width:719px){
-  .rels:not(.has-open) .rel-sub-long{ display:none; }
-  .rels:not(.has-open) .rel-sub-short{ display:inline; }
-}
-/* Three across on a phone leaves each card ~115px wide: smaller type and
-   padding in the closed cards only. An open song gets the full column back.
-   Titles stay bold, so they are judged as large text only from 18.66px —
-   the smaller ones were contrast-checked as normal text. */
-@media (max-width:719px){
-  .rels:not(.has-open) .rel-card{ border-radius:16px; padding:6px 6px 8px; }
-  .rels:not(.has-open) .rel-cover{ border-radius:10px; }
-  .rels:not(.has-open) .rel-play{ right:5px; bottom:5px; width:28px; height:28px; }
-  .rels:not(.has-open) .rel-title{ font-size:14px; margin:9px 0 3px; letter-spacing:0; }
-  .rels:not(.has-open) .rel-sub{ font-size:9px; letter-spacing:.08em; }
-  .rels:not(.has-open) .rel-state{ display:none; }
-  .rels:not(.has-open) .rel-sub{ margin-bottom:8px; }
-  .rels:not(.has-open) .rel-toggle{ padding:6px 4px; font-size:11.5px; letter-spacing:0; gap:5px; min-height:40px; }
-}
 
 /* ---------- Collapsible menu ----------
    Height is measured and animated in JS (the grid 0fr->1fr trick does not
@@ -592,7 +574,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
           <audio src="/audio/angelsonsofa.m4a" preload="none"></audio>
         </div>
         <h2 class="rel-title">Angels On A Sofa</h2>
-        <p class="rel-sub">Single<span class="rel-sub-long"> &middot; with Pascal Pressure &amp; Justice Case</span><span class="rel-sub-short"> &middot; 3&#8209;way collab</span></p>
+        <p class="rel-sub">Single &middot; with Pascal Pressure &amp; Justice Case</p>
         <p class="rel-state" aria-live="polite">Tap play for a preview</p>
         <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-angels">
           <span class="rel-toggle-text">Listen &amp; buy</span>
