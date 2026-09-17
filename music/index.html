@@ -272,7 +272,7 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 .rel--angels .pill--buy .pill-ico{ background:rgba(3,3,3,0.85); }
 .rel--angels .pill--buy:hover{ background:#FFFFFF; border-color:#FFFFFF; }
 
-.dot-direct{color:#E0463A}.dot-spotify{color:#1DB954}.dot-apple{color:#FA243C}.dot-itunes{color:#A855F7}
+.dot-silver{color:#F2F2F2}.dot-direct{color:#E0463A}.dot-spotify{color:#1DB954}.dot-apple{color:#FA243C}.dot-itunes{color:#A855F7}
 .dot-ytm{color:#FF0000}.dot-tidal{color:#00D8D8}.dot-amazon{color:#25D1DA}.dot-boomplay{color:#E8112D}
 .dot-deezer{color:#A238FF}.dot-soundcloud{color:#FF5500}.dot-audiomack{color:#FFA200}.dot-pandora{color:#3668FF}
 
@@ -585,7 +585,20 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
       <div class="rel-menu" id="menu-angels">
         <div class="rel-menu-inner">
           <div class="pills">
-            <!-- ANGELS-DIRECT: Buy direct / Pay what you want pills go here once the Stripe links exist. -->
+            <!-- Same Stripe product name both ways: fixed $2.99, or "customer chooses"
+                 with a $2.99 minimum. The download Worker matches on product name. -->
+            <a class="pill pill--primary" href="https://buy.stripe.com/aFadRa1L8aGu1yc1qm6Zy0k" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-silver"></span></span>
+              <span class="pill-label">Buy direct &mdash; $2.99</span>
+              <span class="pill-sub">Instant download &middot; almost all of it reaches us</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+            <a class="pill pill--buy" href="https://buy.stripe.com/aFaaEY4Xk7ui7WAfhc6Zy0l" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-silver"></span></span>
+              <span class="pill-label">Pay what you want</span>
+              <span class="pill-sub">Same file &middot; $2.99 minimum</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
             <a class="pill pill--buy" href="https://music.apple.com/us/album/angels-on-a-sofa/6803331662?i=6803331665&amp;app=itunes" target="_blank" rel="noopener">
               <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
               <span class="pill-label">Purchase on iTunes</span>
