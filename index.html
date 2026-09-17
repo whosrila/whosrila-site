@@ -390,7 +390,9 @@
   }
   /* inside a card the badge sits on its own line, so no left margin */
   .track-row .exptag{ margin-left:0; align-self:center; }
-  .listen-cta-row{ display:block; margin-top:36px; }
+  /* a column with a gap, so two buttons in one row (See All Videos + YouTube
+     Channel) stack with space between them instead of touching */
+  .listen-cta-row{ display:flex; flex-direction:column; gap:12px; margin-top:36px; }
   /* the stream button carries the preview colour, not the buy red — it
      sends people to listen, which is what the teal means everywhere else */
   .listen-cta-row .btn{
@@ -416,6 +418,10 @@
   }
   .listen-cta-row .btn:hover::after{ animation:none; }
   @media (max-width:560px){ .listen-cta-row .btn{ padding:15px 20px; } }
+  /* the second button in a row is the lesser action: outlined, and no pulse */
+  .listen-cta-row .btn-ghost{ background:transparent; color:var(--cyan); border-color:rgba(53,214,196,.55); }
+  .listen-cta-row .btn-ghost:hover{ background:rgba(53,214,196,.1); color:#4FE6D5; border-color:#4FE6D5; box-shadow:none; }
+  .listen-cta-row .btn-ghost::after{ animation:none; }
   /* ---------- Scroll hint ---------- */
   .scroll-hint{
     position:absolute; left:50%; bottom:26px; transform:translateX(-50%);
