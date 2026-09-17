@@ -285,6 +285,23 @@ header.site{
   .lrow{ transition:border-color .18s; }
   .lrow:hover{ transform:none; }
 }
+/* Related songs — same block every other song page carries, in silver. */
+.song-extra{ margin-top:44px; text-align:center; }
+.song-extra h2{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  margin:0 0 14px; font-weight:400;
+  background:none; color:#CFCFCF; -webkit-text-fill-color:#CFCFCF; filter:none;
+}
+.more-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+@media (max-width:560px){ .more-grid{ gap:8px; } }
+.more-card{ display:block; border:1px solid var(--line); border-radius:5px; overflow:hidden;
+  background:linear-gradient(180deg, rgba(237,237,237,0.06), rgba(237,237,237,0.018)) #0A0A0A;
+  transition:transform .2s cubic-bezier(.22,.61,.36,1), border-color .2s, box-shadow .2s; }
+.more-card:hover{ transform:translateY(-3px); border-color:rgba(242,242,242,0.55);
+  box-shadow:0 0 20px rgba(255,255,255,0.18); }
+.more-card img{ display:block; width:100%; aspect-ratio:1/1; object-fit:cover; }
+.more-card span{ display:block; padding:8px 9px 10px; font-size:12px; line-height:1.25; font-weight:600; color:var(--ink); }
+@media (prefers-reduced-motion: reduce){ .more-card{ transition:none; } .more-card:hover{ transform:none; } }
 </style>
 <script type="application/ld+json">
 {
@@ -341,6 +358,10 @@ header.site{
     <h1 class="title">Angels On A Sofa</h1>
     <p class="hook">A collaboration with Pascal Pressure &amp; Justice Case &mdash; out now.</p>
 
+    <div class="song-media song-media--art">
+      <img src="/images/art-angels.jpg" alt="Angels On A Sofa cover art" width="800" height="800">
+    </div>
+
     <div class="song-media">
       <div class="vid-card" data-yt="Ph_Zpl4MoZ4">
         <button class="vid-thumb" aria-label="Play the Angels On A Sofa video">
@@ -351,10 +372,6 @@ header.site{
         </button>
         <span class="vid-title">Angels On A Sofa</span>
       </div>
-    </div>
-
-    <div class="song-media song-media--art">
-      <img src="/images/art-angels.jpg" alt="Angels On A Sofa cover art" width="800" height="800">
     </div>
 
     <div class="preview-player">
@@ -385,6 +402,15 @@ header.site{
       </a>
       <!-- STREAMS-END. Rows are added here as each store goes live (scheduled
            task angelsonsofa-links-propagation). No too.fm / "everywhere else" row. -->
+    </div>
+
+    <div class="song-extra">
+      <h2>More like this</h2>
+      <div class="more-grid">
+        <a class="more-card" href="/madeyou"><img src="/images/art-madeyou.jpg" alt="" loading="lazy"><span>Made You</span></a>
+        <a class="more-card" href="/energy"><img src="/images/art-energy.jpg?v=0ddbff95" alt="" loading="lazy"><span>Energy</span></a>
+        <a class="more-card" href="/protection"><img src="/images/cover-protection.jpg" alt="" loading="lazy"><span>Protection</span></a>
+      </div>
     </div>
   </div>
 </main>

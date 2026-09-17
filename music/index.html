@@ -8,24 +8,24 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0A0806">
-<title>WHOSRILA — Made You &amp; Energy</title>
-<meta name="description" content="Two singles out now — Made You, and Energy with KUM3RA. Stream them, watch the video, or own the download.">
-<meta property="og:title" content="WHOSRILA — Made You &amp; Energy">
-<meta property="og:description" content="Two singles out now — Made You, and Energy with KUM3RA. Stream them, watch the video, or own the download.">
+<title>WHOSRILA — Made You, Energy &amp; Angels On A Sofa</title>
+<meta name="description" content="Three singles out now — Made You, Energy with KUM3RA, and Angels On A Sofa with Pascal Pressure &amp; Justice Case. Stream them, watch the video, or own the download.">
+<meta property="og:title" content="WHOSRILA — Made You, Energy &amp; Angels On A Sofa">
+<meta property="og:description" content="Three singles out now — Made You, Energy with KUM3RA, and Angels On A Sofa with Pascal Pressure &amp; Justice Case. Stream them, watch the video, or own the download.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://whosrila.com/images/og-music.jpg">
 <meta property="og:url" content="https://whosrila.com/music">
 <meta property="og:site_name" content="WHOSRILA">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="WHOSRILA — Made You &amp; Energy">
-<meta name="twitter:description" content="Two singles out now — Made You, and Energy with KUM3RA. Stream them, watch the video, or own the download.">
+<meta name="twitter:title" content="WHOSRILA — Made You, Energy &amp; Angels On A Sofa">
+<meta name="twitter:description" content="Three singles out now — Made You, Energy with KUM3RA, and Angels On A Sofa with Pascal Pressure &amp; Justice Case. Stream them, watch the video, or own the download.">
 <meta name="twitter:image" content="https://whosrila.com/images/og-music.jpg">
 <link rel="stylesheet" href="/css/site.css?v=726f54e1">
 <!-- Menus only collapse once JS is running; without it every link stays open and reachable. -->
 <script>document.documentElement.classList.add('js');</script>
 <style>
 /* ============================================================
-   /music — both current singles on one page.
+   /music — the current singles on one page.
 
    No site header: this is a link-in-bio landing page, built so both singles
    are on screen the moment it opens. The footer links back to whosrila.com.
@@ -53,8 +53,9 @@
 
 body{
   background:
-    radial-gradient(700px 620px at 22% 46%, rgba(196,35,26,0.20),  transparent 64%),
-    radial-gradient(700px 620px at 78% 46%, rgba(232,212,94,0.13), transparent 64%),
+    radial-gradient(600px 620px at 16% 46%, rgba(196,35,26,0.20),  transparent 64%),
+    radial-gradient(600px 620px at 50% 46%, rgba(232,212,94,0.12), transparent 64%),
+    radial-gradient(600px 620px at 84% 46%, rgba(235,235,235,0.10), transparent 64%),
     radial-gradient(900px 500px at 50% 0%,  rgba(232,192,121,0.08), transparent 62%),
     linear-gradient(180deg, #120A06 0%, #0B0806 45%, #040303 100%);
   background-repeat:no-repeat;
@@ -122,6 +123,12 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
   --card:rgba(232,192,121,0.055); --edge:rgba(232,192,121,0.30); --glow:rgba(232,192,121,0.32);
   --on-gold:#120C05;
 }
+.rel--angels{
+  /* the cover's chrome lettering on black — see /angelsonsofa */
+  --tx:#EDEDED; --dim:#A3A3A3; --gold:#E6E6E6; --ttl:#F2F2F2;
+  --card:rgba(237,237,237,0.05); --edge:rgba(237,237,237,0.24); --glow:rgba(255,255,255,0.30);
+  --on-gold:#030303;
+}
 .rel--energy{
   --tx:#F2EFE6; --dim:#8F938F; --gold:#E8D45E; --ttl:#E8D45E;
   --card:rgba(242,239,230,0.045); --edge:rgba(242,239,230,0.22); --glow:rgba(232,212,94,0.40);
@@ -132,10 +139,11 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
    The sections are display:contents so their card and menu become items of
    one shared grid. They still exist in the DOM, so data-song still scopes
    click tracking and the palette variables still inherit. */
-.rels{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); column-gap:12px; row-gap:0; margin:0 0 44px; }
+.rels{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); column-gap:8px; row-gap:0; margin:0 0 44px; }
 .rel{ display:contents; color:var(--tx); }
 .rel--madeyou .rel-card{ grid-column:1; grid-row:1; }
 .rel--energy  .rel-card{ grid-column:2; grid-row:1; }
+.rel--angels  .rel-card{ grid-column:3; grid-row:1; }
 @media (min-width:720px){ .rels{ column-gap:24px; } }
 
 /* ---------- One song at a time ----------
@@ -151,6 +159,8 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 .rel--energy  .rel-card{ view-transition-name:card-energy; }
 .rel--madeyou .rel-menu{ view-transition-name:menu-madeyou; }
 .rel--energy  .rel-menu{ view-transition-name:menu-energy; }
+.rel--angels  .rel-card{ view-transition-name:card-angels; }
+.rel--angels  .rel-menu{ view-transition-name:menu-angels; }
 ::view-transition-group(*){ animation-duration:.4s; animation-timing-function:cubic-bezier(.22,.61,.36,1); }
 ::view-transition-old(*), ::view-transition-new(*){ animation-duration:.4s; }
 
@@ -196,6 +206,26 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 .rel-toggle svg{ transition:transform .3s cubic-bezier(.22,.61,.36,1); flex:0 0 auto; }
 .rel-toggle[aria-expanded="true"]{ background:var(--gold); color:var(--on-gold); }
 .rel-toggle[aria-expanded="true"] svg{ transform:rotate(180deg); }
+
+.rel-sub-short{ display:none; }
+@media (max-width:719px){
+  .rels:not(.has-open) .rel-sub-long{ display:none; }
+  .rels:not(.has-open) .rel-sub-short{ display:inline; }
+}
+/* Three across on a phone leaves each card ~115px wide: smaller type and
+   padding in the closed cards only. An open song gets the full column back.
+   Titles stay bold, so they are judged as large text only from 18.66px —
+   the smaller ones were contrast-checked as normal text. */
+@media (max-width:719px){
+  .rels:not(.has-open) .rel-card{ border-radius:16px; padding:6px 6px 8px; }
+  .rels:not(.has-open) .rel-cover{ border-radius:10px; }
+  .rels:not(.has-open) .rel-play{ right:5px; bottom:5px; width:28px; height:28px; }
+  .rels:not(.has-open) .rel-title{ font-size:14px; margin:9px 0 3px; letter-spacing:0; }
+  .rels:not(.has-open) .rel-sub{ font-size:9px; letter-spacing:.08em; }
+  .rels:not(.has-open) .rel-state{ display:none; }
+  .rels:not(.has-open) .rel-sub{ margin-bottom:8px; }
+  .rels:not(.has-open) .rel-toggle{ padding:6px 4px; font-size:11.5px; letter-spacing:0; gap:5px; min-height:40px; }
+}
 
 /* ---------- Collapsible menu ----------
    Height is measured and animated in JS (the grid 0fr->1fr trick does not
@@ -254,6 +284,11 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 .rel--energy .pill--buy .pill-go{ color:var(--on-gold); }
 .rel--energy .pill--buy .pill-ico{ background:rgba(1,1,1,0.85); }
 .rel--energy .pill--buy:hover{ background:#F3E389; border-color:#F3E389; }
+.rel--angels .pill--buy{ background:linear-gradient(180deg,#FFFFFF,#D2D2D2 55%,#ADADAD) #D2D2D2; color:var(--on-gold); }
+.rel--angels .pill--buy .pill-sub{ color:rgba(3,3,3,0.72); }
+.rel--angels .pill--buy .pill-go{ color:var(--on-gold); }
+.rel--angels .pill--buy .pill-ico{ background:rgba(3,3,3,0.85); }
+.rel--angels .pill--buy:hover{ background:#FFFFFF; border-color:#FFFFFF; }
 
 .dot-direct{color:#E0463A}.dot-spotify{color:#1DB954}.dot-apple{color:#FA243C}.dot-itunes{color:#A855F7}
 .dot-ytm{color:#FF0000}.dot-tidal{color:#00D8D8}.dot-amazon{color:#25D1DA}.dot-boomplay{color:#E8112D}
@@ -366,6 +401,18 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
         { "@id": "https://whosrila.com/#artist" }
       ],
       "datePublished": "2026-09-11"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Angels On A Sofa",
+      "url": "https://whosrila.com/angelsonsofa",
+      "image": "https://whosrila.com/images/art-angels.jpg",
+      "byArtist": [
+        { "@id": "https://whosrila.com/#artist" },
+        { "@type": "MusicGroup", "name": "Pascal Pressure" },
+        { "@type": "MusicGroup", "name": "Justice Case" }
+      ],
+      "datePublished": "2026-09-17"
     }
   ]
 }
@@ -375,7 +422,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 
 <main>
   <!-- Name removed from view on request — kept for screen readers and search. -->
-  <h1 class="title sr-only">WHOSRILA — Made You &amp; Energy</h1>
+  <h1 class="title sr-only">WHOSRILA — Made You, Energy &amp; Angels On A Sofa</h1>
 
   <div class="lt-hero">
     <img src="/images/portrait-1.jpg" alt="WHOSRILA" width="877" height="900" fetchpriority="high">
@@ -386,7 +433,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 
   <div class="wrap lt">
     <div class="lt-intro">
-      <p class="lt-bio">Two singles out now. Stream them, watch the video, or own them outright.</p>
+      <p class="lt-bio">Three singles out now. Stream them, watch the video, or own them outright.</p>
       <p class="lt-share-note" id="ltShareNote" aria-live="polite"></p>
     </div>
 
@@ -471,7 +518,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
           <a class="rel-more" href="/madeyou">Lyrics, clips &amp; the full page</a>
           <button class="rel-back" type="button">
             <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Back to both singles</span>
+            <span>Back to all singles</span>
           </button>
         </div>
       </div>
@@ -525,7 +572,56 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
           <a class="rel-more" href="/energy">The full Energy page</a>
           <button class="rel-back" type="button">
             <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Back to both singles</span>
+            <span>Back to all singles</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= ANGELS ON A SOFA ======================= -->
+    <!-- WHOSRILA, Pascal Pressure & Justice Case — a three-way split (tools/splits.py).
+         No video pill yet: the video is being held back. Streaming pills are added
+         before ANGELS-STREAMS-END by the angelsonsofa-links-propagation task. -->
+    <section class="rel rel--angels" id="angels" data-song="Angels On A Sofa">
+      <div class="rel-card">
+        <div class="rel-cover">
+          <img src="/images/art-angels.jpg" alt="Angels On A Sofa cover art" width="800" height="800">
+          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of Angels On A Sofa">
+            <svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <audio src="/audio/angelsonsofa.m4a" preload="none"></audio>
+        </div>
+        <h2 class="rel-title">Angels On A Sofa</h2>
+        <p class="rel-sub">Single<span class="rel-sub-long"> &middot; with Pascal Pressure &amp; Justice Case</span><span class="rel-sub-short"> &middot; 3&#8209;way collab</span></p>
+        <p class="rel-state" aria-live="polite">Tap play for a preview</p>
+        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-angels">
+          <span class="rel-toggle-text">Listen &amp; buy</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="rel-menu" id="menu-angels">
+        <div class="rel-menu-inner">
+          <div class="pills">
+            <!-- ANGELS-DIRECT: Buy direct / Pay what you want pills go here once the Stripe links exist. -->
+            <a class="pill pill--buy" href="https://music.apple.com/us/album/angels-on-a-sofa/6803331662?i=6803331665&amp;app=itunes" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
+              <span class="pill-label">Purchase on iTunes</span>
+              <span class="pill-sub">Own the song</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+          </div>
+
+          <p class="pills-label">Stream it</p>
+          <div class="pills">
+            <a class="pill" href="https://geo.music.apple.com/us/album/angels-on-a-sofa/6803331662?i=6803331665" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+            <!-- ANGELS-STREAMS-END -->
+          </div>
+
+          <a class="rel-more" href="/angelsonsofa">The full Angels On A Sofa page</a>
+          <button class="rel-back" type="button">
+            <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Back to all singles</span>
           </button>
         </div>
       </div>
@@ -552,7 +648,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
    Opening a song hides the other single and gives the open one the page: the
    grid drops to one centred column, the card, then its menu. Closing (the
    toggle, or Back to both singles) brings both back side by side.
-   /music#energy (or #madeyou) arrives with that song already open.
+   /music#energy (or #madeyou, #angels) arrives with that song already open.
 
    Where view transitions are supported the layout change morphs; elsewhere
    the menu height animates and the layout switches instantly. Closed menus
@@ -785,7 +881,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
   function say(msg){ if(!note) return; note.textContent = msg; setTimeout(function(){ note.textContent = ''; }, 2400); }
   b.addEventListener('click', function(){
     if(navigator.share){
-      navigator.share({ title:'WHOSRILA — Made You & Energy', text:'Made You and Energy — out now.', url:url }).catch(function(){});
+      navigator.share({ title:'WHOSRILA — Made You & Energy', text:'Made You, Energy and Angels On A Sofa — out now.', url:url }).catch(function(){});
       return;
     }
     if(navigator.clipboard && navigator.clipboard.writeText){

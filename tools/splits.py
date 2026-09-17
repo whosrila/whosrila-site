@@ -39,7 +39,7 @@ SPLITS = {
     "made you":              {"WHOSRILA": 50, "PRODUCER (name needed)": 50},
     "gratitude":             {"WHOSRILA": 50, "COLLAB (name needed)": 50},
     "top form":              {"WHOSRILA": 50, "COLLAB (name needed)": 50},
-    "angels on sofa":        {"WHOSRILA": 100/3, "Pascal Pressure": 100/3, "Justice Case": 100/3},
+    "angels on a sofa":      {"WHOSRILA": 100/3, "Pascal Pressure": 100/3, "Justice Case": 100/3},
     "energy":                {"WHOSRILA": 50, "Kum3ra": 25, "THIRD PARTY (name needed)": 25},
     # Outta' Line deliberately absent — split not yet decided. Sales of it will
     # be reported as unallocated rather than silently assumed to be 100%.
