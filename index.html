@@ -1153,6 +1153,8 @@
      so 9:16 + object-fit:cover crops the padding back off and leaves
      just the real vertical footage. */
   .video-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-top:8px; }
+  /* the newest video spans the row, so the four below stay an even 2x2 */
+  .video-grid .vid-card--lead{ grid-column:1 / -1; }
   .video-grid--vertical{ grid-template-columns:repeat(2,1fr); max-width:760px; }
   .video-subhead{ margin:52px 0 22px; }
   .vid-card{ display:flex; flex-direction:column; gap:10px; }
@@ -2029,8 +2031,8 @@ document.documentElement.classList.add('intro-ready');
 </section>
 
 <!-- ============================================================
-  WATCH — homepage strip. Shows the four most-watched videos only;
-  the full library lives at /watch.
+  WATCH — homepage strip. Made You leads full width (newest video),
+  then four of the most-watched; the full library lives at /watch.
   Thumbnails are plain images — YouTube's player is fetched only
   when someone presses play (see the .vid-thumb handler below).
   To swap a video: change data-yt="VIDEO_ID", the <img> src, and
@@ -2045,6 +2047,16 @@ document.documentElement.classList.add('intro-ready');
     </div>
 
     <div class="video-grid">
+      <div class="vid-card vid-card--lead reveal" data-yt="8wExZPatf78" data-ratio="4:3">
+        <button class="vid-thumb" aria-label="Play: Made You">
+          <img src="https://i.ytimg.com/vi/8wExZPatf78/maxresdefault.jpg" alt="" loading="lazy">
+          <span class="vid-play" aria-hidden="true">
+            <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
+          </span>
+        </button>
+        <span class="vid-title">Made You</span>
+      </div>
+
       <div class="vid-card reveal" data-yt="pj-5xh_bvqA">
         <button class="vid-thumb" aria-label="Play: Gratitude">
           <img src="https://i.ytimg.com/vi/pj-5xh_bvqA/maxresdefault.jpg" alt="" loading="lazy">

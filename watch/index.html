@@ -45,6 +45,20 @@
       "position": 2,
       "item": {
         "@type": "VideoObject",
+        "name": "Made You",
+        "description": "Made You by WHOSRILA.",
+        "thumbnailUrl": "https://i.ytimg.com/vi/8wExZPatf78/hqdefault.jpg",
+        "uploadDate": "2026-08-13",
+        "duration": "PT2M45S",
+        "embedUrl": "https://www.youtube.com/embed/8wExZPatf78",
+        "url": "https://www.youtube.com/watch?v=8wExZPatf78"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "VideoObject",
         "name": "For Me",
         "description": "For Me by WHOSRILA.",
         "thumbnailUrl": "https://i.ytimg.com/vi/7KixQD8viTs/hqdefault.jpg",
@@ -56,7 +70,7 @@
     },
     {
       "@type": "ListItem",
-      "position": 3,
+      "position": 4,
       "item": {
         "@type": "VideoObject",
         "name": "Good Freestyle",
@@ -70,7 +84,7 @@
     },
     {
       "@type": "ListItem",
-      "position": 4,
+      "position": 5,
       "item": {
         "@type": "VideoObject",
         "name": "Blue Notes",
@@ -84,7 +98,7 @@
     },
     {
       "@type": "ListItem",
-      "position": 5,
+      "position": 6,
       "item": {
         "@type": "VideoObject",
         "name": "Protection",
@@ -98,7 +112,7 @@
     },
     {
       "@type": "ListItem",
-      "position": 6,
+      "position": 7,
       "item": {
         "@type": "VideoObject",
         "name": "Kingston",
@@ -112,7 +126,7 @@
     },
     {
       "@type": "ListItem",
-      "position": 7,
+      "position": 8,
       "item": {
         "@type": "VideoObject",
         "name": "LOTTA 0’z",
@@ -126,7 +140,7 @@
     },
     {
       "@type": "ListItem",
-      "position": 8,
+      "position": 9,
       "item": {
         "@type": "VideoObject",
         "name": "Real Negus",
@@ -140,7 +154,7 @@
     },
     {
       "@type": "ListItem",
-      "position": 9,
+      "position": 10,
       "item": {
         "@type": "VideoObject",
         "name": "Fully Meech (Acoustic)",
@@ -154,7 +168,7 @@
     },
     {
       "@type": "ListItem",
-      "position": 10,
+      "position": 11,
       "item": {
         "@type": "VideoObject",
         "name": "Outta’ Line",
@@ -168,7 +182,7 @@
     },
     {
       "@type": "ListItem",
-      "position": 11,
+      "position": 12,
       "item": {
         "@type": "VideoObject",
         "name": "LOTTA 0’z — Behind The Scenes",
@@ -178,6 +192,20 @@
         "duration": "PT0M56S",
         "embedUrl": "https://www.youtube.com/embed/lVz_YBn-U6c",
         "url": "https://www.youtube.com/watch?v=lVz_YBn-U6c"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 13,
+      "item": {
+        "@type": "VideoObject",
+        "name": "Made You — Behind The Scenes",
+        "description": "Behind the scenes on Made You. No storyline, no script — just us in the room.",
+        "thumbnailUrl": "https://i.ytimg.com/vi/Ozd5XmB-QVQ/hqdefault.jpg",
+        "uploadDate": "2026-08-18",
+        "duration": "PT2M59S",
+        "embedUrl": "https://www.youtube.com/embed/Ozd5XmB-QVQ",
+        "url": "https://www.youtube.com/watch?v=Ozd5XmB-QVQ"
       }
     }
   ]
@@ -251,6 +279,15 @@
   }
   @media (max-width:560px){ .video-grid--vertical .vid-card{ flex-basis:158px; } }
   .video-grid--single{ max-width:820px; grid-template-columns:1fr; }
+  /* On Set mixes a Shorts clip (9:16) with a landscape one. Columns at about
+     1 : 3.16 make the two thumbnails the same height side by side; on a phone
+     they stack, with the portrait one held to a sensible width. */
+  .vid-card--v .vid-thumb{ aspect-ratio:9/16; }
+  .video-grid.video-grid--onset{ grid-template-columns:1fr 3.16fr; align-items:start; }
+  @media (max-width:640px){
+    .video-grid.video-grid--onset{ grid-template-columns:1fr; }
+    .video-grid--onset .vid-card--v{ max-width:240px; }
+  }
 
   /* ---------- Video lightbox ----------
      Clicking a thumbnail flies the player from the card to the centre
@@ -472,6 +509,17 @@
         <span class="vid-title">Gratitude</span>
       </div>
 
+      <div class="vid-card reveal" data-yt="8wExZPatf78" data-ratio="4:3">
+        <button class="vid-thumb" aria-label="Play: Made You">
+          <img src="https://i.ytimg.com/vi/8wExZPatf78/hqdefault.jpg" alt="" loading="lazy">
+          <span class="vid-play" aria-hidden="true">
+            <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
+          </span>
+          <span class="vid-dur">2:45</span>
+        </button>
+        <span class="vid-title">Made You</span>
+      </div>
+
       <div class="vid-card reveal" data-yt="7KixQD8viTs">
         <button class="vid-thumb" aria-label="Play: For Me">
           <img src="https://i.ytimg.com/vi/7KixQD8viTs/hqdefault.jpg" alt="" loading="lazy">
@@ -661,7 +709,18 @@
       <h2 class="h2" style="margin-top:12px;">On Set</h2>
     </div>
 
-    <div class="video-grid video-grid--single">
+    <div class="video-grid video-grid--onset">
+      <div class="vid-card vid-card--v reveal" data-yt="Ozd5XmB-QVQ">
+        <button class="vid-thumb" aria-label="Play: Made You — Behind The Scenes">
+          <img src="https://i.ytimg.com/vi/Ozd5XmB-QVQ/oardefault.jpg" alt="" loading="lazy">
+          <span class="vid-play" aria-hidden="true">
+            <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,1 19,11 2,21" fill="currentColor"/></svg>
+          </span>
+          <span class="vid-dur">2:59</span>
+        </button>
+        <span class="vid-num">No script &middot; just us in the room</span>
+        <span class="vid-title">Made You &mdash; Behind The Scenes</span>
+      </div>
       <div class="vid-card reveal" data-yt="lVz_YBn-U6c">
         <button class="vid-thumb" aria-label="Play: LOTTA 0’z — Behind The Scenes">
           <img src="https://i.ytimg.com/vi/lVz_YBn-U6c/hqdefault.jpg" alt="" loading="lazy">
