@@ -142,9 +142,9 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 .rels{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); column-gap:12px; row-gap:12px; margin:0 0 44px; }
 .rel{ display:contents; color:var(--tx); }
 .rel--madeyou .rel-card{ grid-column:1; grid-row:1; }
-.rel--energy  .rel-card{ grid-column:2; grid-row:1; }
-.rel--angels  .rel-card{ grid-column:1 / -1; grid-row:2; justify-self:center; width:calc(50% - 6px); }
-@media (min-width:720px){ .rel--angels .rel-card{ width:calc(50% - 12px); } }
+.rel--angels  .rel-card{ grid-column:2; grid-row:1; }
+.rel--energy  .rel-card{ grid-column:1 / -1; grid-row:2; justify-self:center; width:calc(50% - 6px); }
+@media (min-width:720px){ .rel--energy .rel-card{ width:calc(50% - 12px); } }
 @media (min-width:720px){ .rels{ column-gap:24px; row-gap:24px; } }
 
 /* ---------- One song at a time ----------
@@ -611,7 +611,12 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
           <div class="pills">
             <a class="pill" href="https://open.spotify.com/track/4rIwDEJESw01SugCx0Us6i" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
             <a class="pill" href="https://geo.music.apple.com/us/album/angels-on-a-sofa/6803331662?i=6803331665" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+            <a class="pill" href="https://music.youtube.com/watch?v=lCR8MLpzni8" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-ytm"></span></span><span class="pill-label">YouTube Music</span></a>
             <a class="pill" href="http://www.tidal.com/album/554481849" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
+            <a class="pill" href="https://music.amazon.com/tracks/B0HG3F3ZBH" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-amazon"></span></span><span class="pill-label">Amazon Music</span></a>
+            <a class="pill" href="https://soundcloud.com/whosrila-music/angels-on-a-sofa" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
+            <a class="pill" href="https://audiomack.com/whosrila/song/angels-on-a-sofa" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-audiomack"></span></span><span class="pill-label">Audiomack</span></a>
+            <a class="pill" href="https://www.pandora.com/artist/whosrila-pascal-pressure-and-justice-case/angels-on-a-sofa/ALVmz7Z3Z7JV7cP" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
             <!-- ANGELS-STREAMS-END -->
           </div>
 
