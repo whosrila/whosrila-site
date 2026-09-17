@@ -7,30 +7,36 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#030303">
 <title>Angels On A Sofa — WHOSRILA</title>
-<meta name="description" content="A collaboration with Pascal Pressure &amp; Justice Case, out September 17, 2026.">
+<meta name="description" content="A collaboration with Pascal Pressure &amp; Justice Case. Out now.">
 <!-- Open Graph tags help this page look right when shared/linked in ad platforms -->
 <meta property="og:title" content="Angels On A Sofa — WHOSRILA">
-<meta property="og:description" content="A collaboration with Pascal Pressure &amp; Justice Case, out September 17, 2026.">
+<meta property="og:description" content="A collaboration with Pascal Pressure &amp; Justice Case. Out now.">
 <meta property="og:type" content="music.song">
 <meta property="og:image" content="https://whosrila.com/images/art-angels.jpg">
 <meta property="og:url" content="https://whosrila.com/angelsonsofa">
 <meta property="og:site_name" content="WHOSRILA">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Angels On A Sofa — WHOSRILA">
-<meta name="twitter:description" content="A collaboration with Pascal Pressure &amp; Justice Case, out September 17, 2026.">
+<meta name="twitter:description" content="A collaboration with Pascal Pressure &amp; Justice Case. Out now.">
 <meta name="twitter:image" content="https://whosrila.com/images/art-angels.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="/css/site.css?v=726f54e1">
 <style>
 :root{
-  --ink:        #0A0A0A;
-  --ink-2:      #161616;
-  --paper:      #F4F4F2;
-  --paper-dim:  #8C8C8C;
-  --red:        #D7263D;
-  --line:       rgba(10,10,10,0.12);
+  /* Black and silver, taken from the cover: chrome lettering and a white
+     light on the chain against a near-black ground. Flipped dark, so the
+     corrections at the end of this <style> are load-bearing. */
+  --ink:        #EDEDED;
+  --ink-2:      #0B0B0B;
+  --paper:      #030303;
+  --paper-dim:  #A3A3A3;
+  --red:        #D4D4D4;
+  --line:       rgba(237,237,237,0.13);
+  --silver-hi:  #F2F2F2;
+  --card:       #0C0C0C;
 
   --f-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --f-body:    'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -94,18 +100,36 @@
   .lb, .lb-panel, .song-media .vid-thumb img{ transition:none !important; }
 }
 
-.embed-frame{
-  border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--paper);
-  margin-bottom:16px;
+.listen-list{ display:flex; flex-direction:column; gap:8px; margin:0 0 8px; }
+.lrow{
+  display:flex; align-items:center; gap:13px; width:100%;
+  padding:14px 18px; border:1px solid var(--line); border-radius:4px;
+  background:var(--paper); color:var(--ink);
+  transition:border-color .16s, transform .14s;
 }
-.embed-frame iframe{ display:block; width:100%; border:0; }
-
-.fallback{
-  font-family:var(--f-mono); font-size:12px; letter-spacing:0.04em; color:var(--paper-dim);
-  text-align:center; margin-bottom:8px;
+.lrow:hover{ border-color:var(--ink); transform:translateY(-1px); }
+.ldot{ width:9px; height:9px; border-radius:50%; flex:0 0 9px; }
+.ltext{ display:flex; flex-direction:column; gap:1px; flex:1 1 auto; min-width:0; }
+.lname{ font-weight:600; font-size:15px; line-height:1.25; }
+.lsub{
+  font-family:var(--f-mono); font-size:10px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--paper-dim);
 }
-.fallback a{ border-bottom:1px solid var(--red); color:var(--paper); padding-bottom:1px; }
-.fallback a:hover{ color:var(--red); }
+.lgo{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--paper-dim); border:1px solid var(--line); border-radius:2px;
+  padding:6px 13px; flex:0 0 auto; transition:background .16s, color .16s, border-color .16s;
+}
+.lrow:hover .lgo{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+.lrow-buy{ border-color:var(--ink); }
+.lrow-buy .lgo{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+.lrow-buy:hover .lgo{ background:var(--red); border-color:var(--red); }
+.ldot-spotify{background:#1DB954}.ldot-apple{background:#FA243C}.ldot-itunes{background:#A855F7}
+.ldot-deezer{background:#A238FF}.ldot-tidal{background:#00D8D8}.ldot-soundcloud{background:#FF5500}
+.ldot-audiomack{background:#FFA200}.ldot-pandora{background:#3668FF}
+.ldot-amazon{background:#25D1DA}.ldot-boomplay{background:#E8112D}
+.ldot-ytm{background:#FF0000}
+@media (prefers-reduced-motion: reduce){ .lrow{ transition:none; } .lrow:hover{ transform:none; } }
 
 .preview-player{
   display:flex; align-items:center; gap:16px;
@@ -139,7 +163,7 @@
 }
 .cc-open{ opacity:1; transform:none; }
 .cc-text{ margin:0; font-size:13.5px; line-height:1.5; flex:1 1 300px; color:rgba(244,244,242,.86); }
-.cc-text a{ color:#F4F4F2; border-bottom:1px solid #D7263D; }
+.cc-text a{ color:#F4F4F2; border-bottom:1px solid #BDBDBD; }
 .cc-actions{ display:flex; gap:10px; flex:0 0 auto; }
 .cc-btn{
   font-family:inherit; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
@@ -148,7 +172,7 @@
 }
 .cc-btn:hover{ border-color:#F4F4F2; }
 .cc-yes{ background:#F4F4F2; color:#0A0A0A; border-color:#F4F4F2; }
-.cc-yes:hover{ background:#D7263D; border-color:#D7263D; color:#F4F4F2; }
+.cc-yes:hover{ background:#BDBDBD; border-color:#BDBDBD; color:#030303; }
 @media (prefers-reduced-motion: reduce){ .cc{ transition:none; } }
 
 /* ---------- Back to top ---------- */
@@ -167,6 +191,100 @@
 .to-top svg{ display:block; }
 @media (max-width:560px){ .to-top{ right:14px; bottom:14px; width:42px; height:42px; } }
 @media (prefers-reduced-motion: reduce){ .to-top{ transition:opacity .2s ease; transform:none; } }
+/* ---------- Dark-page corrections ----------
+   Rules from site.css (and this page's own components) that render
+   same-on-same once the palette flips. Kept last so they win the cascade. */
+.logo-link img{ filter:none; }
+footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
+::selection{ background:var(--silver-hi); color:#030303; }
+.to-top{ background:rgba(12,12,12,.80); color:var(--ink); border-color:rgba(237,237,237,.26); }
+.to-top:hover{ background:var(--silver-hi); border-color:var(--silver-hi); color:#030303; }
+.song-media .vid-thumb:hover .vid-play{ background:var(--silver-hi); border-color:var(--silver-hi); color:#030303; }
+.lb-close:hover{ background:var(--silver-hi); border-color:var(--silver-hi); color:#030303; }
+
+/* Title in chrome, like the cover lettering. site.css line 38 forces
+   headings to brightness(0) — replaced here by a soft silver glow. The
+   darkest stop still clears 6:1 on the ground. */
+h1, h2, h3, .h1, .h2, .h3, .title{
+  color:var(--silver-hi);
+  background:linear-gradient(180deg, #FFFFFF 0%, #DADADA 42%, #8F8F8F 54%, #EDEDED 72%, #BFBFBF 100%);
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 16px rgba(255,255,255,0.28));
+}
+.stamp{ color:#CFCFCF; }
+
+/* ---------- Ground: white light falling on black ----------
+   Mirrors the cover — a cool silver bloom behind the title and art, the
+   rest falling off to the artwork's own black. Fixed, so it reads as light
+   in the room rather than a panel that scrolls. */
+body{
+  background:
+    radial-gradient(1100px 480px at 50% 0%,  rgba(230,230,230,0.13), transparent 60%),
+    radial-gradient(700px 620px at 50% 60%,  rgba(200,200,200,0.06), transparent 64%),
+    radial-gradient(900px 700px at 50% 100%, rgba(160,160,160,0.05), transparent 62%),
+    var(--paper);
+  background-attachment:fixed;
+  background-repeat:no-repeat;
+}
+header.site{
+  background:rgba(3,3,3,0.62);
+  -webkit-backdrop-filter:saturate(120%) blur(14px);
+  backdrop-filter:saturate(120%) blur(14px);
+  border-bottom:1px solid rgba(237,237,237,0.10);
+}
+
+/* The cover sits in its own silver halo and bleeds into the page. */
+.song-media--art{
+  border:0; border-radius:0; background:transparent;
+  filter:drop-shadow(0 0 90px rgba(255,255,255,0.16));
+}
+.song-media .vid-thumb{ border-color:rgba(237,237,237,0.14); }
+.song-media .vid-thumb img{ filter:grayscale(1) contrast(1.05); }
+
+/* ---------- Cards: frosted glass with a chrome edge ---------- */
+.lrow, .preview-player{
+  background:linear-gradient(180deg, rgba(237,237,237,0.06), rgba(237,237,237,0.018));
+  border-color:rgba(237,237,237,0.12);
+  color:var(--ink);
+}
+.lrow{ transition:border-color .18s, transform .16s, box-shadow .22s, background .18s; }
+.lrow:hover{
+  border-color:rgba(242,242,242,0.55);
+  box-shadow:0 0 0 1px rgba(255,255,255,0.08), 0 10px 30px -12px rgba(255,255,255,0.35);
+  background:linear-gradient(180deg, rgba(237,237,237,0.09), rgba(237,237,237,0.03));
+}
+.lgo{ border-color:rgba(237,237,237,0.2); }
+.lrow:hover .lgo{ background:var(--silver-hi); color:#030303; border-color:var(--silver-hi); }
+
+/* Primary action: polished silver. */
+.lrow-buy{
+  border-color:rgba(242,242,242,0.45);
+  box-shadow:0 0 28px -14px rgba(255,255,255,0.8);
+}
+.lrow-buy .lgo{
+  background:linear-gradient(180deg, #FFFFFF, #CFCFCF 55%, #A9A9A9) #CFCFCF;
+  color:#030303; border-color:#DADADA;
+}
+.lrow-buy:hover .lgo{ background:#FFFFFF; border-color:#FFFFFF; color:#030303; }
+
+/* Platform dots glow in their own brand colour. */
+.ldot{ background:currentColor; box-shadow:0 0 11px -1px currentColor, 0 0 4px currentColor; }
+.ldot-spotify{color:#1DB954}.ldot-apple{color:#FA243C}.ldot-itunes{color:#A855F7}
+.ldot-deezer{color:#A238FF}.ldot-tidal{color:#00D8D8}.ldot-soundcloud{color:#FF5500}
+.ldot-audiomack{color:#FFA200}.ldot-pandora{color:#3668FF}
+.ldot-amazon{color:#25D1DA}.ldot-boomplay{color:#E8112D}.ldot-ytm{color:#FF0000}
+
+.preview-btn{ border-color:rgba(237,237,237,0.6); color:var(--ink); }
+.preview-btn:hover,.preview-btn.playing{
+  background:var(--silver-hi); border-color:var(--silver-hi); color:#030303;
+  box-shadow:0 0 22px -4px rgba(255,255,255,0.7);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .lrow{ transition:border-color .18s; }
+  .lrow:hover{ transform:none; }
+}
 </style>
 <script type="application/ld+json">
 {
@@ -219,9 +337,9 @@
 
 <main>
   <div class="wrap">
-    <span class="stamp">Upcoming Single &middot; A Collab With Pascal Pressure &amp; Justice Case</span>
+    <span class="stamp">Single &middot; Out Now</span>
     <h1 class="title">Angels On A Sofa</h1>
-    <p class="hook">A collaboration with Pascal Pressure &amp; Justice Case &mdash; out September 17, 2026.</p>
+    <p class="hook">A collaboration with Pascal Pressure &amp; Justice Case &mdash; out now.</p>
 
     <div class="song-media">
       <div class="vid-card" data-yt="Ph_Zpl4MoZ4">
@@ -249,24 +367,25 @@
       </div>
     </div>
 
-    <!-- Countdown: delete this whole <div class="countdown">...</div> block once released. -->
-    <div class="countdown" id="countdown">
-      <div class="cell"><div class="num" id="cd-days">--</div><div class="lab">Days</div></div>
-      <div class="cell"><div class="num" id="cd-hours">--</div><div class="lab">Hrs</div></div>
-      <div class="cell"><div class="num" id="cd-mins">--</div><div class="lab">Min</div></div>
+    <div class="listen-list">
+      <a class="lrow lrow-buy" href="https://music.apple.com/us/album/angels-on-a-sofa/6803331662?i=6803331665&amp;app=itunes" target="_blank" rel="noopener">
+        <span class="ldot ldot-itunes"></span>
+        <span class="ltext">
+          <span class="lname">iTunes</span>
+          <span class="lsub">Own the song</span>
+        </span>
+        <span class="lgo">Buy</span>
+      </a>
+      <a class="lrow" href="https://geo.music.apple.com/us/album/angels-on-a-sofa/6803331662?i=6803331665" target="_blank" rel="noopener">
+        <span class="ldot ldot-apple"></span>
+        <span class="ltext">
+          <span class="lname">Apple Music</span>
+        </span>
+        <span class="lgo">Play</span>
+      </a>
+      <!-- STREAMS-END. Rows are added here as each store goes live (scheduled
+           task angelsonsofa-links-propagation). No too.fm / "everywhere else" row. -->
     </div>
-
-    <div class="embed-frame">
-      <iframe
-        src="https://too.fm/angelsonasofa?autoplay=1"
-        width="100%" height="1300" frameborder="0" allowtransparency="true" scrolling="no"
-        title="Angels On A Sofa — pre-save and listen">
-      </iframe>
-    </div>
-
-    <p class="fallback">
-      Trouble loading? <a href="https://too.fm/angelsonasofa" target="_blank" rel="noopener">Open directly</a>
-    </p>
   </div>
 </main>
 
@@ -278,42 +397,6 @@
   </div>
 </footer>
 
-<script>
-  // EDIT ME — set this song's release date for the countdown.
-  const RELEASE_DATE_ISO = '2026-09-17T00:00:00';
-
-  const cdEl = document.getElementById('countdown');
-
-  function tick(){
-    const target = new Date(RELEASE_DATE_ISO).getTime();
-    const diff = target - Date.now();
-
-    // Release day. Stop counting and say so — a clock frozen at 0/00/00
-    // reads as broken, and this page may sit here a while before it's
-    // rebuilt as a released-song page.
-    if(diff <= 0){
-      if(cdEl){
-        cdEl.classList.add('done');
-        cdEl.innerHTML = '<span class="cd-live">Out now</span>';
-      }
-      clearInterval(timer);
-      return;
-    }
-
-    const days = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const mins = Math.floor((diff % 3600000) / 60000);
-    const d = document.getElementById('cd-days');
-    const h = document.getElementById('cd-hours');
-    const m = document.getElementById('cd-mins');
-    if(d) d.textContent = days;
-    if(h) h.textContent = String(hours).padStart(2,'0');
-    if(m) m.textContent = String(mins).padStart(2,'0');
-  }
-  // assigned before the first tick so tick() can always clear it
-  const timer = setInterval(tick, 30000);
-  tick();
-</script>
 
 <script>
 </script>
