@@ -8,16 +8,16 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shop — WHOSRILA</title>
-<meta name="description" content="Buy WHOSRILA's music direct: 320kbps MP3 downloads with artwork, instant delivery. Singles $2.99, the complete collection $14.99.">
+<meta name="description" content="Buy WHOSRILA's music direct: high-quality MP3 downloads with artwork, instant delivery. Singles $2.99, the complete collection $14.99.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="WHOSRILA">
 <meta property="og:title" content="Shop — WHOSRILA">
-<meta property="og:description" content="Buy the music direct. 320kbps MP3s with artwork, instant download.">
+<meta property="og:description" content="Buy the music direct. High-quality MP3s with artwork, instant download.">
 <meta property="og:image" content="https://whosrila.com/images/art-madeyou.jpg">
 <meta property="og:url" content="https://whosrila.com/shop">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Shop — WHOSRILA">
-<meta name="twitter:description" content="Buy the music direct. 320kbps MP3s with artwork, instant download.">
+<meta name="twitter:description" content="Buy the music direct. High-quality MP3s with artwork, instant download.">
 <meta name="twitter:image" content="https://whosrila.com/images/art-madeyou.jpg">
 <style>
   :root{
@@ -256,7 +256,7 @@
       <h1>Own the music</h1>
       <p class="lede">Buy direct and almost all of it reaches me and the people who
       made the record &mdash; which is not true of streaming, and only partly true of
-      the stores. Files are 320&thinsp;kbps MP3 with artwork, delivered the second
+      the stores. Files are high-quality MP3s with artwork, delivered the second
       you pay.</p>
     </div>
 
@@ -338,13 +338,14 @@ var WR_SHOP = [
     sub: 'Eight singles',
     price: 14.99, was: 23.92,
     img: '/images/artist-landscape-1.jpg',
-    blurb: 'Every song to date in one download — Made You, For Me, Fully Meech (Acoustic), ' +
+    blurb: 'Eight singles in one download — Made You, For Me, Fully Meech (Acoustic), ' +
            'Kingston, Blue Notes, Protection, Gratitude and Top Form. ' +
            '320kbps MP3s with artwork, plus the licence.',
     link: 'https://buy.stripe.com/3cIaEY2Pc7uigt6b0W6Zy00',
     pwyw: 'https://buy.stripe.com/4gMbJ2exUeWK2Cged86Zy0h'
   },
 
+  { kind:'music', name:'Angels On A Sofa',        sub:'4:28 · 2026', price:2.99, img:'/images/art-angels.jpg',    link:'https://buy.stripe.com/aFadRa1L8aGu1yc1qm6Zy0k', pwyw:'https://buy.stripe.com/aFaaEY4Xk7ui7WAfhc6Zy0l' },
   { kind:'music', name:'Made You',                sub:'2:44 · 2026', price:2.99, img:'/images/art-madeyou.jpg',   link:'https://buy.stripe.com/cNi9AUfBYeWK7WA0mi6Zy08', pwyw:'https://buy.stripe.com/cNi28s89w15U4Ko3yu6Zy09' },
   { kind:'music', name:'Top Form',               sub:'2:47 · 2025', price:2.99, img:'/images/art-topform.jpg',    link:'https://buy.stripe.com/9B63cwgG23e2dgU2uq6Zy07', pwyw:'https://buy.stripe.com/00w14ofBY4i6ccQ1qm6Zy0a' },
   { kind:'music', name:'Fully Meech (Acoustic)', sub:'3:01 · 2024', price:2.99, img:'/images/art-fullymeech.jpg', link:'https://buy.stripe.com/7sY8wQ0H415U5Os1qm6Zy02', pwyw:'https://buy.stripe.com/cNicN69dA3e2dgU8SO6Zy0f' },
@@ -358,18 +359,18 @@ var WR_SHOP = [
   { kind:'music', name:'Blue Notes',             sub:'2:11 · 2021', price:2.99, img:'/images/art-bluenotes.jpg',  link:'https://buy.stripe.com/28EaEY9dAaGua4I6KG6Zy04', pwyw:'https://buy.stripe.com/cNifZi2Pc9Cq90E8SO6Zy0d' },
   { kind:'music', name:'For Me',                 sub:'2:30 · 2020', price:2.99, img:'/images/art-forme.jpg',      link:'https://buy.stripe.com/6oU8wQ9dAdSGccQ0mi6Zy01', pwyw:'https://buy.stripe.com/eVq28s1L801Q6Swglg6Zy0g' },
 
-  /* No `link` yet, so this renders greyed as "Coming soon". It needs three
-     decisions before it can sell: the price, how sizes are handled, and who
-     ships it. The photography is Printful's, which is worth remembering —
-     a bare Stripe link would mean placing each order with them by hand. */
+  /* Apparel is off the page for now (17 Sep 2026, on request). The tee entry is
+     kept below, commented out — uncomment it and the Apparel section comes back.
+     It still needs a price, a size plan and a shipper before it can sell.
   { kind:'apparel', name:'WHOSRILA Tee — Black', sub:'Premium heavyweight cotton',
     img:'/images/merch-tee-black.jpg', link:'' }
+  */
 ];
 
 /* Section order and headings. A section with nothing in it is skipped
    entirely, so these can be declared before the stock exists. */
 var WR_SECTIONS = [
-  { kind:'music',   label:'Music',   note:'Instant download · 320kbps MP3' },
+  { kind:'music',   label:'Music',   note:'Instant download · MP3' },
   { kind:'apparel', label:'Apparel', note:'Ships from Kingston' },
   { kind:'other',   label:'Other',   note:'' }
 ];
@@ -405,6 +406,7 @@ var WR_SECTIONS = [
   if(featured){
     var f = document.createElement('div');
     f.className = 'feat reveal';
+    f.setAttribute('data-song', featured.name);
     f.innerHTML =
       '<div class="feat-img"><img src="' + esc(featured.img) + '" alt="' + esc(featured.name) + '"></div>' +
       '<div class="feat-body">' +
@@ -443,6 +445,9 @@ var WR_SECTIONS = [
       var soon = !item.link;
       var card = document.createElement('div');
       card.className = 'card' + (soon ? ' is-soon' : '');
+      // js/track.js credits a click to the nearest [data-song]; without it every
+      // checkout on this page was logged against "shop" rather than the song
+      card.setAttribute('data-song', item.name);
       card.innerHTML =
         '<div class="card-art"><img src="' + esc(item.img) + '" alt="' + esc(item.name) +
           '" loading="lazy"></div>' +
