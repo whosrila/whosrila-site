@@ -41,6 +41,8 @@ const CATALOG = {
     "WHOSRILA - Complete Digital Collection.zip",
   ],
   "WHOSRILA - Made You":               ["WHOSRILA - Made You.mp3"],
+  // 256 kbps rather than the 320 of the others, so it fit the dashboard upload.
+  "WHOSRILA - Angels On A Sofa":       ["WHOSRILA - Angels On A Sofa.mp3"],
   "WHOSRILA - For Me":                 ["WHOSRILA - For Me.mp3"],
   "WHOSRILA - Fully Meech (Acoustic)": ["WHOSRILA - Fully Meech (Acoustic).mp3"],
   "WHOSRILA - Kingston":               ["WHOSRILA - Kingston.mp3"],
