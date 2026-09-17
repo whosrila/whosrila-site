@@ -71,7 +71,7 @@
 }
 .cc-open{ opacity:1; transform:none; }
 .cc-text{ margin:0; font-size:13.5px; line-height:1.5; flex:1 1 300px; color:rgba(244,244,242,.86); }
-.cc-text a{ color:#F4F4F2; border-bottom:1px solid #D7263D; }
+.cc-text a{ color:#F4F4F2; border-bottom:1px solid #D71920; }
 .cc-actions{ display:flex; gap:10px; flex:0 0 auto; }
 .cc-btn{
   font-family:inherit; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
@@ -80,7 +80,7 @@
 }
 .cc-btn:hover{ border-color:#F4F4F2; }
 .cc-yes{ background:#F4F4F2; color:#0A0A0A; border-color:#F4F4F2; }
-.cc-yes:hover{ background:#D7263D; border-color:#D7263D; color:#F4F4F2; }
+.cc-yes:hover{ background:#D71920; border-color:#D71920; color:#F4F4F2; }
 @media (prefers-reduced-motion: reduce){ .cc{ transition:none; } }
 
 /* ---------- Mobile menu, animated ---------- */
@@ -134,7 +134,7 @@
     --ink-3:      #1F1F1F;
     --paper:      #F4F4F2;
     --paper-dim:  #8C8C8C;
-    --red:        #D7263D;
+    --red:        #D71920;
   --cyan:       #35D6C4;
     --line:       rgba(244,244,242,0.14);
     --line-paper: rgba(10,10,10,0.18);
@@ -270,7 +270,7 @@
   }
   .btn:hover{ transform:translateY(-2px); }
   .btn-primary{ background:var(--red); color:var(--paper); border-color:var(--red); }
-  .btn-primary:hover{ box-shadow:0 8px 24px rgba(215,38,61,0.35); }
+  .btn-primary:hover{ box-shadow:0 8px 24px rgba(215,25,32,0.35); }
   .btn-ghost{ background:transparent; color:var(--paper); }
   .btn-ghost:hover{ border-color:var(--red); color:var(--red); }
 
@@ -476,15 +476,15 @@
   .pulse{ position:relative; }
   .pulse::after{
     content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
-    box-shadow:0 0 0 0 rgba(215,38,61,.55);
+    box-shadow:0 0 0 0 rgba(215,25,32,.55);
     /* held until the entrance has finished, so it reads as an invitation
        rather than something already happening as the page draws */
     animation:none;
   }
   @keyframes ctaPulse{
-    0%   { box-shadow:0 0 0 0 rgba(215,38,61,.5); }
-    70%  { box-shadow:0 0 0 14px rgba(215,38,61,0); }
-    100% { box-shadow:0 0 0 0 rgba(215,38,61,0); }
+    0%   { box-shadow:0 0 0 0 rgba(215,25,32,.5); }
+    70%  { box-shadow:0 0 0 14px rgba(215,25,32,0); }
+    100% { box-shadow:0 0 0 0 rgba(215,25,32,0); }
   }
   html.intro-ready .pulse::after{ animation:ctaPulse 2.6s cubic-bezier(.4,0,.6,1) 2.3s infinite; }
   .pulse:hover::after{ animation:none !important; }
@@ -579,9 +579,9 @@
   /* a small periodic nudge so the arrow reads as something to press,
      rather than sitting there as decoration */
   @keyframes goNudge{
-    0%,72%,100%{ transform:none; box-shadow:0 0 0 0 rgba(215,38,61,0); }
-    80%        { transform:translate(2px,-2px); box-shadow:0 0 0 7px rgba(215,38,61,0); }
-    86%        { box-shadow:0 0 0 0 rgba(215,38,61,.45); }
+    0%,72%,100%{ transform:none; box-shadow:0 0 0 0 rgba(215,25,32,0); }
+    80%        { transform:translate(2px,-2px); box-shadow:0 0 0 7px rgba(215,25,32,0); }
+    86%        { box-shadow:0 0 0 0 rgba(215,25,32,.45); }
   }
   .track-item:hover .go{ animation:none; }
   @keyframes goFlash{
@@ -659,11 +659,11 @@
     transition:background .2s, border-color .2s, color .2s, transform .15s;
   }
   .tc-btn{ background:var(--red); color:var(--paper); border:1px solid var(--red); }
-  .tc-btn:hover{ background:#E8394F; border-color:#E8394F; transform:translateY(-2px); }
-  .tc-btn:active{ background:#A81729; border-color:#A81729; transform:translateY(0); }
+  .tc-btn:hover{ background:#E52A2A; border-color:#E52A2A; transform:translateY(-2px); }
+  .tc-btn:active{ background:#A8121A; border-color:#A8121A; transform:translateY(0); }
   .tc-btn2{ background:transparent; color:var(--paper); border:1px solid rgba(244,244,242,0.28); }
   .tc-btn2:hover{ background:var(--red); border-color:var(--red); transform:translateY(-2px); }
-  .tc-btn2:active{ background:#A81729; border-color:#A81729; transform:translateY(0); }
+  .tc-btn2:active{ background:#A8121A; border-color:#A8121A; transform:translateY(0); }
   .tc-btn small, .tc-btn2 small{
     display:block; margin-top:2px; font-family:var(--f-mono); font-size:9px;
     font-weight:400; letter-spacing:.05em; transition:color .2s;
@@ -693,8 +693,8 @@
     border:1px solid rgba(244,244,242,0.16); border-radius:4px;
     transition:background .16s, border-color .16s;
   }
-  .tc-row:hover{ background:rgba(215,38,61,0.14); border-color:var(--red); }
-  .tc-row:active{ background:rgba(168,23,41,0.5); border-color:#A81729; }
+  .tc-row:hover{ background:rgba(215,25,32,0.14); border-color:var(--red); }
+  .tc-row:active{ background:rgba(168,23,41,0.5); border-color:#A8121A; }
   .tc-row-t{ font-size:11.5px; font-weight:700; color:var(--paper); line-height:1.25;
     text-transform:uppercase; letter-spacing:.04em; }
   .tc-row-s{ font-family:var(--f-mono); font-size:9px; letter-spacing:.05em;
@@ -731,7 +731,7 @@
     font-family:var(--f-mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase;
     transition:border-color .18s, color .18s, background .18s;
   }
-  .btn-buy:hover,.btn-buy[aria-expanded="true"]{ border-color:var(--red); color:var(--red); background:rgba(215,38,61,0.08); }
+  .btn-buy:hover,.btn-buy[aria-expanded="true"]{ border-color:var(--red); color:var(--red); background:rgba(215,25,32,0.08); }
   .bb-chev{ transition:transform .3s cubic-bezier(.4,0,.2,1); }
   .btn-buy[aria-expanded="true"] .bb-chev{ transform:rotate(180deg); }
 
@@ -756,15 +756,15 @@
     display:flex; align-items:center; justify-content:space-between;
     gap:26px; flex-wrap:wrap; margin:38px 0 0; padding:26px 28px;
     font-family:var(--f-body);
-    border:1px solid rgba(215,38,61,0.45); border-radius:6px;
-    background:linear-gradient(135deg, rgba(215,38,61,0.17), rgba(10,10,10,0.72));
+    border:1px solid rgba(215,25,32,0.45); border-radius:6px;
+    background:linear-gradient(135deg, rgba(215,25,32,0.17), rgba(10,10,10,0.72));
     animation:bundleGlow 3.6s ease-in-out infinite;
   }
   /* Breathes rather than blinks — box-shadow and border only, no transform,
      so it never fights the .reveal slide-in this block also carries. */
   @keyframes bundleGlow{
-    0%,100%{ box-shadow:0 0 0 rgba(215,38,61,0);       border-color:rgba(215,38,61,0.40); }
-    50%    { box-shadow:0 0 38px rgba(215,38,61,0.28); border-color:rgba(215,38,61,0.85); }
+    0%,100%{ box-shadow:0 0 0 rgba(215,25,32,0);       border-color:rgba(215,25,32,0.40); }
+    50%    { box-shadow:0 0 38px rgba(215,25,32,0.28); border-color:rgba(215,25,32,0.85); }
   }
   .bundle-tag{
     font-family:var(--f-body); font-size:12.5px; font-weight:700;
@@ -787,19 +787,19 @@
     animation:bundlePulse 3.6s ease-in-out infinite;
   }
   @keyframes bundlePulse{
-    0%,100%{ transform:scale(1);    box-shadow:0 0 0 rgba(215,38,61,0); }
-    50%    { transform:scale(1.04); box-shadow:0 0 26px rgba(215,38,61,0.55); }
+    0%,100%{ transform:scale(1);    box-shadow:0 0 0 rgba(215,25,32,0); }
+    50%    { transform:scale(1.04); box-shadow:0 0 26px rgba(215,25,32,0.55); }
   }
   /* animation:none rather than a hover transform — a running animation wins
      over a plain declaration, so the scale would otherwise never apply */
   .bundle-btn:hover{
-    animation:none; background:#E8394F; border-color:#E8394F;
-    transform:scale(1.06); box-shadow:0 0 30px rgba(215,38,61,0.6);
+    animation:none; background:#E52A2A; border-color:#E52A2A;
+    transform:scale(1.06); box-shadow:0 0 30px rgba(215,25,32,0.6);
   }
   /* Pressed sits darker than resting and drops the scale, so a click reads as
      the button going down rather than just staying lit. */
   .bundle-btn:active{
-    animation:none; background:#A81729; border-color:#A81729;
+    animation:none; background:#A8121A; border-color:#A8121A;
     transform:scale(1); box-shadow:none;
   }
   /* Holds both buy buttons in one flex item, so the CTA stays a two-column
@@ -827,7 +827,7 @@
     background:var(--red); border-color:var(--red); transform:scale(1.04);
   }
   .bundle-btn2:active{
-    background:#A81729; border-color:#A81729; transform:scale(1);
+    background:#A8121A; border-color:#A8121A; transform:scale(1);
   }
   .bundle-btn2 small{
     display:block; margin-top:2px; font-family:var(--f-mono); font-size:9.5px;
@@ -846,7 +846,7 @@
   @media (prefers-reduced-motion: reduce){
     /* keep the emphasis, drop the movement */
     .bundle-cta, .bundle-btn{ animation:none; }
-    .bundle-cta{ border-color:rgba(215,38,61,0.75); box-shadow:0 0 24px rgba(215,38,61,0.18); }
+    .bundle-cta{ border-color:rgba(215,25,32,0.75); box-shadow:0 0 24px rgba(215,25,32,0.18); }
     .bundle-btn:hover{ transform:none; }
   }
 
@@ -1037,7 +1037,7 @@
   .featured-copy .featured-title{ font-family:var(--f-display); color:var(--paper); font-weight:800; font-size:clamp(36px,5.4vw,64px); line-height:1.02; margin:14px 0 6px; }
   .featured-copy .featured-date{ font-family:var(--f-mono); text-transform:uppercase; letter-spacing:0.12em; font-size:14px; color:var(--paper-dim); margin:0 0 24px; }
   .featured-btn{ background:var(--red); color:var(--paper); border-color:var(--red); }
-  .featured-btn:hover{ box-shadow:0 8px 24px rgba(215,38,61,0.4); }
+  .featured-btn:hover{ box-shadow:0 8px 24px rgba(215,25,32,0.4); }
   @media (max-width:760px){
     .featured-hero-inner{ gap:22px; }
     .featured-media .featured-cover{ max-width:none; }
@@ -1402,7 +1402,7 @@
   #splash .sp-line > *:nth-child(1){ animation-delay:.8s; }
   #splash .sp-line > *:nth-child(2){ animation-delay:1.03s; }
   #splash .sp-line > *:nth-child(3){ animation-delay:1.26s; }
-  #splash .sp-line em{ color:#D7263D; }
+  #splash .sp-line em{ color:#D71920; }
 
   @keyframes spLogo{ from{ opacity:0; transform:translateY(10px) scale(.96); } to{ opacity:1; transform:none; } }
   @keyframes spLine{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:none; } }
@@ -1724,12 +1724,12 @@
     <div class="section-head reveal">
       <span class="stamp">DISCOGRAPHY</span>
       <h2 class="h2" style="margin-top:14px;">On Record</h2>
-      <p class="lede" style="margin-top:14px;">One upcoming preview up top, eleven songs out now below.</p>
+      <p class="lede" style="margin-top:14px;">Twelve songs out now &mdash; stream them, or own them outright.</p>
     </div>
 
     <div class="tl-group">
-      <span class="tl-group-label">Upcoming &middot; pre-save &amp; pre-order</span>
-      <div class="tracklist tracklist-up">
+      <span class="tl-group-label">Out now &middot; stream or own it</span>
+      <div class="tracklist tracklist-out" id="trackList">
         <div class="track-item" data-release="angelsonsofa">
           <a class="track-row" href="/angelsonsofa">
             <span class="idx">01</span>
@@ -1737,12 +1737,10 @@
             <span class="go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="title-block">
               <span class="title-line">Angels On A Sofa</span>
-            <span class="exptag" title="Not yet released">UPCOMING</span>
-          <span class="credit">A collab with Pascal Pressure &amp; Justice Case</span>
+              <span class="credit">A collab with Pascal Pressure &amp; Justice Case</span>
             </span>
             <span class="dur">4:28</span>
           </a>
-          <a class="btn btn-primary tc-presave" href="/angelsonsofa">Pre-Save</a>
           <div class="tc-buy-row">
             <button class="btn-buy" type="button" aria-expanded="false">Buy
               <svg class="bb-chev" width="9" height="6" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1768,12 +1766,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="tl-group">
-      <span class="tl-group-label">Out now &middot; stream or own it</span>
-      <div class="tracklist tracklist-out" id="trackList">
         <div class="track-item" data-release="energy">
           <a class="track-row" href="/energy">
             <span class="idx">02</span>
@@ -2207,8 +2199,8 @@
         <h2 class="h2" style="margin:12px 0 8px;">Get it first. Have a say.</h2>
         <p class="lede">Unreleased music and videos before anyone else &mdash; and you get a say in
         what comes next. Hit reply on anything I send and it comes straight to me.</p>
-        <p class="lede" style="margin-top:10px;font-size:14px;">Energy and Angels On A Sofa are
-        both open for pre-save now. Subscribers get everything else the moment it lands.</p>
+        <p class="lede" style="margin-top:10px;font-size:14px;">Angels On A Sofa and Energy are
+        out now. Subscribers get the next one the moment it lands.</p>
       </div>
       <form class="notify-form" id="notifyForm" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="71705d41-553f-47fe-a068-61822ae89277">
