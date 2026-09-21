@@ -306,6 +306,40 @@ header.site{
 .more-card img{ display:block; width:100%; aspect-ratio:1/1; object-fit:cover; }
 .more-card span{ display:block; padding:8px 9px 10px; font-size:12px; line-height:1.25; font-weight:600; color:var(--ink); }
 @media (prefers-reduced-motion: reduce){ .more-card{ transition:none; } .more-card:hover{ transform:none; } }
+/* ---------- Lyrics ----------
+   Same collapse as /madeyou: 300px showing, a fade into the page, and a
+   button that opens the rest. Section tags name who sings each part. */
+.lyrics{ margin-top:44px; }
+.lyrics h2{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  margin:0 0 16px; font-weight:400; text-align:center;
+  background:none; color:#CFCFCF; -webkit-text-fill-color:#CFCFCF; filter:none;
+}
+.lyrics-body{
+  font-size:15px; line-height:1.75; color:var(--ink);
+  max-height:300px; overflow:hidden; position:relative;
+  transition:max-height .55s cubic-bezier(.4,0,.2,1);
+}
+.lyrics-body::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:90px;
+  background:linear-gradient(rgba(3,3,3,0), #030303); pointer-events:none;
+  transition:opacity .3s;
+}
+.lyrics.open .lyrics-body::after{ opacity:0; }
+.lyrics-body p{ margin:0 0 22px; white-space:pre-line; }
+.lyrics-body em{ color:var(--paper-dim); }
+.ly-tag{
+  display:block; font-family:var(--f-mono); font-size:10px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--paper-dim);
+}
+.lyrics-more{
+  display:block; width:100%; margin-top:6px; padding:11px 16px; cursor:pointer;
+  background:transparent; color:var(--ink); border:1px solid var(--line); border-radius:3px;
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  transition:border-color .18s, color .18s;
+}
+.lyrics-more:hover{ border-color:var(--silver-hi); color:#FFFFFF; }
+@media (prefers-reduced-motion: reduce){ .lyrics-body{ transition:none; } }
 </style>
 <script type="application/ld+json">
 {
@@ -475,6 +509,89 @@ header.site{
            task angelsonsofa-links-propagation). No too.fm / "everywhere else" row. -->
     </div>
 
+    <div class="lyrics">
+      <h2>Lyrics</h2>
+      <div class="lyrics-body">
+        <p><span class="ly-tag">Intro</span>
+I won&#x27;t let you fly away, ohh, ohh</p>
+        <p><span class="ly-tag">Chorus &middot; WHOSRILA</span>
+I&#x27;ll be there for you when the sun rise
+Oh, your pain is all mine
+Feel you like the moonlight
+Always move tides
+All up on my shoulders
+Love is getting bolder
+Like angels on a sofa
+Our love is taking over
+<em>(Jah love is taking over)</em>
+Our love is taking over
+Like angels on a sofa
+Our love is taking over</p>
+        <p><span class="ly-tag">Verse 1 &middot; Pascal Pressure</span>
+My number one selection
+Giving me direction
+Your eyes have my reflection
+Let me clear the tension
+Oh, oh, oh, oh, oh
+Thinking &#x27;bout me
+I feel the walls are falling
+Know that she&#x27;s been calling
+She&#x27;s my Trojan
+Taking my aorta
+A piece of love
+She want a bigger portion
+Girl, you know seh no one in this world
+Is as important as you</p>
+        <p><span class="ly-tag">Chorus &middot; WHOSRILA</span>
+I&#x27;ll be there for you when the sun rise
+Oh, your pain is all mine
+Feel you like the moonlight
+Always move tides
+All up on my shoulders
+Love is getting bolder
+Like angels on a sofa
+Our love is taking over
+<em>(Jah love is taking over)</em>
+Our love is taking over
+Like angels on a sofa
+Our love is taking over</p>
+        <p><span class="ly-tag">Verse 2 &middot; Justice Case</span>
+This living room wouldn&#x27;t be the same without you
+My bed&#x27;s a tomb without you
+So hold my hand as we grace through the seasons, baby
+We don&#x27;t need a TV, baby
+If you&#x27;re down, then I&#x27;ll be all in
+Ooh, ooh
+Evil eyes couldn&#x27;t spy on what we have
+Ooh
+Winter, summer, fall
+We&#x27;ve been through it all
+You&#x27;re the one I call
+When I&#x27;m down on my luck
+Love birds in a tree
+Nestled despite the breeze</p>
+        <p><span class="ly-tag">Chorus &middot; WHOSRILA</span>
+I&#x27;ll be there for you when the sun rise
+Oh, your pain is all mine
+Feel you like the moonlight
+Always move tides
+All up on my shoulders
+Love is getting bolder
+Like angels on a sofa
+Our love is taking over
+<em>(Jah love is taking over)</em>
+Our love is taking over
+Like angels on a sofa
+Our love is taking over</p>
+        <p><span class="ly-tag">Outro</span>
+I won&#x27;t let you fly away, ohh, ohh
+I won&#x27;t let you fly away, ohh, ohh
+I won&#x27;t let you fly away, ohh, ohh
+I won&#x27;t let you fly away, ohh, ohh</p>
+      </div>
+      <button class="lyrics-more" type="button">Read full lyrics</button>
+    </div>
+
     <div class="song-extra">
       <h2>More like this</h2>
       <div class="more-grid">
@@ -521,6 +638,22 @@ header.site{
 <script defer src="/js/track.js?v=72ef4859"></script>
 <script defer src="/js/lightbox.js?v=e8ec8eea"></script>
 <script defer src="/js/consent.js?v=0e636252"></script>
+
+<script>
+(function(){
+  var box = document.querySelector('.lyrics');
+  if(!box) return;
+  var body = box.querySelector('.lyrics-body');
+  var btn  = box.querySelector('.lyrics-more');
+  // only worth a toggle if there is something hidden
+  if(body.scrollHeight <= 310){ body.style.maxHeight='none'; btn.remove(); box.classList.add('open'); return; }
+  btn.addEventListener('click', function(){
+    var open = box.classList.toggle('open');
+    body.style.maxHeight = open ? body.scrollHeight + 'px' : '300px';
+    btn.textContent = open ? 'Hide lyrics' : 'Read full lyrics';
+  });
+})();
+</script>
 
 <script>
 (function(){
