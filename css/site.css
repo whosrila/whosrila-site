@@ -12,8 +12,9 @@ a{ color:inherit; text-decoration:none; }
 :focus-visible{ outline:2px solid var(--red); outline-offset:3px; }
 .wrap{ width:100%; max-width:560px; margin:0 auto; padding:0 24px; }
 header.site{ position:sticky; top:0; z-index:100; background:var(--paper); border-bottom:1px solid var(--line); }
-.navrow{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; }
-.logo-link img{ height:22px; width:auto; display:block; filter:invert(1); }
+.navrow{ display:flex; align-items:center; justify-content:space-between; padding:12px 28px; }
+.logo-link img{ height:34px; width:auto; display:block; filter:invert(1); }
+@media (min-width:760px){ .logo-link img{ height:38px; } }
 nav.links{ display:flex; gap:28px; font-family:var(--f-mono); font-size:13px; letter-spacing:0.06em; text-transform:uppercase; }
 nav.links a{ opacity:1; color:var(--ink); transition:opacity .2s; border-bottom:1px solid transparent; padding-bottom:3px; }
 nav.links a:hover{ opacity:1; border-color:var(--red); }

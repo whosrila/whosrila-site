@@ -236,7 +236,8 @@
   header.site{ position:sticky; top:0; z-index:50; background:rgba(10,10,10,0.86);
     backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
   .navrow{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; }
-  .wordmark img{ height:24px; width:auto; display:block; }
+  .wordmark img{ height:34px; width:auto; display:block; }
+@media (min-width:760px){ .wordmark img{ height:38px; } }
   nav.links{ display:flex; gap:28px; font-family:var(--f-mono); font-size:13px;
     letter-spacing:.06em; text-transform:uppercase; }
   nav.links a{ opacity:.78; transition:opacity .2s; border-bottom:1px solid transparent; padding-bottom:3px; }
@@ -467,7 +468,7 @@
 
 <header class="site">
   <div class="navrow" id="navrow">
-    <a href="/" class="wordmark"><img src="/images/logo.png" alt="WHOSRILA"></a>
+    <a href="/" class="wordmark"><img src="/images/logo.png?v=e252c828" alt="WHOSRILA"></a>
     <nav class="links">
       <a href="/shop">Shop</a>
       <a href="/listen">Listen</a>
