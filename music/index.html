@@ -8,17 +8,17 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0A0806">
-<title>WHOSRILA — Made You, Energy &amp; Angels On A Sofa</title>
-<meta name="description" content="Three singles out now — Made You, Energy with KUM3RA, and Angels On A Sofa with Pascal Pressure &amp; Justice Case. Stream them, watch the video, or own the download.">
-<meta property="og:title" content="WHOSRILA — Made You, Energy &amp; Angels On A Sofa">
-<meta property="og:description" content="Three singles out now — Made You, Energy with KUM3RA, and Angels On A Sofa with Pascal Pressure &amp; Justice Case. Stream them, watch the video, or own the download.">
+<title>WHOSRILA — Music</title>
+<meta name="description" content="Every WHOSRILA release in one place — Angels On A Sofa, Energy with KUM3RA, Made You and the whole catalogue back to For Me. Stream, watch, or own the download.">
+<meta property="og:title" content="WHOSRILA — Music">
+<meta property="og:description" content="Every WHOSRILA release in one place — Angels On A Sofa, Energy with KUM3RA, Made You and the whole catalogue back to For Me. Stream, watch, or own the download.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://whosrila.com/images/og-music.jpg">
 <meta property="og:url" content="https://whosrila.com/music">
 <meta property="og:site_name" content="WHOSRILA">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="WHOSRILA — Made You, Energy &amp; Angels On A Sofa">
-<meta name="twitter:description" content="Three singles out now — Made You, Energy with KUM3RA, and Angels On A Sofa with Pascal Pressure &amp; Justice Case. Stream them, watch the video, or own the download.">
+<meta name="twitter:title" content="WHOSRILA — Music">
+<meta name="twitter:description" content="Every WHOSRILA release in one place — Angels On A Sofa, Energy with KUM3RA, Made You and the whole catalogue back to For Me. Stream, watch, or own the download.">
 <meta name="twitter:image" content="https://whosrila.com/images/og-music.jpg">
 <link rel="stylesheet" href="/css/site.css?v=46601522">
 <!-- Menus only collapse once JS is running; without it every link stays open and reachable. -->
@@ -113,7 +113,14 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 .lt-share-note{ position:absolute; left:0; right:0; top:100%; margin:0; font-size:12px; letter-spacing:.06em;
   color:var(--paper-dim); pointer-events:none; }
 
-/* ---------- Release palettes ---------- */
+/* ---------- Release palettes ----------
+   .rel carries the default (the site's ink and gold) for the catalogue
+   releases; the three newest override it with their own record's colours. */
+.rel{
+  --tx:#F2EFE6; --dim:#A39C8C; --gold:#E8C079; --ttl:#F2EFE6;
+  --card:rgba(242,239,230,0.045); --edge:rgba(242,239,230,0.20); --glow:rgba(232,192,121,0.30);
+  --on-gold:#120C05;
+}
 .rel--madeyou{
   /* lighter than the Made You page's own #C4231A / #9A8258: at the cover's
      exact values the title measured 2.45:1 and the small caps 4.45:1 here.
@@ -135,17 +142,16 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
   --on-gold:#010101;
 }
 
-/* ---------- Side by side ----------
+/* ---------- The grid ----------
    The sections are display:contents so their card and menu become items of
    one shared grid. They still exist in the DOM, so data-song still scopes
-   click tracking and the palette variables still inherit. */
+   click tracking and the palette variables still inherit. Cards auto-place
+   newest first; closed menus are taken out of the grid entirely so they
+   never claim a cell. */
 .rels{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); column-gap:12px; row-gap:12px; margin:0 0 44px; }
 .rel{ display:contents; color:var(--tx); }
-.rel--madeyou .rel-card{ grid-column:1; grid-row:1; }
-.rel--angels  .rel-card{ grid-column:2; grid-row:1; }
-.rel--energy  .rel-card{ grid-column:1 / -1; grid-row:2; justify-self:center; width:calc(50% - 6px); }
-@media (min-width:720px){ .rel--energy .rel-card{ width:calc(50% - 12px); } }
-@media (min-width:720px){ .rels{ column-gap:24px; row-gap:24px; } }
+.rels:not(.has-open) .rel-menu{ display:none; }
+@media (min-width:720px){ .rels{ grid-template-columns:repeat(3, minmax(0,1fr)); column-gap:24px; row-gap:24px; } }
 
 /* ---------- One song at a time ----------
    Opening a song hides the other single; the grid drops to one centred
@@ -157,12 +163,7 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 .rels.has-open .rel-card{ grid-column:1; grid-row:1; width:auto; justify-self:stretch; }
 .rels.has-open .rel-menu{ grid-column:1; grid-row:2; }
 .rel.is-hidden > *{ display:none; }
-.rel--madeyou .rel-card{ view-transition-name:card-madeyou; }
-.rel--energy  .rel-card{ view-transition-name:card-energy; }
-.rel--madeyou .rel-menu{ view-transition-name:menu-madeyou; }
-.rel--energy  .rel-menu{ view-transition-name:menu-energy; }
-.rel--angels  .rel-card{ view-transition-name:card-angels; }
-.rel--angels  .rel-menu{ view-transition-name:menu-angels; }
+/* view-transition names are set per section in JS (card-<id>, menu-<id>) */
 ::view-transition-group(*){ animation-duration:.4s; animation-timing-function:cubic-bezier(.22,.61,.36,1); }
 ::view-transition-old(*), ::view-transition-new(*){ animation-duration:.4s; }
 
@@ -362,7 +363,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "WHOSRILA — Made You & Energy",
+  "name": "WHOSRILA — Music",
   "url": "https://whosrila.com/music",
   "hasPart": [
     {
@@ -395,6 +396,78 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
         { "@type": "MusicGroup", "name": "Justice Case" }
       ],
       "datePublished": "2026-09-17"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Wine and Bubble",
+      "url": "https://whosrila.com/wineandbubble",
+      "image": "https://whosrila.com/images/art-winenbubble.jpg",
+      "byArtist": { "@id": "https://whosrila.com/#artist" },
+      "datePublished": "2026-06-12"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Top Form",
+      "url": "https://whosrila.com/topform",
+      "image": "https://whosrila.com/images/art-topform.jpg",
+      "byArtist": { "@id": "https://whosrila.com/#artist" },
+      "datePublished": "2025-05-28"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Outta' Line",
+      "url": "https://whosrila.com/outtaline",
+      "image": "https://whosrila.com/images/art-outtaline.jpg",
+      "byArtist": { "@id": "https://whosrila.com/#artist" },
+      "datePublished": "2024-02-28"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Fully Meech",
+      "url": "https://whosrila.com/fullymeech",
+      "image": "https://whosrila.com/images/art-fullymeech.jpg",
+      "byArtist": { "@id": "https://whosrila.com/#artist" },
+      "datePublished": "2024-01-28"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Gratitude",
+      "url": "https://whosrila.com/gratitude",
+      "image": "https://whosrila.com/images/art-gratitude.jpg",
+      "byArtist": { "@id": "https://whosrila.com/#artist" },
+      "datePublished": "2023-10-28"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Protection",
+      "url": "https://whosrila.com/protection",
+      "image": "https://whosrila.com/images/art-protection.jpg",
+      "byArtist": { "@id": "https://whosrila.com/#artist" },
+      "datePublished": "2023-03-26"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Kingston",
+      "url": "https://whosrila.com/kingston",
+      "image": "https://whosrila.com/images/art-kng.jpg",
+      "byArtist": { "@id": "https://whosrila.com/#artist" },
+      "datePublished": "2023-03-03"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "Blue Notes",
+      "url": "https://whosrila.com/bluenotes",
+      "image": "https://whosrila.com/images/art-bluenotes.jpg",
+      "byArtist": { "@id": "https://whosrila.com/#artist" },
+      "datePublished": "2021-04-11"
+    },
+    {
+      "@type": "MusicRecording",
+      "name": "For Me",
+      "url": "https://whosrila.com/forme",
+      "image": "https://whosrila.com/images/art-forme.jpg",
+      "byArtist": { "@id": "https://whosrila.com/#artist" },
+      "datePublished": "2020-12-28"
     }
   ]
 }
@@ -404,7 +477,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 
 <main>
   <!-- Name removed from view on request — kept for screen readers and search. -->
-  <h1 class="title sr-only">WHOSRILA — Made You, Energy &amp; Angels On A Sofa</h1>
+  <h1 class="title sr-only">WHOSRILA — Music</h1>
 
   <div class="lt-hero">
     <img src="/images/portrait-1.jpg" alt="WHOSRILA" width="877" height="900" fetchpriority="high">
@@ -415,11 +488,134 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 
   <div class="wrap lt">
     <div class="lt-intro">
-      <p class="lt-bio">Three singles out now. Stream them, watch the video, or own them outright.</p>
+      <p class="lt-bio">Every release, newest first. Stream them, watch the video, or own them outright.</p>
       <p class="lt-share-note" id="ltShareNote" aria-live="polite"></p>
     </div>
 
     <div class="rels">
+
+    <!-- ======================= ANGELS ON A SOFA ======================= -->
+    <!-- WHOSRILA, Pascal Pressure & Justice Case — a three-way split (tools/splits.py).
+         No video pill yet: the video is being held back. Streaming pills are added
+         before ANGELS-STREAMS-END by the angelsonsofa-links-propagation task. -->
+    <section class="rel rel--angels" id="angels" data-song="Angels On A Sofa">
+      <div class="rel-card">
+        <div class="rel-cover">
+          <img src="/images/art-angels.jpg" alt="Angels On A Sofa cover art" width="800" height="800">
+          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of Angels On A Sofa">
+            <svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <audio src="/audio/angelsonsofa.m4a" preload="none"></audio>
+        </div>
+        <h2 class="rel-title">Angels On A Sofa</h2>
+        <p class="rel-sub">Single &middot; with Pascal Pressure &amp; Justice Case</p>
+        <p class="rel-state" aria-live="polite">Tap play for a preview</p>
+        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-angels">
+          <span class="rel-toggle-text">Listen &amp; buy</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="rel-menu" id="menu-angels">
+        <div class="rel-menu-inner">
+          <div class="pills">
+            <!-- Same Stripe product name both ways: fixed $2.99, or "customer chooses"
+                 with a $2.99 minimum. The download Worker matches on product name. -->
+            <a class="pill pill--primary" href="https://buy.stripe.com/aFadRa1L8aGu1yc1qm6Zy0k" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-silver"></span></span>
+              <span class="pill-label">Buy direct &mdash; $2.99</span>
+              <span class="pill-sub">Instant download &middot; almost all of it reaches us</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+            <a class="pill pill--buy" href="https://buy.stripe.com/aFaaEY4Xk7ui7WAfhc6Zy0l" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-silver"></span></span>
+              <span class="pill-label">Pay what you want</span>
+              <span class="pill-sub">Same file &middot; $2.99 minimum</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+            <a class="pill pill--buy" href="https://music.apple.com/us/album/angels-on-a-sofa/6803331662?i=6803331665&amp;app=itunes" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
+              <span class="pill-label">Purchase on iTunes</span>
+              <span class="pill-sub">Own the song</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+          </div>
+
+          <p class="pills-label">Stream it</p>
+          <div class="pills">
+            <a class="pill" href="https://open.spotify.com/track/4rIwDEJESw01SugCx0Us6i" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
+            <a class="pill" href="https://geo.music.apple.com/us/album/angels-on-a-sofa/6803331662?i=6803331665" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+            <a class="pill" href="https://music.youtube.com/watch?v=lCR8MLpzni8" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-ytm"></span></span><span class="pill-label">YouTube Music</span></a>
+            <a class="pill" href="http://www.tidal.com/album/554481849" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
+            <a class="pill" href="https://music.amazon.com/tracks/B0HG3F3ZBH" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-amazon"></span></span><span class="pill-label">Amazon Music</span></a>
+            <a class="pill" href="https://soundcloud.com/whosrila-music/angels-on-a-sofa" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
+            <a class="pill" href="https://audiomack.com/whosrila/song/angels-on-a-sofa" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-audiomack"></span></span><span class="pill-label">Audiomack</span></a>
+            <a class="pill" href="https://www.pandora.com/artist/whosrila-pascal-pressure-and-justice-case/angels-on-a-sofa/ALVmz7Z3Z7JV7cP" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
+            <!-- ANGELS-STREAMS-END -->
+          </div>
+
+          <a class="rel-more" href="/angelsonsofa">The full Angels On A Sofa page</a>
+          <button class="rel-back" type="button">
+            <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Back to all releases</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= ENERGY ======================= -->
+    <!-- KUM3RA's record with WHOSRILA on it, so no direct sale — the same
+         rule as Wine and Bubble. iTunes is the only way to own it here. -->
+    <section class="rel rel--energy" id="energy" data-song="Energy">
+      <div class="rel-card">
+        <div class="rel-cover">
+          <img src="/images/art-energy.jpg?v=0ddbff95" alt="Energy cover art" width="800" height="800">
+          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of Energy">
+            <svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <audio src="/audio/energy.m4a" preload="none"></audio>
+        </div>
+        <h2 class="rel-title">Energy</h2>
+        <p class="rel-sub">Single &middot; KUM3RA &amp; WHOSRILA</p>
+        <p class="rel-state" aria-live="polite">Tap play for a preview</p>
+        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-energy">
+          <span class="rel-toggle-text">Listen &amp; buy</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="rel-menu" id="menu-energy">
+        <div class="rel-menu-inner">
+          <div class="pills">
+            <a class="pill pill--buy" href="https://music.apple.com/us/album/energy/6795595429?i=6795595434&amp;app=itunes" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
+              <span class="pill-label">Purchase on iTunes</span>
+              <span class="pill-sub">Own the song</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+          </div>
+
+          <p class="pills-label">Stream it</p>
+          <div class="pills">
+            <a class="pill" href="https://open.spotify.com/track/0Es28ZRcKpiixIEVtCo1YG" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
+            <a class="pill" href="https://geo.music.apple.com/us/album/energy/6795595429?i=6795595434" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+            <a class="pill" href="https://music.youtube.com/playlist?list=OLAK5uy_kpaayYZAGYXWvyL3WnTYhAbAm4EShVEDA" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-ytm"></span></span><span class="pill-label">YouTube Music</span></a>
+            <a class="pill" href="https://listen.tidal.com/album/547190360" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
+            <a class="pill" href="https://music.amazon.com/albums/B0HBYM8NSF" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-amazon"></span></span><span class="pill-label">Amazon Music</span></a>
+            <a class="pill" href="https://www.boomplay.com/albums/136760072" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-boomplay"></span></span><span class="pill-label">Boomplay</span></a>
+            <a class="pill" href="https://soundcloud.com/kum3ra/energy" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
+            <!-- ENERGY-STREAMS-END: still to come — Deezer, Audiomack. Pandora stays last. -->
+            <a class="pill" href="https://www.pandora.com/artist/kum3ra-and-whosrila/energy/ALk63Pl932jl7f9" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
+          </div>
+
+          <a class="rel-more" href="/energy">The full Energy page</a>
+          <button class="rel-back" type="button">
+            <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Back to all releases</span>
+          </button>
+        </div>
+      </div>
+    </section>
 
     <!-- ======================= MADE YOU ======================= -->
     <!-- data-song scopes tracking: js/track.js credits every click inside
@@ -500,37 +696,35 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
           <a class="rel-more" href="/madeyou">Lyrics, clips &amp; the full page</a>
           <button class="rel-back" type="button">
             <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Back to all singles</span>
+            <span>Back to all releases</span>
           </button>
         </div>
       </div>
     </section>
 
-    <!-- ======================= ENERGY ======================= -->
-    <!-- KUM3RA's record with WHOSRILA on it, so no direct sale — the same
-         rule as Wine and Bubble. iTunes is the only way to own it here. -->
-    <section class="rel rel--energy" id="energy" data-song="Energy">
+    <!-- ======================= WINE AND BUBBLE ======================= -->
+    <section class="rel" id="wineandbubble" data-song="Wine and Bubble">
       <div class="rel-card">
         <div class="rel-cover">
-          <img src="/images/art-energy.jpg?v=0ddbff95" alt="Energy cover art" width="800" height="800">
-          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of Energy">
+          <img src="/images/art-winenbubble.jpg" alt="Wine and Bubble cover art" width="800" height="800" loading="lazy">
+          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of Wine and Bubble">
             <svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
-          <audio src="/audio/energy.m4a" preload="none"></audio>
+          <audio src="/audio/wineandbubble.mp3" preload="none"></audio>
         </div>
-        <h2 class="rel-title">Energy</h2>
-        <p class="rel-sub">Single &middot; KUM3RA &amp; WHOSRILA</p>
+        <h2 class="rel-title">Wine and Bubble</h2>
+        <p class="rel-sub">Jon Dela &middot; feat. Cres, Kxng Izem &amp; WHOSRILA</p>
         <p class="rel-state" aria-live="polite">Tap play for a preview</p>
-        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-energy">
+        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-wineandbubble">
           <span class="rel-toggle-text">Listen &amp; buy</span>
           <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
 
-      <div class="rel-menu" id="menu-energy">
+      <div class="rel-menu" id="menu-wineandbubble">
         <div class="rel-menu-inner">
           <div class="pills">
-            <a class="pill pill--buy" href="https://music.apple.com/us/album/energy/6795595429?i=6795595434&amp;app=itunes" target="_blank" rel="noopener">
+            <a class="pill pill--buy" href="https://music.apple.com/us/album/wine-and-bubble-feat-cres-kxng-izem-whosrila/6778977735?i=6778977749&amp;app=itunes" target="_blank" rel="noopener">
               <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
               <span class="pill-label">Purchase on iTunes</span>
               <span class="pill-sub">Own the song</span>
@@ -540,66 +734,45 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 
           <p class="pills-label">Stream it</p>
           <div class="pills">
-            <a class="pill" href="https://open.spotify.com/track/0Es28ZRcKpiixIEVtCo1YG" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
-            <a class="pill" href="https://geo.music.apple.com/us/album/energy/6795595429?i=6795595434" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
-            <a class="pill" href="https://music.youtube.com/playlist?list=OLAK5uy_kpaayYZAGYXWvyL3WnTYhAbAm4EShVEDA" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-ytm"></span></span><span class="pill-label">YouTube Music</span></a>
-            <a class="pill" href="https://listen.tidal.com/album/547190360" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
-            <a class="pill" href="https://music.amazon.com/albums/B0HBYM8NSF" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-amazon"></span></span><span class="pill-label">Amazon Music</span></a>
-            <a class="pill" href="https://www.boomplay.com/albums/136760072" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-boomplay"></span></span><span class="pill-label">Boomplay</span></a>
-            <a class="pill" href="https://soundcloud.com/kum3ra/energy" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
-            <!-- ENERGY-STREAMS-END: still to come — Deezer, Audiomack. Pandora stays last. -->
-            <a class="pill" href="https://www.pandora.com/artist/kum3ra-and-whosrila/energy/ALk63Pl932jl7f9" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
+            <a class="pill" href="https://open.spotify.com/track/55IIhqcxxAXfKvGezG34XJ" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
+            <a class="pill" href="https://geo.music.apple.com/us/album/wine-and-bubble-feat-cres-kxng-izem-whosrila/6778977735?i=6778977749" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+            <a class="pill" href="https://www.deezer.com/track/4075330971" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-deezer"></span></span><span class="pill-label">Deezer</span></a>
+            <a class="pill" href="https://listen.tidal.com/track/532074219" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
+            <a class="pill" href="https://www.pandora.com/TR:207072448" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
           </div>
 
-          <a class="rel-more" href="/energy">The full Energy page</a>
+          <a class="rel-more" href="/wineandbubble">The full Wine and Bubble page</a>
           <button class="rel-back" type="button">
             <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Back to all singles</span>
+            <span>Back to all releases</span>
           </button>
         </div>
       </div>
     </section>
 
-    <!-- ======================= ANGELS ON A SOFA ======================= -->
-    <!-- WHOSRILA, Pascal Pressure & Justice Case — a three-way split (tools/splits.py).
-         No video pill yet: the video is being held back. Streaming pills are added
-         before ANGELS-STREAMS-END by the angelsonsofa-links-propagation task. -->
-    <section class="rel rel--angels" id="angels" data-song="Angels On A Sofa">
+    <!-- ======================= TOP FORM ======================= -->
+    <section class="rel" id="topform" data-song="Top Form">
       <div class="rel-card">
         <div class="rel-cover">
-          <img src="/images/art-angels.jpg" alt="Angels On A Sofa cover art" width="800" height="800">
-          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of Angels On A Sofa">
+          <img src="/images/art-topform.jpg" alt="Top Form cover art" width="800" height="800" loading="lazy">
+          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of Top Form">
             <svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
           </button>
-          <audio src="/audio/angelsonsofa.m4a" preload="none"></audio>
+          <audio src="/audio/topform.mp3" preload="none"></audio>
         </div>
-        <h2 class="rel-title">Angels On A Sofa</h2>
-        <p class="rel-sub">Single &middot; with Pascal Pressure &amp; Justice Case</p>
+        <h2 class="rel-title">Top Form</h2>
+        <p class="rel-sub">Single &middot; WHOSRILA</p>
         <p class="rel-state" aria-live="polite">Tap play for a preview</p>
-        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-angels">
+        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-topform">
           <span class="rel-toggle-text">Listen &amp; buy</span>
           <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
 
-      <div class="rel-menu" id="menu-angels">
+      <div class="rel-menu" id="menu-topform">
         <div class="rel-menu-inner">
           <div class="pills">
-            <!-- Same Stripe product name both ways: fixed $2.99, or "customer chooses"
-                 with a $2.99 minimum. The download Worker matches on product name. -->
-            <a class="pill pill--primary" href="https://buy.stripe.com/aFadRa1L8aGu1yc1qm6Zy0k" target="_blank" rel="noopener">
-              <span class="pill-ico"><span class="pill-dot dot-silver"></span></span>
-              <span class="pill-label">Buy direct &mdash; $2.99</span>
-              <span class="pill-sub">Instant download &middot; almost all of it reaches us</span>
-              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            </a>
-            <a class="pill pill--buy" href="https://buy.stripe.com/aFaaEY4Xk7ui7WAfhc6Zy0l" target="_blank" rel="noopener">
-              <span class="pill-ico"><span class="pill-dot dot-silver"></span></span>
-              <span class="pill-label">Pay what you want</span>
-              <span class="pill-sub">Same file &middot; $2.99 minimum</span>
-              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            </a>
-            <a class="pill pill--buy" href="https://music.apple.com/us/album/angels-on-a-sofa/6803331662?i=6803331665&amp;app=itunes" target="_blank" rel="noopener">
+            <a class="pill pill--buy" href="https://music.apple.com/us/album/top-form/1896081568?i=6765803334&amp;app=itunes" target="_blank" rel="noopener">
               <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
               <span class="pill-label">Purchase on iTunes</span>
               <span class="pill-sub">Own the song</span>
@@ -609,21 +782,362 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 
           <p class="pills-label">Stream it</p>
           <div class="pills">
-            <a class="pill" href="https://open.spotify.com/track/4rIwDEJESw01SugCx0Us6i" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
-            <a class="pill" href="https://geo.music.apple.com/us/album/angels-on-a-sofa/6803331662?i=6803331665" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
-            <a class="pill" href="https://music.youtube.com/watch?v=lCR8MLpzni8" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-ytm"></span></span><span class="pill-label">YouTube Music</span></a>
-            <a class="pill" href="http://www.tidal.com/album/554481849" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
-            <a class="pill" href="https://music.amazon.com/tracks/B0HG3F3ZBH" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-amazon"></span></span><span class="pill-label">Amazon Music</span></a>
-            <a class="pill" href="https://soundcloud.com/whosrila-music/angels-on-a-sofa" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
-            <a class="pill" href="https://audiomack.com/whosrila/song/angels-on-a-sofa" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-audiomack"></span></span><span class="pill-label">Audiomack</span></a>
-            <a class="pill" href="https://www.pandora.com/artist/whosrila-pascal-pressure-and-justice-case/angels-on-a-sofa/ALVmz7Z3Z7JV7cP" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
-            <!-- ANGELS-STREAMS-END -->
+            <a class="pill" href="https://open.spotify.com/track/7rIz8h13Ka1WwnHZE5BhZb" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
+            <a class="pill" href="https://geo.music.apple.com/us/album/top-form/1896081568?i=6765803334" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+            <a class="pill" href="https://www.deezer.com/track/4055726641" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-deezer"></span></span><span class="pill-label">Deezer</span></a>
+            <a class="pill" href="https://listen.tidal.com/track/520533499" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
+            <a class="pill" href="https://soundcloud.com/whosrila/top-form" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
+            <a class="pill" href="https://www.pandora.com/TR:160512914" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
           </div>
 
-          <a class="rel-more" href="/angelsonsofa">The full Angels On A Sofa page</a>
+          <a class="rel-more" href="/topform">The full Top Form page</a>
           <button class="rel-back" type="button">
             <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Back to all singles</span>
+            <span>Back to all releases</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= OUTTA’ LINE ======================= -->
+    <section class="rel" id="outtaline" data-song="Outta’ Line">
+      <div class="rel-card">
+        <div class="rel-cover">
+          <img src="/images/art-outtaline.jpg" alt="Outta&#8217; Line cover art" width="800" height="800" loading="lazy">
+          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of Outta&#8217; Line">
+            <svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <audio src="/audio/outtaline.mp3" preload="none"></audio>
+        </div>
+        <h2 class="rel-title">Outta&#8217; Line</h2>
+        <p class="rel-sub">Single &middot; WHOSRILA</p>
+        <p class="rel-state" aria-live="polite">Tap play for a preview</p>
+        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-outtaline">
+          <span class="rel-toggle-text">Listen &amp; buy</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="rel-menu" id="menu-outtaline">
+        <div class="rel-menu-inner">
+          <div class="pills">
+            <a class="pill pill--buy" href="https://music.apple.com/us/album/outta-line/6764900796?i=6764900797&amp;app=itunes" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
+              <span class="pill-label">Purchase on iTunes</span>
+              <span class="pill-sub">Own the song</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+          </div>
+
+          <p class="pills-label">Stream it</p>
+          <div class="pills">
+            <a class="pill" href="https://open.spotify.com/track/7nWKEknK9ITKpa2NHCEu1I" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
+            <a class="pill" href="https://geo.music.apple.com/us/album/outta-line/6764900796?i=6764900797" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+            <a class="pill" href="https://www.deezer.com/track/4152635892" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-deezer"></span></span><span class="pill-label">Deezer</span></a>
+            <a class="pill" href="https://listen.tidal.com/track/520183428" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
+            <a class="pill" href="https://soundcloud.com/whosrila/outta-line" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
+            <a class="pill" href="https://audiomack.com/whosrila/song/outta-line" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-audiomack"></span></span><span class="pill-label">Audiomack</span></a>
+            <a class="pill" href="https://www.pandora.com/TR:117566872" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
+          </div>
+
+          <a class="rel-more" href="/outtaline">The full Outta&#8217; Line page</a>
+          <button class="rel-back" type="button">
+            <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Back to all releases</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= FULLY MEECH ======================= -->
+    <section class="rel" id="fullymeech" data-song="Fully Meech">
+      <div class="rel-card">
+        <div class="rel-cover">
+          <img src="/images/art-fullymeech.jpg" alt="Fully Meech cover art" width="800" height="800" loading="lazy">
+          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of Fully Meech">
+            <svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <audio src="/audio/fullymeech.mp3" preload="none"></audio>
+        </div>
+        <h2 class="rel-title">Fully Meech</h2>
+        <p class="rel-sub">Acoustic &middot; WHOSRILA</p>
+        <p class="rel-state" aria-live="polite">Tap play for a preview</p>
+        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-fullymeech">
+          <span class="rel-toggle-text">Listen &amp; buy</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="rel-menu" id="menu-fullymeech">
+        <div class="rel-menu-inner">
+          <div class="pills">
+            <a class="pill pill--buy" href="https://music.apple.com/us/album/fully-meech-acoustic/1896129316?i=6765927069&amp;app=itunes" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
+              <span class="pill-label">Purchase on iTunes</span>
+              <span class="pill-sub">Own the song</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+          </div>
+
+          <p class="pills-label">Stream it</p>
+          <div class="pills">
+            <a class="pill" href="https://open.spotify.com/track/2mBXoy2R879xCSLhpm9dkw" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
+            <a class="pill" href="https://geo.music.apple.com/us/album/fully-meech-acoustic/1896129316?i=6765927069" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+            <a class="pill" href="https://www.deezer.com/track/4153307382" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-deezer"></span></span><span class="pill-label">Deezer</span></a>
+            <a class="pill" href="https://soundcloud.com/whosrila/fully-meech-acoustic" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
+            <a class="pill" href="https://www.pandora.com/TR:114676773" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
+          </div>
+
+          <a class="rel-more" href="/fullymeech">The full Fully Meech page</a>
+          <button class="rel-back" type="button">
+            <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Back to all releases</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= GRATITUDE ======================= -->
+    <section class="rel" id="gratitude" data-song="Gratitude">
+      <div class="rel-card">
+        <div class="rel-cover">
+          <img src="/images/art-gratitude.jpg" alt="Gratitude cover art" width="800" height="800" loading="lazy">
+          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of Gratitude">
+            <svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <audio src="/audio/gratitude.mp3" preload="none"></audio>
+        </div>
+        <h2 class="rel-title">Gratitude</h2>
+        <p class="rel-sub">Single &middot; WHOSRILA</p>
+        <p class="rel-state" aria-live="polite">Tap play for a preview</p>
+        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-gratitude">
+          <span class="rel-toggle-text">Listen &amp; buy</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="rel-menu" id="menu-gratitude">
+        <div class="rel-menu-inner">
+          <div class="pills">
+            <a class="pill pill--buy" href="https://music.apple.com/us/album/gratitude/1896081645?i=6765803659&amp;app=itunes" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
+              <span class="pill-label">Purchase on iTunes</span>
+              <span class="pill-sub">Own the song</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+          </div>
+
+          <p class="pills-label">Stream it</p>
+          <div class="pills">
+            <a class="pill" href="https://open.spotify.com/track/1xCvayEnjJ0aUBvAPF0UIa" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
+            <a class="pill" href="https://geo.music.apple.com/us/album/gratitude/1896081645?i=6765803659" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+            <a class="pill" href="https://www.deezer.com/track/4153298242" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-deezer"></span></span><span class="pill-label">Deezer</span></a>
+            <a class="pill" href="https://listen.tidal.com/track/520531325" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
+            <a class="pill" href="https://soundcloud.com/whosrila/gratitude" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
+            <a class="pill" href="https://audiomack.com/whosrila/song/gratitude" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-audiomack"></span></span><span class="pill-label">Audiomack</span></a>
+            <a class="pill" href="https://www.pandora.com/TR:107681544" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
+          </div>
+
+          <a class="rel-more" href="/gratitude">The full Gratitude page</a>
+          <button class="rel-back" type="button">
+            <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Back to all releases</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= PROTECTION ======================= -->
+    <section class="rel" id="protection" data-song="Protection">
+      <div class="rel-card">
+        <div class="rel-cover">
+          <img src="/images/art-protection.jpg" alt="Protection cover art" width="800" height="800" loading="lazy">
+          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of Protection">
+            <svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <audio src="/audio/protection.mp3" preload="none"></audio>
+        </div>
+        <h2 class="rel-title">Protection</h2>
+        <p class="rel-sub">Single &middot; WHOSRILA</p>
+        <p class="rel-state" aria-live="polite">Tap play for a preview</p>
+        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-protection">
+          <span class="rel-toggle-text">Listen &amp; buy</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="rel-menu" id="menu-protection">
+        <div class="rel-menu-inner">
+          <div class="pills">
+            <a class="pill pill--buy" href="https://music.apple.com/us/album/protection/1895478930?i=6763765299&amp;app=itunes" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
+              <span class="pill-label">Purchase on iTunes</span>
+              <span class="pill-sub">Own the song</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+          </div>
+
+          <p class="pills-label">Stream it</p>
+          <div class="pills">
+            <a class="pill" href="https://open.spotify.com/album/3a9EQ9YmQYLyhRjMz8yf7g" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
+            <a class="pill" href="https://geo.music.apple.com/us/album/protection/1895478930?i=6763765299" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+            <a class="pill" href="https://www.deezer.com/track/3989522381" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-deezer"></span></span><span class="pill-label">Deezer</span></a>
+            <a class="pill" href="https://listen.tidal.com/track/518960188" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
+            <a class="pill" href="https://soundcloud.com/whosrila/protection" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-soundcloud"></span></span><span class="pill-label">SoundCloud</span></a>
+            <a class="pill" href="https://audiomack.com/whosrila/song/protection" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-audiomack"></span></span><span class="pill-label">Audiomack</span></a>
+            <a class="pill" href="https://www.pandora.com/TR:91140420" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
+          </div>
+
+          <a class="rel-more" href="/protection">The full Protection page</a>
+          <button class="rel-back" type="button">
+            <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Back to all releases</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= KINGSTON ======================= -->
+    <section class="rel" id="kingston" data-song="Kingston">
+      <div class="rel-card">
+        <div class="rel-cover">
+          <img src="/images/art-kng.jpg" alt="Kingston cover art" width="800" height="800" loading="lazy">
+          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of Kingston">
+            <svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <audio src="/audio/kingston.mp3" preload="none"></audio>
+        </div>
+        <h2 class="rel-title">Kingston</h2>
+        <p class="rel-sub">Single &middot; WHOSRILA</p>
+        <p class="rel-state" aria-live="polite">Tap play for a preview</p>
+        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-kingston">
+          <span class="rel-toggle-text">Listen &amp; buy</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="rel-menu" id="menu-kingston">
+        <div class="rel-menu-inner">
+          <div class="pills">
+            <a class="pill pill--buy" href="https://music.apple.com/us/album/kingston/1895390939?i=6763591791&amp;app=itunes" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
+              <span class="pill-label">Purchase on iTunes</span>
+              <span class="pill-sub">Own the song</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+          </div>
+
+          <p class="pills-label">Stream it</p>
+          <div class="pills">
+            <a class="pill" href="https://open.spotify.com/album/3g1t2lsdTUo0oiuGIF3V48" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
+            <a class="pill" href="https://geo.music.apple.com/us/album/kingston/1895390939?i=6763591791" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+            <a class="pill" href="https://www.deezer.com/track/4150958402" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-deezer"></span></span><span class="pill-label">Deezer</span></a>
+            <a class="pill" href="https://listen.tidal.com/track/518688293" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
+            <a class="pill" href="https://audiomack.com/whosrila/song/kingston-1" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-audiomack"></span></span><span class="pill-label">Audiomack</span></a>
+            <a class="pill" href="https://www.pandora.com/TR:119148249" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
+          </div>
+
+          <a class="rel-more" href="/kingston">The full Kingston page</a>
+          <button class="rel-back" type="button">
+            <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Back to all releases</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= BLUE NOTES ======================= -->
+    <section class="rel" id="bluenotes" data-song="Blue Notes">
+      <div class="rel-card">
+        <div class="rel-cover">
+          <img src="/images/art-bluenotes.jpg" alt="Blue Notes cover art" width="800" height="800" loading="lazy">
+          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of Blue Notes">
+            <svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <audio src="/audio/bluenotes.mp3" preload="none"></audio>
+        </div>
+        <h2 class="rel-title">Blue Notes</h2>
+        <p class="rel-sub">Single &middot; WHOSRILA</p>
+        <p class="rel-state" aria-live="polite">Tap play for a preview</p>
+        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-bluenotes">
+          <span class="rel-toggle-text">Listen &amp; buy</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="rel-menu" id="menu-bluenotes">
+        <div class="rel-menu-inner">
+          <div class="pills">
+            <a class="pill pill--buy" href="https://music.apple.com/us/album/blue-notes/1895341536?i=6763494871&amp;app=itunes" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
+              <span class="pill-label">Purchase on iTunes</span>
+              <span class="pill-sub">Own the song</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+          </div>
+
+          <p class="pills-label">Stream it</p>
+          <div class="pills">
+            <a class="pill" href="https://open.spotify.com/album/7ALFE1GqQNxbQeKPKT36UK" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
+            <a class="pill" href="https://geo.music.apple.com/us/album/blue-notes/1895341536?i=6763494871" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+            <a class="pill" href="https://www.deezer.com/track/4003826261" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-deezer"></span></span><span class="pill-label">Deezer</span></a>
+            <a class="pill" href="https://listen.tidal.com/track/518413579" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
+            <a class="pill" href="https://audiomack.com/whosrila/song/blue-notes" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-audiomack"></span></span><span class="pill-label">Audiomack</span></a>
+            <a class="pill" href="https://www.pandora.com/TR:43667744" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
+          </div>
+
+          <a class="rel-more" href="/bluenotes">The full Blue Notes page</a>
+          <button class="rel-back" type="button">
+            <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Back to all releases</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= FOR ME ======================= -->
+    <section class="rel" id="forme" data-song="For Me">
+      <div class="rel-card">
+        <div class="rel-cover">
+          <img src="/images/art-forme.jpg" alt="For Me cover art" width="800" height="800" loading="lazy">
+          <button class="rel-play preview-btn" type="button" aria-label="Play a preview of For Me">
+            <svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 13,7 3,13" fill="currentColor"/></svg>
+          </button>
+          <audio src="/audio/forme.mp3" preload="none"></audio>
+        </div>
+        <h2 class="rel-title">For Me</h2>
+        <p class="rel-sub">Single &middot; WHOSRILA</p>
+        <p class="rel-state" aria-live="polite">Tap play for a preview</p>
+        <button class="rel-toggle" type="button" aria-expanded="false" aria-controls="menu-forme">
+          <span class="rel-toggle-text">Listen &amp; buy</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 L6 6.5 L11 1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="rel-menu" id="menu-forme">
+        <div class="rel-menu-inner">
+          <div class="pills">
+            <a class="pill pill--buy" href="https://music.apple.com/us/album/for-me/1895471320?i=6763745598&amp;app=itunes" target="_blank" rel="noopener">
+              <span class="pill-ico"><span class="pill-dot dot-itunes"></span></span>
+              <span class="pill-label">Purchase on iTunes</span>
+              <span class="pill-sub">Own the song</span>
+              <span class="pill-go" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 10 10"><path d="M2 8 L8 2 M3.4 2 H8 V6.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+          </div>
+
+          <p class="pills-label">Stream it</p>
+          <div class="pills">
+            <a class="pill" href="https://open.spotify.com/album/3bgLTAB3Ln2xRTyFjDzEp7" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-spotify"></span></span><span class="pill-label">Spotify</span></a>
+            <a class="pill" href="https://geo.music.apple.com/us/album/for-me/1895471320?i=6763745598" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-apple"></span></span><span class="pill-label">Apple Music</span></a>
+            <a class="pill" href="https://www.deezer.com/track/3991218491" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-deezer"></span></span><span class="pill-label">Deezer</span></a>
+            <a class="pill" href="https://listen.tidal.com/track/429603782" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-tidal"></span></span><span class="pill-label">Tidal</span></a>
+            <a class="pill" href="https://www.pandora.com/TR:69500772" target="_blank" rel="noopener"><span class="pill-ico"><span class="pill-dot dot-pandora"></span></span><span class="pill-label">Pandora</span></a>
+          </div>
+
+          <a class="rel-more" href="/forme">The full For Me page</a>
+          <button class="rel-back" type="button">
+            <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 6.5 L6 1.5 L11 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Back to all releases</span>
           </button>
         </div>
       </div>
@@ -650,7 +1164,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
    Opening a song hides the other single and gives the open one the page: the
    grid drops to one centred column, the card, then its menu. Closing (the
    toggle, or Back to both singles) brings both back side by side.
-   /music#energy (or #madeyou, #angels) arrives with that song already open.
+   /music#energy (or any release's id, e.g. #madeyou, #forme) arrives with that song already open.
 
    Where view transitions are supported the layout change morphs; elsewhere
    the menu height animates and the layout switches instantly. Closed menus
@@ -673,7 +1187,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
     return null;
   }
 
-  // Every song's state for "openRel is open" — or both singles showing when null.
+  // Every song's state for "openRel is open" — or every release showing when null.
   function apply(openRel){
     rels.forEach(function(rel){
       var p = parts(rel), isOpen = rel === openRel, hidden = !!openRel && !isOpen;
@@ -740,6 +1254,8 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
   rels.forEach(function(rel){
     var p = parts(rel);
     if(!p.btn || !p.menu) return;
+    p.card.style.viewTransitionName = 'card-' + rel.id;
+    p.menu.style.viewTransitionName = 'menu-' + rel.id;
     p.menu.setAttribute('inert', '');
     p.menu.addEventListener('transitionend', function(e){
       if(e.target === p.menu && e.propertyName === 'max-height' && p.menu.classList.contains('open')) p.menu.style.maxHeight = 'none';
@@ -883,7 +1399,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
   function say(msg){ if(!note) return; note.textContent = msg; setTimeout(function(){ note.textContent = ''; }, 2400); }
   b.addEventListener('click', function(){
     if(navigator.share){
-      navigator.share({ title:'WHOSRILA — Made You & Energy', text:'Made You, Energy and Angels On A Sofa — out now.', url:url }).catch(function(){});
+      navigator.share({ title:'WHOSRILA — Music', text:'Every WHOSRILA release in one place.', url:url }).catch(function(){});
       return;
     }
     if(navigator.clipboard && navigator.clipboard.writeText){
