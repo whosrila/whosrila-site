@@ -142,8 +142,8 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
   color:var(--paper-dim); pointer-events:none; }
 
 /* ---------- Release palettes ----------
-   .rel carries the default (the site's ink and gold) for the catalogue
-   releases; the three newest override it with their own record's colours. */
+   .rel carries the default (the site's ink and gold); every release
+   overrides it with its own record's colours. */
 .rel{
   --tx:#F2EFE6; --dim:#A39C8C; --gold:#E8C079; --ttl:#F2EFE6;
   --card:rgba(242,239,230,0.045); --edge:rgba(242,239,230,0.20); --glow:rgba(232,192,121,0.30);
@@ -168,6 +168,63 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
   --tx:#F2EFE6; --dim:#8F938F; --gold:#E8D45E; --ttl:#E8D45E;
   --card:rgba(242,239,230,0.045); --edge:rgba(242,239,230,0.22); --glow:rgba(232,212,94,0.40);
   --on-gold:#010101;
+}
+/* The catalogue: each record's colours, pushed to contrast with the page.
+   Every pair below clears 4.5:1 (title, text, captions, and text on the
+   accent) measured against the card as it sits on the page ground. */
+.rel--wineandbubble{
+  /* the white walls, with the pink of the hair ties as the accent */
+  --tx:#F4EEE8; --dim:#BDB2AC; --gold:#F27BA5; --ttl:#F7F1EA;
+  --card:rgba(244,238,232,0.06); --edge:rgba(242,123,165,0.30); --glow:rgba(242,123,165,0.34);
+  --on-gold:#1A0710;
+}
+.rel--topform{
+  /* the sky for the title, the gold of the treetop for the accent */
+  --tx:#E4EDF0; --dim:#9DB0B8; --gold:#D9B648; --ttl:#A9C8DA;
+  --card:rgba(144,176,192,0.08); --edge:rgba(169,200,218,0.28); --glow:rgba(217,182,72,0.32);
+  --on-gold:#141006;
+}
+/* Outta' Line, Fully Meech and Gratitude are hand-lettered black on white,
+   so their cards turn to paper with black ink against the dark page. */
+.rel--outtaline{
+  --tx:#111111; --dim:#555555; --gold:#111111; --ttl:#0A0A0A;
+  --card:#F4F4F2; --edge:rgba(17,17,17,0.22); --glow:rgba(244,244,242,0.26);
+  --on-gold:#F4F4F2;
+}
+.rel--fullymeech{
+  /* a warmer paper for the acoustic one */
+  --tx:#16130E; --dim:#5A5248; --gold:#16130E; --ttl:#0E0B07;
+  --card:#F2ECE2; --edge:rgba(22,19,14,0.22); --glow:rgba(242,236,226,0.26);
+  --on-gold:#F2ECE2;
+}
+.rel--gratitude{
+  --tx:#111214; --dim:#53575C; --gold:#111214; --ttl:#0A0B0C;
+  --card:#EEF0F2; --edge:rgba(17,18,20,0.22); --glow:rgba(238,240,242,0.26);
+  --on-gold:#EEF0F2;
+}
+.rel--protection{
+  /* the neon green of the hands on black */
+  --tx:#E6F4E8; --dim:#8FAE95; --gold:#3DF06A; --ttl:#45F273;
+  --card:rgba(16,112,16,0.10); --edge:rgba(61,240,106,0.28); --glow:rgba(61,240,106,0.38);
+  --on-gold:#021006;
+}
+.rel--kingston{
+  /* the cover's red as the card itself, lettered white like the cover */
+  --tx:#FFFFFF; --dim:#FFE8E6; --gold:#FFFFFF; --ttl:#FFFFFF;
+  --card:#BE1410; --edge:rgba(255,255,255,0.34); --glow:rgba(240,16,16,0.45);
+  --on-gold:#BE1410;
+}
+.rel--bluenotes{
+  /* the periwinkle of the pattern */
+  --tx:#E9EBFF; --dim:#A3A8D6; --gold:#9EA6FF; --ttl:#B4BAFF;
+  --card:rgba(112,112,240,0.10); --edge:rgba(158,166,255,0.30); --glow:rgba(112,112,240,0.42);
+  --on-gold:#0B0B2E;
+}
+.rel--forme{
+  /* the red hearts on black */
+  --tx:#F4E9E9; --dim:#B39C9C; --gold:#FF4D5A; --ttl:#FF5A66;
+  --card:rgba(160,20,24,0.10); --edge:rgba(255,77,90,0.28); --glow:rgba(255,77,90,0.36);
+  --on-gold:#1A0003;
 }
 
 /* ---------- The grid ----------
@@ -221,6 +278,10 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
 /* bold and at least 19px, so it counts as large text for contrast even on a phone */
 .rel-title{ font-size:clamp(19px, 5.4vw, 30px); font-weight:700; letter-spacing:.01em; line-height:1.05;
   text-transform:uppercase; margin:12px 0 4px; color:var(--ttl); }
+/* sized to the card rather than the window, so one-word titles like
+   PROTECTION fit a three-across card; the vw size above is the fallback */
+.rel-card{ container-type:inline-size; }
+@supports (font-size:1cqi){ .rel-title{ font-size:clamp(19px, 12.5cqi, 30px); } }
 .rel-sub{ font-size:10px; letter-spacing:.12em; line-height:1.4; text-transform:uppercase; color:var(--dim); margin:0; text-wrap:balance; }
 @media (min-width:720px){ .rel-sub{ font-size:12px; letter-spacing:.14em; } }
 .rel-state{ font-size:11px; letter-spacing:.04em; color:var(--dim); margin:6px 0 12px; min-height:16px; }
@@ -732,7 +793,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
     </section>
 
     <!-- ======================= WINE AND BUBBLE ======================= -->
-    <section class="rel" id="wineandbubble" data-song="Wine and Bubble">
+    <section class="rel rel--wineandbubble" id="wineandbubble" data-song="Wine and Bubble">
       <div class="rel-card">
         <div class="rel-cover">
           <img src="/images/art-winenbubble.jpg" alt="Wine and Bubble cover art" width="800" height="800" loading="lazy">
@@ -780,7 +841,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
     </section>
 
     <!-- ======================= TOP FORM ======================= -->
-    <section class="rel" id="topform" data-song="Top Form">
+    <section class="rel rel--topform" id="topform" data-song="Top Form">
       <div class="rel-card">
         <div class="rel-cover">
           <img src="/images/art-topform.jpg" alt="Top Form cover art" width="800" height="800" loading="lazy">
@@ -829,7 +890,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
     </section>
 
     <!-- ======================= OUTTA’ LINE ======================= -->
-    <section class="rel" id="outtaline" data-song="Outta’ Line">
+    <section class="rel rel--outtaline" id="outtaline" data-song="Outta’ Line">
       <div class="rel-card">
         <div class="rel-cover">
           <img src="/images/art-outtaline.jpg" alt="Outta&#8217; Line cover art" width="800" height="800" loading="lazy">
@@ -879,7 +940,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
     </section>
 
     <!-- ======================= FULLY MEECH ======================= -->
-    <section class="rel" id="fullymeech" data-song="Fully Meech">
+    <section class="rel rel--fullymeech" id="fullymeech" data-song="Fully Meech">
       <div class="rel-card">
         <div class="rel-cover">
           <img src="/images/art-fullymeech.jpg" alt="Fully Meech cover art" width="800" height="800" loading="lazy">
@@ -927,7 +988,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
     </section>
 
     <!-- ======================= GRATITUDE ======================= -->
-    <section class="rel" id="gratitude" data-song="Gratitude">
+    <section class="rel rel--gratitude" id="gratitude" data-song="Gratitude">
       <div class="rel-card">
         <div class="rel-cover">
           <img src="/images/art-gratitude.jpg" alt="Gratitude cover art" width="800" height="800" loading="lazy">
@@ -977,7 +1038,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
     </section>
 
     <!-- ======================= PROTECTION ======================= -->
-    <section class="rel" id="protection" data-song="Protection">
+    <section class="rel rel--protection" id="protection" data-song="Protection">
       <div class="rel-card">
         <div class="rel-cover">
           <img src="/images/art-protection.jpg" alt="Protection cover art" width="800" height="800" loading="lazy">
@@ -1027,7 +1088,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
     </section>
 
     <!-- ======================= KINGSTON ======================= -->
-    <section class="rel" id="kingston" data-song="Kingston">
+    <section class="rel rel--kingston" id="kingston" data-song="Kingston">
       <div class="rel-card">
         <div class="rel-cover">
           <img src="/images/art-kng.jpg" alt="Kingston cover art" width="800" height="800" loading="lazy">
@@ -1076,7 +1137,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
     </section>
 
     <!-- ======================= BLUE NOTES ======================= -->
-    <section class="rel" id="bluenotes" data-song="Blue Notes">
+    <section class="rel rel--bluenotes" id="bluenotes" data-song="Blue Notes">
       <div class="rel-card">
         <div class="rel-cover">
           <img src="/images/art-bluenotes.jpg" alt="Blue Notes cover art" width="800" height="800" loading="lazy">
@@ -1125,7 +1186,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
     </section>
 
     <!-- ======================= FOR ME ======================= -->
-    <section class="rel" id="forme" data-song="For Me">
+    <section class="rel rel--forme" id="forme" data-song="For Me">
       <div class="rel-card">
         <div class="rel-cover">
           <img src="/images/art-forme.jpg" alt="For Me cover art" width="800" height="800" loading="lazy">
