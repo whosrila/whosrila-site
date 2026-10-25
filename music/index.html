@@ -96,6 +96,29 @@ main{ flex-direction:column; align-items:stretch; padding-top:0; }
             mask-image:radial-gradient(ellipse 90% 62% at 50% 38%, #000 72%, transparent 100%);
   }
 }
+/* ---------- Double exposure: the round logo laid over the portrait ----------
+   A red layer cut to the logo's letterforms (images/logo.png as a mask) and
+   screened onto the photo, so the face and hair still read through the
+   letters. The same feathered ellipse as the photo is intersected in, so the
+   logo fades out exactly where the portrait does. isolation keeps the blend
+   to the photo instead of the page behind it. */
+.lt-hero{ isolation:isolate; }
+.lt-dx{
+  position:absolute; inset:0; pointer-events:none;
+  background:#E0463A; mix-blend-mode:screen; opacity:.55;
+  -webkit-mask-image:url(/images/logo.png?v=e252c828), radial-gradient(ellipse 50% 62% at 50% 38%, #000 72%, transparent 100%);
+          mask-image:url(/images/logo.png?v=e252c828), radial-gradient(ellipse 50% 62% at 50% 38%, #000 72%, transparent 100%);
+  -webkit-mask-size:auto 80%, 100% 100%; mask-size:auto 80%, 100% 100%;
+  -webkit-mask-position:50% 34%, 0 0; mask-position:50% 34%, 0 0;
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  -webkit-mask-composite:source-in; mask-composite:intersect;
+}
+@media (max-width:719px){
+  .lt-dx{
+    -webkit-mask-image:url(/images/logo.png?v=e252c828), radial-gradient(ellipse 90% 62% at 50% 38%, #000 72%, transparent 100%);
+            mask-image:url(/images/logo.png?v=e252c828), radial-gradient(ellipse 90% 62% at 50% 38%, #000 72%, transparent 100%);
+  }
+}
 .lt-share{
   position:absolute; top:14px; right:16px; width:42px; height:42px; border-radius:50%;
   display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0;
@@ -481,6 +504,7 @@ footer.mini a:hover{ color:var(--ink); border-color:var(--ink); }
 
   <div class="lt-hero">
     <img src="/images/portrait-1.jpg" alt="WHOSRILA" width="877" height="900" fetchpriority="high">
+    <div class="lt-dx" aria-hidden="true"></div>
     <button class="lt-share" id="ltShare" type="button" aria-label="Share this page">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
     </button>
